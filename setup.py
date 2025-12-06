@@ -97,27 +97,6 @@ def get_script_directory():
     """Get the directory where this script is located."""
     return Path(__file__).parent.absolute()
 
-# Language display names with flags (fallback when localization data is not available)
-LANGUAGE_DISPLAY_NAMES = {
-    'en': '🇺🇸 English',
-    'ja': '🇯🇵 日本語',
-    'id': '🇮🇩 Bahasa Indonesia',
-    'zh': '🇨🇳 中文',
-    'ar': '🇸🇦 العربية',
-    'de': '🇩🇪 Deutsch',
-    'fr': '🇫🇷 Français',
-    'es': '🇪🇸 Español',
-    'ko': '🇰🇷 한국어',
-    'hi': '🇮🇳 हिन्दी',
-    'pt': '🇵🇹 Português',
-    'ru': '🇷🇺 Русский',
-    'si': '🇱🇰 සිංහල',
-    'ta': '🇮🇳 தமிழ்',
-    'th': '🇹🇭 ไทย',
-    'tr': '🇹🇷 Türkçe',
-    'vi': '🇻🇳 Tiếng Việt'
-}
-
 LOCALIZATION = load_localization()
 
 def get_available_languages():
@@ -135,21 +114,28 @@ def get_default_language():
 def get_language_display_name(lang_code, ui_lang='en', available_langs=None):
     """Get display name for a language code, using localization data."""
     # Try to get from localization data first
-    if LOCALIZATION and ui_lang in LOCALIZATION:
-        loc_data = LOCALIZATION[ui_lang]
+    if LOCALIZATION and ui_lang in LOCALIZATION and 'cli' in LOCALIZATION[ui_lang]:
+        cli_data = LOCALIZATION[ui_lang]['cli']
 
         # Try the specific lang_option for this language code
         option_key = f'lang_option_{lang_code}'
-        if option_key in loc_data:
-            return loc_data[option_key]
+        if option_key in cli_data:
+            return cli_data[option_key]
 
         # Fallback: search for any lang_option that contains our language code
-        for key, value in loc_data.items():
+        for key, value in cli_data.items():
             if key.startswith('lang_option_') and lang_code in value:
                 return value
 
-    # Final fallback to predefined display names
-    return LANGUAGE_DISPLAY_NAMES.get(lang_code, f'{lang_code.upper()} ({lang_code})')
+    # Final fallback with flag emoji and uppercase code
+    flag_emojis = {
+        'en': '🇺🇸', 'ja': '🇯🇵', 'id': '🇮🇩', 'zh': '🇨🇳', 'ar': '🇸🇦',
+        'de': '🇩🇪', 'fr': '🇫🇷', 'es': '🇪🇸', 'ko': '🇰🇷', 'hi': '🇮🇳',
+        'pt': '🇵🇹', 'ru': '🇷🇺', 'si': '🇱🇰', 'ta': '🇮🇳', 'th': '🇹🇭',
+        'tr': '🇹🇷', 'vi': '🇻🇳'
+    }
+    flag = flag_emojis.get(lang_code, '🏳️')
+    return f'{flag} {lang_code.upper()}'
 
 def load_config_file(config_path):
     """Load configuration from a JSON file exported from setup.html."""
