@@ -1,0 +1,190 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 Paulus Ery Wasito Adhi
+#
+# Licensed under the MIT License. See LICENSE file for details.
+#
+# Update Localization Script
+# ==========================
+#
+# This script updates the embedded localization and language options in setup.html when localization.json is modified.
+#
+# Usage:
+#     python update_localization.py              # Update localization from localization.json
+#     python update_localization.py --reset       # Factory reset - empty localization section
+#
+# Update mode will:
+# 1. Read localization.json
+# 2. Convert it to JavaScript object format
+# 3. Replace the localization object in setup.html
+# 4. Update HTML select options for UI and agent languages dynamically
+# 5. Commit the changes
+#
+# Reset mode will:
+# 1. Empty the localization section in setup.html
+# 2. Reset HTML select options to minimal state
+# 3. Commit the changes
+#
+# This makes it easy to add new languages without manual HTML editing.
+
+import json
+import re
+import sys
+
+
+def update_setup_html_localization():
+    """Update the embedded localization and language options in setup.html from localization.json"""
+
+    # Read localization.json
+    with open('localization.json', 'r', encoding='utf-8') as f:
+        loc_data = json.load(f)
+
+    # Get available languages (excluding metadata)
+    available_langs = [lang for lang in loc_data.keys() if lang != '_comment']
+
+    # Convert to JavaScript format with JSON.parse()
+    json_str = json.dumps(loc_data, ensure_ascii=False, indent=2, separators=(',', ': '))
+    js_content = '    // ---AUTO GENERATED LOCALIZATION START---\n    const localization = JSON.parse(`' + json_str + '`);\n    // ---AUTO GENERATED LOCALIZATION END---'
+
+    # Read setup.html
+    with open('setup.html', 'r') as f:
+        html_content = f.read()
+
+    # Replace the localization section (between markers)
+    start_marker = '  // ---AUTO GENERATED LOCALIZATION START---'
+    end_marker = '  // ---AUTO GENERATED LOCALIZATION END---'
+
+    start_pos = html_content.find(start_marker)
+    if start_pos == -1:
+        print("❌ Could not find localization start marker in setup.html")
+        return False
+
+    end_pos = html_content.find(end_marker, start_pos)
+    if end_pos == -1:
+        print("❌ Could not find localization end marker in setup.html")
+        return False
+
+    # Replace only the content between markers (excluding markers)
+    start_replace_pos = start_pos + len(start_marker) + 1  # +1 for newline
+    end_replace_pos = end_pos
+
+    # Create the replacement content (without markers, just the localization)
+    localization_only = '  const localization = JSON.parse(`' + json_str + '`);'
+
+    # Replace localization section
+    new_html = html_content[:start_replace_pos] + localization_only + html_content[end_replace_pos:]
+
+    # Generate dynamic language options
+    ui_lang_options = []
+    agent_lang_options = []
+
+    # Map languages to their option numbers
+    lang_option_map = {
+        'en': 'lang_option_1',
+        'ja': 'lang_option_2',
+        'id': 'lang_option_3'
+    }
+
+    for lang in available_langs:
+        # Get language display name from localization CLI section
+        cli_data = loc_data.get(lang, {}).get('cli', {})
+        option_key = lang_option_map.get(lang, f'lang_option_{available_langs.index(lang) + 1}')
+        display_name = cli_data.get(option_key, f"{lang.upper()} ({lang})")
+
+        ui_lang_options.append(f'<option value="{lang}">{display_name}</option>')
+        agent_lang_options.append(f'<option value="{lang}">{display_name}</option>')
+
+    ui_options_html = '\n'.join(ui_lang_options)
+    agent_options_html = '\n'.join(agent_lang_options)
+
+    # Update UI language select - replace content between existing markers
+    ui_select_start = new_html.find('<select id="ui-language"')
+    ui_select_end = new_html.find('</select>', ui_select_start) + len('</select>')
+    ui_section = new_html[ui_select_start:ui_select_end]
+    ui_pattern = r'(<!-- AUTO GENERATED CONTENT START -->).*?(<!-- AUTO GENERATED CONTENT END -->)'
+    ui_replacement = rf'\1\n{ui_options_html}\n\2'
+    ui_section_updated = re.sub(ui_pattern, ui_replacement, ui_section, flags=re.DOTALL)
+    new_html = new_html[:ui_select_start] + ui_section_updated + new_html[ui_select_end:]
+
+    # Update agent language select - replace content between existing markers
+    agent_select_start = new_html.find('<select id="agent-language"')
+    agent_select_end = new_html.find('</select>', agent_select_start) + len('</select>')
+    agent_section = new_html[agent_select_start:agent_select_end]
+    agent_pattern = r'(<!-- AUTO GENERATED CONTENT START -->).*?(<!-- AUTO GENERATED CONTENT END -->)'
+    agent_replacement = rf'\1\n{agent_options_html}\n\2'
+    agent_section_updated = re.sub(agent_pattern, agent_replacement, agent_section, flags=re.DOTALL)
+    new_html = new_html[:agent_select_start] + agent_section_updated + new_html[agent_select_end:]
+
+    # Write back
+    with open('setup.html', 'w') as f:
+        f.write(new_html)
+
+    print("✅ Updated localization and language options in setup.html")
+    return True
+
+
+def factory_reset_localization():
+    """Factory reset - empty localization, staticWebConfig, and reset language options to English only"""
+
+    # Read setup.html
+    try:
+        with open('setup.html', 'r') as f:
+            html_content = f.read()
+    except Exception as e:
+        print(f"❌ Error reading setup.html: {e}")
+        return False
+
+    new_html = html_content
+
+    # Empty staticWebConfig between JavaScript markers
+    swc_pattern = r'(  // ---AUTO GENERATED STATICWEBCONFIG START---\n).*?(  // ---AUTO GENERATED STATICWEBCONFIG END---)'
+    new_html = re.sub(swc_pattern, r'\1  const staticWebConfig = {};\n\2', new_html, flags=re.DOTALL)
+
+    # Empty localization between JavaScript markers
+    loc_pattern = r'(  // ---AUTO GENERATED LOCALIZATION START---\n).*?(  // ---AUTO GENERATED LOCALIZATION END---)'
+    new_html = re.sub(loc_pattern, r'\1  const localization = JSON.parse(`{}`);\n\2', new_html, flags=re.DOTALL)
+
+    # Reset UI language select - replace content between existing markers
+    ui_select_start = new_html.find('<select id="ui-language"')
+    ui_select_end = new_html.find('</select>', ui_select_start) + len('</select>')
+    ui_section = new_html[ui_select_start:ui_select_end]
+    ui_pattern = r'(<!-- AUTO GENERATED CONTENT START -->).*?(<!-- AUTO GENERATED CONTENT END -->)'
+    ui_replacement = r'\1\n<option value="en">🇺🇸 English</option>\n\2'
+    ui_section_updated = re.sub(ui_pattern, ui_replacement, ui_section, flags=re.DOTALL)
+    new_html = new_html[:ui_select_start] + ui_section_updated + new_html[ui_select_end:]
+
+    # Reset agent language select - replace content between existing markers
+    agent_select_start = new_html.find('<select id="agent-language"')
+    agent_select_end = new_html.find('</select>', agent_select_start) + len('</select>')
+    agent_section = new_html[agent_select_start:agent_select_end]
+    agent_pattern = r'(<!-- AUTO GENERATED CONTENT START -->).*?(<!-- AUTO GENERATED CONTENT END -->)'
+    agent_replacement = r'\1\n<option value="en">🇺🇸 English</option>\n\2'
+    agent_section_updated = re.sub(agent_pattern, agent_replacement, agent_section, flags=re.DOTALL)
+    new_html = new_html[:agent_select_start] + agent_section_updated + new_html[agent_select_end:]
+
+    # Write back
+    with open('setup.html', 'w') as f:
+        f.write(new_html)
+
+    print("✅ Factory reset - emptied localization and staticWebConfig sections, reset language options")
+    return True
+
+if __name__ == '__main__':
+    # Check command line arguments
+    if len(sys.argv) > 1 and sys.argv[1] == '--reset':
+        print("🔄 Factory resetting localization in setup.html...")
+        if factory_reset_localization():
+            print("✅ Factory reset complete!")
+            print("\nTo commit changes:")
+            print("  git add setup.html")
+            print("  git commit -m 'Factory reset localization'")
+        else:
+            print("❌ Factory reset failed!")
+    else:
+        print("🔄 Updating localization in setup.html...")
+        if update_setup_html_localization():
+            print("✅ Localization update complete!")
+            print("\nTo commit changes:")
+            print("  git add setup.html localization.json")
+            print("  git commit -m 'Update localization strings'")
+        else:
+            print("❌ Localization update failed!")

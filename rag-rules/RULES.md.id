@@ -1,0 +1,61 @@
+# Integrasi Agen Aturan RAG
+
+**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `rag_rules.enabled = true` di settings.json.
+
+**WAJIB**: Jika rag_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.
+
+## Arsitektur Sistem RAG
+- **Optimasi Konteks**: Prioritaskan informasi yang relevan
+- **Pembacaan Hierarkis**: Baca file secara strategis, bukan berurutan
+- **Skor Relevansi**: Bobot informasi berdasarkan kepentingan dan kedalaman waktu
+- **Manajemen Konteks Dinamis**: Sesuaikan jendela konteks dengan persyaratan tugas
+
+## Algoritma Implementasi yang Diperlukan
+
+### Algoritma: Context_Optimization_Process
+**WAJIB**: Eksekusi sebelum respons pengguna apa pun ketika diaktifkan
+
+**Langkah-langkah**:
+1. Periksa rag_rules.enabled = true
+2. Analisis permintaan pengguna dan konteks yang tersedia
+3. Skor relevansi informasi menggunakan kedalaman waktu, kepentingan, dan relevansi tugas
+4. Prioritaskan pembacaan hierarkis: ringkasan → bagian kunci → detail
+5. Optimalkan jendela konteks untuk kepadatan informasi maksimum
+6. Kembalikan konteks yang dioptimalkan untuk generasi respons
+
+### Algoritma: Information_Retrieval_Process
+**WAJIB**: Eksekusi ketika mengumpulkan informasi untuk respons
+
+**Langkah-langkah**:
+1. Periksa rag_rules.enabled = true
+2. Identifikasi persyaratan informasi dari query pengguna
+3. Cari file yang relevan menggunakan pemahaman semantik
+4. Terapkan pola pembacaan hierarkis
+5. Ekstrak dan rangking potongan informasi yang relevan
+6. Integrasikan dengan sistem memori untuk konteks yang dipersonalisasi
+
+### Algoritma: Response_Quality_Assurance
+**WAJIB**: Eksekusi setelah menghasilkan respons
+
+**Langkah-langkah**:
+1. Periksa rag_rules.enabled = true
+2. Validasi respons terhadap informasi sumber
+3. Pastikan semua klaim didukung oleh konteks yang diambil
+4. Tandai kesenjangan informasi atau asumsi apa pun
+5. Optimalkan kelengkapan dan akurasi respons
+
+## Kepatuhan Pengaturan
+- Hormati semua pengaturan di rag-rules/settings.json
+- Terapkan batas context_window_size secara tepat
+- Gunakan ambang relevansi yang dikonfigurasi
+- Berikan prompt kepada pengguna jika rag_rules.enabled = false dan konteks kompleks diperlukan
+
+## Titik Integrasi
+- **Integrasi Memori**: Gunakan konteks tersimpan untuk pengambilan yang dipersonalisasi
+- **Berpikir Kritis**: Berikan jaminan kualitas untuk validasi informasi
+- **Koordinasi Bootstrap**: Hormati prioritas pemuatan dan interkoneksi
+
+**PELANGGARAN**: Agen yang menggunakan manajemen konteks yang tidak efisien tanpa mengimplementasikan algoritma ini.
+
+<!-- METADATA: Template integrasi agen aturan RAG dengan algoritma optimasi konteks dan pengambilan -->
+<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

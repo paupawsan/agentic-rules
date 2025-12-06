@@ -1,0 +1,55 @@
+# Integrasi Kerangka Aturan Agentic
+
+**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna.
+
+**WAJIB**: Agen harus menghormati konfigurasi bootstrap di `bootstrap.json` dan hanya memuat file aturan ketika pengaturan yang sesuai diaktifkan.
+
+## Gambaran Kerangka
+Kerangka ini menyediakan perilaku agen AI terstruktur melalui aturan modular:
+- **memory-rules/**: Sistem memori persisten untuk retensi konteks
+- **rag-rules/**: Retrieval-augmented generation untuk penggunaan konteks optimal
+- **critical-thinking-rules/**: Keketatan intelektual dan pencegahan halusinasi
+
+## Kepatuhan Bootstrap
+Sebelum memuat file aturan apa pun, agen HARUS:
+1. Baca `bootstrap.json` untuk memahami konfigurasi kerangka
+2. Tinjau `Bootstrap.md` untuk spesifikasi algoritma detail dan persyaratan kepatuhan
+3. Periksa urutan pemuatan dan titik masuk
+4. Validasi persetujuan dan pengaturan pengguna
+5. Hanya muat integrasi aturan yang diaktifkan
+
+## Persyaratan Integrasi Aturan
+Setiap aturan menyediakan implementasi algoritma spesifik yang harus dieksekusi agen secara aktif:
+
+### Integrasi Aturan Memori
+**WAJIB**: Jika `memory_rules.enabled = true` di settings.json
+- Lokasi: `memory-rules/AGENTS.md`
+- Mengimplementasikan: Proses inisialisasi memori, penyimpanan, pengambilan, dan pembersihan
+- Membutuhkan: Konfigurasi path yang tepat dan kebijakan retensi
+
+### Integrasi Aturan RAG
+**WAJIB**: Jika `rag_rules.enabled = true` di settings.json
+- Lokasi: `rag-rules/AGENTS.md`
+- Mengimplementasikan: Optimasi konteks, skor relevansi, dan algoritma pengambilan
+- Membutuhkan: Konfigurasi jendela konteks dan ambang skor
+
+### Integrasi Aturan Berpikir Kritis
+**WAJIB**: Jika `critical_thinking_rules.enabled = true` di settings.json
+- Lokasi: `critical-thinking-rules/AGENTS.md`
+- Mengimplementasikan: Pengakuan error, tantangan asumsi, dan proses verifikasi
+- Membutuhkan: Ambang verifikasi dan pengaturan penanganan error
+
+## Isolasi Kerangka
+**KRITIS**: Kerangka ini tetap menjadi alat dan tidak boleh pernah disertakan dalam basis kode proyek pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.
+
+## Tanggung Jawab Agen
+Agen yang menggunakan kerangka ini harus:
+- Menghormati semua pengaturan dan konfigurasi pengguna
+- Berikan umpan balik yang jelas ketika aturan dinonaktifkan
+- Pertahankan netralitas kerangka dalam konten yang dihasilkan
+- Ikuti persyaratan kepatuhan bootstrap
+
+**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.
+
+<!-- METADATA: Template integrasi agen tingkat root dengan gambaran kerangka -->
+<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

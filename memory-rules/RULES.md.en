@@ -1,0 +1,69 @@
+# Memory Rules Agent Integration
+
+**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `memory_rules.enabled = true` in settings.json.
+
+**MANDATORY**: If memory_rules.enabled = true in settings.json, agents MUST implement all algorithms below.
+
+## Memory System Architecture
+- **common/**: Shared knowledge across projects
+- **private/**: Personal/sensitive data (credentials, preferences)
+- **project/**: Project-specific memory and context
+
+## Required Implementation Algorithms
+
+### Algorithm: Memory_Initialization_Process
+**MANDATORY**: Execute when memory_rules.enabled = true
+
+**Steps**:
+1. Read memory-rules/settings.json
+2. Create directory structure: common/, private/, project/
+3. Validate storage_path permissions and create if needed
+4. Initialize memory index if project_support.enabled = true
+5. Return initialized memory system
+
+**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.
+
+### Algorithm: Memory_Storage_Process
+**MANDATORY**: Execute for all user interactions when enabled
+
+**Steps**:
+1. Check memory_rules.enabled = true
+2. Classify interaction: common/private/project
+3. Apply retention policies from settings
+4. Store with metadata (timestamp, context, importance)
+5. Update memory index for retrieval
+
+### Algorithm: Memory_Retrieval_Process
+**MANDATORY**: Execute before responding to user requests
+
+**Steps**:
+1. Check memory_rules.enabled = true
+2. Analyze current context and request
+3. Query relevant memory categories
+4. Apply relevance scoring and filtering
+5. Return optimized context for response
+
+### Algorithm: Memory_Cleanup_Process
+**MANDATORY**: Execute periodically, require user consent
+
+**Steps**:
+1. Check cleanup_guidance.enabled = true
+2. Identify memories past retention periods
+3. Notify user of overdue memories
+4. Require explicit user consent for deletion
+5. Preserve important memories regardless of age
+
+## Settings Compliance
+- Respect all settings in memory-rules/settings.json
+- Prompt user if memory_rules.enabled = false and user requests memory features
+- Never auto-enable features without user consent
+
+## Integration Points
+- **RAG Integration**: Provide context chunks for optimization
+- **Critical Thinking**: Store error corrections and learning insights
+- **User Consent**: All cleanup operations require user approval
+
+**VIOLATION**: Agents claiming memory integration without implementing these algorithms.
+
+<!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms -->
+<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

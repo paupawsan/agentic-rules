@@ -1,0 +1,55 @@
+# Agentic Rules Framework 統合 / Agentic Rules Framework Integration
+
+**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで対応する設定が有効になっている場合のみ使用してください。
+
+**必須 / MANDATORY**: エージェントは`bootstrap.json`のブートストラップ設定を尊重し、対応する設定が有効になっている場合のみルールファイルを読み込む必要があります。
+
+## フレームワーク概要 / Framework Overview
+このフレームワークはモジュラーなルールを通じて構造化されたAIエージェント動作を提供します：
+- **memory-rules/**: コンテキスト保持のための永続的なメモリシステム / Persistent memory system for context retention
+- **rag-rules/**: 最適なコンテキスト使用のための検索拡張生成 / Retrieval-augmented generation for optimal context usage
+- **critical-thinking-rules/**: 知的厳密性と幻覚防止 / Intellectual rigor and hallucination prevention
+
+## ブートストラップ準拠 / Bootstrap Compliance
+ルールファイルを読み込む前に、エージェントは必ず：
+1. フレームワーク設定を理解するために`bootstrap.json`を読み取る / Read `bootstrap.json` to understand the framework configuration
+2. 詳細なアルゴリズム仕様と準拠要件については`Bootstrap.md`を確認 / Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements
+3. 読み込み順序とエントリーポイントを確認 / Check loading sequence and entry points
+4. ユーザー同意と設定を検証 / Validate user consent and settings
+5. 有効化されたルール統合のみを読み込む / Only load enabled rule integrations
+
+## ルール統合要件 / Rule Integration Requirements
+各ルールはエージェントが積極的に実行する必要がある特定のアルゴリズム実装を提供します：
+
+### メモリールール統合 / Memory Rules Integration
+**必須 / MANDATORY**: settings.jsonで`memory_rules.enabled = true`の場合
+- 場所 / Location: `memory-rules/AGENTS.md`
+- 実装 / Implements: メモリ初期化、保存、検索、クリーンアッププロセス / Memory initialization, storage, retrieval, and cleanup processes
+- 必要 / Requires: 適切なパス設定と保持ポリシー / Proper path configuration and retention policies
+
+### RAGルール統合 / RAG Rules Integration
+**必須 / MANDATORY**: settings.jsonで`rag_rules.enabled = true`の場合
+- 場所 / Location: `rag-rules/AGENTS.md`
+- 実装 / Implements: コンテキスト最適化、関連性スコアリング、検索アルゴリズム / Context optimization, relevance scoring, and retrieval algorithms
+- 必要 / Requires: コンテキストウィンドウ設定とスコアリングしきい値 / Context window configuration and scoring thresholds
+
+### 批判的思考ルール統合 / Critical Thinking Rules Integration
+**必須 / MANDATORY**: settings.jsonで`critical_thinking_rules.enabled = true`の場合
+- 場所 / Location: `critical-thinking-rules/AGENTS.md`
+- 実装 / Implements: エラー承認、仮定挑戦、検証プロセス / Error admission, assumption challenge, and verification processes
+- 必要 / Requires: 検証しきい値とエラー処理設定 / Verification thresholds and error handling settings
+
+## フレームワーク分離 / Framework Isolation
+**重要 / CRITICAL**: このフレームワークはツールとして残り、ユーザーprojectコードベースに含めるべきではありません。すべての統合はそれぞれのディレクトリのルールファイルを通じて行われます。
+
+## エージェント責任 / Agent Responsibility
+このフレームワークを使用するエージェントは：
+- すべてのユーザー設定と設定を尊重する / Respect all user settings and configurations
+- ルールが無効化されている場合に明確なフィードバックを提供する / Provide clear feedback when rules are disabled
+- 生成されたコンテンツでフレームワークのニュートラリティを維持する / Maintain framework neutrality in generated content
+- ブートストラップ準拠要件に従う / Follow bootstrap compliance requirements
+
+**違反 / VIOLATION**: これらの統合要件またはユーザー設定を尊重しないエージェント / Agents that do not respect these integration requirements or user settings.
+
+<!-- METADATA: Root level agent integration template with framework overview (Japanese) -->
+<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

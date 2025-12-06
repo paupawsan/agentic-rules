@@ -1,0 +1,88 @@
+{
+  "_metadata": {
+    "license": "MIT",
+    "copyright": "Copyright (c) 2025 Paulus Ery Wasito Adhi",
+    "license_file": "LICENSE"
+  },
+  "version": "0.1.0",
+  "rag_rules": {
+    "enabled": false,
+    "context_window_optimization": {
+      "enabled": true,
+      "max_context_tokens": 8000,
+      "relevance_threshold": 0.7,
+      "progressive_expansion": true
+    },
+    "hierarchical_reading": {
+      "enabled": true,
+      "max_depth": 3,
+      "section_preference": "task_relevant",
+      "recursive_processing": true
+    },
+    "log_analysis": {
+      "enabled": true,
+      "initial_sample_lines": 50,
+      "error_priority": true,
+      "temporal_sampling": true,
+      "pattern_recognition": true
+    },
+    "reading_strategies": {
+      "document_reading": {
+        "enabled": true,
+        "toc_priority": true,
+        "summary_first": true
+      },
+      "code_reading": {
+        "enabled": true,
+        "signature_first": true,
+        "dependency_tracing": true
+      },
+      "selective_reading": {
+        "enabled": true,
+        "importance_scoring": true,
+        "chunking_size": 1000
+      }
+    },
+    "context_management": {
+      "chunking": {
+        "enabled": true,
+        "semantic_segmentation": true,
+        "max_chunk_size": 2000
+      },
+      "memory_buffer": {
+        "working_memory_mb": 50,
+        "compression_threshold": 80,
+        "cache_enabled": true
+      }
+    },
+    "tool_integration": {
+      "filesystem_tools": true,
+      "search_tools": true,
+      "external_tools": true,
+      "streaming_reads": true
+    },
+    "multi_language_support": {
+      "language_detection": true,
+      "encoding_handling": true,
+      "cross_language_patterns": true,
+      "fallback_strategies": true
+    },
+    "performance_optimization": {
+      "lazy_loading": true,
+      "parallel_processing": true,
+      "caching_strategy": "lru",
+      "prefetching": false
+    },
+    "quality_assurance": {
+      "completeness_check": true,
+      "accuracy_verification": true,
+      "cross_reference_checking": true
+    },
+    "adaptive_learning": {
+      "pattern_recognition": true,
+      "usage_tracking": true,
+      "strategy_refinement": true,
+      "context_prediction": true
+    }
+  }
+}

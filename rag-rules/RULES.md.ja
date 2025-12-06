@@ -1,0 +1,61 @@
+# RAGルール エージェント統合 / RAG Rules Agent Integration
+
+**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`rag_rules.enabled = true`の場合のみ使用してください。
+
+**必須 / MANDATORY**: settings.jsonでrag_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。
+
+## RAGシステムアーキテクチャ / RAG System Architecture
+- **コンテキスト最適化 / Context Optimization**: 関連情報の優先順位付け / Prioritize relevant information
+- **階層的読み取り / Hierarchical Reading**: ファイルを戦略的に読み取り、順次読み取りしない / Read files strategically, not sequentially
+- **関連性スコアリング / Relevance Scoring**: 重要度と新しさで情報を重み付け / Weight information by importance and recency
+- **動的コンテキスト管理 / Dynamic Context Management**: タスク要件にコンテキストウィンドウを適応 / Adapt context window to task requirements
+
+## 必須実装アルゴリズム / Required Implementation Algorithms
+
+### アルゴリズム: Context_Optimization_Process / Algorithm: Context_Optimization_Process
+**必須 / MANDATORY**: 有効時にユーザー応答前に実行 / Execute before any user response when enabled
+
+**ステップ / Steps**:
+1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true
+2. ユーザー要求と利用可能なコンテキストを分析 / Analyze user request and available context
+3. 新しさ、重要度、タスク関連性を使用して情報関連性をスコアリング / Score information relevance using recency, importance, and task-relevance
+4. 階層的読み取りを優先: 要約 → 主要セクション → 詳細 / Prioritize hierarchical reading: summaries → key sections → details
+5. 最大情報密度のためにコンテキストウィンドウを最適化 / Optimize context window for maximum information density
+6. 応答生成用の最適化されたコンテキストを返す / Return optimized context for response generation
+
+### アルゴリズム: Information_Retrieval_Process / Algorithm: Information_Retrieval_Process
+**必須 / MANDATORY**: 応答情報の収集時に実行 / Execute when gathering information for responses
+
+**ステップ / Steps**:
+1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true
+2. ユーザークエリからの情報要件を特定 / Identify information requirements from user query
+3. 意味理解を使用して関連ファイルを検索 / Search relevant files using semantic understanding
+4. 階層的読み取りパターンを適用 / Apply hierarchical reading patterns
+5. 関連情報チャンクを抽出しランク付け / Extract and rank relevant information chunks
+6. パーソナライズドコンテキストのためにメモリシステムと統合 / Integrate with memory system for personalized context
+
+### アルゴリズム: Response_Quality_Assurance / Algorithm: Response_Quality_Assurance
+**必須 / MANDATORY**: 応答生成後に実行 / Execute after generating responses
+
+**ステップ / Steps**:
+1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true
+2. ソース情報に対して応答を検証 / Validate response against source information
+3. すべての主張が検索されたコンテキストでサポートされていることを確認 / Ensure all claims are supported by retrieved context
+4. 情報ギャップや仮定にフラグを付ける / Flag any information gaps or assumptions
+5. 応答の完全性と正確性を最適化 / Optimize response completeness and accuracy
+
+## 設定準拠 / Settings Compliance
+- rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json
+- context_window_size制限を適切に適用 / Apply context_window_size limits appropriately
+- 設定された関連性しきい値を使用 / Use configured relevance thresholds
+- rag_rules.enabled = falseで複雑なコンテキストが必要な場合、ユーザーにプロンプト / Prompt user if rag_rules.enabled = false and complex context needed
+
+## 統合ポイント / Integration Points
+- **メモリ統合 / Memory Integration**: パーソナライズド検索のために保存されたコンテキストを使用 / Use stored context for personalized retrieval
+- **批判的思考 / Critical Thinking**: 情報検証のための品質保証を提供 / Provide quality assurance for information validation
+- **ブートストラップ調整 / Bootstrap Coordination**: 読み込み優先順位と相互接続を尊重 / Respect loading priorities and interconnections
+
+**違反 / VIOLATION**: これらのアルゴリズムを実装せずに非効率的なコンテキスト管理を使用するエージェント / Agents using inefficient context management without implementing these algorithms.
+
+<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms (Japanese) -->
+<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

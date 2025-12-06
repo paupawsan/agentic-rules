@@ -1,0 +1,86 @@
+{
+  "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
+  "localization": {
+    "en": {
+      "plugin_name": "Critical Thinking Rules",
+      "description": "Intellectual rigor and hallucination prevention"
+    },
+    "ja": {
+      "plugin_name": "批判的思考ルール",
+      "description": "知的厳密さと幻覚防止"
+    },
+    "id": {
+      "plugin_name": "Aturan Berpikir Kritis",
+      "description": "Keketatan intelektual dan pencegahan halusinasi"
+    }
+  },
+  "mandatory_config": [],
+  "optional_config": [
+    {
+      "name": "verification_levels",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Verification Levels",
+          "description": "Configure how thoroughly to verify information"
+        },
+        "ja": {
+          "title": "検証レベル",
+          "description": "情報の検証の徹底度を設定"
+        },
+        "id": {
+          "title": "Tingkat Verifikasi",
+          "description": "Konfigurasikan seberapa menyeluruh verifikasi informasi"
+        }
+      },
+      "options": [
+        {
+          "name": "balanced_verification",
+          "localization": {
+            "en": { "description": "Verify factual claims with reasonable rigor" },
+            "ja": { "description": "合理的な厳密さで事実的主張を検証" },
+            "id": { "description": "Verifikasi klaim faktual dengan ketelitian yang wajar" }
+          },
+          "recommended": true,
+          "settings": {
+            "verification.factual_claim_verification": true,
+            "verification.min_sources_required": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "error_handling",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Error Handling",
+          "description": "Configure error admission and correction behavior"
+        },
+        "ja": {
+          "title": "エラー処理",
+          "description": "エラー承認と修正の動作を設定"
+        },
+        "id": {
+          "title": "Penanganan Error",
+          "description": "Konfigurasikan perilaku pengakuan dan koreksi error"
+        }
+      },
+      "options": [
+        {
+          "name": "transparent_error_handling",
+          "localization": {
+            "en": { "description": "Immediately admit errors and log corrections" },
+            "ja": { "description": "すぐにエラーを承認し修正をログ" },
+            "id": { "description": "Segera akui error dan log koreksi" }
+          },
+          "recommended": true,
+          "settings": {
+            "error_handling.immediate_error_admission": true,
+            "error_handling.log_corrections": true
+          }
+        }
+      ]
+    }
+  ]
+}

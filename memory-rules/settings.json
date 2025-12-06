@@ -1,0 +1,182 @@
+{
+  "_metadata": {
+    "license": "MIT",
+    "copyright": "Copyright (c) 2025 Paulus Ery Wasito Adhi",
+    "license_file": "LICENSE"
+  },
+  "version": "0.1.0",
+  "memory_rules": {
+    "enabled": true,
+    "max_entries_per_category": 100,
+    "cleanup_guidance_days": 90,
+    "index_update_frequency": "realtime",
+    "project_support": {
+      "enabled": true,
+      "auto_detect_projects": true,
+      "project_identification_method": "git_remote_or_directory_name",
+      "common_memory_enabled": true,
+      "private_memory_enabled": true,
+      "git_history_analysis": {
+        "enabled": false,
+        "trigger_on_unknown_context": true,
+        "max_commit_history_days": 90,
+        "max_commits_to_analyze": 100,
+        "analyze_commit_messages": true,
+        "analyze_file_changes": true,
+        "track_branch_evolution": false,
+        "extract_project_milestones": true,
+        "include_author_info": false,
+        "analyze_code_patterns": true,
+        "performance_mode": "fast",
+        "cache_analysis_results": true,
+        "analysis_timeout_seconds": 30
+      }
+    },
+    "categories": {
+      "technical": {
+        "enabled": true,
+        "suggested_retention_days": 90,
+        "storage_location": "common",
+        "share_across_projects": true
+      },
+      "behavioral": {
+        "enabled": true,
+        "suggested_retention_days": 60,
+        "storage_location": "common",
+        "share_across_projects": true
+      },
+      "contextual": {
+        "enabled": true,
+        "suggested_retention_days": 120,
+        "storage_location": "private",
+        "share_across_projects": false
+      },
+      "user_interaction": {
+        "enabled": true,
+        "suggested_retention_days": 30,
+        "capture_full_prompts": true,
+        "capture_responses": true,
+        "include_metadata": true,
+        "storage_location": "project",
+        "share_across_projects": false
+      },
+      "session": {
+        "enabled": true,
+        "suggested_retention_days": 60,
+        "auto_session_detection": true,
+        "topic_tracking": true,
+        "quality_metrics": true,
+        "storage_location": "project",
+        "share_across_projects": false
+      },
+      "topic": {
+        "enabled": true,
+        "suggested_retention_days": 180,
+        "evolution_tracking": true,
+        "pattern_recognition": true,
+        "cross_topic_linking": true,
+        "storage_location": "project",
+        "share_across_projects": false
+      },
+      "git_history": {
+        "enabled": true,
+        "suggested_retention_days": 365,
+        "analyze_commits": true,
+        "track_milestones": true,
+        "extract_patterns": true,
+        "storage_location": "project",
+        "share_across_projects": false
+      },
+      "personal": {
+        "enabled": true,
+        "suggested_retention_days": 3650,
+        "storage_location": "private",
+        "share_across_projects": false
+      },
+      "credentials": {
+        "enabled": true,
+        "suggested_retention_days": 3650,
+        "storage_location": "private",
+        "share_across_projects": false,
+        "encryption_required": true,
+        "flexible_naming": true,
+        "naming_logic": "agent_decides_based_on_context"
+      },
+      "sensitive": {
+        "enabled": true,
+        "suggested_retention_days": 3650,
+        "storage_location": "private",
+        "share_across_projects": false,
+        "encryption_required": true,
+        "access_controlled": true
+      }
+    },
+    "compression": {
+      "enabled": false,
+      "threshold_mb": 50
+    },
+    "search": {
+      "enable_full_text": true,
+      "enable_tag_search": true,
+      "enable_topic_search": true,
+      "enable_session_search": true,
+      "max_results": 20,
+      "include_interaction_history": true
+    },
+    "capture_settings": {
+      "auto_capture_interactions": true,
+      "session_boundary_detection": true,
+      "topic_extraction": true,
+      "user_prompt_filtering": false,
+      "sensitive_data_masking": true
+    },
+    "auto_recording": {
+      "enabled": true,
+      "interaction_threshold": "medium",
+      "min_interaction_length": 10,
+      "record_all_prompts": true,
+      "record_all_responses": true,
+      "continuous_session_tracking": true,
+      "real_time_indexing": true,
+      "background_processing": false
+    },
+    "migration_settings": {
+      "auto_detect_existing_memories": true,
+      "prompt_user_for_migration": true,
+      "supported_source_systems": [
+        "cursor",
+        "github_copilot",
+        "custom_agent_frameworks",
+        "legacy_memory_systems"
+      ],
+      "migration_backup_originals": true,
+      "cross_system_compatibility": true,
+      "migration_notes_inclusion": true,
+      "selective_import_enabled": true
+    },
+    "cleanup_guidance": {
+      "enabled": true,
+      "notify_overdue_memories": true,
+      "notification_frequency_days": 30,
+      "interactive_cleanup": true,
+      "require_user_consent": true,
+      "suggest_cleanup_actions": true,
+      "preserve_important_memories": true,
+      "batch_cleanup_limit": 10
+    },
+    "integration": {
+      "cross_category_linking": true,
+      "session_context_inclusion": true,
+      "topic_evolution_tracking": true,
+      "user_pattern_analysis": true
+    }
+  },
+  "storage": {
+    "base_path": "./memory"
+  },
+  "cleanup_guidance": {
+    "notify_overdue_memories": true,
+    "interactive_cleanup": true,
+    "require_user_consent": true
+  }
+}

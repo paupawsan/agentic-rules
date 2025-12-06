@@ -1,0 +1,139 @@
+{
+  "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
+  "localization": {
+    "en": {
+      "plugin_name": "Memory Rules",
+      "description": "Persistent memory system for AI agents"
+    },
+    "ja": {
+      "plugin_name": "メモリールール",
+      "description": "AIエージェント用の永続的なメモリシステム"
+    },
+    "id": {
+      "plugin_name": "Aturan Memori",
+      "description": "Sistem memori persisten untuk agen AI"
+    }
+  },
+  "mandatory_config": [
+    {
+      "name": "memory_path",
+      "type": "path",
+      "localization": {
+        "en": {
+          "title": "Memory Root Path Configuration",
+          "description": "Set the root path where memory data will be stored",
+          "note": "This creates [project-name]/, common/, and private/ subdirectories.",
+          "examples": [
+            "~/Documents/my-project-memory",
+            "/Users/username/Projects/memory",
+            "C:/Users/username/Documents/memory (Windows)"
+          ]
+        },
+        "ja": {
+          "title": "メモリルートパス設定",
+          "description": "メモリデータを保存するルートパスを設定",
+          "note": "[project-name]/, common/, private/ サブディレクトリが作成されます。",
+          "examples": [
+            "~/Documents/my-project-memory",
+            "/Users/username/Projects/memory",
+            "C:/Users/username/Documents/memory (Windows)"
+          ]
+        },
+        "id": {
+          "title": "Konfigurasi Path Root Memori",
+          "description": "Tetapkan path root tempat data memori akan disimpan",
+          "note": "Subdirektori [project-name]/, common/, dan private/ akan dibuat.",
+          "examples": [
+            "~/Documents/my-project-memory",
+            "/Users/username/Projects/memory",
+            "C:/Users/username/Documents/memory (Windows)"
+          ]
+        }
+      },
+      "settings_key": "storage.base_path",
+      "required": true
+    }
+  ],
+  "optional_config": [
+    {
+      "name": "retention_policies",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Retention Policies",
+          "description": "Configure how long to keep memory data"
+        },
+        "ja": {
+          "title": "保持ポリシー",
+          "description": "メモリデータをどのくらい保持するかを設定"
+        },
+        "id": {
+          "title": "Kebijakan Retensi",
+          "description": "Konfigurasikan berapa lama menyimpan data memori"
+        }
+      },
+      "options": [
+        {
+          "name": "interactive_cleanup",
+          "localization": {
+            "en": {
+              "description": "Enable interactive cleanup with user consent"
+            },
+            "ja": {
+              "description": "ユーザー同意によるインタラクティブクリーンアップを有効化"
+            },
+            "id": {
+              "description": "Aktifkan pembersihan interaktif dengan persetujuan pengguna"
+            }
+          },
+          "recommended": true,
+          "settings": {
+            "cleanup_guidance.notify_overdue_memories": true,
+            "cleanup_guidance.interactive_cleanup": true,
+            "cleanup_guidance.require_user_consent": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "git_analysis",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Git Analysis Settings",
+          "description": "Configure automatic git history analysis"
+        },
+        "ja": {
+          "title": "Git分析設定",
+          "description": "自動git履歴分析を設定"
+        },
+        "id": {
+          "title": "Pengaturan Analisis Git",
+          "description": "Konfigurasikan analisis riwayat git otomatis"
+        }
+      },
+      "options": [
+        {
+          "name": "enable_git_analysis",
+          "localization": {
+            "en": {
+              "description": "Enable git analysis for project understanding"
+            },
+            "ja": {
+              "description": "プロジェクト理解のためのgit分析を有効化"
+            },
+            "id": {
+              "description": "Aktifkan analisis git untuk pemahaman proyek"
+            }
+          },
+          "recommended": true,
+          "settings": {
+            "git_history_analysis.enabled": true,
+            "git_history_analysis.trigger_on_unknown_context": true,
+            "git_history_analysis.max_commits_to_analyze": 50
+          }
+        }
+      ]
+    }
+  ]
+}

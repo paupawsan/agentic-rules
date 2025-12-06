@@ -1,0 +1,58 @@
+{
+  "_metadata": {
+    "license": "MIT",
+    "copyright": "Copyright (c) 2025 Paulus Ery Wasito Adhi",
+    "license_file": "LICENSE"
+  },
+  "version": "0.1.0",
+  "critical_thinking_rules": {
+    "enabled": false,
+    "verification_level": "standard",
+    "error_admission": {
+      "enabled": true,
+      "immediate_correction": true,
+      "transparency_logging": true
+    },
+    "assumption_challenge": {
+      "enabled": true,
+      "challenge_threshold": "medium",
+      "automatic_detection": true
+    },
+    "ground_check": {
+      "enabled": true,
+      "required_confirmations": 2,
+      "verification_timeout_seconds": 30,
+      "fallback_to_uncertainty": true
+    },
+    "hallucination_prevention": {
+      "enabled": true,
+      "reality_checks": true,
+      "conservative_estimation": true,
+      "uncertainty_qualification": true
+    },
+    "verification_categories": {
+      "factual": {
+        "min_sources": 3,
+        "require_independent": true
+      },
+      "technical": {
+        "require_testing": true,
+        "allow_simulation": true
+      },
+      "logical": {
+        "check_consistency": true,
+        "identify_fallacies": true
+      }
+    },
+    "confidence_calibration": {
+      "enabled": true,
+      "track_accuracy": true,
+      "adjust_thresholds": true
+    },
+    "response_formats": {
+      "balanced_analysis": true,
+      "error_correction": true,
+      "assumption_challenge": true
+    }
+  }
+}

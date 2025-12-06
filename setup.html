@@ -1,0 +1,2909 @@
+<!DOCTYPE html>
+<!-- Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic Rules Framework Setup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      color: white;
+      padding: 40px 30px 30px 30px;
+      text-align: center;
+      position: relative;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .language-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: white;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .language-selector select {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      outline: none;
+      min-width: 120px;
+    }
+
+    .language-selector select option {
+      background: #2c3e50;
+      color: white;
+    }
+
+    .language-selector::before {
+      content: '🌐';
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .header-content {
+      padding-top: 10px;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      font-weight: 300;
+      margin-top: 0;
+    }
+
+    .header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+      margin-bottom: 0;
+      line-height: 1.4;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+      padding: 25px;
+      border: 2px solid #f0f0f0;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+
+    .section h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 1.5em;
+      border-bottom: 3px solid #3498db;
+      padding-bottom: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #34495e;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #3498db;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+
+    .rule-card {
+      border: 2px solid #e1e8ed;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 15px;
+      background: white;
+      transition: all 0.3s;
+    }
+
+    .rule-card:hover {
+      border-color: #3498db;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .rule-card h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 1.3em;
+    }
+
+    .rule-card p {
+      color: #7f8c8d;
+      margin-bottom: 15px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #7f8c8d;
+    }
+
+    .loading-spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .rule-toggle {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .rule-toggle input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:disabled {
+      background: #bdc3c7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #ecf0f1;
+      border-radius: 4px;
+      margin: 20px 0;
+      overflow: hidden;
+      display: none;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .result.success {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+    }
+
+    .result.error {
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+    }
+
+    .file-list {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 15px;
+      margin-top: 10px;
+    }
+
+    .file-list pre {
+      margin: 0;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+
+    .help-text {
+      font-size: 14px;
+      color: #6c757d;
+      margin-top: 5px;
+    }
+
+    .required {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    .tab-container {
+      margin-bottom: 30px;
+    }
+
+    .tab-buttons {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      padding: 12px 24px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 6px 6px 0 0;
+      margin-right: 5px;
+      transition: all 0.3s;
+    }
+
+    .tab-btn.active {
+      background: white;
+      border-bottom: 3px solid #3498db;
+      margin-bottom: -1px;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+      background: white;
+      border: 1px solid #dee2e6;
+      border-radius: 0 6px 6px 6px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 10px;
+      }
+
+      .header {
+        padding: 60px 20px 25px 20px;
+        min-height: 140px;
+      }
+
+      .header h1 {
+        font-size: 2em;
+        margin-bottom: 15px;
+      }
+
+      .header p {
+        margin-bottom: 20px;
+      }
+
+      .language-selector {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 15px;
+      }
+
+      .language-selector select {
+        min-width: 100px;
+        font-size: 12px;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .tab-buttons {
+        flex-direction: column;
+      }
+
+      .tab-btn {
+        margin-right: 0;
+        margin-bottom: 5px;
+        border-radius: 6px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 50px 15px 20px 15px;
+        text-align: left;
+      }
+
+      .header-content {
+        padding-top: 5px;
+      }
+
+      .header h1 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+      }
+
+      .language-selector {
+        position: static;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        justify-content: center;
+        width: 100%;
+        max-width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
+  <!-- AUTO GENERATED CONTENT START -->
+  <!-- This section is automatically updated by update_localization.py and generate_simple_setup.py -->
+  <!-- Sources: localization.json and setup.json files with RULES.md templates -->
+  <script>
+  // ---AUTO GENERATED STATICWEBCONFIG START---
+  const staticWebConfig = {
+  "version": "0.1.0",
+  "description": "Static web configuration generated from setup.json files",
+  "uiLanguage": "en",
+  "agentLanguage": "en",
+  "plugins": {
+    "memory-rules": {
+      "name": "memory-rules",
+      "display_name": "Memory Rules",
+      "description": "Persistent memory system for AI agents",
+      "localization": {
+        "en": {
+          "plugin_name": "Memory Rules",
+          "description": "Persistent memory system for AI agents"
+        },
+        "ja": {
+          "plugin_name": "メモリールール",
+          "description": "AIエージェント用の永続的なメモリシステム"
+        },
+        "id": {
+          "plugin_name": "Aturan Memori",
+          "description": "Sistem memori persisten untuk agen AI"
+        }
+      },
+      "mandatory_config": [
+        {
+          "name": "memory_path",
+          "type": "path",
+          "localization": {
+            "en": {
+              "title": "Memory Root Path Configuration",
+              "description": "Set the root path where memory data will be stored",
+              "note": "This creates [project-name]/, common/, and private/ subdirectories.",
+              "examples": [
+                "~/Documents/my-project-memory",
+                "/Users/username/Projects/memory",
+                "C:/Users/username/Documents/memory (Windows)"
+              ]
+            },
+            "ja": {
+              "title": "メモリルートパス設定",
+              "description": "メモリデータを保存するルートパスを設定",
+              "note": "[project-name]/, common/, private/ サブディレクトリが作成されます。",
+              "examples": [
+                "~/Documents/my-project-memory",
+                "/Users/username/Projects/memory",
+                "C:/Users/username/Documents/memory (Windows)"
+              ]
+            },
+            "id": {
+              "title": "Konfigurasi Path Root Memori",
+              "description": "Tetapkan path root tempat data memori akan disimpan",
+              "note": "Subdirektori [project-name]/, common/, dan private/ akan dibuat.",
+              "examples": [
+                "~/Documents/my-project-memory",
+                "/Users/username/Projects/memory",
+                "C:/Users/username/Documents/memory (Windows)"
+              ]
+            }
+          },
+          "settings_key": "storage.base_path",
+          "required": true
+        }
+      ],
+      "optional_config": [
+        {
+          "name": "retention_policies",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Retention Policies",
+              "description": "Configure how long to keep memory data"
+            },
+            "ja": {
+              "title": "保持ポリシー",
+              "description": "メモリデータをどのくらい保持するかを設定"
+            },
+            "id": {
+              "title": "Kebijakan Retensi",
+              "description": "Konfigurasikan berapa lama menyimpan data memori"
+            }
+          },
+          "options": [
+            {
+              "name": "interactive_cleanup",
+              "localization": {
+                "en": {
+                  "description": "Enable interactive cleanup with user consent"
+                },
+                "ja": {
+                  "description": "ユーザー同意によるインタラクティブクリーンアップを有効化"
+                },
+                "id": {
+                  "description": "Aktifkan pembersihan interaktif dengan persetujuan pengguna"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "cleanup_guidance.notify_overdue_memories": true,
+                "cleanup_guidance.interactive_cleanup": true,
+                "cleanup_guidance.require_user_consent": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "git_analysis",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Git Analysis Settings",
+              "description": "Configure automatic git history analysis"
+            },
+            "ja": {
+              "title": "Git分析設定",
+              "description": "自動git履歴分析を設定"
+            },
+            "id": {
+              "title": "Pengaturan Analisis Git",
+              "description": "Konfigurasikan analisis riwayat git otomatis"
+            }
+          },
+          "options": [
+            {
+              "name": "enable_git_analysis",
+              "localization": {
+                "en": {
+                  "description": "Enable git analysis for project understanding"
+                },
+                "ja": {
+                  "description": "プロジェクト理解のためのgit分析を有効化"
+                },
+                "id": {
+                  "description": "Aktifkan analisis git untuk pemahaman proyek"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "git_history_analysis.enabled": true,
+                "git_history_analysis.trigger_on_unknown_context": true,
+                "git_history_analysis.max_commits_to_analyze": 50
+              }
+            }
+          ]
+        }
+      ],
+      "default_settings": {
+        "enabled": true,
+        "max_entries_per_category": 100,
+        "cleanup_guidance_days": 90,
+        "index_update_frequency": "realtime",
+        "project_support": {
+          "enabled": true,
+          "auto_detect_projects": true,
+          "project_identification_method": "git_remote_or_directory_name",
+          "common_memory_enabled": true,
+          "private_memory_enabled": true,
+          "git_history_analysis": {
+            "enabled": false,
+            "trigger_on_unknown_context": true,
+            "max_commit_history_days": 90,
+            "max_commits_to_analyze": 100,
+            "analyze_commit_messages": true,
+            "analyze_file_changes": true,
+            "track_branch_evolution": false,
+            "extract_project_milestones": true,
+            "include_author_info": false,
+            "analyze_code_patterns": true,
+            "performance_mode": "fast",
+            "cache_analysis_results": true,
+            "analysis_timeout_seconds": 30
+          }
+        },
+        "categories": {
+          "technical": {
+            "enabled": true,
+            "suggested_retention_days": 90,
+            "storage_location": "common",
+            "share_across_projects": true
+          },
+          "behavioral": {
+            "enabled": true,
+            "suggested_retention_days": 60,
+            "storage_location": "common",
+            "share_across_projects": true
+          },
+          "contextual": {
+            "enabled": true,
+            "suggested_retention_days": 120,
+            "storage_location": "private",
+            "share_across_projects": false
+          },
+          "user_interaction": {
+            "enabled": true,
+            "suggested_retention_days": 30,
+            "capture_full_prompts": true,
+            "capture_responses": true,
+            "include_metadata": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "session": {
+            "enabled": true,
+            "suggested_retention_days": 60,
+            "auto_session_detection": true,
+            "topic_tracking": true,
+            "quality_metrics": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "topic": {
+            "enabled": true,
+            "suggested_retention_days": 180,
+            "evolution_tracking": true,
+            "pattern_recognition": true,
+            "cross_topic_linking": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "git_history": {
+            "enabled": true,
+            "suggested_retention_days": 365,
+            "analyze_commits": true,
+            "track_milestones": true,
+            "extract_patterns": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "personal": {
+            "enabled": true,
+            "suggested_retention_days": 3650,
+            "storage_location": "private",
+            "share_across_projects": false
+          },
+          "credentials": {
+            "enabled": true,
+            "suggested_retention_days": 3650,
+            "storage_location": "private",
+            "share_across_projects": false,
+            "encryption_required": true,
+            "flexible_naming": true,
+            "naming_logic": "agent_decides_based_on_context"
+          },
+          "sensitive": {
+            "enabled": true,
+            "suggested_retention_days": 3650,
+            "storage_location": "private",
+            "share_across_projects": false,
+            "encryption_required": true,
+            "access_controlled": true
+          }
+        },
+        "compression": {
+          "enabled": false,
+          "threshold_mb": 50
+        },
+        "search": {
+          "enable_full_text": true,
+          "enable_tag_search": true,
+          "enable_topic_search": true,
+          "enable_session_search": true,
+          "max_results": 20,
+          "include_interaction_history": true
+        },
+        "capture_settings": {
+          "auto_capture_interactions": true,
+          "session_boundary_detection": true,
+          "topic_extraction": true,
+          "user_prompt_filtering": false,
+          "sensitive_data_masking": true
+        },
+        "auto_recording": {
+          "enabled": true,
+          "interaction_threshold": "medium",
+          "min_interaction_length": 10,
+          "record_all_prompts": true,
+          "record_all_responses": true,
+          "continuous_session_tracking": true,
+          "real_time_indexing": true,
+          "background_processing": false
+        },
+        "migration_settings": {
+          "auto_detect_existing_memories": true,
+          "prompt_user_for_migration": true,
+          "supported_source_systems": [
+            "cursor",
+            "github_copilot",
+            "custom_agent_frameworks",
+            "legacy_memory_systems"
+          ],
+          "migration_backup_originals": true,
+          "cross_system_compatibility": true,
+          "migration_notes_inclusion": true,
+          "selective_import_enabled": true
+        },
+        "cleanup_guidance": {
+          "notify_overdue_memories": true,
+          "interactive_cleanup": true,
+          "require_user_consent": true
+        },
+        "integration": {
+          "cross_category_linking": true,
+          "session_context_inclusion": true,
+          "topic_evolution_tracking": true,
+          "user_pattern_analysis": true
+        },
+        "storage": {
+          "base_path": "./memory"
+        }
+      },
+      "templates": {
+        "en": "# Memory Rules Agent Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `memory_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If memory_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## Memory System Architecture\n- **common/**: Shared knowledge across projects\n- **private/**: Personal/sensitive data (credentials, preferences)\n- **project/**: Project-specific memory and context\n\n## Required Implementation Algorithms\n\n### Algorithm: Memory_Initialization_Process\n**MANDATORY**: Execute when memory_rules.enabled = true\n\n**Steps**:\n1. Read memory-rules/settings.json\n2. Create directory structure: common/, private/, project/\n3. Validate storage_path permissions and create if needed\n4. Initialize memory index if project_support.enabled = true\n5. Return initialized memory system\n\n**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.\n\n### Algorithm: Memory_Storage_Process\n**MANDATORY**: Execute for all user interactions when enabled\n\n**Steps**:\n1. Check memory_rules.enabled = true\n2. Classify interaction: common/private/project\n3. Apply retention policies from settings\n4. Store with metadata (timestamp, context, importance)\n5. Update memory index for retrieval\n\n### Algorithm: Memory_Retrieval_Process\n**MANDATORY**: Execute before responding to user requests\n\n**Steps**:\n1. Check memory_rules.enabled = true\n2. Analyze current context and request\n3. Query relevant memory categories\n4. Apply relevance scoring and filtering\n5. Return optimized context for response\n\n### Algorithm: Memory_Cleanup_Process\n**MANDATORY**: Execute periodically, require user consent\n\n**Steps**:\n1. Check cleanup_guidance.enabled = true\n2. Identify memories past retention periods\n3. Notify user of overdue memories\n4. Require explicit user consent for deletion\n5. Preserve important memories regardless of age\n\n## Settings Compliance\n- Respect all settings in memory-rules/settings.json\n- Prompt user if memory_rules.enabled = false and user requests memory features\n- Never auto-enable features without user consent\n\n## Integration Points\n- **RAG Integration**: Provide context chunks for optimization\n- **Critical Thinking**: Store error corrections and learning insights\n- **User Consent**: All cleanup operations require user approval\n\n**VIOLATION**: Agents claiming memory integration without implementing these algorithms.\n\n<!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# メモリールール エージェント統合 / Memory Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`memory_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでmemory_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## メモリシステムアーキテクチャ / Memory System Architecture\n- **common/**: プロジェクト間で共有される知識 / Shared knowledge across projects\n- **private/**: 個人/機密データ（資格情報、設定） / Personal/sensitive data (credentials, preferences)\n- **project/**: プロジェクト固有のメモリとコンテキスト / Project-specific memory and context\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Memory_Initialization_Process / Algorithm: Memory_Initialization_Process\n**必須 / MANDATORY**: memory_rules.enabled = trueの場合に実行 / Execute when memory_rules.enabled = true\n\n**ステップ / Steps**:\n1. memory-rules/settings.jsonを読み取る / Read memory-rules/settings.json\n2. ディレクトリ構造を作成: common/, private/, project/ / Create directory structure: common/, private/, project/\n3. storage_pathの権限を検証し、必要に応じて作成 / Validate storage_path permissions and create if needed\n4. project_support.enabled = trueの場合、メモリインデックスを初期化 / Initialize memory index if project_support.enabled = true\n5. 初期化されたメモリシステムを返す / Return initialized memory system\n\n**重要 / CRITICAL**: 自動有効化しない - ユーザーの有効設定を尊重する / Do NOT auto-enable - respect user's enabled setting.\n\n### アルゴリズム: Memory_Storage_Process / Algorithm: Memory_Storage_Process\n**必須 / MANDATORY**: 有効時すべてのユーザー操作に対して実行 / Execute for all user interactions when enabled\n\n**ステップ / Steps**:\n1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true\n2. 操作を分類: common/private/project / Classify interaction: common/private/project\n3. 設定からの保持ポリシーを適用 / Apply retention policies from settings\n4. メタデータ付きで保存（タイムスタンプ、コンテキスト、重要度） / Store with metadata (timestamp, context, importance)\n5. 検索用のメモリインデックスを更新 / Update memory index for retrieval\n\n### アルゴリズム: Memory_Retrieval_Process / Algorithm: Memory_Retrieval_Process\n**必須 / MANDATORY**: ユーザー要求に応答する前に実行 / Execute before responding to user requests\n\n**ステップ / Steps**:\n1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true\n2. 現在のコンテキストと要求を分析 / Analyze current context and request\n3. 関連するメモリカテゴリをクエリ / Query relevant memory categories\n4. 関連性スコアリングとフィルタリングを適用 / Apply relevance scoring and filtering\n5. 応答用の最適化されたコンテキストを返す / Return optimized context for response\n\n### アルゴリズム: Memory_Cleanup_Process / Algorithm: Memory_Cleanup_Process\n**必須 / MANDATORY**: 定期的に実行、ユーザー同意を要求 / Execute periodically, require user consent\n\n**ステップ / Steps**:\n1. cleanup_guidance.enabled = trueを確認 / Check cleanup_guidance.enabled = true\n2. 保持期間を超えたメモリを特定 / Identify memories past retention periods\n3. 期限切れメモリをユーザーに通知 / Notify user of overdue memories\n4. 削除のための明示的なユーザー同意を要求 / Require explicit user consent for deletion\n5. 年齢に関係なく重要なメモリを保存 / Preserve important memories regardless of age\n\n## 設定準拠 / Settings Compliance\n- memory-rules/settings.jsonのすべての設定を尊重 / Respect all settings in memory-rules/settings.json\n- memory_rules.enabled = falseでユーザーがメモリ機能を要求した場合、ユーザーにプロンプト / Prompt user if memory_rules.enabled = false and user requests memory features\n- ユーザー同意なしで機能を自動有効化しない / Never auto-enable features without user consent\n\n## 統合ポイント / Integration Points\n- **RAG統合 / RAG Integration**: 最適化のためのコンテキストチャンクを提供 / Provide context chunks for optimization\n- **批判的思考 / Critical Thinking**: エラー修正と学習洞察を保存 / Store error corrections and learning insights\n- **ユーザー同意 / User Consent**: すべてのクリーンアップ操作にユーザー承認が必要 / All cleanup operations require user approval\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずにメモリ統合を主張するエージェント / Agents claiming memory integration without implementing these algorithms.\n\n<!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Aturan Memori\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `memory_rules.enabled = true` di settings.json.\n\n**WAJIB**: Jika memory_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Arsitektur Sistem Memori\n- **common/**: Pengetahuan bersama di seluruh proyek\n- **private/**: Data pribadi/sensitif (kredensial, preferensi)\n- **project/**: Memori dan konteks spesifik proyek\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Memory_Initialization_Process\n**WAJIB**: Eksekusi ketika memory_rules.enabled = true\n\n**Langkah-langkah**:\n1. Baca memory-rules/settings.json\n2. Buat struktur direktori: common/, private/, project/\n3. Validasi izin storage_path dan buat jika diperlukan\n4. Inisialisasi indeks memori jika project_support.enabled = true\n5. Kembalikan sistem memori yang diinisialisasi\n\n**KRITIS**: Jangan aktifkan otomatis - hormati pengaturan pengguna yang diaktifkan.\n\n### Algoritma: Memory_Storage_Process\n**WAJIB**: Eksekusi untuk semua interaksi pengguna ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa memory_rules.enabled = true\n2. Klasifikasikan interaksi: common/private/project\n3. Terapkan kebijakan retensi dari pengaturan\n4. Simpan dengan metadata (timestamp, konteks, kepentingan)\n5. Perbarui indeks memori untuk pengambilan\n\n### Algoritma: Memory_Retrieval_Process\n**WAJIB**: Eksekusi sebelum menjawab permintaan pengguna\n\n**Langkah-langkah**:\n1. Periksa memory_rules.enabled = true\n2. Analisis konteks dan permintaan saat ini\n3. Query kategori memori yang relevan\n4. Terapkan skor relevansi dan penyaringan\n5. Kembalikan konteks yang dioptimalkan untuk respons\n\n### Algoritma: Memory_Cleanup_Process\n**WAJIB**: Eksekusi secara berkala, memerlukan persetujuan pengguna\n\n**Langkah-langkah**:\n1. Periksa cleanup_guidance.enabled = true\n2. Identifikasi memori yang melewati periode retensi\n3. Beritahu pengguna tentang memori yang terlambat\n4. Perlukan persetujuan eksplisit pengguna untuk penghapusan\n5. Pertahankan memori penting terlepas dari usia\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di memory-rules/settings.json\n- Berikan prompt kepada pengguna jika memory_rules.enabled = false dan pengguna meminta fitur memori\n- Jangan pernah aktifkan fitur secara otomatis tanpa persetujuan pengguna\n\n## Titik Integrasi\n- **Integrasi RAG**: Berikan potongan konteks untuk optimasi\n- **Berpikir Kritis**: Simpan koreksi error dan wawasan pembelajaran\n- **Persetujuan Pengguna**: Semua operasi pembersihan memerlukan persetujuan pengguna\n\n**PELANGGARAN**: Agen yang mengklaim integrasi memori tanpa mengimplementasikan algoritma ini.\n\n<!-- METADATA: Template integrasi agen aturan memori dengan algoritma penyimpanan dan pengambilan -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+      }
+    },
+    "rag-rules": {
+      "name": "rag-rules",
+      "display_name": "RAG Rules",
+      "description": "Retrieval-Augmented Generation for optimal context usage",
+      "localization": {
+        "en": {
+          "plugin_name": "RAG Rules",
+          "description": "Retrieval-Augmented Generation for optimal context usage"
+        },
+        "ja": {
+          "plugin_name": "RAGルール",
+          "description": "最適なコンテキスト使用のための検索拡張生成"
+        },
+        "id": {
+          "plugin_name": "Aturan RAG",
+          "description": "Retrieval-Augmented Generation untuk penggunaan konteks optimal"
+        }
+      },
+      "mandatory_config": [],
+      "optional_config": [
+        {
+          "name": "context_optimization",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Context Window Optimization",
+              "description": "Configure context window size and dynamic adjustment"
+            },
+            "ja": {
+              "title": "コンテキストウィンドウ最適化",
+              "description": "コンテキストウィンドウサイズと動的調整を設定"
+            },
+            "id": {
+              "title": "Optimasi Jendela Konteks",
+              "description": "Konfigurasikan ukuran jendela konteks dan penyesuaian dinamis"
+            }
+          },
+          "options": [
+            {
+              "name": "standard_optimization",
+              "localization": {
+                "en": {
+                  "description": "Standard optimization for most AI models"
+                },
+                "ja": {
+                  "description": "ほとんどのAIモデルに対する標準最適化"
+                },
+                "id": {
+                  "description": "Optimasi standar untuk sebagian besar model AI"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "context_optimization.max_context_window": 128000,
+                "context_optimization.dynamic_adjustment": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "relevance_scoring",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Relevance Scoring",
+              "description": "Configure how information relevance is calculated"
+            },
+            "ja": {
+              "title": "関連性スコアリング",
+              "description": "情報関連性の計算方法を設定"
+            }
+          },
+          "options": [
+            {
+              "name": "balanced_scoring",
+              "localization": {
+                "en": {
+                  "description": "Balance relevance and recency for optimal results"
+                },
+                "ja": {
+                  "description": "最適な結果を得るために関連性と新しさをバランス"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "relevance_scoring.min_relevance_score": 0.7,
+                "relevance_scoring.recency_weight": 0.3
+              }
+            }
+          ]
+        }
+      ],
+      "default_settings": {
+        "enabled": true,
+        "context_window_optimization": {
+          "enabled": true,
+          "max_context_tokens": 8000,
+          "relevance_threshold": 0.7,
+          "progressive_expansion": true
+        },
+        "hierarchical_reading": {
+          "enabled": true,
+          "max_depth": 3,
+          "section_preference": "task_relevant",
+          "recursive_processing": true
+        },
+        "log_analysis": {
+          "enabled": true,
+          "initial_sample_lines": 50,
+          "error_priority": true,
+          "temporal_sampling": true,
+          "pattern_recognition": true
+        },
+        "reading_strategies": {
+          "document_reading": {
+            "enabled": true,
+            "toc_priority": true,
+            "summary_first": true
+          },
+          "code_reading": {
+            "enabled": true,
+            "signature_first": true,
+            "dependency_tracing": true
+          },
+          "selective_reading": {
+            "enabled": true,
+            "importance_scoring": true,
+            "chunking_size": 1000
+          }
+        },
+        "context_management": {
+          "chunking": {
+            "enabled": true,
+            "semantic_segmentation": true,
+            "max_chunk_size": 2000
+          },
+          "memory_buffer": {
+            "working_memory_mb": 50,
+            "compression_threshold": 80,
+            "cache_enabled": true
+          }
+        },
+        "tool_integration": {
+          "filesystem_tools": true,
+          "search_tools": true,
+          "external_tools": true,
+          "streaming_reads": true
+        },
+        "multi_language_support": {
+          "language_detection": true,
+          "encoding_handling": true,
+          "cross_language_patterns": true,
+          "fallback_strategies": true
+        },
+        "performance_optimization": {
+          "lazy_loading": true,
+          "parallel_processing": true,
+          "caching_strategy": "lru",
+          "prefetching": false
+        },
+        "quality_assurance": {
+          "completeness_check": true,
+          "accuracy_verification": true,
+          "cross_reference_checking": true
+        },
+        "adaptive_learning": {
+          "pattern_recognition": true,
+          "usage_tracking": true,
+          "strategy_refinement": true,
+          "context_prediction": true
+        }
+      },
+      "templates": {
+        "en": "# RAG Rules Agent Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `rag_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If rag_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## RAG System Architecture\n- **Context Optimization**: Prioritize relevant information\n- **Hierarchical Reading**: Read files strategically, not sequentially\n- **Relevance Scoring**: Weight information by importance and recency\n- **Dynamic Context Management**: Adapt context window to task requirements\n\n## Required Implementation Algorithms\n\n### Algorithm: Context_Optimization_Process\n**MANDATORY**: Execute before any user response when enabled\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Analyze user request and available context\n3. Score information relevance using recency, importance, and task-relevance\n4. Prioritize hierarchical reading: summaries → key sections → details\n5. Optimize context window for maximum information density\n6. Return optimized context for response generation\n\n### Algorithm: Information_Retrieval_Process\n**MANDATORY**: Execute when gathering information for responses\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Identify information requirements from user query\n3. Search relevant files using semantic understanding\n4. Apply hierarchical reading patterns\n5. Extract and rank relevant information chunks\n6. Integrate with memory system for personalized context\n\n### Algorithm: Response_Quality_Assurance\n**MANDATORY**: Execute after generating responses\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Validate response against source information\n3. Ensure all claims are supported by retrieved context\n4. Flag any information gaps or assumptions\n5. Optimize response completeness and accuracy\n\n## Settings Compliance\n- Respect all settings in rag-rules/settings.json\n- Apply context_window_size limits appropriately\n- Use configured relevance thresholds\n- Prompt user if rag_rules.enabled = false and complex context needed\n\n## Integration Points\n- **Memory Integration**: Use stored context for personalized retrieval\n- **Critical Thinking**: Provide quality assurance for information validation\n- **Bootstrap Coordination**: Respect loading priorities and interconnections\n\n**VIOLATION**: Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# RAGルール エージェント統合 / RAG Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`rag_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでrag_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## RAGシステムアーキテクチャ / RAG System Architecture\n- **コンテキスト最適化 / Context Optimization**: 関連情報の優先順位付け / Prioritize relevant information\n- **階層的読み取り / Hierarchical Reading**: ファイルを戦略的に読み取り、順次読み取りしない / Read files strategically, not sequentially\n- **関連性スコアリング / Relevance Scoring**: 重要度と新しさで情報を重み付け / Weight information by importance and recency\n- **動的コンテキスト管理 / Dynamic Context Management**: タスク要件にコンテキストウィンドウを適応 / Adapt context window to task requirements\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Context_Optimization_Process / Algorithm: Context_Optimization_Process\n**必須 / MANDATORY**: 有効時にユーザー応答前に実行 / Execute before any user response when enabled\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザー要求と利用可能なコンテキストを分析 / Analyze user request and available context\n3. 新しさ、重要度、タスク関連性を使用して情報関連性をスコアリング / Score information relevance using recency, importance, and task-relevance\n4. 階層的読み取りを優先: 要約 → 主要セクション → 詳細 / Prioritize hierarchical reading: summaries → key sections → details\n5. 最大情報密度のためにコンテキストウィンドウを最適化 / Optimize context window for maximum information density\n6. 応答生成用の最適化されたコンテキストを返す / Return optimized context for response generation\n\n### アルゴリズム: Information_Retrieval_Process / Algorithm: Information_Retrieval_Process\n**必須 / MANDATORY**: 応答情報の収集時に実行 / Execute when gathering information for responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザークエリからの情報要件を特定 / Identify information requirements from user query\n3. 意味理解を使用して関連ファイルを検索 / Search relevant files using semantic understanding\n4. 階層的読み取りパターンを適用 / Apply hierarchical reading patterns\n5. 関連情報チャンクを抽出しランク付け / Extract and rank relevant information chunks\n6. パーソナライズドコンテキストのためにメモリシステムと統合 / Integrate with memory system for personalized context\n\n### アルゴリズム: Response_Quality_Assurance / Algorithm: Response_Quality_Assurance\n**必須 / MANDATORY**: 応答生成後に実行 / Execute after generating responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ソース情報に対して応答を検証 / Validate response against source information\n3. すべての主張が検索されたコンテキストでサポートされていることを確認 / Ensure all claims are supported by retrieved context\n4. 情報ギャップや仮定にフラグを付ける / Flag any information gaps or assumptions\n5. 応答の完全性と正確性を最適化 / Optimize response completeness and accuracy\n\n## 設定準拠 / Settings Compliance\n- rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json\n- context_window_size制限を適切に適用 / Apply context_window_size limits appropriately\n- 設定された関連性しきい値を使用 / Use configured relevance thresholds\n- rag_rules.enabled = falseで複雑なコンテキストが必要な場合、ユーザーにプロンプト / Prompt user if rag_rules.enabled = false and complex context needed\n\n## 統合ポイント / Integration Points\n- **メモリ統合 / Memory Integration**: パーソナライズド検索のために保存されたコンテキストを使用 / Use stored context for personalized retrieval\n- **批判的思考 / Critical Thinking**: 情報検証のための品質保証を提供 / Provide quality assurance for information validation\n- **ブートストラップ調整 / Bootstrap Coordination**: 読み込み優先順位と相互接続を尊重 / Respect loading priorities and interconnections\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずに非効率的なコンテキスト管理を使用するエージェント / Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Aturan RAG\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `rag_rules.enabled = true` di settings.json.\n\n**WAJIB**: Jika rag_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Arsitektur Sistem RAG\n- **Optimasi Konteks**: Prioritaskan informasi yang relevan\n- **Pembacaan Hierarkis**: Baca file secara strategis, bukan berurutan\n- **Skor Relevansi**: Bobot informasi berdasarkan kepentingan dan kedalaman waktu\n- **Manajemen Konteks Dinamis**: Sesuaikan jendela konteks dengan persyaratan tugas\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Context_Optimization_Process\n**WAJIB**: Eksekusi sebelum respons pengguna apa pun ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Analisis permintaan pengguna dan konteks yang tersedia\n3. Skor relevansi informasi menggunakan kedalaman waktu, kepentingan, dan relevansi tugas\n4. Prioritaskan pembacaan hierarkis: ringkasan → bagian kunci → detail\n5. Optimalkan jendela konteks untuk kepadatan informasi maksimum\n6. Kembalikan konteks yang dioptimalkan untuk generasi respons\n\n### Algoritma: Information_Retrieval_Process\n**WAJIB**: Eksekusi ketika mengumpulkan informasi untuk respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Identifikasi persyaratan informasi dari query pengguna\n3. Cari file yang relevan menggunakan pemahaman semantik\n4. Terapkan pola pembacaan hierarkis\n5. Ekstrak dan rangking potongan informasi yang relevan\n6. Integrasikan dengan sistem memori untuk konteks yang dipersonalisasi\n\n### Algoritma: Response_Quality_Assurance\n**WAJIB**: Eksekusi setelah menghasilkan respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Validasi respons terhadap informasi sumber\n3. Pastikan semua klaim didukung oleh konteks yang diambil\n4. Tandai kesenjangan informasi atau asumsi apa pun\n5. Optimalkan kelengkapan dan akurasi respons\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di rag-rules/settings.json\n- Terapkan batas context_window_size secara tepat\n- Gunakan ambang relevansi yang dikonfigurasi\n- Berikan prompt kepada pengguna jika rag_rules.enabled = false dan konteks kompleks diperlukan\n\n## Titik Integrasi\n- **Integrasi Memori**: Gunakan konteks tersimpan untuk pengambilan yang dipersonalisasi\n- **Berpikir Kritis**: Berikan jaminan kualitas untuk validasi informasi\n- **Koordinasi Bootstrap**: Hormati prioritas pemuatan dan interkoneksi\n\n**PELANGGARAN**: Agen yang menggunakan manajemen konteks yang tidak efisien tanpa mengimplementasikan algoritma ini.\n\n<!-- METADATA: Template integrasi agen aturan RAG dengan algoritma optimasi konteks dan pengambilan -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+      }
+    },
+    "critical-thinking-rules": {
+      "name": "critical-thinking-rules",
+      "display_name": "Critical Thinking Rules",
+      "description": "Intellectual rigor and hallucination prevention",
+      "localization": {
+        "en": {
+          "plugin_name": "Critical Thinking Rules",
+          "description": "Intellectual rigor and hallucination prevention"
+        },
+        "ja": {
+          "plugin_name": "批判的思考ルール",
+          "description": "知的厳密さと幻覚防止"
+        },
+        "id": {
+          "plugin_name": "Aturan Berpikir Kritis",
+          "description": "Keketatan intelektual dan pencegahan halusinasi"
+        }
+      },
+      "mandatory_config": [],
+      "optional_config": [
+        {
+          "name": "verification_levels",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Verification Levels",
+              "description": "Configure how thoroughly to verify information"
+            },
+            "ja": {
+              "title": "検証レベル",
+              "description": "情報の検証の徹底度を設定"
+            },
+            "id": {
+              "title": "Tingkat Verifikasi",
+              "description": "Konfigurasikan seberapa menyeluruh verifikasi informasi"
+            }
+          },
+          "options": [
+            {
+              "name": "balanced_verification",
+              "localization": {
+                "en": {
+                  "description": "Verify factual claims with reasonable rigor"
+                },
+                "ja": {
+                  "description": "合理的な厳密さで事実的主張を検証"
+                },
+                "id": {
+                  "description": "Verifikasi klaim faktual dengan ketelitian yang wajar"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "verification.factual_claim_verification": true,
+                "verification.min_sources_required": 2
+              }
+            }
+          ]
+        },
+        {
+          "name": "error_handling",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Error Handling",
+              "description": "Configure error admission and correction behavior"
+            },
+            "ja": {
+              "title": "エラー処理",
+              "description": "エラー承認と修正の動作を設定"
+            },
+            "id": {
+              "title": "Penanganan Error",
+              "description": "Konfigurasikan perilaku pengakuan dan koreksi error"
+            }
+          },
+          "options": [
+            {
+              "name": "transparent_error_handling",
+              "localization": {
+                "en": {
+                  "description": "Immediately admit errors and log corrections"
+                },
+                "ja": {
+                  "description": "すぐにエラーを承認し修正をログ"
+                },
+                "id": {
+                  "description": "Segera akui error dan log koreksi"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "error_handling.immediate_error_admission": true,
+                "error_handling.log_corrections": true
+              }
+            }
+          ]
+        }
+      ],
+      "default_settings": {
+        "enabled": true,
+        "verification_level": "standard",
+        "error_admission": {
+          "enabled": true,
+          "immediate_correction": true,
+          "transparency_logging": true
+        },
+        "assumption_challenge": {
+          "enabled": true,
+          "challenge_threshold": "medium",
+          "automatic_detection": true
+        },
+        "ground_check": {
+          "enabled": true,
+          "required_confirmations": 2,
+          "verification_timeout_seconds": 30,
+          "fallback_to_uncertainty": true
+        },
+        "hallucination_prevention": {
+          "enabled": true,
+          "reality_checks": true,
+          "conservative_estimation": true,
+          "uncertainty_qualification": true
+        },
+        "verification_categories": {
+          "factual": {
+            "min_sources": 3,
+            "require_independent": true
+          },
+          "technical": {
+            "require_testing": true,
+            "allow_simulation": true
+          },
+          "logical": {
+            "check_consistency": true,
+            "identify_fallacies": true
+          }
+        },
+        "confidence_calibration": {
+          "enabled": true,
+          "track_accuracy": true,
+          "adjust_thresholds": true
+        },
+        "response_formats": {
+          "balanced_analysis": true,
+          "error_correction": true,
+          "assumption_challenge": true
+        }
+      },
+      "templates": {
+        "en": "# Critical Thinking Rules Agent Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `critical_thinking_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If critical_thinking_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## Critical Thinking Framework\n- **Error Admission**: Immediately acknowledge and correct mistakes\n- **Assumption Challenge**: Question implicit assumptions in requests\n- **Ground Check Verification**: Validate claims with evidence\n- **Hallucination Prevention**: Conservative responses with uncertainty qualification\n\n## Required Implementation Algorithms\n\n### Algorithm: Error_Admission_Process\n**MANDATORY**: Execute immediately when errors are detected\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Monitor responses for inaccuracies or inconsistencies\n3. Immediately acknowledge detected errors\n4. Provide detailed explanation of the mistake\n5. Offer corrected information with supporting evidence\n6. Log correction for memory system integration\n\n### Algorithm: Assumption_Challenge_Process\n**MANDATORY**: Execute when analyzing user requests\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Parse user request for implicit assumptions\n3. Evaluate assumptions against available evidence\n4. Generate counter-examples and alternative perspectives\n5. Present balanced analysis with multiple viewpoints\n6. Request clarification when assumptions are unclear\n\n### Algorithm: Ground_Check_Verification_Process\n**MANDATORY**: Execute before making factual claims\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Identify factual claims in planned responses\n3. Gather independent verification (3+ sources when possible)\n4. Apply technical validation for technical claims\n5. Use formal reasoning for logical claims\n6. Qualify uncertainty and provide confidence levels\n\n### Algorithm: Response_Validation_Process\n**MANDATORY**: Execute on all responses when enabled\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Review response for potential hallucinations\n3. Assess technical, practical, and logical feasibility\n4. Use conservative estimation rather than over-confidence\n5. Apply uncertainty qualification phrases appropriately\n6. Structure responses: strengths, concerns, recommendations\n\n## Settings Compliance\n- Respect all settings in critical-thinking-rules/settings.json\n- Apply configured verification thresholds\n- Use specified uncertainty qualification formats\n- Prompt user if critical_thinking_rules.enabled = false during complex reasoning\n\n## Integration Points\n- **Memory Integration**: Store error corrections and learning insights\n- **RAG Integration**: Provide quality assurance for retrieved information\n- **Bootstrap Coordination**: Respect rule interconnections and priorities\n\n**VIOLATION**: Agents responding without critical analysis or error checking.\n\n<!-- METADATA: Critical thinking rules agent integration template with verification and analysis algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# 批判的思考ルール エージェント統合 / Critical Thinking Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`critical_thinking_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでcritical_thinking_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## 批判的思考フレームワーク / Critical Thinking Framework\n- **エラー承認 / Error Admission**: すぐに間違いを認め修正する / Immediately acknowledge and correct mistakes\n- **仮定挑戦 / Assumption Challenge**: 要求内の暗黙の仮定に疑問を呈する / Question implicit assumptions in requests\n- **根拠確認検証 / Ground Check Verification**: 証拠で主張を検証する / Validate claims with evidence\n- **幻覚防止 / Hallucination Prevention**: 不確実性資格付きの保守的な応答 / Conservative responses with uncertainty qualification\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Error_Admission_Process / Algorithm: Error_Admission_Process\n**必須 / MANDATORY**: エラーが検出された場合すぐに実行 / Execute immediately when errors are detected\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 不正確性や矛盾のために応答を監視 / Monitor responses for inaccuracies or inconsistencies\n3. 検出されたエラーをすぐに承認 / Immediately acknowledge detected errors\n4. 間違いの詳細な説明を提供 / Provide detailed explanation of the mistake\n5. 支持証拠付きで修正された情報を提供 / Offer corrected information with supporting evidence\n6. メモリシステム統合のために修正をログ / Log correction for memory system integration\n\n### アルゴリズム: Assumption_Challenge_Process / Algorithm: Assumption_Challenge_Process\n**必須 / MANDATORY**: ユーザー要求を分析時に実行 / Execute when analyzing user requests\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 暗黙の仮定のためにユーザー要求を解析 / Parse user request for implicit assumptions\n3. 利用可能な証拠に対して仮定を評価 / Evaluate assumptions against available evidence\n4. 反例と代替視点を作成 / Generate counter-examples and alternative perspectives\n5. 複数の視点でバランスの取れた分析を提示 / Present balanced analysis with multiple viewpoints\n6. 仮定が不明瞭な場合に明確化を要求 / Request clarification when assumptions are unclear\n\n### アルゴリズム: Ground_Check_Verification_Process / Algorithm: Ground_Check_Verification_Process\n**必須 / MANDATORY**: 事実的主張を行う前に実行 / Execute before making factual claims\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 計画された応答で事実的主張を特定 / Identify factual claims in planned responses\n3. 独立した検証を収集（可能な場合は3つ以上のソース） / Gather independent verification (3+ sources when possible)\n4. 技術的主張に技術的検証を適用 / Apply technical validation for technical claims\n5. 論理的主張に形式的推論を使用 / Use formal reasoning for logical claims\n6. 不確実性を資格付け、信頼レベルを提供 / Qualify uncertainty and provide confidence levels\n\n### アルゴリズム: Response_Validation_Process / Algorithm: Response_Validation_Process\n**必須 / MANDATORY**: 有効時にすべての応答で実行 / Execute on all responses when enabled\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 潜在的な幻覚のために応答を確認 / Review response for potential hallucinations\n3. 技術的、実用的、論理的可能性を評価 / Assess technical, practical, and logical feasibility\n4. 過度な自信よりも保守的な推定を使用 / Use conservative estimation rather than over-confidence\n5. 不確実性資格付けフレーズを適切に適用 / Apply uncertainty qualification phrases appropriately\n6. 応答を構造化: 強み、懸念、推奨事項 / Structure responses: strengths, concerns, recommendations\n\n## 設定準拠 / Settings Compliance\n- critical-thinking-rules/settings.jsonのすべての設定を尊重 / Respect all settings in critical-thinking-rules/settings.json\n- 設定された検証しきい値を適用 / Apply configured verification thresholds\n- 指定された不確実性資格付け形式を使用 / Use specified uncertainty qualification formats\n- 複雑な推論中にcritical_thinking_rules.enabled = falseの場合、ユーザーにプロンプト / Prompt user if critical_thinking_rules.enabled = false during complex reasoning\n\n## 統合ポイント / Integration Points\n- **メモリ統合 / Memory Integration**: エラー修正と学習洞察を保存 / Store error corrections and learning insights\n- **RAG統合 / RAG Integration**: 検索された情報の品質保証を提供 / Provide quality assurance for retrieved information\n- **ブートストラップ調整 / Bootstrap Coordination**: ルール相互接続と優先順位を尊重 / Respect rule interconnections and priorities\n\n**違反 / VIOLATION**: 批判的分析やエラーチェックなしで応答するエージェント / Agents responding without critical analysis or error checking.\n\n<!-- METADATA: Critical thinking rules agent integration template with verification and analysis algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Aturan Berpikir Kritis\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `critical_thinking_rules.enabled = true` di settings.json.\n\n**WAJIB**: Jika critical_thinking_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Kerangka Berpikir Kritis\n- **Pengakuan Error**: Segera akui dan koreksi kesalahan\n- **Tantangan Asumsi**: Pertanyakan asumsi implisit dalam permintaan\n- **Verifikasi Pemeriksaan Dasar**: Validasi klaim dengan bukti\n- **Pencegahan Halusinasi**: Respons konservatif dengan kualifikasi ketidakpastian\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Error_Admission_Process\n**WAJIB**: Eksekusi segera ketika error terdeteksi\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Monitor respons untuk ketidakakuratan atau inkonsistensi\n3. Segera akui error yang terdeteksi\n4. Berikan penjelasan detail tentang kesalahan\n5. Tawarkan informasi yang dikoreksi dengan bukti pendukung\n6. Log koreksi untuk integrasi sistem memori\n\n### Algoritma: Assumption_Challenge_Process\n**WAJIB**: Eksekusi ketika menganalisis permintaan pengguna\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Parse permintaan pengguna untuk asumsi implisit\n3. Evaluasi asumsi terhadap bukti yang tersedia\n4. Hasilkan contoh kontra dan perspektif alternatif\n5. Presentasikan analisis seimbang dengan berbagai sudut pandang\n6. Minta klarifikasi ketika asumsi tidak jelas\n\n### Algoritma: Ground_Check_Verification_Process\n**WAJIB**: Eksekusi sebelum membuat klaim faktual\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Identifikasi klaim faktual dalam respons yang direncanakan\n3. Kumpulkan verifikasi independen (3+ sumber jika memungkinkan)\n4. Terapkan validasi teknis untuk klaim teknis\n5. Gunakan penalaran formal untuk klaim logis\n6. Kualifikasi ketidakpastian dan berikan tingkat kepercayaan\n\n### Algoritma: Response_Validation_Process\n**WAJIB**: Eksekusi pada semua respons ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Tinjau respons untuk potensi halusinasi\n3. Nilai kelayakan teknis, praktis, dan logis\n4. Gunakan estimasi konservatif daripada kepercayaan berlebihan\n5. Terapkan frasa kualifikasi ketidakpastian secara tepat\n6. Struktur respons: kekuatan, keprihatinan, rekomendasi\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di critical-thinking-rules/settings.json\n- Terapkan ambang verifikasi yang dikonfigurasi\n- Gunakan format kualifikasi ketidakpastian yang ditentukan\n- Berikan prompt kepada pengguna jika critical_thinking_rules.enabled = false selama penalaran kompleks\n\n## Titik Integrasi\n- **Integrasi Memori**: Simpan koreksi error dan wawasan pembelajaran\n- **Integrasi RAG**: Berikan jaminan kualitas untuk informasi yang diambil\n- **Koordinasi Bootstrap**: Hormati interkoneksi dan prioritas aturan\n\n**PELANGGARAN**: Agen yang merespons tanpa analisis kritis atau pemeriksaan error.\n\n<!-- METADATA: Template integrasi agen aturan berpikir kritis dengan algoritma verifikasi dan analisis -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+      }
+    }
+  },
+  "rootTemplates": {
+    "en": "# Agentic Rules Framework Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation.\n\n**MANDATORY**: Agents must respect the bootstrap configuration in `bootstrap.json` and only load rule files when their corresponding settings are enabled.\n\n## Framework Overview\nThis framework provides structured AI agent behaviors through modular rules:\n- **memory-rules/**: Persistent memory system for context retention\n- **rag-rules/**: Retrieval-augmented generation for optimal context usage\n- **critical-thinking-rules/**: Intellectual rigor and hallucination prevention\n\n## Bootstrap Compliance\nBefore loading any rule files, agents MUST:\n1. Read `bootstrap.json` to understand the framework configuration\n2. Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements\n3. Check loading sequence and entry points\n4. Validate user consent and settings\n5. Only load enabled rule integrations\n\n## Rule Integration Requirements\nEach rule provides specific algorithmic implementations that agents must actively execute:\n\n### Memory Rules Integration\n**MANDATORY**: If `memory_rules.enabled = true` in settings.json\n- Location: `memory-rules/AGENTS.md`\n- Implements: Memory initialization, storage, retrieval, and cleanup processes\n- Requires: Proper path configuration and retention policies\n\n### RAG Rules Integration\n**MANDATORY**: If `rag_rules.enabled = true` in settings.json\n- Location: `rag-rules/AGENTS.md`\n- Implements: Context optimization, relevance scoring, and retrieval algorithms\n- Requires: Context window configuration and scoring thresholds\n\n### Critical Thinking Rules Integration\n**MANDATORY**: If `critical_thinking_rules.enabled = true` in settings.json\n- Location: `critical-thinking-rules/AGENTS.md`\n- Implements: Error admission, assumption challenge, and verification processes\n- Requires: Verification thresholds and error handling settings\n\n## Framework Isolation\n**CRITICAL**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.\n\n## Agent Responsibility\nAgents using this framework must:\n- Respect all user settings and configurations\n- Provide clear feedback when rules are disabled\n- Maintain framework neutrality in generated content\n- Follow bootstrap compliance requirements\n\n**VIOLATION**: Agents that do not respect these integration requirements or user settings.\n\n<!-- METADATA: Root level agent integration template with framework overview -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+    "ja": "# Agentic Rules Framework 統合 / Agentic Rules Framework Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで対応する設定が有効になっている場合のみ使用してください。\n\n**必須 / MANDATORY**: エージェントは`bootstrap.json`のブートストラップ設定を尊重し、対応する設定が有効になっている場合のみルールファイルを読み込む必要があります。\n\n## フレームワーク概要 / Framework Overview\nこのフレームワークはモジュラーなルールを通じて構造化されたAIエージェント動作を提供します：\n- **memory-rules/**: コンテキスト保持のための永続的なメモリシステム / Persistent memory system for context retention\n- **rag-rules/**: 最適なコンテキスト使用のための検索拡張生成 / Retrieval-augmented generation for optimal context usage\n- **critical-thinking-rules/**: 知的厳密性と幻覚防止 / Intellectual rigor and hallucination prevention\n\n## ブートストラップ準拠 / Bootstrap Compliance\nルールファイルを読み込む前に、エージェントは必ず：\n1. フレームワーク設定を理解するために`bootstrap.json`を読み取る / Read `bootstrap.json` to understand the framework configuration\n2. 詳細なアルゴリズム仕様と準拠要件については`Bootstrap.md`を確認 / Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements\n3. 読み込み順序とエントリーポイントを確認 / Check loading sequence and entry points\n4. ユーザー同意と設定を検証 / Validate user consent and settings\n5. 有効化されたルール統合のみを読み込む / Only load enabled rule integrations\n\n## ルール統合要件 / Rule Integration Requirements\n各ルールはエージェントが積極的に実行する必要がある特定のアルゴリズム実装を提供します：\n\n### メモリールール統合 / Memory Rules Integration\n**必須 / MANDATORY**: settings.jsonで`memory_rules.enabled = true`の場合\n- 場所 / Location: `memory-rules/AGENTS.md`\n- 実装 / Implements: メモリ初期化、保存、検索、クリーンアッププロセス / Memory initialization, storage, retrieval, and cleanup processes\n- 必要 / Requires: 適切なパス設定と保持ポリシー / Proper path configuration and retention policies\n\n### RAGルール統合 / RAG Rules Integration\n**必須 / MANDATORY**: settings.jsonで`rag_rules.enabled = true`の場合\n- 場所 / Location: `rag-rules/AGENTS.md`\n- 実装 / Implements: コンテキスト最適化、関連性スコアリング、検索アルゴリズム / Context optimization, relevance scoring, and retrieval algorithms\n- 必要 / Requires: コンテキストウィンドウ設定とスコアリングしきい値 / Context window configuration and scoring thresholds\n\n### 批判的思考ルール統合 / Critical Thinking Rules Integration\n**必須 / MANDATORY**: settings.jsonで`critical_thinking_rules.enabled = true`の場合\n- 場所 / Location: `critical-thinking-rules/AGENTS.md`\n- 実装 / Implements: エラー承認、仮定挑戦、検証プロセス / Error admission, assumption challenge, and verification processes\n- 必要 / Requires: 検証しきい値とエラー処理設定 / Verification thresholds and error handling settings\n\n## フレームワーク分離 / Framework Isolation\n**重要 / CRITICAL**: このフレームワークはツールとして残り、ユーザーprojectコードベースに含めるべきではありません。すべての統合はそれぞれのディレクトリのルールファイルを通じて行われます。\n\n## エージェント責任 / Agent Responsibility\nこのフレームワークを使用するエージェントは：\n- すべてのユーザー設定と設定を尊重する / Respect all user settings and configurations\n- ルールが無効化されている場合に明確なフィードバックを提供する / Provide clear feedback when rules are disabled\n- 生成されたコンテンツでフレームワークのニュートラリティを維持する / Maintain framework neutrality in generated content\n- ブートストラップ準拠要件に従う / Follow bootstrap compliance requirements\n\n**違反 / VIOLATION**: これらの統合要件またはユーザー設定を尊重しないエージェント / Agents that do not respect these integration requirements or user settings.\n\n<!-- METADATA: Root level agent integration template with framework overview (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+    "id": "# Integrasi Kerangka Aturan Agentic\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna.\n\n**WAJIB**: Agen harus menghormati konfigurasi bootstrap di `bootstrap.json` dan hanya memuat file aturan ketika pengaturan yang sesuai diaktifkan.\n\n## Gambaran Kerangka\nKerangka ini menyediakan perilaku agen AI terstruktur melalui aturan modular:\n- **memory-rules/**: Sistem memori persisten untuk retensi konteks\n- **rag-rules/**: Retrieval-augmented generation untuk penggunaan konteks optimal\n- **critical-thinking-rules/**: Keketatan intelektual dan pencegahan halusinasi\n\n## Kepatuhan Bootstrap\nSebelum memuat file aturan apa pun, agen HARUS:\n1. Baca `bootstrap.json` untuk memahami konfigurasi kerangka\n2. Tinjau `Bootstrap.md` untuk spesifikasi algoritma detail dan persyaratan kepatuhan\n3. Periksa urutan pemuatan dan titik masuk\n4. Validasi persetujuan dan pengaturan pengguna\n5. Hanya muat integrasi aturan yang diaktifkan\n\n## Persyaratan Integrasi Aturan\nSetiap aturan menyediakan implementasi algoritma spesifik yang harus dieksekusi agen secara aktif:\n\n### Integrasi Aturan Memori\n**WAJIB**: Jika `memory_rules.enabled = true` di settings.json\n- Lokasi: `memory-rules/AGENTS.md`\n- Mengimplementasikan: Proses inisialisasi memori, penyimpanan, pengambilan, dan pembersihan\n- Membutuhkan: Konfigurasi path yang tepat dan kebijakan retensi\n\n### Integrasi Aturan RAG\n**WAJIB**: Jika `rag_rules.enabled = true` di settings.json\n- Lokasi: `rag-rules/AGENTS.md`\n- Mengimplementasikan: Optimasi konteks, skor relevansi, dan algoritma pengambilan\n- Membutuhkan: Konfigurasi jendela konteks dan ambang skor\n\n### Integrasi Aturan Berpikir Kritis\n**WAJIB**: Jika `critical_thinking_rules.enabled = true` di settings.json\n- Lokasi: `critical-thinking-rules/AGENTS.md`\n- Mengimplementasikan: Pengakuan error, tantangan asumsi, dan proses verifikasi\n- Membutuhkan: Ambang verifikasi dan pengaturan penanganan error\n\n## Isolasi Kerangka\n**KRITIS**: Kerangka ini tetap menjadi alat dan tidak boleh pernah disertakan dalam basis kode proyek pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.\n\n## Tanggung Jawab Agen\nAgen yang menggunakan kerangka ini harus:\n- Menghormati semua pengaturan dan konfigurasi pengguna\n- Berikan umpan balik yang jelas ketika aturan dinonaktifkan\n- Pertahankan netralitas kerangka dalam konten yang dihasilkan\n- Ikuti persyaratan kepatuhan bootstrap\n\n**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.\n\n<!-- METADATA: Template integrasi agen tingkat root dengan gambaran kerangka -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+  }
+};  // ---AUTO GENERATED STATICWEBCONFIG END---
+
+  // ---AUTO GENERATED LOCALIZATION START---
+  const localization = JSON.parse(`{
+  "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
+  "en": {
+    "header": {
+      "title": "🤖 Agentic Rules Setup",
+      "description": "Configure your AI agent rules with ease"
+    },
+    "language": {
+      "agentLabel": "Agent Language:",
+      "agentHelp": "Language for generated agent files",
+      "fileTypeLabel": "Agent File Type:",
+      "fileTypeHelp": "Choose AGENTS.md or GEMINI.md format",
+      "helpText": "<strong>Agent Language:</strong> Controls the language of generated agent files (AGENTS.md or GEMINI.md)"
+    },
+    "rules": {
+      "title": "⚙️ Select Rules to Activate",
+      "description": "Choose which AI behavior rules you want to enable for your agent.",
+      "enable": "Enable"
+    },
+    "descriptions": {
+      "memory": "Memory system integration algorithms",
+      "rag": "Context optimization and retrieval algorithms",
+      "critical": "Critical analysis and verification algorithms"
+    },
+    "config": {
+      "title": "🔧 Configuration Options",
+      "description": "Configure settings for the selected rules below."
+    },
+    "action": {
+      "title": "🚀 Generate Configuration",
+      "generateBtn": "Generate Configuration Files",
+      "resetBtn": "Factory Reset",
+      "generating": "Generating..."
+    },
+    "howItWorks": "<strong>How it works:</strong><br>• <strong>Checking rules</strong> above selects which AI behaviors to enable<br>• <strong>Configuration options</strong> appear below when rules are selected<br>• <strong>Generate button</strong> creates the actual configuration files<br>• <strong>Factory Reset</strong> clears all selections and configurations",
+    "status": {
+      "restored": "✅ Restored your previous settings"
+    },
+    "fileGeneration": {
+      "title": "✅ Configuration Generated!",
+      "subtitle": "Copy and save these files to your AI project:",
+      "copyButton": "📋 Copy",
+      "saveButton": "💾 Save",
+      "downloadButton": "📥 Download",
+      "createButton": "📁 Create",
+      "copied": "✅ Copied!",
+      "saved": "✅ Saved!",
+      "downloaded": "✅ Downloaded!",
+      "locationsTitle": "📁 Exact File Locations:",
+      "projectRoot": "Your AI Project Root Directory:",
+      "stepsTitle": "Steps:",
+      "step1": "1. Create the folder structure shown above in your AI project",
+      "step2": "2. Copy each code block above into the exact filename and location",
+      "step3": "3. Save all files - your AI agent will now use these rules!"
+    },
+    "cli": {
+      "title": "🤖 Agentic Rules Framework Setup",
+      "description": "Configure the Agentic Rules Framework by activating rule templates.",
+      "detection_title": "Rule Plugin Detection",
+      "detection_found": "Found {count} rule plugin(s):",
+      "detection_none": "No rule plugins found in current directory.",
+      "ui_lang_title": "Interface Language Selection",
+      "ui_lang_prompt": "Select language for the setup interface:",
+      "agent_lang_title": "Agent Language Selection",
+      "agent_lang_prompt": "Select language for generated agent files:",
+      "lang_option_1": "🇺🇸 English",
+      "lang_option_2": "🇯🇵 日本語",
+      "lang_invalid": "Please enter 1, 2, 'en', or 'ja'.",
+      "enter_choice": "Enter choice ({choices}...)",
+      "recommended_text": " (Recommended)",
+      "ui_lang_selected": "UI Language: {lang}",
+      "agent_lang_selected": "Agent Language: {lang}",
+      "file_type_selected": "Agent File Type: {type}",
+      "file_type_title": "File Type Selection",
+      "file_type_prompt": "Select the type of agent file to generate:",
+      "file_type_option_1": "1. AGENTS.md (Standard agent integration file)",
+      "file_type_option_2": "2. GEMINI.md (Gemini-specific integration file)",
+      "file_type_option_3": "3. CLAUDE.md (Claude-specific integration file)",
+      "file_type_invalid": "Please enter 1, 2, 3, 'agents', 'gemini', or 'claude'.",
+      "rules_title": "Rule Selection",
+      "rules_description": "Choose which AI behavior rules you want to enable for your agent.",
+      "rules_available": "Available rules:",
+      "rules_prompt": "Enter rule numbers (comma-separated), 'all', or press Enter for interactive selection:",
+      "rules_invalid": "Invalid rule selection. Available rules: {available}",
+      "rules_none_selected": "No rules selected. Setup cancelled.",
+      "rules_selected": "Selected rules: {rules}",
+      "activation_title": "Rule Activation",
+      "activation_confirm": "The following templates will be activated:",
+      "activation_warning": "⚠️  WARNING: This will overwrite existing {file_type} files!",
+      "activation_backup": "Existing files will be backed up as {file_type}.backup",
+      "activation_prompt": "Continue with activation? (yes/no):",
+      "activation_cancelled": "Activation cancelled by user.",
+      "activation_invalid": "Please answer 'yes' or 'no'.",
+      "processing_title": "Activating Rules",
+      "processing_rule": "Activating: {rule}",
+      "processing_template": "Using template: {template}",
+      "processing_backup": "Backing up existing file...",
+      "processing_success": "✓ Successfully activated {rule}",
+      "processing_error": "✗ Failed to activate {rule}: {error}",
+      "config_title": "Configuration Setup",
+      "config_description": "Configure settings for the activated rules.",
+      "config_prompt": "Configure rule settings now? (yes/no):",
+      "config_skip": "Configuration skipped. You can configure settings later.",
+      "config_rule_title": "Configuring: {rule}",
+      "config_memory_path_examples": "Example paths:",
+      "config_memory_path_note": "Note",
+      "config_memory_path_prompt": "Enter memory storage path:",
+      "config_memory_path_error_empty": "Path cannot be empty.",
+      "config_memory_path_create_prompt": "Path does not exist. Create it? (yes/no):",
+      "config_memory_path_create_success": "✓ Created directory: {path}",
+      "config_memory_path_create_error": "✗ Failed to create directory: {error}",
+      "config_memory_path_confirm_path": "Using path: {path}",
+      "config_memory_path_confirm_structure": "Directory structure",
+      "config_memory_path_confirm_prompt": "Use this path? (yes/no):",
+      "config_memory_path_confirm_invalid": "Please answer 'yes' or 'no'."
+    }
+  },
+  "ja": {
+    "header": {
+      "title": "🤖 Agentic Rulesセットアップ",
+      "description": "AIエージェントのルールを簡単に設定"
+    },
+    "language": {
+      "agentLabel": "エージェント言語:",
+      "agentHelp": "生成されるエージェントファイルの言語",
+      "fileTypeLabel": "エージェントファイルタイプ:",
+      "fileTypeHelp": "AGENTS.mdまたはGEMINI.md形式を選択",
+      "helpText": "<strong>エージェント言語:</strong> AGENTS.mdファイルの言語を制御"
+    },
+    "rules": {
+      "title": "⚙️ 有効化するルールを選択",
+      "description": "エージェントで有効化するAI動作ルールを選択してください。",
+      "enable": "有効化"
+    },
+    "descriptions": {
+      "memory": "メモリシステム統合アルゴリズム",
+      "rag": "コンテキスト最適化および検索アルゴリズム",
+      "critical": "批判的分析および検証アルゴリズム"
+    },
+    "config": {
+      "title": "🔧 設定オプション",
+      "description": "選択したルールの設定を行ってください。"
+    },
+    "action": {
+      "title": "🚀 設定ファイルを生成",
+      "generateBtn": "設定ファイルを生成",
+      "resetBtn": "ファクトリーリセット",
+      "generating": "生成中..."
+    },
+    "howItWorks": "<strong>動作方法:</strong><br>• 上記の<strong>ルールチェック</strong>で有効化するAI動作を選択<br>• <strong>設定オプション</strong>はルール選択後に表示<br>• <strong>生成ボタン</strong>で実際の設定ファイルを作成<br>• <strong>ファクトリーリセット</strong>ですべての選択と設定をクリア",
+    "status": {
+      "restored": "✅ 以前の設定を復元しました"
+    },
+    "fileGeneration": {
+      "title": "✅ 設定が生成されました！",
+      "subtitle": "これらのファイルをAIプロジェクトにコピーして保存してください：",
+      "copyButton": "📋 コピー",
+      "saveButton": "💾 保存",
+      "downloadButton": "📥 ダウンロード",
+      "createButton": "📁 作成",
+      "copied": "✅ コピーしました！",
+      "saved": "✅ 保存しました！",
+      "downloaded": "✅ ダウンロードしました！",
+      "locationsTitle": "📁 正確なファイルの場所：",
+      "projectRoot": "AIプロジェクトのルートディレクトリ：",
+      "stepsTitle": "手順：",
+      "step1": "1. 上記のフォルダ構造をAIプロジェクトに作成してください",
+      "step2": "2. 上記の各コードブロックを正確なファイル名と場所にコピーしてください",
+      "step3": "3. すべてのファイルを保存してください - AIエージェントがこれらのルールを使用できるようになります！"
+    },
+    "cli": {
+      "title": "🤖 Agentic Rules Framework セットアップ",
+      "description": "ルールテンプレートをアクティブ化してAgentic Rules Frameworkを設定します。",
+      "detection_title": "ルールプラグイン検出",
+      "detection_found": "{count}個のルールプラグインが見つかりました：",
+      "detection_none": "現在のディレクトリにルールプラグインが見つかりません。",
+      "ui_lang_title": "インターフェース言語選択",
+      "ui_lang_prompt": "セットアップインターフェースの言語を選択してください：",
+      "agent_lang_title": "エージェント言語選択",
+      "agent_lang_prompt": "生成されるエージェントファイルの言語を選択してください：",
+      "lang_option_1": "🇺🇸 英語",
+      "lang_option_2": "🇯🇵 日本語",
+      "lang_invalid": "1、2、'en'、または'ja'を入力してください。",
+      "enter_choice": "選択を入力してください（{choices}...）",
+      "recommended_text": "（おすすめ）",
+      "ui_lang_selected": "インターフェース言語: {lang}",
+      "agent_lang_selected": "エージェント言語: {lang}",
+      "file_type_selected": "エージェントファイルタイプ: {type}",
+      "file_type_title": "ファイルタイプ選択",
+      "file_type_prompt": "生成するエージェントファイルのタイプを選択してください：",
+      "file_type_option_1": "1. AGENTS.md (標準的なエージェント統合ファイル)",
+      "file_type_option_2": "2. GEMINI.md (Gemini固有の統合ファイル)",
+      "file_type_option_3": "3. CLAUDE.md (Claude固有の統合ファイル)",
+      "file_type_invalid": "1、2、3、'agents'、'gemini'、または'claude'を入力してください。",
+      "rules_title": "ルール選択",
+      "rules_description": "エージェントで有効化するAI動作ルールを選択してください。",
+      "rules_available": "利用可能なルール：",
+      "rules_prompt": "ルール番号（カンマ区切り）、'all'、またはインタラクティブ選択の場合はEnterを押してください：",
+      "rules_invalid": "無効なルール選択です。利用可能なルール：{available}",
+      "rules_none_selected": "ルールが選択されていません。セットアップをキャンセルしました。",
+      "rules_selected": "選択されたルール：{rules}",
+      "activation_title": "ルールアクティベーション",
+      "activation_confirm": "以下のテンプレートがアクティブ化されます：",
+      "activation_warning": "⚠️  警告：これにより既存の{file_type}ファイルが上書きされます！",
+      "activation_backup": "既存のファイルは{file_type}.backupとしてバックアップされます",
+      "activation_prompt": "アクティベーションを続行しますか？(yes/no)：",
+      "activation_cancelled": "ユーザーによってアクティベーションがキャンセルされました。",
+      "activation_invalid": "'yes'または'no'で答えてください。",
+      "processing_title": "ルールアクティベーション中",
+      "processing_rule": "アクティベーション中：{rule}",
+      "processing_template": "使用するテンプレート：{template}",
+      "processing_backup": "既存のファイルをバックアップ中...",
+      "processing_success": "✓ {rule}のアクティベーションに成功しました",
+      "processing_error": "✗ {rule}のアクティベーションに失敗しました：{error}",
+      "config_title": "設定セットアップ",
+      "config_description": "アクティブ化されたルールの設定を行います。",
+      "config_prompt": "今すぐルール設定を行いますか？(yes/no)：",
+      "config_skip": "設定をスキップしました。あとで設定を行うことができます。",
+      "config_rule_title": "設定中：{rule}",
+      "config_memory_path_examples": "パスの例：",
+      "config_memory_path_note": "注記",
+      "config_memory_path_prompt": "メモリストレージパスを入力してください：",
+      "config_memory_path_error_empty": "パスを空にすることはできません。",
+      "config_memory_path_create_prompt": "パスが存在しません。作成しますか？(yes/no)：",
+      "config_memory_path_create_success": "✓ ディレクトリを作成しました：{path}",
+      "config_memory_path_create_error": "✗ ディレクトリの作成に失敗しました：{error}",
+      "config_memory_path_confirm_path": "使用するパス：{path}",
+      "config_memory_path_confirm_structure": "ディレクトリ構造",
+      "config_memory_path_confirm_prompt": "このパスを使用しますか？(yes/no)：",
+      "config_memory_path_confirm_invalid": "'yes'または'no'で答えてください。"
+    }
+  },
+  "id": {
+    "header": {
+      "title": "🤖 Pengaturan Aturan Agentic",
+      "description": "Konfigurasikan aturan agen AI Anda dengan mudah"
+    },
+    "language": {
+      "agentLabel": "Bahasa Agen:",
+      "agentHelp": "Bahasa untuk file agen yang dihasilkan",
+      "fileTypeLabel": "Jenis File Agen:",
+      "fileTypeHelp": "Pilih format AGENTS.md atau GEMINI.md",
+      "helpText": "<strong>Bahasa Agen:</strong> Mengontrol bahasa file agen yang dihasilkan (AGENTS.md atau GEMINI.md)"
+    },
+    "rules": {
+      "title": "⚙️ Pilih Aturan yang Akan Diaktifkan",
+      "description": "Pilih aturan perilaku AI yang ingin Anda aktifkan untuk agen Anda.",
+      "enable": "Aktifkan"
+    },
+    "descriptions": {
+      "memory": "Algoritma integrasi sistem memori",
+      "rag": "Algoritma pengoptimalan konteks dan pengambilan",
+      "critical": "Algoritma analisis kritis dan verifikasi"
+    },
+    "config": {
+      "title": "🔧 Opsi Konfigurasi",
+      "description": "Konfigurasikan pengaturan untuk aturan yang dipilih di bawah ini."
+    },
+    "action": {
+      "title": "🚀 Hasilkan File Konfigurasi",
+      "generateBtn": "Hasilkan File Konfigurasi",
+      "resetBtn": "Reset Pabrik",
+      "generating": "Menghasilkan..."
+    },
+    "howItWorks": "<strong>Cara kerjanya:</strong><br>• <strong>Mencentang aturan</strong> di atas memilih perilaku AI yang akan diaktifkan<br>• <strong>Opsi konfigurasi</strong> muncul di bawah saat aturan dipilih<br>• <strong>Tombol hasilkan</strong> membuat file konfigurasi yang sebenarnya<br>• <strong>Reset Pabrik</strong> menghapus semua pilihan dan konfigurasi",
+    "status": {
+      "restored": "✅ Pengaturan sebelumnya telah dipulihkan"
+    },
+    "fileGeneration": {
+      "title": "✅ Konfigurasi Dihasilkan!",
+      "subtitle": "Salin dan simpan file ini ke proyek AI Anda:",
+      "copyButton": "📋 Salin",
+      "saveButton": "💾 Simpan",
+      "downloadButton": "📥 Unduh",
+      "createButton": "📁 Buat",
+      "copied": "✅ Disalin!",
+      "saved": "✅ Disimpan!",
+      "downloaded": "✅ Diunduh!",
+      "locationsTitle": "📁 Lokasi File yang Tepat:",
+      "projectRoot": "Akar Proyek AI Anda:",
+      "stepsTitle": "Langkah-langkah:",
+      "step1": "1. Buat struktur folder seperti yang ditunjukkan di atas dalam proyek AI Anda",
+      "step2": "2. Salin setiap blok kode di atas ke nama file dan lokasi yang tepat",
+      "step3": "3. Simpan semua file - agen AI Anda sekarang akan menggunakan aturan ini!"
+    },
+    "cli": {
+      "title": "🤖 Pengaturan Kerangka Aturan Agentic",
+      "description": "Konfigurasikan Kerangka Aturan Agentic dengan mengaktifkan template aturan.",
+      "detection_title": "Deteksi Plugin Aturan",
+      "detection_found": "{count} plugin aturan ditemukan:",
+      "detection_none": "Tidak ada plugin aturan yang ditemukan di direktori saat ini.",
+      "ui_lang_title": "Pemilihan Bahasa Antarmuka",
+      "ui_lang_prompt": "Pilih bahasa untuk antarmuka pengaturan:",
+      "agent_lang_title": "Pemilihan Bahasa Agen",
+      "agent_lang_prompt": "Pilih bahasa untuk file agen yang dihasilkan:",
+      "lang_option_1": "🇺🇸 English",
+      "lang_option_2": "🇯🇵 日本語",
+      "lang_option_3": "🇮🇩 Bahasa Indonesia",
+      "lang_invalid": "Silakan masukkan 1, 2, 3, 'en', 'ja', atau 'id'.",
+      "enter_choice": "Masukkan pilihan ({choices}...)",
+      "recommended_text": " (Direkomendasikan)",
+      "ui_lang_selected": "Bahasa Antarmuka: {lang}",
+      "agent_lang_selected": "Bahasa Agen: {lang}",
+      "file_type_selected": "Jenis File Agen: {type}",
+      "file_type_title": "Pemilihan Jenis File",
+      "file_type_prompt": "Pilih jenis file agen yang akan dihasilkan:",
+      "file_type_option_1": "1. AGENTS.md (File integrasi agen standar)",
+      "file_type_option_2": "2. GEMINI.md (File integrasi khusus Gemini)",
+      "file_type_option_3": "3. CLAUDE.md (File integrasi khusus Claude)",
+      "file_type_invalid": "Silakan masukkan 1, 2, 3, 'agents', 'gemini', atau 'claude'.",
+      "rules_title": "Pemilihan Aturan",
+      "rules_description": "Pilih aturan perilaku AI yang ingin Anda aktifkan untuk agen Anda.",
+      "rules_available": "Aturan yang tersedia:",
+      "rules_prompt": "Masukkan nomor aturan (dipisahkan koma), 'all', atau tekan Enter untuk pemilihan interaktif:",
+      "rules_invalid": "Pemilihan aturan tidak valid. Aturan yang tersedia: {available}",
+      "rules_none_selected": "Tidak ada aturan yang dipilih. Pengaturan dibatalkan.",
+      "rules_selected": "Aturan yang dipilih: {rules}",
+      "activation_title": "Aktivasi Aturan",
+      "activation_confirm": "Template berikut akan diaktifkan:",
+      "activation_warning": "⚠️ PERINGATAN: Ini akan menimpa file {file_type} yang ada!",
+      "activation_backup": "File yang ada akan dicadangkan sebagai {file_type}.backup",
+      "activation_prompt": "Lanjutkan aktivasi? (yes/no):",
+      "activation_cancelled": "Aktivasi dibatalkan oleh pengguna.",
+      "activation_invalid": "Silakan jawab 'yes' atau 'no'.",
+      "processing_title": "Mengaktifkan Aturan",
+      "processing_rule": "Mengaktifkan: {rule}",
+      "processing_template": "Menggunakan template: {template}",
+      "processing_backup": "Mencadangkan file yang ada...",
+      "processing_success": "✓ Berhasil mengaktifkan {rule}",
+      "processing_error": "✗ Gagal mengaktifkan {rule}: {error}",
+      "config_title": "Pengaturan Konfigurasi",
+      "config_description": "Konfigurasikan pengaturan untuk aturan yang diaktifkan.",
+      "config_prompt": "Konfigurasikan pengaturan aturan sekarang? (yes/no):",
+      "config_skip": "Konfigurasi dilewati. Anda dapat mengkonfigurasi pengaturan nanti.",
+      "config_rule_title": "Mengkonfigurasi: {rule}",
+      "config_memory_path_examples": "Contoh path:",
+      "config_memory_path_note": "Catatan",
+      "config_memory_path_prompt": "Masukkan path penyimpanan memori:",
+      "config_memory_path_error_empty": "Path tidak boleh kosong.",
+      "config_memory_path_create_prompt": "Path tidak ada. Buat? (yes/no):",
+      "config_memory_path_create_success": "✓ Direktori dibuat: {path}",
+      "config_memory_path_create_error": "✗ Gagal membuat direktori: {error}",
+      "config_memory_path_confirm_path": "Menggunakan path: {path}",
+      "config_memory_path_confirm_structure": "Struktur direktori",
+      "config_memory_path_confirm_prompt": "Gunakan path ini? (yes/no):",
+      "config_memory_path_confirm_invalid": "Silakan jawab 'yes' atau 'no'."
+    }
+  }
+}`);  // ---AUTO GENERATED LOCALIZATION END---
+  </script>
+  
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-top">
+        <!-- Modern Language Selector -->
+        <div class="language-selector">
+          <select id="ui-language" onchange="updateUILanguage()">
+<!-- AUTO GENERATED CONTENT START -->
+<option value="en">🇺🇸 English</option>
+<option value="ja">🇯🇵 日本語</option>
+<option value="id">🇮🇩 Bahasa Indonesia</option>
+<!-- AUTO GENERATED CONTENT END -->
+          </select>
+        </div>
+
+        <!-- Server shutdown button (enhanced mode only) -->
+        <div id="server-controls" style="display: none;">
+          <button onclick="shutdownServer()" style="background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px;">
+            🛑 Stop Server
+          </button>
+        </div>
+      </div>
+
+      <div class="header-content">
+        <h1>🤖 Agentic Rules Setup</h1>
+        <p>Configure your AI agent rules with ease</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Language Selection -->
+      <div class="section">
+        <h2>🌐 Agent Language Settings</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="form-group">
+            <label for="agent-language">Agent Language:</label>
+            <select id="agent-language" onchange="updateAgentLanguage()">
+<!-- AUTO GENERATED CONTENT START -->
+<option value="en">🇺🇸 English</option>
+<option value="ja">🇯🇵 日本語</option>
+<option value="id">🇮🇩 Bahasa Indonesia</option>
+<!-- AUTO GENERATED CONTENT END -->
+</select>
+            <div class="help-text">Language for generated agent files</div>
+          </div>
+          <div class="form-group">
+            <label for="agent-file-type">Agent File Type:</label>
+            <select id="agent-file-type" onchange="updateAgentFileType()">
+              <option value="AGENTS.md">AGENTS.md</option>
+              <option value="GEMINI.md">GEMINI.md</option>
+              <option value="CLAUDE.md">CLAUDE.md</option>
+            </select>
+            <div class="help-text">Choose AGENTS.md, GEMINI.md, or CLAUDE.md format</div>
+          </div>
+        </div>
+
+        <div class="help-text" style="margin-top: 15px;">
+          <strong>Agent Language:</strong> Controls the language of generated agent files (AGENTS.md, GEMINI.md, or CLAUDE.md)
+        </div>
+      </div>
+
+      <!-- Rules Selection -->
+      <div class="section">
+        <h2 id="rules-title">⚙️ Select Rules to Activate</h2>
+        <p id="rules-desc">Choose which AI behavior rules you want to enable for your agent.</p>
+
+        <div id="rules-container">
+          <div class="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading available plugins...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Configuration Options (shown inline when rules are selected) -->
+      <div id="config-section" style="display: none;">
+        <div class="section">
+          <h2>🔧 Configuration Options</h2>
+          <p>Configure settings for the selected rules below.</p>
+
+          <div id="config-container">
+            <div class="loading">
+              <div class="loading-spinner"></div>
+              <p>Loading configuration options...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="section">
+        <h2>🚀 Generate Configuration</h2>
+        <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+          <button class="btn" onclick="generateConfig()" id="generate-btn">Generate Configuration Files</button>
+          <button class="btn" onclick="factoryReset()"
+            style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);" id="reset-btn">Factory Reset</button>
+        </div>
+
+        <div class="progress-bar" id="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div class="help-text">
+          <strong>How it works:</strong><br>
+          • <strong>Checking rules</strong> above selects which AI behaviors to enable<br>
+          • <strong>Configuration options</strong> appear below when rules are selected<br>
+          • <strong>Generate button</strong> creates the actual configuration files<br>
+          • <strong>Factory Reset</strong> clears all selections and configurations
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="result error" id="result-error">
+        <h3>❌ Configuration Failed</h3>
+        <p id="error-message">An error occurred during configuration.</p>
+      </div>
+
+      <div class="result success" id="result-success" style="display: none;">
+        <div id="generated-files">
+          <!-- Generated files will be displayed here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    let uiLanguage = 'en';
+    let agentLanguage = 'en';
+    let agentFileType = 'AGENTS.md';
+    let selectedRules = {};
+    let pluginConfig = {};
+    let generatedFiles = null; // Store generated files for re-localization
+
+    // Storage functions with localStorage and cookie fallback
+    function saveToStorage(key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch (e) {
+        // Fallback to cookies
+        const expires = new Date();
+        expires.setDate(expires.getDate() + 365); // 1 year
+        document.cookie = `${key}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/`;
+      }
+    }
+
+    function loadFromStorage(key) {
+      try {
+        let value = localStorage.getItem(key);
+        if (value !== null) return value;
+      } catch (e) {
+        // Fallback to cookies
+        const name = key + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) === ' ') c = c.substring(1);
+          if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+        }
+      }
+      return null;
+    }
+
+    function savePreferences() {
+      saveToStorage('agentic-rules-ui-language', uiLanguage);
+      saveToStorage('agentic-rules-agent-language', agentLanguage);
+      saveToStorage('agentic-rules-agent-file-type', agentFileType);
+      saveToStorage('agentic-rules-selected-rules', JSON.stringify(selectedRules));
+    }
+
+    function loadSavedPreferences() {
+      // Load UI language
+      const savedUILang = loadFromStorage('agentic-rules-ui-language');
+      if (savedUILang) {
+        uiLanguage = savedUILang;
+      }
+
+      // Load agent language
+      const savedAgentLang = loadFromStorage('agentic-rules-agent-language');
+      if (savedAgentLang) {
+        agentLanguage = savedAgentLang;
+      }
+
+      // Load agent file type
+      const savedFileType = loadFromStorage('agentic-rules-agent-file-type');
+      if (savedFileType) {
+        agentFileType = savedFileType;
+      }
+
+      // Load selected rules
+      const savedRules = loadFromStorage('agentic-rules-selected-rules');
+      if (savedRules) {
+        try {
+          selectedRules = JSON.parse(savedRules);
+        } catch (e) {
+          console.warn('Failed to parse saved rules:', e);
+          selectedRules = {};
+        }
+      }
+
+      // Load config values for each plugin (only if pluginConfig is already loaded)
+      if (pluginConfig && pluginConfig.plugins) {
+        // First try per-plugin storage
+        for (const pluginName in pluginConfig.plugins) {
+          const savedConfig = loadFromStorage(`agentic-rules-config-values-${pluginName}`);
+          if (savedConfig) {
+            try {
+              const configValues = JSON.parse(savedConfig);
+              // Store config values - will be used when generating config interface
+              if (!selectedRules[pluginName]) {
+                selectedRules[pluginName] = {};
+              }
+              if (typeof selectedRules[pluginName] === 'object') {
+                Object.assign(selectedRules[pluginName], configValues);
+              }
+            } catch (e) {
+              console.warn(`Failed to parse saved config for ${pluginName}:`, e);
+            }
+          }
+        }
+
+        // Fallback to global config storage (backward compatibility)
+        const globalConfig = loadFromStorage('agentic-rules-config-values');
+        if (globalConfig) {
+          try {
+            const allConfigValues = JSON.parse(globalConfig);
+            for (const [pluginName, configValues] of Object.entries(allConfigValues)) {
+              if (pluginConfig.plugins[pluginName]) {
+                if (!selectedRules[pluginName]) {
+                  selectedRules[pluginName] = {};
+                }
+                if (typeof selectedRules[pluginName] === 'object' && typeof configValues === 'object') {
+                  Object.assign(selectedRules[pluginName], configValues);
+                }
+              }
+            }
+          } catch (e) {
+            console.warn('Failed to parse global saved config:', e);
+          }
+        }
+      }
+    }
+
+    function saveConfigValue(inputId, value) {
+      // Parse input ID to get plugin and config name
+      const parts = inputId.split('-');
+      if (parts.length < 3) return;
+
+      const pluginName = parts[0];
+      const configName = parts[1];
+      const optionName = parts.length > 3 ? parts.slice(2).join('-') : null;
+
+      // Store in selectedRules structure
+      if (!selectedRules[pluginName]) {
+        selectedRules[pluginName] = {};
+      }
+      if (typeof selectedRules[pluginName] !== 'object') {
+        selectedRules[pluginName] = {};
+      }
+
+      if (optionName) {
+        // For checkbox options
+        if (!selectedRules[pluginName][configName]) {
+          selectedRules[pluginName][configName] = {};
+        }
+        selectedRules[pluginName][configName][optionName] = value;
+      } else {
+        // For text inputs
+        selectedRules[pluginName][configName] = value;
+      }
+
+      // Save to storage (per-plugin)
+      saveToStorage(`agentic-rules-config-values-${pluginName}`, JSON.stringify(selectedRules[pluginName]));
+
+      // Also save global config values (for backward compatibility)
+      const allConfigValues = {};
+      for (const [pn, ruleData] of Object.entries(selectedRules)) {
+        if (typeof ruleData === 'object' && ruleData !== null && !Array.isArray(ruleData)) {
+          // Check if this rule has config values (not just boolean)
+          const hasConfig = Object.keys(ruleData).length > 0 && Object.values(ruleData).some(v => typeof v !== 'boolean');
+          if (hasConfig) {
+            allConfigValues[pn] = ruleData;
+          }
+        }
+      }
+      if (Object.keys(allConfigValues).length > 0) {
+        saveToStorage('agentic-rules-config-values', JSON.stringify(allConfigValues));
+      }
+
+      // Also save all preferences
+      savePreferences();
+    }
+
+    function applySavedConfigValues(configValues) {
+      // Apply saved config values to form inputs
+      for (const [pluginName, pluginConfig] of Object.entries(configValues)) {
+        for (const [configName, configValue] of Object.entries(pluginConfig)) {
+          if (typeof configValue === 'object') {
+            // Handle checkbox options
+            for (const [optionName, optionValue] of Object.entries(configValue)) {
+              const checkbox = document.getElementById(`${pluginName}-${configName}-${optionName}`);
+              if (checkbox) {
+                checkbox.checked = optionValue;
+              }
+            }
+          } else {
+            // Handle text inputs
+            const input = document.getElementById(`${pluginName}-${configName}-input`);
+            if (input) {
+              input.value = configValue;
+            }
+          }
+        }
+      }
+    }
+
+    // Check for enhanced mode (full file access) vs regular mode
+    let isEnhancedMode = false;
+
+    function checkEnhancedMode() {
+      // Check if running with enhanced access (localhost with API access)
+      isEnhancedMode = window.location.hostname === 'localhost' ||
+                      window.location.hostname === '127.0.0.1' ||
+                      window.location.protocol === 'http:' || window.location.protocol === 'https:';
+      return isEnhancedMode;
+    }
+
+    // Load configuration on page load
+    window.onload = function () {
+      // Check if running in enhanced mode
+      isEnhancedMode = checkEnhancedMode();
+
+      // Show server controls if in enhanced mode
+      if (isEnhancedMode) {
+        const serverControls = document.getElementById('server-controls');
+        if (serverControls) {
+          serverControls.style.display = 'block';
+        }
+      }
+
+      // Configuration is embedded directly in HTML
+      pluginConfig = staticWebConfig;
+
+      // Load saved preferences first
+      loadSavedPreferences();
+
+      // uiLanguage and agentLanguage are already set in loadSavedPreferences()
+
+      // Clean up selectedRules to only contain valid plugins, then initialize
+      const validPluginNames = Object.keys(pluginConfig.plugins);
+      const cleanedSelectedRules = {};
+      for (const pluginName of validPluginNames) {
+        // Keep existing selections for valid plugins, default to false for new ones
+        cleanedSelectedRules[pluginName] = selectedRules[pluginName] || false;
+      }
+      selectedRules = cleanedSelectedRules;
+
+      // Set language selectors
+      document.getElementById('ui-language').value = uiLanguage;
+      document.getElementById('agent-language').value = agentLanguage;
+      document.getElementById('agent-file-type').value = agentFileType;
+
+      generateRulesInterface();
+      updateUILanguage();
+      updateInterfaceLanguage();
+
+      // Check if any rules are selected and show config interface
+      // A rule is selected if it's truthy (true or an object with config values)
+      const hasSelectedRules = Object.values(selectedRules).some(selected => selected === true || (typeof selected === 'object' && selected !== null));
+      if (hasSelectedRules) {
+        // Show the config section
+        document.getElementById('config-section').style.display = 'block';
+        // Generate config interface
+        generateConfigInterface();
+        // Re-apply saved config values after generating the interface
+        const savedConfig = loadFromStorage('agentic-rules-config-values');
+        if (savedConfig) {
+          try {
+            applySavedConfigValues(JSON.parse(savedConfig));
+          } catch (e) {
+            console.warn('Failed to reapply saved config values:', e);
+          }
+        }
+        // Also try per-plugin config values
+        for (const [pluginName, pluginData] of Object.entries(pluginConfig.plugins)) {
+          if (selectedRules[pluginName]) {
+            const savedPluginConfig = loadFromStorage(`agentic-rules-config-values-${pluginName}`);
+            if (savedPluginConfig) {
+              try {
+                const configValues = JSON.parse(savedPluginConfig);
+                // Apply to form inputs
+                for (const [configName, configValue] of Object.entries(configValues)) {
+                  if (typeof configValue === 'object') {
+                    // Handle checkbox options
+                    for (const [optionName, optionValue] of Object.entries(configValue)) {
+                      const checkbox = document.getElementById(`${pluginName}-${configName}-${optionName}`);
+                      if (checkbox) {
+                        checkbox.checked = optionValue;
+                      }
+                    }
+                  } else {
+                    // Handle text inputs
+                    const input = document.getElementById(`${pluginName}-${configName}-input`);
+                    if (input) {
+                      input.value = configValue;
+                    }
+                  }
+                }
+              } catch (e) {
+                console.warn(`Failed to parse saved config for ${pluginName}:`, e);
+              }
+            }
+          }
+        }
+      } else {
+        // Hide config section if no rules selected
+        document.getElementById('config-section').style.display = 'none';
+      }
+
+      // Show success message if preferences were loaded
+      const hasSavedPrefs = loadFromStorage('agentic-rules-ui-language') ||
+        loadFromStorage('agentic-rules-selected-rules');
+      if (hasSavedPrefs) {
+        const strings = localization[uiLanguage] || localization['en'];
+        showStatusMessage(strings.status.restored, 'success');
+      }
+
+      console.log('✅ Loaded static configuration with', Object.keys(pluginConfig.plugins).length, 'plugins');
+      console.log('✅ Loaded saved preferences - UI:', uiLanguage, 'Agent:', agentLanguage);
+
+      // Debug: Check storage status
+      console.log('🔍 Storage debug:');
+      console.log('  - UI Language saved:', loadFromStorage('agentic-rules-ui-language'));
+      console.log('  - Agent Language saved:', loadFromStorage('agentic-rules-agent-language'));
+      console.log('  - Agent File Type saved:', loadFromStorage('agentic-rules-agent-file-type'));
+      console.log('  - Selected rules saved:', loadFromStorage('agentic-rules-selected-rules'));
+
+      // Debug: Check what storage mechanisms are working
+      try {
+        localStorage.setItem('test-key', 'test-value');
+        const testValue = localStorage.getItem('test-key');
+        console.log('✅ localStorage working:', testValue === 'test-value');
+        localStorage.removeItem('test-key');
+      } catch (e) {
+        console.warn('❌ localStorage not working:', e.message);
+      }
+
+      try {
+        document.cookie = 'test-cookie=test-value; path=/';
+        const hasCookie = document.cookie.includes('test-cookie');
+        console.log('✅ Cookies working:', hasCookie);
+        // Clean up test cookie
+        document.cookie = 'test-cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+      } catch (e) {
+        console.warn('❌ Cookies not working:', e.message);
+      }
+    }
+
+
+    function updateUILanguage() {
+      uiLanguage = document.getElementById('ui-language').value;
+
+      // Save preference
+      savePreferences();
+
+      // Update interface text when UI language changes
+      updateInterfaceLanguage();
+
+      // Regenerate rules interface to update plugin names/descriptions
+      generateRulesInterface();
+
+      // Regenerate config interface if any rules are selected
+      const hasSelectedRules = Object.values(selectedRules).some(selected => selected);
+      if (hasSelectedRules) {
+        generateConfigInterface();
+        // Re-apply saved config values after regenerating the interface
+        const savedConfig = loadFromStorage('agentic-rules-config-values');
+        if (savedConfig) {
+          try {
+            applySavedConfigValues(JSON.parse(savedConfig));
+          } catch (e) {
+            console.warn('Failed to reapply saved config values:', e);
+          }
+        }
+      }
+    }
+
+    function updateAgentLanguage() {
+      agentLanguage = document.getElementById('agent-language').value;
+
+      // Save preference
+      savePreferences();
+    }
+
+    function updateAgentFileType() {
+      agentFileType = document.getElementById('agent-file-type').value;
+
+      // Save preference
+      savePreferences();
+
+      // Agent language affects template selection, but doesn't change UI immediately
+      // The templates will be selected when generating files
+    }
+
+    function updateInterfaceLanguage() {
+      const strings = localization[uiLanguage] || localization['en'];
+
+      // Update header
+      const headerTitle = document.querySelector('.header h1');
+      const headerDesc = document.querySelector('.header p');
+
+      if (headerTitle) headerTitle.textContent = strings.header.title;
+      if (headerDesc) headerDesc.textContent = strings.header.description;
+
+      // Update language section
+      const agentLangLabel = document.querySelector('label[for="agent-language"]');
+      const agentLangHelp = document.querySelector('select[id="agent-language"]').nextElementSibling;
+      const agentFileTypeLabel = document.querySelector('label[for="agent-file-type"]');
+      const agentFileTypeHelp = document.querySelector('select[id="agent-file-type"]').nextElementSibling;
+      const langHelpText = document.querySelector('div.help-text[style*="margin-top"]');
+
+      if (agentLangLabel) agentLangLabel.innerHTML = strings.language.agentLabel;
+      if (agentLangHelp) agentLangHelp.textContent = strings.language.agentHelp;
+      if (agentFileTypeLabel) agentFileTypeLabel.innerHTML = strings.language.fileTypeLabel;
+      if (agentFileTypeHelp) agentFileTypeHelp.textContent = strings.language.fileTypeHelp;
+      if (langHelpText) langHelpText.innerHTML = strings.language.helpText;
+
+      // Update rules section
+      const rulesTitle = document.getElementById('rules-title');
+      const rulesDesc = document.getElementById('rules-desc');
+
+      if (rulesTitle) rulesTitle.textContent = strings.rules.title;
+      if (rulesDesc) rulesDesc.textContent = strings.rules.description;
+
+      // Update configuration section
+      const configTitle = document.querySelector('#config-section h2');
+      const configDesc = document.querySelector('#config-section p');
+
+      if (configTitle) configTitle.textContent = strings.config.title;
+      if (configDesc) configDesc.textContent = strings.config.description;
+
+      // Update action section
+      const actionTitle = document.querySelector('#config-section + .section h2');
+      const generateBtn = document.getElementById('generate-btn');
+      const resetBtn = document.getElementById('reset-btn');
+
+      if (actionTitle) actionTitle.textContent = strings.action.title;
+      if (generateBtn) generateBtn.textContent = strings.action.generateBtn;
+      if (resetBtn) resetBtn.textContent = strings.action.resetBtn;
+
+      // Update "How it works" section specifically
+      const helpTextDiv = document.querySelector('#config-section + .section .help-text');
+      if (helpTextDiv) {
+        helpTextDiv.innerHTML = strings.howItWorks;
+      }
+
+      // Re-localize generated files results if they exist
+      if (generatedFiles && document.getElementById('result-success').style.display !== 'none') {
+        showGeneratedFiles(generatedFiles);
+      }
+
+    }
+
+    function toggleRule(rule) {
+      selectedRules[rule] = document.getElementById(`${rule}-enabled`).checked;
+
+      // Save preferences
+      savePreferences();
+
+      // Show/hide configuration section based on whether any rules are selected
+      const hasSelectedRules = Object.values(selectedRules).some(selected => selected);
+      document.getElementById('config-section').style.display = hasSelectedRules ? 'block' : 'none';
+
+      // Regenerate config interface when rules change
+      if (hasSelectedRules) {
+        generateConfigInterface();
+        // Re-apply saved config values after regenerating the interface
+        const savedConfig = loadFromStorage('agentic-rules-config-values');
+        if (savedConfig) {
+          try {
+            applySavedConfigValues(JSON.parse(savedConfig));
+          } catch (e) {
+            console.warn('Failed to reapply saved config values:', e);
+          }
+        }
+      }
+    }
+
+    function factoryReset() {
+      // Clear any previously generated files
+      generatedFiles = null;
+
+      // Reset language to English
+      uiLanguage = 'en';
+      agentLanguage = 'en';
+      agentFileType = 'AGENTS.md';
+      document.getElementById('ui-language').value = 'en';
+      document.getElementById('agent-language').value = 'en';
+      document.getElementById('agent-file-type').value = 'AGENTS.md';
+      updateInterfaceLanguage();
+
+      // Reset all rule checkboxes
+      for (const rule in selectedRules) {
+        selectedRules[rule] = false;
+        const checkbox = document.getElementById(`${rule}-enabled`);
+        if (checkbox) checkbox.checked = false;
+      }
+
+      // Clear all saved preferences from both localStorage and cookies
+      // Clear specific known keys first
+      const knownKeys = [
+        'agentic-rules-ui-language',
+        'agentic-rules-agent-language',
+        'agentic-rules-agent-file-type',
+        'agentic-rules-selected-rules',
+        'agentic-rules-config-values'
+      ];
+
+      for (const key of knownKeys) {
+        try {
+          localStorage.removeItem(key);
+        } catch (e) {
+          // localStorage failed, continue
+        }
+
+        // Clear cookie by setting expired date
+        try {
+          document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        } catch (e) {
+          // Cookie clearing failed, continue
+        }
+      }
+
+      // Clear all agentic-rules prefixed keys (including per-plugin config keys)
+      try {
+        const allKeys = Object.keys(localStorage);
+        for (const key of allKeys) {
+          if (key.startsWith('agentic-rules-')) {
+            localStorage.removeItem(key);
+          }
+        }
+      } catch (e) {
+        // localStorage access failed, continue
+      }
+
+      // Clear all agentic-rules prefixed cookies
+      try {
+        const cookies = document.cookie.split(';');
+        for (const cookie of cookies) {
+          const cookieName = cookie.split('=')[0].trim();
+          if (cookieName.startsWith('agentic-rules-')) {
+            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+          }
+        }
+      } catch (e) {
+        // Cookie access failed, continue
+      }
+
+      console.log('✅ Cleared all saved preferences from localStorage and cookies');
+
+      // Hide config section
+      document.getElementById('config-section').style.display = 'none';
+
+      // Clear config container
+      document.getElementById('config-container').innerHTML = '';
+
+      // Hide results
+      document.getElementById('result-error').style.display = 'none';
+
+      // Reset progress bar
+      document.getElementById('progress-bar').style.display = 'none';
+      document.getElementById('progress-fill').style.width = '0%';
+
+      console.log('Factory reset completed');
+    }
+
+    function generateRulesInterface() {
+      const container = document.getElementById('rules-container');
+      if (!container) {
+        console.error('❌ Rules container not found!');
+        return;
+      }
+      container.innerHTML = '';
+
+      for (const [pluginName, pluginData] of Object.entries(pluginConfig.plugins)) {
+        // Get localized name and description based on UI language
+        const pluginLocalization = pluginData.localization || {};
+        let langData = pluginLocalization[uiLanguage];
+
+        // If requested language not available, fall back to plugin's native language
+        if (!langData) {
+          // Try any available language from the plugin's localization
+          const availableLangs = Object.keys(pluginLocalization);
+          if (availableLangs.length > 0) {
+            // Use the first available language (plugin's native language)
+            langData = pluginLocalization[availableLangs[0]];
+          }
+        }
+
+        // Final fallback to plugin metadata or raw name
+        const displayName = (langData && langData.plugin_name) || pluginData.display_name || pluginName;
+        const description = (langData && langData.description) || pluginData.description || '';
+
+        const ruleCard = document.createElement('div');
+        ruleCard.className = 'rule-card';
+
+        // Get localized enable text
+        const strings = localization[uiLanguage] || localization['en'];
+        const enableText = strings.rules.enable;
+
+        const isChecked = selectedRules[pluginName] || false;
+
+        ruleCard.innerHTML = `
+                    <h3>${getPluginIcon(pluginName)} ${displayName}</h3>
+                    <p>${description}</p>
+                    <div class="rule-toggle">
+                        <input type="checkbox" id="${pluginName}-enabled" onchange="toggleRule('${pluginName}')" ${isChecked ? 'checked' : ''}>
+                        <label for="${pluginName}-enabled">${enableText} ${displayName}</label>
+                    </div>
+                `;
+
+        container.appendChild(ruleCard);
+      }
+    }
+
+    function generateConfigInterface() {
+      const container = document.getElementById('config-container');
+      container.innerHTML = '';
+
+      // Add mandatory configs first
+      for (const [pluginName, pluginData] of Object.entries(pluginConfig.plugins)) {
+        if (!selectedRules[pluginName]) continue;
+
+        // Mandatory configs
+        for (const config of pluginData.mandatory_config || []) {
+          const configSection = generateConfigSection(pluginName, config, true);
+          container.appendChild(configSection);
+        }
+
+        // Optional configs
+        for (const config of pluginData.optional_config || []) {
+          const configSection = generateConfigSection(pluginName, config, false);
+          container.appendChild(configSection);
+        }
+      }
+    }
+
+    function generateConfigSection(pluginName, config, isMandatory) {
+      const section = document.createElement('div');
+      section.className = 'section';
+      section.id = `${pluginName}-${config.name}-config`;
+
+      const configLocalization = config.localization || {};
+      const langData = configLocalization[uiLanguage] || configLocalization['en'] || {};
+      const title = langData.title || config.title || config.name;
+      const description = langData.description || config.description || '';
+
+      let content = `<h2>${getPluginIcon(pluginName)} ${title}</h2>`;
+
+      if (description) {
+        content += `<p>${description}</p>`;
+      }
+
+      if (config.type === 'path') {
+        const examples = langData.examples || config.examples || [];
+        const note = langData.note || config.note || '';
+
+        content += `
+                    <div class="form-group">
+                        <label for="${pluginName}-${config.name}-input">${title} ${isMandatory ? '<span class="required">*</span>' : ''}</label>
+                        <input type="text" id="${pluginName}-${config.name}-input" placeholder="${examples[0] || ''}" oninput="saveConfigValue('${pluginName}-${config.name}-input', this.value)">
+                        <div class="help-text">${examples.length > 0 ? 'Examples: ' + examples.join(', ') : ''}</div>
+                        ${note ? `<div class="help-text">${note}</div>` : ''}
+                    </div>
+                `;
+      } else if (config.type === 'choice') {
+        content += '<div class="form-group">';
+
+        for (const option of config.options || []) {
+          const optionLocalization = option.localization || {};
+          const optionLangData = optionLocalization[uiLanguage] || optionLocalization['en'] || {};
+          const optionDesc = optionLangData.description || option.description || option.name;
+          const strings = localization[uiLanguage] || localization['en'];
+          const recommended = option.recommended ? (strings.cli ? strings.cli.recommended_text : ' (Recommended)') : '';
+
+          content += `
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="${pluginName}-${config.name}-${option.name}" ${option.recommended ? 'checked' : ''} onchange="saveConfigValue('${pluginName}-${config.name}-${option.name}', this.checked)">
+                            <label for="${pluginName}-${config.name}-${option.name}">${option.name}: ${optionDesc}${recommended}</label>
+                        </div>
+                    `;
+        }
+
+        content += '</div>';
+      }
+
+      section.innerHTML = content;
+      return section;
+    }
+
+    function getPluginIcon(pluginName) {
+      const icons = {
+        'memory-rules': '🧠',
+        'rag-rules': '📚',
+        'critical-thinking-rules': '🤔'
+      };
+      return icons[pluginName] || '⚙️';
+    }
+
+    function showError(message) {
+      const container = document.getElementById('rules-container');
+      container.innerHTML = `
+                <div class="section" style="background: #fee; border-color: #fcc;">
+                    <h2 style="color: #c33;">Error</h2>
+                    <p>${message}</p>
+                </div>
+            `;
+    }
+
+    async function generateConfig() {
+      const generateBtn = document.getElementById('generate-btn');
+      const progressBar = document.getElementById('progress-bar');
+      const progressFill = document.getElementById('progress-fill');
+
+      // Hide any previous results
+      document.getElementById('result-error').style.display = 'none';
+      document.getElementById('result-success').style.display = 'none';
+
+      generateBtn.disabled = true;
+      const strings = localization[uiLanguage] || localization['en'];
+      generateBtn.textContent = strings.action.generating;
+      progressBar.style.display = 'block';
+
+      try {
+        // Simulate progress
+        progressFill.style.width = '25%';
+
+        // Generate configuration based on selections
+        // Ensure selectedRules only contains valid plugins
+        const validPluginNames = Object.keys(pluginConfig.plugins);
+        const cleanRules = {};
+        for (const pluginName of validPluginNames) {
+          cleanRules[pluginName] = selectedRules[pluginName] || false;
+        }
+
+        const config = {
+          uiLanguage: uiLanguage,
+          agentLanguage: agentLanguage,
+          agentFileType: agentFileType,
+          language: agentLanguage, // For backward compatibility
+          rules: cleanRules,
+          settings: {}
+        };
+
+        // Collect settings for each enabled rule
+        if (!pluginConfig || !pluginConfig.plugins) {
+          throw new Error('Plugin configuration not loaded. Please refresh the page.');
+        }
+
+        for (const [pluginName, pluginData] of Object.entries(pluginConfig.plugins)) {
+          if (!selectedRules[pluginName]) continue;
+
+          config.settings[pluginName] = {};
+
+          // Handle mandatory configs
+          for (const mandatoryConfig of pluginData.mandatory_config || []) {
+            const inputElement = document.getElementById(`${pluginName}-${mandatoryConfig.name}-input`);
+            if (inputElement) {
+              // Use settings_key to map to correct location, fallback to config name
+              const settingsKey = mandatoryConfig.settings_key || mandatoryConfig.name;
+              setNestedValue(config.settings[pluginName], settingsKey, inputElement.value || '');
+            }
+          }
+
+          // Handle optional configs
+          for (const optionalConfig of pluginData.optional_config || []) {
+            // Check which options are selected
+            for (const option of optionalConfig.options || []) {
+              const checkbox = document.getElementById(`${pluginName}-${optionalConfig.name}-${option.name}`);
+              if (checkbox && checkbox.checked) {
+                // Apply the settings from the selected option
+                if (option.settings) {
+                  config.settings[pluginName] = {
+                    ...config.settings[pluginName],
+                    ...option.settings
+                  };
+                }
+              }
+            }
+          }
+        }
+
+        progressFill.style.width = '50%';
+
+        // Generate the files
+        await generateFiles(config);
+
+        progressFill.style.width = '100%';
+
+        // Configuration completed successfully
+
+      } catch (error) {
+        console.error('Configuration failed:', error);
+        document.getElementById('result-error').style.display = 'block';
+        document.getElementById('error-message').textContent = error.message;
+      } finally {
+        generateBtn.disabled = false;
+        const strings = localization[uiLanguage] || localization['en'];
+        generateBtn.textContent = strings.action.generateBtn;
+        setTimeout(() => {
+          progressBar.style.display = 'none';
+          progressFill.style.width = '0%';
+        }, 1000);
+      }
+    }
+
+    async function generateFiles(config) {
+      const fileContents = {};
+
+      // Clean up conflicting files first (enhanced mode only)
+      if (isEnhancedMode && config.agentFileType) {
+        try {
+          console.log('Cleaning up conflicting files...');
+          const cleanupResponse = await fetch('/api/cleanup-files', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              keep_file: config.agentFileType
+            })
+          });
+
+          if (cleanupResponse.ok) {
+            const result = await cleanupResponse.json();
+            if (result.cleaned_files && result.cleaned_files.length > 0) {
+              console.log(`Cleaned up ${result.cleaned_files.length} conflicting files:`, result.cleaned_files);
+            }
+          }
+        } catch (err) {
+          console.warn('Cleanup failed, continuing anyway:', err);
+        }
+      }
+
+      // Generate main AGENTS.md or GEMINI.md file
+      if (Object.values(config.rules).some(enabled => enabled)) {
+        const agentsContent = generateAgentsFile(config);
+        fileContents[config.agentFileType] = agentsContent;
+      }
+
+      // Generate rule-specific agent files from templates
+      for (const [rule, enabled] of Object.entries(config.rules)) {
+        if (enabled) {
+          const ruleContent = generateRuleAgentsFileFromTemplate(rule, config);
+          fileContents[`${rule}/${config.agentFileType}`] = ruleContent;
+        }
+      }
+
+      // Generate settings.json files
+      for (const [rule, enabled] of Object.entries(config.rules)) {
+        if (enabled) {
+          const settingsContent = generateSettingsFile(rule, config);
+          fileContents[`${rule}/settings.json`] = settingsContent;
+        }
+      }
+
+      // Show results with copy-paste interface
+      showGeneratedFiles(fileContents);
+    }
+
+    function showGeneratedFiles(files) {
+      // Store files for potential re-localization
+      generatedFiles = files;
+
+      // Hide error result and show success result
+      document.getElementById('result-error').style.display = 'none';
+      document.getElementById('result-success').style.display = 'block';
+
+      // Get localized strings
+      const strings = localization[uiLanguage] || localization['en'];
+      const fg = strings.fileGeneration;
+
+      let html = `
+                <div style="padding: 20px;">
+                    <h3 style="color: #2e7d32; margin-bottom: 20px;">${fg.title}</h3>
+                    <p>${fg.subtitle}</p>
+            `;
+
+      for (const [filename, content] of Object.entries(files)) {
+        html += `
+                    <div style="margin: 20px 0; border: 1px solid #ddd; border-radius: 8px;">
+                        <div style="background: #f8f9fa; padding: 10px 15px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+                            <strong style="color: #2c3e50;">${filename}</strong>
+                            <div style="display: flex; gap: 8px;">
+                                <button onclick="copyToClipboard('${filename.replace(/'/g, "\\'")}', this)" style="background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                                    ${fg.copyButton}
+                                </button>
+                                <button onclick="saveFile('${filename.replace(/'/g, "\\'")}', this)" style="background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;" title="Save file to chosen location">
+                                    ${fg.saveButton}
+                                </button>
+                                <button onclick="downloadFile('${filename.replace(/'/g, "\\'")}', this)" style="background: #6f42c1; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;" title="Download to Downloads folder">
+                                    ${fg.downloadButton}
+                                </button>
+                                ${isEnhancedMode ? `<button onclick="createFile('${filename.replace(/'/g, "\\'")}', this)" style="background: #17a2b8; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;" title="Create file directly">
+                                    📁 Create
+                                </button>` : ''}
+                            </div>
+                        </div>
+                        <div style="padding: 15px; background: #f8f9fa;">
+                            <textarea id="content-${filename.replace(/[^a-zA-Z0-9]/g, '-')}" readonly style="width: 100%; height: 200px; font-family: monospace; font-size: 12px; border: 1px solid #ccc; border-radius: 4px; padding: 10px; resize: vertical;">${content.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
+                        </div>
+                    </div>
+                `;
+      }
+
+      // Build file tree dynamically from actual generated files
+      let treeLines = [`<strong>${fg.projectRoot}</strong><br>`, '📁 your-project/<br>'];
+
+      // Find root file (AGENTS.md or GEMINI.md)
+      const rootFiles = Object.keys(files).filter(f => !f.includes('/')).sort();
+
+      // Group files by directory
+      const dirs = {};
+      Object.keys(files).forEach(filename => {
+        if (filename.includes('/')) {
+          const [dir, file] = filename.split('/', 2);
+          if (!dirs[dir]) {
+            dirs[dir] = [];
+          }
+          dirs[dir].push(file);
+        }
+      });
+
+      const dirNames = Object.keys(dirs).sort();
+      const hasDirs = dirNames.length > 0;
+
+      // Add root files
+      rootFiles.forEach((file, index) => {
+        const isLastRoot = index === rootFiles.length - 1 && !hasDirs;
+        const prefix = isLastRoot ? '└──' : '├──';
+        treeLines.push(`${prefix} 📄 ${file}<br>`);
+      });
+
+      // Build tree for each directory
+      dirNames.forEach((dir, dirIndex) => {
+        const isLastDir = dirIndex === dirNames.length - 1;
+        const dirPrefix = isLastDir ? '└──' : '├──';
+        treeLines.push(`${dirPrefix} 📁 ${dir}/<br>`);
+
+        const filesInDir = dirs[dir].sort();
+        filesInDir.forEach((file, fileIndex) => {
+          const isLastFile = fileIndex === filesInDir.length - 1;
+          const filePrefix = isLastDir && isLastFile ? '    └──' : '│   ├──';
+          treeLines.push(`${filePrefix} 📄 ${file}<br>`);
+        });
+      });
+
+      html += `
+                <div style="background: #d1ecf1; border: 1px solid #bee5eb; border-radius: 6px; padding: 15px; margin-top: 20px;">
+                    <h4 style="margin: 0 0 10px 0; color: #0c5460;">${fg.locationsTitle}</h4>
+                    <div style="font-family: monospace; font-size: 14px; color: #0c5460; background: #f8f9fa; padding: 10px; border-radius: 4px;">
+                        ${treeLines.join('')}
+                    </div>
+                    <p style="margin: 10px 0 0 0; color: #0c5460;">
+                        <strong>${fg.stepsTitle}</strong><br>
+                        ${fg.step1}<br>
+                        ${fg.step2}<br>
+                        ${fg.step3}
+                    </p>
+                </div>
+                </div>
+            `;
+
+      document.getElementById('generated-files').innerHTML = html;
+    }
+
+    function generateAgentsFile(config) {
+      // Use agentLanguage instead of language
+      const lang = config.agentLanguage || config.language || 'en';
+
+      // Get root template from static config
+      const rootTemplates = staticWebConfig.rootTemplates || {};
+      let templateContent = rootTemplates[lang] || rootTemplates['en'];
+
+      // Fallback to hardcoded template if not found in config
+      if (!templateContent) {
+        const enabledRules = Object.entries(config.rules)
+          .filter(([_, enabled]) => enabled)
+          .map(([rule, _]) => rule);
+
+        templateContent = `# Agent Integration Template
+
+**MANDATORY**: Read Bootstrap.md first for framework compliance and orchestration requirements.
+
+## Integration Architecture
+This framework uses **distributed integration** - each enabled rule has its own AGENTS.md that agents MUST read and implement directly:
+
+${enabledRules.map(rule => `- \`${rule}/AGENTS.md\` - ${getRuleDescription(rule, lang)}`).join('\n')}
+
+## Framework Integration Process
+
+**Algorithm: Framework_Integration_Process**
+- **Input**: framework_path (path to agentic-rules directory)
+- **Output**: fully_integrated_agent_system
+
+**Steps**:
+1. Execute Framework_Bootstrap_Initialization algorithm from Bootstrap.md (MANDATORY)
+2. Load and validate bootstrap.json configuration
+3. For each enabled rule in settings:
+   - Read the rule's AGENTS.md file
+   - Implement ALL algorithms specified in that file
+   - Respect rule-specific settings and priorities
+4. Initialize rule interconnections as defined in bootstrap.json
+5. Apply platform-specific adaptations
+6. Return integrated agent system with all rule algorithms active
+
+## Critical Requirements
+- **Direct Rule Implementation**: Agents MUST read and implement each enabled rule's AGENTS.md
+- **No Shortcuts**: Cannot claim integration without implementing all algorithms
+- **Settings Respect**: Each rule's settings.json controls enable/disable state
+- **Priority Coordination**: Main agent orchestrates rule priorities across sub-agents
+
+**Reference**: Bootstrap.md contains orchestration requirements. Individual rule AGENTS.md files contain implementation algorithms.
+
+<!-- Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file). -->`;
+      }
+
+      return templateContent;
+    }
+
+    function generateRuleAgentsFileFromTemplate(rule, config) {
+      // Get the plugin data from static config
+      const pluginData = pluginConfig.plugins[rule];
+      if (!pluginData) {
+        return `# ${rule} Agent Integration\n\n**Error**: Plugin configuration not found.`;
+      }
+
+      // Get template content for the selected language
+      const templates = pluginData.templates || {};
+      const templateContent = templates[config.agentLanguage] || templates['en'];
+
+      if (!templateContent) {
+        return `# ${rule} Agent Integration\n\n**Error**: Template not found for language: ${config.agentLanguage}`;
+      }
+
+      return templateContent;
+    }
+
+    function generateSettingsFile(rule, config) {
+      // Get plugin configuration to access default settings
+      const pluginData = pluginConfig.plugins[rule];
+      let settings = {};
+
+      // Start with default settings if available
+      if (pluginData && pluginData.default_settings) {
+        settings = JSON.parse(JSON.stringify(pluginData.default_settings)); // Deep copy
+      }
+
+      // Merge with user-configured settings
+      if (config.settings && config.settings[rule]) {
+        // Deep merge user settings into defaults
+        deepMerge(settings, config.settings[rule]);
+      }
+
+      return JSON.stringify(settings, null, 2);
+    }
+
+    function deepMerge(target, source) {
+      for (const key in source) {
+        if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+          if (!target[key] || typeof target[key] !== 'object' || Array.isArray(target[key])) {
+            target[key] = {};
+          }
+          deepMerge(target[key], source[key]);
+        } else {
+          target[key] = source[key];
+        }
+      }
+      return target;
+    }
+
+    function setNestedValue(obj, path, value) {
+      const keys = path.split('.');
+      let current = obj;
+      for (let i = 0; i < keys.length - 1; i++) {
+        const key = keys[i];
+        if (!current[key] || typeof current[key] !== 'object' || Array.isArray(current[key])) {
+          current[key] = {};
+        }
+        current = current[key];
+      }
+      current[keys[keys.length - 1]] = value;
+    }
+
+    function getRuleDescription(rule, lang) {
+      const strings = localization[lang] || localization['en'];
+      return strings.descriptions[rule] || `${rule} algorithms`;
+    }
+
+    async function downloadFile(filename, content) {
+      // In a real implementation, this would create actual files
+      // For the web version, we'll simulate file creation
+      console.log(`Would create file: ${filename}`);
+      console.log(`Content length: ${content.length} characters`);
+
+      // Simulate async operation
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    function copyToClipboard(filename, buttonElement) {
+      const textarea = document.getElementById(`content-${filename.replace(/[^a-zA-Z0-9]/g, '-')}`);
+      textarea.select();
+      document.execCommand('copy');
+
+      // Visual feedback - use localized text
+      const strings = localization[uiLanguage] || localization['en'];
+      const originalText = buttonElement.textContent;
+      buttonElement.textContent = strings.fileGeneration.copied;
+      buttonElement.style.background = '#28a745';
+
+      setTimeout(() => {
+        buttonElement.textContent = originalText;
+        buttonElement.style.background = '#007bff';
+      }, 2000);
+    }
+
+    async function saveFile(filename, buttonElement) {
+      const textarea = document.getElementById(`content-${filename.replace(/[^a-zA-Z0-9]/g, '-')}`);
+      const content = textarea.value;
+      const originalText = buttonElement.textContent;
+      const strings = localization[uiLanguage] || localization['en'];
+
+      try {
+        // Try modern File System Access API first for proper save dialog
+        if ('showSaveFilePicker' in window) {
+          const options = {
+            suggestedName: filename,
+            startIn: 'documents', // Start in Documents folder for easier access to projects
+            types: [{
+              description: 'Markdown/Text Files',
+              accept: {'text/plain': ['.md', '.txt'], 'application/json': ['.json']}
+            }]
+          };
+
+          const fileHandle = await window.showSaveFilePicker(options);
+          const writable = await fileHandle.createWritable();
+          await writable.write(content);
+          await writable.close();
+
+          buttonElement.textContent = strings.fileGeneration.saved;
+          buttonElement.style.background = '#28a745';
+          setTimeout(() => {
+            buttonElement.textContent = originalText;
+            buttonElement.style.background = '#28a745';
+          }, 3000);
+        } else {
+          // Fallback: Traditional download approach
+          const blob = new Blob([content], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+
+          buttonElement.textContent = '✅ Downloaded!';
+          buttonElement.style.background = '#28a745';
+          setTimeout(() => {
+            buttonElement.textContent = originalText;
+            buttonElement.style.background = '#28a745';
+          }, 3000);
+        }
+
+      } catch (err) {
+        if (err.name === 'AbortError') {
+          // User cancelled the save dialog
+          buttonElement.textContent = '❌ Cancelled';
+          buttonElement.style.background = '#ffc107';
+        } else {
+          console.error('File save failed:', err);
+          buttonElement.textContent = '❌ Failed';
+          buttonElement.style.background = '#dc3545';
+        }
+        setTimeout(() => {
+          buttonElement.textContent = originalText;
+          buttonElement.style.background = '#28a745';
+        }, 3000);
+      }
+    }
+
+    async function downloadFile(filename, buttonElement) {
+      const textarea = document.getElementById(`content-${filename.replace(/[^a-zA-Z0-9]/g, '-')}`);
+      const content = textarea.value;
+      const originalText = buttonElement.textContent;
+      const strings = localization[uiLanguage] || localization['en'];
+
+      try {
+        // Traditional download to Downloads folder
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        buttonElement.textContent = strings.fileGeneration.downloaded;
+        buttonElement.style.background = '#6f42c1';
+        setTimeout(() => {
+          buttonElement.textContent = originalText;
+          buttonElement.style.background = '#6f42c1';
+        }, 3000);
+
+      } catch (err) {
+        console.error('File download failed:', err);
+        buttonElement.textContent = '❌ Failed';
+        buttonElement.style.background = '#dc3545';
+        setTimeout(() => {
+          buttonElement.textContent = originalText;
+          buttonElement.style.background = '#6f42c1';
+        }, 3000);
+      }
+    }
+
+    async function createFile(filename, buttonElement) {
+      const textarea = document.getElementById(`content-${filename.replace(/[^a-zA-Z0-9]/g, '-')}`);
+      const content = textarea.value;
+      const originalText = buttonElement.textContent;
+
+      try {
+        // Server mode only: Use API to create file directly
+        buttonElement.textContent = '💾 Creating...';
+        const response = await fetch('/api/create-file', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            filename: filename,
+            content: content
+          })
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          if (result.success) {
+            buttonElement.textContent = '✅ Created!';
+            buttonElement.style.background = '#28a745';
+            setTimeout(() => {
+              buttonElement.textContent = originalText;
+              buttonElement.style.background = '#17a2b8';
+            }, 3000);
+          } else {
+            throw new Error(result.message || 'Creation failed');
+          }
+        } else {
+          throw new Error(`Server error: ${response.status}`);
+        }
+
+      } catch (err) {
+        console.error('File creation failed:', err);
+        buttonElement.textContent = '❌ Failed';
+        buttonElement.style.background = '#dc3545';
+        setTimeout(() => {
+          buttonElement.textContent = originalText;
+          buttonElement.style.background = '#17a2b8';
+        }, 3000);
+      }
+    }
+
+    async function shutdownServer() {
+      if (!isEnhancedMode) return;
+
+      const confirmed = confirm('Are you sure you want to stop the server? This will end the setup session.');
+      if (!confirmed) return;
+
+      try {
+        const response = await fetch('/api/shutdown', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({})
+        });
+
+        if (response.ok) {
+          // Show shutdown message
+          document.body.innerHTML = `
+            <div style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Arial, sans-serif;">
+              <div style="text-align: center; padding: 40px; background: #f8f9fa; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <h2 style="color: #dc3545; margin-bottom: 20px;">🛑 Server Stopped</h2>
+                <p>The setup server has been shut down successfully.</p>
+                <p style="margin-top: 20px; color: #6c757d;">You can close this browser window now.</p>
+              </div>
+            </div>
+          `;
+        } else {
+          alert('Failed to shutdown server. You may need to stop it manually.');
+        }
+      } catch (err) {
+        console.error('Shutdown request failed:', err);
+        alert('Failed to shutdown server. You may need to stop it manually.');
+      }
+    }
+
+    function getSaveLocationGuide(filename) {
+      if (filename === 'AGENTS.md') {
+        return '📁 your-project/AGENTS.md (project root)';
+      } else if (filename === 'GEMINI.md') {
+        return '📁 your-project/GEMINI.md (project root)';
+      } else if (filename === 'CLAUDE.md') {
+        return '📁 your-project/CLAUDE.md (project root)';
+      } else if (filename.endsWith('/AGENTS.md')) {
+        return `📁 your-project/${filename} (rule directory)`;
+      } else if (filename.endsWith('/GEMINI.md')) {
+        return `📁 your-project/${filename} (rule directory)`;
+      } else if (filename.endsWith('/CLAUDE.md')) {
+        return `📁 your-project/${filename} (rule directory)`;
+      } else if (filename.endsWith('/settings.json')) {
+        const ruleDir = filename.replace('/settings.json', '');
+        return `📁 your-project/${ruleDir}/settings.json (rule directory)`;
+      }
+      return `📁 your-project/${filename}`;
+    }
+
+    function showStatusMessage(message, type = 'info') {
+      // Create or update status message
+      let statusDiv = document.getElementById('status-message');
+      if (!statusDiv) {
+        statusDiv = document.createElement('div');
+        statusDiv.id = 'status-message';
+        statusDiv.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 10px 15px;
+                    border-radius: 6px;
+                    font-weight: bold;
+                    z-index: 1000;
+                    max-width: 300px;
+                `;
+        document.body.appendChild(statusDiv);
+      }
+
+      statusDiv.textContent = message;
+      statusDiv.style.background = type === 'success' ? '#d4edda' : '#fff3cd';
+      statusDiv.style.color = type === 'success' ? '#155724' : '#856404';
+      statusDiv.style.border = `1px solid ${type === 'success' ? '#c3e6cb' : '#ffeaa7'}`;
+      statusDiv.style.display = 'block';
+
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+        statusDiv.style.display = 'none';
+      }, 3000);
+    }
+
+    // Initialize
+    // Config visibility is handled by toggleRule() when rules are selected/deselected
+  </script>
+</body>
+
+</html>

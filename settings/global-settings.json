@@ -1,0 +1,67 @@
+{
+  "_metadata": {
+    "license": "MIT",
+    "copyright": "Copyright (c) 2025 Paulus Ery Wasito Adhi",
+    "license_file": "LICENSE"
+  },
+  "settings_version": "0.1.0",
+  "agentic_rules_framework": {
+    "framework_version": "0.1.0",
+    "description": "Core bootstrap rules for generic agentic systems",
+    "last_updated": "2024-12-29",
+    "rule_categories": {
+      "memory_rules": {
+        "path": "../memory-rules",
+        "enabled": true,
+        "priority": "medium",
+        "description": "Persistent understanding storage and retrieval"
+      },
+      "critical_thinking_rules": {
+        "path": "../critical-thinking-rules",
+        "enabled": true,
+        "priority": "high",
+        "description": "Grounded reasoning and error handling"
+      },
+      "rag_rules": {
+        "path": "../rag-rules",
+        "enabled": true,
+        "priority": "high",
+        "description": "Efficient information processing and context management"
+      }
+    },
+    "global_settings": {
+      "logging_enabled": true,
+      "log_level": "info",
+      "log_path": "./logs",
+      "transparency_mode": true,
+      "user_notification": true,
+      "auto_update": false,
+      "backup_enabled": true
+    },
+    "platform_adaptation": {
+      "cursor_support": true,
+      "vscode_support": true,
+      "ci_systems_support": true,
+      "custom_platforms": true
+    },
+    "performance_limits": {
+      "max_memory_usage_mb": 100,
+      "max_processing_time_seconds": 60,
+      "concurrent_operations_limit": 3
+    },
+    "safety_settings": {
+      "rule_conflict_resolution": "priority_based",
+      "emergency_shutdown": true,
+      "user_override_allowed": true
+    },
+    "user_consent_settings": {
+      "framework_consent_required": true,
+      "settings_confirmation_required": true,
+      "rule_by_rule_approval": true,
+      "consent_retention_days": 30,
+      "allow_settings_modification": true,
+      "privacy_mode": "transparent",
+      "user_data_control": "user_managed"
+    }
+  }
+}

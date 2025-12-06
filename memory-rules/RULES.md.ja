@@ -1,0 +1,69 @@
+# メモリールール エージェント統合 / Memory Rules Agent Integration
+
+**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`memory_rules.enabled = true`の場合のみ使用してください。
+
+**必須 / MANDATORY**: settings.jsonでmemory_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。
+
+## メモリシステムアーキテクチャ / Memory System Architecture
+- **common/**: プロジェクト間で共有される知識 / Shared knowledge across projects
+- **private/**: 個人/機密データ（資格情報、設定） / Personal/sensitive data (credentials, preferences)
+- **project/**: プロジェクト固有のメモリとコンテキスト / Project-specific memory and context
+
+## 必須実装アルゴリズム / Required Implementation Algorithms
+
+### アルゴリズム: Memory_Initialization_Process / Algorithm: Memory_Initialization_Process
+**必須 / MANDATORY**: memory_rules.enabled = trueの場合に実行 / Execute when memory_rules.enabled = true
+
+**ステップ / Steps**:
+1. memory-rules/settings.jsonを読み取る / Read memory-rules/settings.json
+2. ディレクトリ構造を作成: common/, private/, project/ / Create directory structure: common/, private/, project/
+3. storage_pathの権限を検証し、必要に応じて作成 / Validate storage_path permissions and create if needed
+4. project_support.enabled = trueの場合、メモリインデックスを初期化 / Initialize memory index if project_support.enabled = true
+5. 初期化されたメモリシステムを返す / Return initialized memory system
+
+**重要 / CRITICAL**: 自動有効化しない - ユーザーの有効設定を尊重する / Do NOT auto-enable - respect user's enabled setting.
+
+### アルゴリズム: Memory_Storage_Process / Algorithm: Memory_Storage_Process
+**必須 / MANDATORY**: 有効時すべてのユーザー操作に対して実行 / Execute for all user interactions when enabled
+
+**ステップ / Steps**:
+1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true
+2. 操作を分類: common/private/project / Classify interaction: common/private/project
+3. 設定からの保持ポリシーを適用 / Apply retention policies from settings
+4. メタデータ付きで保存（タイムスタンプ、コンテキスト、重要度） / Store with metadata (timestamp, context, importance)
+5. 検索用のメモリインデックスを更新 / Update memory index for retrieval
+
+### アルゴリズム: Memory_Retrieval_Process / Algorithm: Memory_Retrieval_Process
+**必須 / MANDATORY**: ユーザー要求に応答する前に実行 / Execute before responding to user requests
+
+**ステップ / Steps**:
+1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true
+2. 現在のコンテキストと要求を分析 / Analyze current context and request
+3. 関連するメモリカテゴリをクエリ / Query relevant memory categories
+4. 関連性スコアリングとフィルタリングを適用 / Apply relevance scoring and filtering
+5. 応答用の最適化されたコンテキストを返す / Return optimized context for response
+
+### アルゴリズム: Memory_Cleanup_Process / Algorithm: Memory_Cleanup_Process
+**必須 / MANDATORY**: 定期的に実行、ユーザー同意を要求 / Execute periodically, require user consent
+
+**ステップ / Steps**:
+1. cleanup_guidance.enabled = trueを確認 / Check cleanup_guidance.enabled = true
+2. 保持期間を超えたメモリを特定 / Identify memories past retention periods
+3. 期限切れメモリをユーザーに通知 / Notify user of overdue memories
+4. 削除のための明示的なユーザー同意を要求 / Require explicit user consent for deletion
+5. 年齢に関係なく重要なメモリを保存 / Preserve important memories regardless of age
+
+## 設定準拠 / Settings Compliance
+- memory-rules/settings.jsonのすべての設定を尊重 / Respect all settings in memory-rules/settings.json
+- memory_rules.enabled = falseでユーザーがメモリ機能を要求した場合、ユーザーにプロンプト / Prompt user if memory_rules.enabled = false and user requests memory features
+- ユーザー同意なしで機能を自動有効化しない / Never auto-enable features without user consent
+
+## 統合ポイント / Integration Points
+- **RAG統合 / RAG Integration**: 最適化のためのコンテキストチャンクを提供 / Provide context chunks for optimization
+- **批判的思考 / Critical Thinking**: エラー修正と学習洞察を保存 / Store error corrections and learning insights
+- **ユーザー同意 / User Consent**: すべてのクリーンアップ操作にユーザー承認が必要 / All cleanup operations require user approval
+
+**違反 / VIOLATION**: これらのアルゴリズムを実装せずにメモリ統合を主張するエージェント / Agents claiming memory integration without implementing these algorithms.
+
+<!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms (Japanese) -->
+<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

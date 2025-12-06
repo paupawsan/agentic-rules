@@ -1,0 +1,69 @@
+# Integrasi Agen Aturan Memori
+
+**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `memory_rules.enabled = true` di settings.json.
+
+**WAJIB**: Jika memory_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.
+
+## Arsitektur Sistem Memori
+- **common/**: Pengetahuan bersama di seluruh proyek
+- **private/**: Data pribadi/sensitif (kredensial, preferensi)
+- **project/**: Memori dan konteks spesifik proyek
+
+## Algoritma Implementasi yang Diperlukan
+
+### Algoritma: Memory_Initialization_Process
+**WAJIB**: Eksekusi ketika memory_rules.enabled = true
+
+**Langkah-langkah**:
+1. Baca memory-rules/settings.json
+2. Buat struktur direktori: common/, private/, project/
+3. Validasi izin storage_path dan buat jika diperlukan
+4. Inisialisasi indeks memori jika project_support.enabled = true
+5. Kembalikan sistem memori yang diinisialisasi
+
+**KRITIS**: Jangan aktifkan otomatis - hormati pengaturan pengguna yang diaktifkan.
+
+### Algoritma: Memory_Storage_Process
+**WAJIB**: Eksekusi untuk semua interaksi pengguna ketika diaktifkan
+
+**Langkah-langkah**:
+1. Periksa memory_rules.enabled = true
+2. Klasifikasikan interaksi: common/private/project
+3. Terapkan kebijakan retensi dari pengaturan
+4. Simpan dengan metadata (timestamp, konteks, kepentingan)
+5. Perbarui indeks memori untuk pengambilan
+
+### Algoritma: Memory_Retrieval_Process
+**WAJIB**: Eksekusi sebelum menjawab permintaan pengguna
+
+**Langkah-langkah**:
+1. Periksa memory_rules.enabled = true
+2. Analisis konteks dan permintaan saat ini
+3. Query kategori memori yang relevan
+4. Terapkan skor relevansi dan penyaringan
+5. Kembalikan konteks yang dioptimalkan untuk respons
+
+### Algoritma: Memory_Cleanup_Process
+**WAJIB**: Eksekusi secara berkala, memerlukan persetujuan pengguna
+
+**Langkah-langkah**:
+1. Periksa cleanup_guidance.enabled = true
+2. Identifikasi memori yang melewati periode retensi
+3. Beritahu pengguna tentang memori yang terlambat
+4. Perlukan persetujuan eksplisit pengguna untuk penghapusan
+5. Pertahankan memori penting terlepas dari usia
+
+## Kepatuhan Pengaturan
+- Hormati semua pengaturan di memory-rules/settings.json
+- Berikan prompt kepada pengguna jika memory_rules.enabled = false dan pengguna meminta fitur memori
+- Jangan pernah aktifkan fitur secara otomatis tanpa persetujuan pengguna
+
+## Titik Integrasi
+- **Integrasi RAG**: Berikan potongan konteks untuk optimasi
+- **Berpikir Kritis**: Simpan koreksi error dan wawasan pembelajaran
+- **Persetujuan Pengguna**: Semua operasi pembersihan memerlukan persetujuan pengguna
+
+**PELANGGARAN**: Agen yang mengklaim integrasi memori tanpa mengimplementasikan algoritma ini.
+
+<!-- METADATA: Template integrasi agen aturan memori dengan algoritma penyimpanan dan pengambilan -->
+<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

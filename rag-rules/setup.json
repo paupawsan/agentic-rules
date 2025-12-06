@@ -1,0 +1,81 @@
+{
+  "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
+  "localization": {
+    "en": {
+      "plugin_name": "RAG Rules",
+      "description": "Retrieval-Augmented Generation for optimal context usage"
+    },
+    "ja": {
+      "plugin_name": "RAGルール",
+      "description": "最適なコンテキスト使用のための検索拡張生成"
+    },
+    "id": {
+      "plugin_name": "Aturan RAG",
+      "description": "Retrieval-Augmented Generation untuk penggunaan konteks optimal"
+    }
+  },
+  "mandatory_config": [],
+  "optional_config": [
+    {
+      "name": "context_optimization",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Context Window Optimization",
+          "description": "Configure context window size and dynamic adjustment"
+        },
+        "ja": {
+          "title": "コンテキストウィンドウ最適化",
+          "description": "コンテキストウィンドウサイズと動的調整を設定"
+        },
+        "id": {
+          "title": "Optimasi Jendela Konteks",
+          "description": "Konfigurasikan ukuran jendela konteks dan penyesuaian dinamis"
+        }
+      },
+      "options": [
+        {
+          "name": "standard_optimization",
+          "localization": {
+            "en": { "description": "Standard optimization for most AI models" },
+            "ja": { "description": "ほとんどのAIモデルに対する標準最適化" },
+            "id": { "description": "Optimasi standar untuk sebagian besar model AI" }
+          },
+          "recommended": true,
+          "settings": {
+            "context_optimization.max_context_window": 128000,
+            "context_optimization.dynamic_adjustment": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "relevance_scoring",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Relevance Scoring",
+          "description": "Configure how information relevance is calculated"
+        },
+        "ja": {
+          "title": "関連性スコアリング",
+          "description": "情報関連性の計算方法を設定"
+        }
+      },
+      "options": [
+        {
+          "name": "balanced_scoring",
+          "localization": {
+            "en": { "description": "Balance relevance and recency for optimal results" },
+            "ja": { "description": "最適な結果を得るために関連性と新しさをバランス" }
+          },
+          "recommended": true,
+          "settings": {
+            "relevance_scoring.min_relevance_score": 0.7,
+            "relevance_scoring.recency_weight": 0.3
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,656 @@
+{
+  "version": "0.1.0",
+  "description": "Static web configuration generated from setup.json files",
+  "uiLanguage": "en",
+  "agentLanguage": "en",
+  "plugins": {
+    "memory-rules": {
+      "name": "memory-rules",
+      "display_name": "Memory Rules",
+      "description": "Persistent memory system for AI agents",
+      "localization": {
+        "en": {
+          "plugin_name": "Memory Rules",
+          "description": "Persistent memory system for AI agents"
+        },
+        "ja": {
+          "plugin_name": "メモリールール",
+          "description": "AIエージェント用の永続的なメモリシステム"
+        },
+        "id": {
+          "plugin_name": "Aturan Memori",
+          "description": "Sistem memori persisten untuk agen AI"
+        }
+      },
+      "mandatory_config": [
+        {
+          "name": "memory_path",
+          "type": "path",
+          "localization": {
+            "en": {
+              "title": "Memory Root Path Configuration",
+              "description": "Set the root path where memory data will be stored",
+              "note": "This creates [project-name]/, common/, and private/ subdirectories.",
+              "examples": [
+                "~/Documents/my-project-memory",
+                "/Users/username/Projects/memory",
+                "C:/Users/username/Documents/memory (Windows)"
+              ]
+            },
+            "ja": {
+              "title": "メモリルートパス設定",
+              "description": "メモリデータを保存するルートパスを設定",
+              "note": "[project-name]/, common/, private/ サブディレクトリが作成されます。",
+              "examples": [
+                "~/Documents/my-project-memory",
+                "/Users/username/Projects/memory",
+                "C:/Users/username/Documents/memory (Windows)"
+              ]
+            },
+            "id": {
+              "title": "Konfigurasi Path Root Memori",
+              "description": "Tetapkan path root tempat data memori akan disimpan",
+              "note": "Subdirektori [project-name]/, common/, dan private/ akan dibuat.",
+              "examples": [
+                "~/Documents/my-project-memory",
+                "/Users/username/Projects/memory",
+                "C:/Users/username/Documents/memory (Windows)"
+              ]
+            }
+          },
+          "settings_key": "storage.base_path",
+          "required": true
+        }
+      ],
+      "optional_config": [
+        {
+          "name": "retention_policies",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Retention Policies",
+              "description": "Configure how long to keep memory data"
+            },
+            "ja": {
+              "title": "保持ポリシー",
+              "description": "メモリデータをどのくらい保持するかを設定"
+            },
+            "id": {
+              "title": "Kebijakan Retensi",
+              "description": "Konfigurasikan berapa lama menyimpan data memori"
+            }
+          },
+          "options": [
+            {
+              "name": "interactive_cleanup",
+              "localization": {
+                "en": {
+                  "description": "Enable interactive cleanup with user consent"
+                },
+                "ja": {
+                  "description": "ユーザー同意によるインタラクティブクリーンアップを有効化"
+                },
+                "id": {
+                  "description": "Aktifkan pembersihan interaktif dengan persetujuan pengguna"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "cleanup_guidance.notify_overdue_memories": true,
+                "cleanup_guidance.interactive_cleanup": true,
+                "cleanup_guidance.require_user_consent": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "git_analysis",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Git Analysis Settings",
+              "description": "Configure automatic git history analysis"
+            },
+            "ja": {
+              "title": "Git分析設定",
+              "description": "自動git履歴分析を設定"
+            },
+            "id": {
+              "title": "Pengaturan Analisis Git",
+              "description": "Konfigurasikan analisis riwayat git otomatis"
+            }
+          },
+          "options": [
+            {
+              "name": "enable_git_analysis",
+              "localization": {
+                "en": {
+                  "description": "Enable git analysis for project understanding"
+                },
+                "ja": {
+                  "description": "プロジェクト理解のためのgit分析を有効化"
+                },
+                "id": {
+                  "description": "Aktifkan analisis git untuk pemahaman proyek"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "git_history_analysis.enabled": true,
+                "git_history_analysis.trigger_on_unknown_context": true,
+                "git_history_analysis.max_commits_to_analyze": 50
+              }
+            }
+          ]
+        }
+      ],
+      "default_settings": {
+        "enabled": true,
+        "max_entries_per_category": 100,
+        "cleanup_guidance_days": 90,
+        "index_update_frequency": "realtime",
+        "project_support": {
+          "enabled": true,
+          "auto_detect_projects": true,
+          "project_identification_method": "git_remote_or_directory_name",
+          "common_memory_enabled": true,
+          "private_memory_enabled": true,
+          "git_history_analysis": {
+            "enabled": false,
+            "trigger_on_unknown_context": true,
+            "max_commit_history_days": 90,
+            "max_commits_to_analyze": 100,
+            "analyze_commit_messages": true,
+            "analyze_file_changes": true,
+            "track_branch_evolution": false,
+            "extract_project_milestones": true,
+            "include_author_info": false,
+            "analyze_code_patterns": true,
+            "performance_mode": "fast",
+            "cache_analysis_results": true,
+            "analysis_timeout_seconds": 30
+          }
+        },
+        "categories": {
+          "technical": {
+            "enabled": true,
+            "suggested_retention_days": 90,
+            "storage_location": "common",
+            "share_across_projects": true
+          },
+          "behavioral": {
+            "enabled": true,
+            "suggested_retention_days": 60,
+            "storage_location": "common",
+            "share_across_projects": true
+          },
+          "contextual": {
+            "enabled": true,
+            "suggested_retention_days": 120,
+            "storage_location": "private",
+            "share_across_projects": false
+          },
+          "user_interaction": {
+            "enabled": true,
+            "suggested_retention_days": 30,
+            "capture_full_prompts": true,
+            "capture_responses": true,
+            "include_metadata": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "session": {
+            "enabled": true,
+            "suggested_retention_days": 60,
+            "auto_session_detection": true,
+            "topic_tracking": true,
+            "quality_metrics": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "topic": {
+            "enabled": true,
+            "suggested_retention_days": 180,
+            "evolution_tracking": true,
+            "pattern_recognition": true,
+            "cross_topic_linking": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "git_history": {
+            "enabled": true,
+            "suggested_retention_days": 365,
+            "analyze_commits": true,
+            "track_milestones": true,
+            "extract_patterns": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "personal": {
+            "enabled": true,
+            "suggested_retention_days": 3650,
+            "storage_location": "private",
+            "share_across_projects": false
+          },
+          "credentials": {
+            "enabled": true,
+            "suggested_retention_days": 3650,
+            "storage_location": "private",
+            "share_across_projects": false,
+            "encryption_required": true,
+            "flexible_naming": true,
+            "naming_logic": "agent_decides_based_on_context"
+          },
+          "sensitive": {
+            "enabled": true,
+            "suggested_retention_days": 3650,
+            "storage_location": "private",
+            "share_across_projects": false,
+            "encryption_required": true,
+            "access_controlled": true
+          }
+        },
+        "compression": {
+          "enabled": false,
+          "threshold_mb": 50
+        },
+        "search": {
+          "enable_full_text": true,
+          "enable_tag_search": true,
+          "enable_topic_search": true,
+          "enable_session_search": true,
+          "max_results": 20,
+          "include_interaction_history": true
+        },
+        "capture_settings": {
+          "auto_capture_interactions": true,
+          "session_boundary_detection": true,
+          "topic_extraction": true,
+          "user_prompt_filtering": false,
+          "sensitive_data_masking": true
+        },
+        "auto_recording": {
+          "enabled": true,
+          "interaction_threshold": "medium",
+          "min_interaction_length": 10,
+          "record_all_prompts": true,
+          "record_all_responses": true,
+          "continuous_session_tracking": true,
+          "real_time_indexing": true,
+          "background_processing": false
+        },
+        "migration_settings": {
+          "auto_detect_existing_memories": true,
+          "prompt_user_for_migration": true,
+          "supported_source_systems": [
+            "cursor",
+            "github_copilot",
+            "custom_agent_frameworks",
+            "legacy_memory_systems"
+          ],
+          "migration_backup_originals": true,
+          "cross_system_compatibility": true,
+          "migration_notes_inclusion": true,
+          "selective_import_enabled": true
+        },
+        "cleanup_guidance": {
+          "notify_overdue_memories": true,
+          "interactive_cleanup": true,
+          "require_user_consent": true
+        },
+        "integration": {
+          "cross_category_linking": true,
+          "session_context_inclusion": true,
+          "topic_evolution_tracking": true,
+          "user_pattern_analysis": true
+        },
+        "storage": {
+          "base_path": "./memory"
+        }
+      },
+      "templates": {
+        "en": "# Memory Rules Agent Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `memory_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If memory_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## Memory System Architecture\n- **common/**: Shared knowledge across projects\n- **private/**: Personal/sensitive data (credentials, preferences)\n- **project/**: Project-specific memory and context\n\n## Required Implementation Algorithms\n\n### Algorithm: Memory_Initialization_Process\n**MANDATORY**: Execute when memory_rules.enabled = true\n\n**Steps**:\n1. Read memory-rules/settings.json\n2. Create directory structure: common/, private/, project/\n3. Validate storage_path permissions and create if needed\n4. Initialize memory index if project_support.enabled = true\n5. Return initialized memory system\n\n**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.\n\n### Algorithm: Memory_Storage_Process\n**MANDATORY**: Execute for all user interactions when enabled\n\n**Steps**:\n1. Check memory_rules.enabled = true\n2. Classify interaction: common/private/project\n3. Apply retention policies from settings\n4. Store with metadata (timestamp, context, importance)\n5. Update memory index for retrieval\n\n### Algorithm: Memory_Retrieval_Process\n**MANDATORY**: Execute before responding to user requests\n\n**Steps**:\n1. Check memory_rules.enabled = true\n2. Analyze current context and request\n3. Query relevant memory categories\n4. Apply relevance scoring and filtering\n5. Return optimized context for response\n\n### Algorithm: Memory_Cleanup_Process\n**MANDATORY**: Execute periodically, require user consent\n\n**Steps**:\n1. Check cleanup_guidance.enabled = true\n2. Identify memories past retention periods\n3. Notify user of overdue memories\n4. Require explicit user consent for deletion\n5. Preserve important memories regardless of age\n\n## Settings Compliance\n- Respect all settings in memory-rules/settings.json\n- Prompt user if memory_rules.enabled = false and user requests memory features\n- Never auto-enable features without user consent\n\n## Integration Points\n- **RAG Integration**: Provide context chunks for optimization\n- **Critical Thinking**: Store error corrections and learning insights\n- **User Consent**: All cleanup operations require user approval\n\n**VIOLATION**: Agents claiming memory integration without implementing these algorithms.\n\n<!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# メモリールール エージェント統合 / Memory Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`memory_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでmemory_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## メモリシステムアーキテクチャ / Memory System Architecture\n- **common/**: プロジェクト間で共有される知識 / Shared knowledge across projects\n- **private/**: 個人/機密データ（資格情報、設定） / Personal/sensitive data (credentials, preferences)\n- **project/**: プロジェクト固有のメモリとコンテキスト / Project-specific memory and context\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Memory_Initialization_Process / Algorithm: Memory_Initialization_Process\n**必須 / MANDATORY**: memory_rules.enabled = trueの場合に実行 / Execute when memory_rules.enabled = true\n\n**ステップ / Steps**:\n1. memory-rules/settings.jsonを読み取る / Read memory-rules/settings.json\n2. ディレクトリ構造を作成: common/, private/, project/ / Create directory structure: common/, private/, project/\n3. storage_pathの権限を検証し、必要に応じて作成 / Validate storage_path permissions and create if needed\n4. project_support.enabled = trueの場合、メモリインデックスを初期化 / Initialize memory index if project_support.enabled = true\n5. 初期化されたメモリシステムを返す / Return initialized memory system\n\n**重要 / CRITICAL**: 自動有効化しない - ユーザーの有効設定を尊重する / Do NOT auto-enable - respect user's enabled setting.\n\n### アルゴリズム: Memory_Storage_Process / Algorithm: Memory_Storage_Process\n**必須 / MANDATORY**: 有効時すべてのユーザー操作に対して実行 / Execute for all user interactions when enabled\n\n**ステップ / Steps**:\n1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true\n2. 操作を分類: common/private/project / Classify interaction: common/private/project\n3. 設定からの保持ポリシーを適用 / Apply retention policies from settings\n4. メタデータ付きで保存（タイムスタンプ、コンテキスト、重要度） / Store with metadata (timestamp, context, importance)\n5. 検索用のメモリインデックスを更新 / Update memory index for retrieval\n\n### アルゴリズム: Memory_Retrieval_Process / Algorithm: Memory_Retrieval_Process\n**必須 / MANDATORY**: ユーザー要求に応答する前に実行 / Execute before responding to user requests\n\n**ステップ / Steps**:\n1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true\n2. 現在のコンテキストと要求を分析 / Analyze current context and request\n3. 関連するメモリカテゴリをクエリ / Query relevant memory categories\n4. 関連性スコアリングとフィルタリングを適用 / Apply relevance scoring and filtering\n5. 応答用の最適化されたコンテキストを返す / Return optimized context for response\n\n### アルゴリズム: Memory_Cleanup_Process / Algorithm: Memory_Cleanup_Process\n**必須 / MANDATORY**: 定期的に実行、ユーザー同意を要求 / Execute periodically, require user consent\n\n**ステップ / Steps**:\n1. cleanup_guidance.enabled = trueを確認 / Check cleanup_guidance.enabled = true\n2. 保持期間を超えたメモリを特定 / Identify memories past retention periods\n3. 期限切れメモリをユーザーに通知 / Notify user of overdue memories\n4. 削除のための明示的なユーザー同意を要求 / Require explicit user consent for deletion\n5. 年齢に関係なく重要なメモリを保存 / Preserve important memories regardless of age\n\n## 設定準拠 / Settings Compliance\n- memory-rules/settings.jsonのすべての設定を尊重 / Respect all settings in memory-rules/settings.json\n- memory_rules.enabled = falseでユーザーがメモリ機能を要求した場合、ユーザーにプロンプト / Prompt user if memory_rules.enabled = false and user requests memory features\n- ユーザー同意なしで機能を自動有効化しない / Never auto-enable features without user consent\n\n## 統合ポイント / Integration Points\n- **RAG統合 / RAG Integration**: 最適化のためのコンテキストチャンクを提供 / Provide context chunks for optimization\n- **批判的思考 / Critical Thinking**: エラー修正と学習洞察を保存 / Store error corrections and learning insights\n- **ユーザー同意 / User Consent**: すべてのクリーンアップ操作にユーザー承認が必要 / All cleanup operations require user approval\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずにメモリ統合を主張するエージェント / Agents claiming memory integration without implementing these algorithms.\n\n<!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Aturan Memori\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `memory_rules.enabled = true` di settings.json.\n\n**WAJIB**: Jika memory_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Arsitektur Sistem Memori\n- **common/**: Pengetahuan bersama di seluruh proyek\n- **private/**: Data pribadi/sensitif (kredensial, preferensi)\n- **project/**: Memori dan konteks spesifik proyek\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Memory_Initialization_Process\n**WAJIB**: Eksekusi ketika memory_rules.enabled = true\n\n**Langkah-langkah**:\n1. Baca memory-rules/settings.json\n2. Buat struktur direktori: common/, private/, project/\n3. Validasi izin storage_path dan buat jika diperlukan\n4. Inisialisasi indeks memori jika project_support.enabled = true\n5. Kembalikan sistem memori yang diinisialisasi\n\n**KRITIS**: Jangan aktifkan otomatis - hormati pengaturan pengguna yang diaktifkan.\n\n### Algoritma: Memory_Storage_Process\n**WAJIB**: Eksekusi untuk semua interaksi pengguna ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa memory_rules.enabled = true\n2. Klasifikasikan interaksi: common/private/project\n3. Terapkan kebijakan retensi dari pengaturan\n4. Simpan dengan metadata (timestamp, konteks, kepentingan)\n5. Perbarui indeks memori untuk pengambilan\n\n### Algoritma: Memory_Retrieval_Process\n**WAJIB**: Eksekusi sebelum menjawab permintaan pengguna\n\n**Langkah-langkah**:\n1. Periksa memory_rules.enabled = true\n2. Analisis konteks dan permintaan saat ini\n3. Query kategori memori yang relevan\n4. Terapkan skor relevansi dan penyaringan\n5. Kembalikan konteks yang dioptimalkan untuk respons\n\n### Algoritma: Memory_Cleanup_Process\n**WAJIB**: Eksekusi secara berkala, memerlukan persetujuan pengguna\n\n**Langkah-langkah**:\n1. Periksa cleanup_guidance.enabled = true\n2. Identifikasi memori yang melewati periode retensi\n3. Beritahu pengguna tentang memori yang terlambat\n4. Perlukan persetujuan eksplisit pengguna untuk penghapusan\n5. Pertahankan memori penting terlepas dari usia\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di memory-rules/settings.json\n- Berikan prompt kepada pengguna jika memory_rules.enabled = false dan pengguna meminta fitur memori\n- Jangan pernah aktifkan fitur secara otomatis tanpa persetujuan pengguna\n\n## Titik Integrasi\n- **Integrasi RAG**: Berikan potongan konteks untuk optimasi\n- **Berpikir Kritis**: Simpan koreksi error dan wawasan pembelajaran\n- **Persetujuan Pengguna**: Semua operasi pembersihan memerlukan persetujuan pengguna\n\n**PELANGGARAN**: Agen yang mengklaim integrasi memori tanpa mengimplementasikan algoritma ini.\n\n<!-- METADATA: Template integrasi agen aturan memori dengan algoritma penyimpanan dan pengambilan -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+      }
+    },
+    "rag-rules": {
+      "name": "rag-rules",
+      "display_name": "RAG Rules",
+      "description": "Retrieval-Augmented Generation for optimal context usage",
+      "localization": {
+        "en": {
+          "plugin_name": "RAG Rules",
+          "description": "Retrieval-Augmented Generation for optimal context usage"
+        },
+        "ja": {
+          "plugin_name": "RAGルール",
+          "description": "最適なコンテキスト使用のための検索拡張生成"
+        },
+        "id": {
+          "plugin_name": "Aturan RAG",
+          "description": "Retrieval-Augmented Generation untuk penggunaan konteks optimal"
+        }
+      },
+      "mandatory_config": [],
+      "optional_config": [
+        {
+          "name": "context_optimization",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Context Window Optimization",
+              "description": "Configure context window size and dynamic adjustment"
+            },
+            "ja": {
+              "title": "コンテキストウィンドウ最適化",
+              "description": "コンテキストウィンドウサイズと動的調整を設定"
+            },
+            "id": {
+              "title": "Optimasi Jendela Konteks",
+              "description": "Konfigurasikan ukuran jendela konteks dan penyesuaian dinamis"
+            }
+          },
+          "options": [
+            {
+              "name": "standard_optimization",
+              "localization": {
+                "en": {
+                  "description": "Standard optimization for most AI models"
+                },
+                "ja": {
+                  "description": "ほとんどのAIモデルに対する標準最適化"
+                },
+                "id": {
+                  "description": "Optimasi standar untuk sebagian besar model AI"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "context_optimization.max_context_window": 128000,
+                "context_optimization.dynamic_adjustment": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "relevance_scoring",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Relevance Scoring",
+              "description": "Configure how information relevance is calculated"
+            },
+            "ja": {
+              "title": "関連性スコアリング",
+              "description": "情報関連性の計算方法を設定"
+            }
+          },
+          "options": [
+            {
+              "name": "balanced_scoring",
+              "localization": {
+                "en": {
+                  "description": "Balance relevance and recency for optimal results"
+                },
+                "ja": {
+                  "description": "最適な結果を得るために関連性と新しさをバランス"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "relevance_scoring.min_relevance_score": 0.7,
+                "relevance_scoring.recency_weight": 0.3
+              }
+            }
+          ]
+        }
+      ],
+      "default_settings": {
+        "enabled": true,
+        "context_window_optimization": {
+          "enabled": true,
+          "max_context_tokens": 8000,
+          "relevance_threshold": 0.7,
+          "progressive_expansion": true
+        },
+        "hierarchical_reading": {
+          "enabled": true,
+          "max_depth": 3,
+          "section_preference": "task_relevant",
+          "recursive_processing": true
+        },
+        "log_analysis": {
+          "enabled": true,
+          "initial_sample_lines": 50,
+          "error_priority": true,
+          "temporal_sampling": true,
+          "pattern_recognition": true
+        },
+        "reading_strategies": {
+          "document_reading": {
+            "enabled": true,
+            "toc_priority": true,
+            "summary_first": true
+          },
+          "code_reading": {
+            "enabled": true,
+            "signature_first": true,
+            "dependency_tracing": true
+          },
+          "selective_reading": {
+            "enabled": true,
+            "importance_scoring": true,
+            "chunking_size": 1000
+          }
+        },
+        "context_management": {
+          "chunking": {
+            "enabled": true,
+            "semantic_segmentation": true,
+            "max_chunk_size": 2000
+          },
+          "memory_buffer": {
+            "working_memory_mb": 50,
+            "compression_threshold": 80,
+            "cache_enabled": true
+          }
+        },
+        "tool_integration": {
+          "filesystem_tools": true,
+          "search_tools": true,
+          "external_tools": true,
+          "streaming_reads": true
+        },
+        "multi_language_support": {
+          "language_detection": true,
+          "encoding_handling": true,
+          "cross_language_patterns": true,
+          "fallback_strategies": true
+        },
+        "performance_optimization": {
+          "lazy_loading": true,
+          "parallel_processing": true,
+          "caching_strategy": "lru",
+          "prefetching": false
+        },
+        "quality_assurance": {
+          "completeness_check": true,
+          "accuracy_verification": true,
+          "cross_reference_checking": true
+        },
+        "adaptive_learning": {
+          "pattern_recognition": true,
+          "usage_tracking": true,
+          "strategy_refinement": true,
+          "context_prediction": true
+        }
+      },
+      "templates": {
+        "en": "# RAG Rules Agent Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `rag_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If rag_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## RAG System Architecture\n- **Context Optimization**: Prioritize relevant information\n- **Hierarchical Reading**: Read files strategically, not sequentially\n- **Relevance Scoring**: Weight information by importance and recency\n- **Dynamic Context Management**: Adapt context window to task requirements\n\n## Required Implementation Algorithms\n\n### Algorithm: Context_Optimization_Process\n**MANDATORY**: Execute before any user response when enabled\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Analyze user request and available context\n3. Score information relevance using recency, importance, and task-relevance\n4. Prioritize hierarchical reading: summaries → key sections → details\n5. Optimize context window for maximum information density\n6. Return optimized context for response generation\n\n### Algorithm: Information_Retrieval_Process\n**MANDATORY**: Execute when gathering information for responses\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Identify information requirements from user query\n3. Search relevant files using semantic understanding\n4. Apply hierarchical reading patterns\n5. Extract and rank relevant information chunks\n6. Integrate with memory system for personalized context\n\n### Algorithm: Response_Quality_Assurance\n**MANDATORY**: Execute after generating responses\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Validate response against source information\n3. Ensure all claims are supported by retrieved context\n4. Flag any information gaps or assumptions\n5. Optimize response completeness and accuracy\n\n## Settings Compliance\n- Respect all settings in rag-rules/settings.json\n- Apply context_window_size limits appropriately\n- Use configured relevance thresholds\n- Prompt user if rag_rules.enabled = false and complex context needed\n\n## Integration Points\n- **Memory Integration**: Use stored context for personalized retrieval\n- **Critical Thinking**: Provide quality assurance for information validation\n- **Bootstrap Coordination**: Respect loading priorities and interconnections\n\n**VIOLATION**: Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# RAGルール エージェント統合 / RAG Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`rag_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでrag_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## RAGシステムアーキテクチャ / RAG System Architecture\n- **コンテキスト最適化 / Context Optimization**: 関連情報の優先順位付け / Prioritize relevant information\n- **階層的読み取り / Hierarchical Reading**: ファイルを戦略的に読み取り、順次読み取りしない / Read files strategically, not sequentially\n- **関連性スコアリング / Relevance Scoring**: 重要度と新しさで情報を重み付け / Weight information by importance and recency\n- **動的コンテキスト管理 / Dynamic Context Management**: タスク要件にコンテキストウィンドウを適応 / Adapt context window to task requirements\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Context_Optimization_Process / Algorithm: Context_Optimization_Process\n**必須 / MANDATORY**: 有効時にユーザー応答前に実行 / Execute before any user response when enabled\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザー要求と利用可能なコンテキストを分析 / Analyze user request and available context\n3. 新しさ、重要度、タスク関連性を使用して情報関連性をスコアリング / Score information relevance using recency, importance, and task-relevance\n4. 階層的読み取りを優先: 要約 → 主要セクション → 詳細 / Prioritize hierarchical reading: summaries → key sections → details\n5. 最大情報密度のためにコンテキストウィンドウを最適化 / Optimize context window for maximum information density\n6. 応答生成用の最適化されたコンテキストを返す / Return optimized context for response generation\n\n### アルゴリズム: Information_Retrieval_Process / Algorithm: Information_Retrieval_Process\n**必須 / MANDATORY**: 応答情報の収集時に実行 / Execute when gathering information for responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザークエリからの情報要件を特定 / Identify information requirements from user query\n3. 意味理解を使用して関連ファイルを検索 / Search relevant files using semantic understanding\n4. 階層的読み取りパターンを適用 / Apply hierarchical reading patterns\n5. 関連情報チャンクを抽出しランク付け / Extract and rank relevant information chunks\n6. パーソナライズドコンテキストのためにメモリシステムと統合 / Integrate with memory system for personalized context\n\n### アルゴリズム: Response_Quality_Assurance / Algorithm: Response_Quality_Assurance\n**必須 / MANDATORY**: 応答生成後に実行 / Execute after generating responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ソース情報に対して応答を検証 / Validate response against source information\n3. すべての主張が検索されたコンテキストでサポートされていることを確認 / Ensure all claims are supported by retrieved context\n4. 情報ギャップや仮定にフラグを付ける / Flag any information gaps or assumptions\n5. 応答の完全性と正確性を最適化 / Optimize response completeness and accuracy\n\n## 設定準拠 / Settings Compliance\n- rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json\n- context_window_size制限を適切に適用 / Apply context_window_size limits appropriately\n- 設定された関連性しきい値を使用 / Use configured relevance thresholds\n- rag_rules.enabled = falseで複雑なコンテキストが必要な場合、ユーザーにプロンプト / Prompt user if rag_rules.enabled = false and complex context needed\n\n## 統合ポイント / Integration Points\n- **メモリ統合 / Memory Integration**: パーソナライズド検索のために保存されたコンテキストを使用 / Use stored context for personalized retrieval\n- **批判的思考 / Critical Thinking**: 情報検証のための品質保証を提供 / Provide quality assurance for information validation\n- **ブートストラップ調整 / Bootstrap Coordination**: 読み込み優先順位と相互接続を尊重 / Respect loading priorities and interconnections\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずに非効率的なコンテキスト管理を使用するエージェント / Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Aturan RAG\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `rag_rules.enabled = true` di settings.json.\n\n**WAJIB**: Jika rag_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Arsitektur Sistem RAG\n- **Optimasi Konteks**: Prioritaskan informasi yang relevan\n- **Pembacaan Hierarkis**: Baca file secara strategis, bukan berurutan\n- **Skor Relevansi**: Bobot informasi berdasarkan kepentingan dan kedalaman waktu\n- **Manajemen Konteks Dinamis**: Sesuaikan jendela konteks dengan persyaratan tugas\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Context_Optimization_Process\n**WAJIB**: Eksekusi sebelum respons pengguna apa pun ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Analisis permintaan pengguna dan konteks yang tersedia\n3. Skor relevansi informasi menggunakan kedalaman waktu, kepentingan, dan relevansi tugas\n4. Prioritaskan pembacaan hierarkis: ringkasan → bagian kunci → detail\n5. Optimalkan jendela konteks untuk kepadatan informasi maksimum\n6. Kembalikan konteks yang dioptimalkan untuk generasi respons\n\n### Algoritma: Information_Retrieval_Process\n**WAJIB**: Eksekusi ketika mengumpulkan informasi untuk respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Identifikasi persyaratan informasi dari query pengguna\n3. Cari file yang relevan menggunakan pemahaman semantik\n4. Terapkan pola pembacaan hierarkis\n5. Ekstrak dan rangking potongan informasi yang relevan\n6. Integrasikan dengan sistem memori untuk konteks yang dipersonalisasi\n\n### Algoritma: Response_Quality_Assurance\n**WAJIB**: Eksekusi setelah menghasilkan respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Validasi respons terhadap informasi sumber\n3. Pastikan semua klaim didukung oleh konteks yang diambil\n4. Tandai kesenjangan informasi atau asumsi apa pun\n5. Optimalkan kelengkapan dan akurasi respons\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di rag-rules/settings.json\n- Terapkan batas context_window_size secara tepat\n- Gunakan ambang relevansi yang dikonfigurasi\n- Berikan prompt kepada pengguna jika rag_rules.enabled = false dan konteks kompleks diperlukan\n\n## Titik Integrasi\n- **Integrasi Memori**: Gunakan konteks tersimpan untuk pengambilan yang dipersonalisasi\n- **Berpikir Kritis**: Berikan jaminan kualitas untuk validasi informasi\n- **Koordinasi Bootstrap**: Hormati prioritas pemuatan dan interkoneksi\n\n**PELANGGARAN**: Agen yang menggunakan manajemen konteks yang tidak efisien tanpa mengimplementasikan algoritma ini.\n\n<!-- METADATA: Template integrasi agen aturan RAG dengan algoritma optimasi konteks dan pengambilan -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+      }
+    },
+    "critical-thinking-rules": {
+      "name": "critical-thinking-rules",
+      "display_name": "Critical Thinking Rules",
+      "description": "Intellectual rigor and hallucination prevention",
+      "localization": {
+        "en": {
+          "plugin_name": "Critical Thinking Rules",
+          "description": "Intellectual rigor and hallucination prevention"
+        },
+        "ja": {
+          "plugin_name": "批判的思考ルール",
+          "description": "知的厳密さと幻覚防止"
+        },
+        "id": {
+          "plugin_name": "Aturan Berpikir Kritis",
+          "description": "Keketatan intelektual dan pencegahan halusinasi"
+        }
+      },
+      "mandatory_config": [],
+      "optional_config": [
+        {
+          "name": "verification_levels",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Verification Levels",
+              "description": "Configure how thoroughly to verify information"
+            },
+            "ja": {
+              "title": "検証レベル",
+              "description": "情報の検証の徹底度を設定"
+            },
+            "id": {
+              "title": "Tingkat Verifikasi",
+              "description": "Konfigurasikan seberapa menyeluruh verifikasi informasi"
+            }
+          },
+          "options": [
+            {
+              "name": "balanced_verification",
+              "localization": {
+                "en": {
+                  "description": "Verify factual claims with reasonable rigor"
+                },
+                "ja": {
+                  "description": "合理的な厳密さで事実的主張を検証"
+                },
+                "id": {
+                  "description": "Verifikasi klaim faktual dengan ketelitian yang wajar"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "verification.factual_claim_verification": true,
+                "verification.min_sources_required": 2
+              }
+            }
+          ]
+        },
+        {
+          "name": "error_handling",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Error Handling",
+              "description": "Configure error admission and correction behavior"
+            },
+            "ja": {
+              "title": "エラー処理",
+              "description": "エラー承認と修正の動作を設定"
+            },
+            "id": {
+              "title": "Penanganan Error",
+              "description": "Konfigurasikan perilaku pengakuan dan koreksi error"
+            }
+          },
+          "options": [
+            {
+              "name": "transparent_error_handling",
+              "localization": {
+                "en": {
+                  "description": "Immediately admit errors and log corrections"
+                },
+                "ja": {
+                  "description": "すぐにエラーを承認し修正をログ"
+                },
+                "id": {
+                  "description": "Segera akui error dan log koreksi"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "error_handling.immediate_error_admission": true,
+                "error_handling.log_corrections": true
+              }
+            }
+          ]
+        }
+      ],
+      "default_settings": {
+        "enabled": true,
+        "verification_level": "standard",
+        "error_admission": {
+          "enabled": true,
+          "immediate_correction": true,
+          "transparency_logging": true
+        },
+        "assumption_challenge": {
+          "enabled": true,
+          "challenge_threshold": "medium",
+          "automatic_detection": true
+        },
+        "ground_check": {
+          "enabled": true,
+          "required_confirmations": 2,
+          "verification_timeout_seconds": 30,
+          "fallback_to_uncertainty": true
+        },
+        "hallucination_prevention": {
+          "enabled": true,
+          "reality_checks": true,
+          "conservative_estimation": true,
+          "uncertainty_qualification": true
+        },
+        "verification_categories": {
+          "factual": {
+            "min_sources": 3,
+            "require_independent": true
+          },
+          "technical": {
+            "require_testing": true,
+            "allow_simulation": true
+          },
+          "logical": {
+            "check_consistency": true,
+            "identify_fallacies": true
+          }
+        },
+        "confidence_calibration": {
+          "enabled": true,
+          "track_accuracy": true,
+          "adjust_thresholds": true
+        },
+        "response_formats": {
+          "balanced_analysis": true,
+          "error_correction": true,
+          "assumption_challenge": true
+        }
+      },
+      "templates": {
+        "en": "# Critical Thinking Rules Agent Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `critical_thinking_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If critical_thinking_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## Critical Thinking Framework\n- **Error Admission**: Immediately acknowledge and correct mistakes\n- **Assumption Challenge**: Question implicit assumptions in requests\n- **Ground Check Verification**: Validate claims with evidence\n- **Hallucination Prevention**: Conservative responses with uncertainty qualification\n\n## Required Implementation Algorithms\n\n### Algorithm: Error_Admission_Process\n**MANDATORY**: Execute immediately when errors are detected\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Monitor responses for inaccuracies or inconsistencies\n3. Immediately acknowledge detected errors\n4. Provide detailed explanation of the mistake\n5. Offer corrected information with supporting evidence\n6. Log correction for memory system integration\n\n### Algorithm: Assumption_Challenge_Process\n**MANDATORY**: Execute when analyzing user requests\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Parse user request for implicit assumptions\n3. Evaluate assumptions against available evidence\n4. Generate counter-examples and alternative perspectives\n5. Present balanced analysis with multiple viewpoints\n6. Request clarification when assumptions are unclear\n\n### Algorithm: Ground_Check_Verification_Process\n**MANDATORY**: Execute before making factual claims\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Identify factual claims in planned responses\n3. Gather independent verification (3+ sources when possible)\n4. Apply technical validation for technical claims\n5. Use formal reasoning for logical claims\n6. Qualify uncertainty and provide confidence levels\n\n### Algorithm: Response_Validation_Process\n**MANDATORY**: Execute on all responses when enabled\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Review response for potential hallucinations\n3. Assess technical, practical, and logical feasibility\n4. Use conservative estimation rather than over-confidence\n5. Apply uncertainty qualification phrases appropriately\n6. Structure responses: strengths, concerns, recommendations\n\n## Settings Compliance\n- Respect all settings in critical-thinking-rules/settings.json\n- Apply configured verification thresholds\n- Use specified uncertainty qualification formats\n- Prompt user if critical_thinking_rules.enabled = false during complex reasoning\n\n## Integration Points\n- **Memory Integration**: Store error corrections and learning insights\n- **RAG Integration**: Provide quality assurance for retrieved information\n- **Bootstrap Coordination**: Respect rule interconnections and priorities\n\n**VIOLATION**: Agents responding without critical analysis or error checking.\n\n<!-- METADATA: Critical thinking rules agent integration template with verification and analysis algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# 批判的思考ルール エージェント統合 / Critical Thinking Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`critical_thinking_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでcritical_thinking_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## 批判的思考フレームワーク / Critical Thinking Framework\n- **エラー承認 / Error Admission**: すぐに間違いを認め修正する / Immediately acknowledge and correct mistakes\n- **仮定挑戦 / Assumption Challenge**: 要求内の暗黙の仮定に疑問を呈する / Question implicit assumptions in requests\n- **根拠確認検証 / Ground Check Verification**: 証拠で主張を検証する / Validate claims with evidence\n- **幻覚防止 / Hallucination Prevention**: 不確実性資格付きの保守的な応答 / Conservative responses with uncertainty qualification\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Error_Admission_Process / Algorithm: Error_Admission_Process\n**必須 / MANDATORY**: エラーが検出された場合すぐに実行 / Execute immediately when errors are detected\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 不正確性や矛盾のために応答を監視 / Monitor responses for inaccuracies or inconsistencies\n3. 検出されたエラーをすぐに承認 / Immediately acknowledge detected errors\n4. 間違いの詳細な説明を提供 / Provide detailed explanation of the mistake\n5. 支持証拠付きで修正された情報を提供 / Offer corrected information with supporting evidence\n6. メモリシステム統合のために修正をログ / Log correction for memory system integration\n\n### アルゴリズム: Assumption_Challenge_Process / Algorithm: Assumption_Challenge_Process\n**必須 / MANDATORY**: ユーザー要求を分析時に実行 / Execute when analyzing user requests\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 暗黙の仮定のためにユーザー要求を解析 / Parse user request for implicit assumptions\n3. 利用可能な証拠に対して仮定を評価 / Evaluate assumptions against available evidence\n4. 反例と代替視点を作成 / Generate counter-examples and alternative perspectives\n5. 複数の視点でバランスの取れた分析を提示 / Present balanced analysis with multiple viewpoints\n6. 仮定が不明瞭な場合に明確化を要求 / Request clarification when assumptions are unclear\n\n### アルゴリズム: Ground_Check_Verification_Process / Algorithm: Ground_Check_Verification_Process\n**必須 / MANDATORY**: 事実的主張を行う前に実行 / Execute before making factual claims\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 計画された応答で事実的主張を特定 / Identify factual claims in planned responses\n3. 独立した検証を収集（可能な場合は3つ以上のソース） / Gather independent verification (3+ sources when possible)\n4. 技術的主張に技術的検証を適用 / Apply technical validation for technical claims\n5. 論理的主張に形式的推論を使用 / Use formal reasoning for logical claims\n6. 不確実性を資格付け、信頼レベルを提供 / Qualify uncertainty and provide confidence levels\n\n### アルゴリズム: Response_Validation_Process / Algorithm: Response_Validation_Process\n**必須 / MANDATORY**: 有効時にすべての応答で実行 / Execute on all responses when enabled\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 潜在的な幻覚のために応答を確認 / Review response for potential hallucinations\n3. 技術的、実用的、論理的可能性を評価 / Assess technical, practical, and logical feasibility\n4. 過度な自信よりも保守的な推定を使用 / Use conservative estimation rather than over-confidence\n5. 不確実性資格付けフレーズを適切に適用 / Apply uncertainty qualification phrases appropriately\n6. 応答を構造化: 強み、懸念、推奨事項 / Structure responses: strengths, concerns, recommendations\n\n## 設定準拠 / Settings Compliance\n- critical-thinking-rules/settings.jsonのすべての設定を尊重 / Respect all settings in critical-thinking-rules/settings.json\n- 設定された検証しきい値を適用 / Apply configured verification thresholds\n- 指定された不確実性資格付け形式を使用 / Use specified uncertainty qualification formats\n- 複雑な推論中にcritical_thinking_rules.enabled = falseの場合、ユーザーにプロンプト / Prompt user if critical_thinking_rules.enabled = false during complex reasoning\n\n## 統合ポイント / Integration Points\n- **メモリ統合 / Memory Integration**: エラー修正と学習洞察を保存 / Store error corrections and learning insights\n- **RAG統合 / RAG Integration**: 検索された情報の品質保証を提供 / Provide quality assurance for retrieved information\n- **ブートストラップ調整 / Bootstrap Coordination**: ルール相互接続と優先順位を尊重 / Respect rule interconnections and priorities\n\n**違反 / VIOLATION**: 批判的分析やエラーチェックなしで応答するエージェント / Agents responding without critical analysis or error checking.\n\n<!-- METADATA: Critical thinking rules agent integration template with verification and analysis algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Aturan Berpikir Kritis\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `critical_thinking_rules.enabled = true` di settings.json.\n\n**WAJIB**: Jika critical_thinking_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Kerangka Berpikir Kritis\n- **Pengakuan Error**: Segera akui dan koreksi kesalahan\n- **Tantangan Asumsi**: Pertanyakan asumsi implisit dalam permintaan\n- **Verifikasi Pemeriksaan Dasar**: Validasi klaim dengan bukti\n- **Pencegahan Halusinasi**: Respons konservatif dengan kualifikasi ketidakpastian\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Error_Admission_Process\n**WAJIB**: Eksekusi segera ketika error terdeteksi\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Monitor respons untuk ketidakakuratan atau inkonsistensi\n3. Segera akui error yang terdeteksi\n4. Berikan penjelasan detail tentang kesalahan\n5. Tawarkan informasi yang dikoreksi dengan bukti pendukung\n6. Log koreksi untuk integrasi sistem memori\n\n### Algoritma: Assumption_Challenge_Process\n**WAJIB**: Eksekusi ketika menganalisis permintaan pengguna\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Parse permintaan pengguna untuk asumsi implisit\n3. Evaluasi asumsi terhadap bukti yang tersedia\n4. Hasilkan contoh kontra dan perspektif alternatif\n5. Presentasikan analisis seimbang dengan berbagai sudut pandang\n6. Minta klarifikasi ketika asumsi tidak jelas\n\n### Algoritma: Ground_Check_Verification_Process\n**WAJIB**: Eksekusi sebelum membuat klaim faktual\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Identifikasi klaim faktual dalam respons yang direncanakan\n3. Kumpulkan verifikasi independen (3+ sumber jika memungkinkan)\n4. Terapkan validasi teknis untuk klaim teknis\n5. Gunakan penalaran formal untuk klaim logis\n6. Kualifikasi ketidakpastian dan berikan tingkat kepercayaan\n\n### Algoritma: Response_Validation_Process\n**WAJIB**: Eksekusi pada semua respons ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Tinjau respons untuk potensi halusinasi\n3. Nilai kelayakan teknis, praktis, dan logis\n4. Gunakan estimasi konservatif daripada kepercayaan berlebihan\n5. Terapkan frasa kualifikasi ketidakpastian secara tepat\n6. Struktur respons: kekuatan, keprihatinan, rekomendasi\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di critical-thinking-rules/settings.json\n- Terapkan ambang verifikasi yang dikonfigurasi\n- Gunakan format kualifikasi ketidakpastian yang ditentukan\n- Berikan prompt kepada pengguna jika critical_thinking_rules.enabled = false selama penalaran kompleks\n\n## Titik Integrasi\n- **Integrasi Memori**: Simpan koreksi error dan wawasan pembelajaran\n- **Integrasi RAG**: Berikan jaminan kualitas untuk informasi yang diambil\n- **Koordinasi Bootstrap**: Hormati interkoneksi dan prioritas aturan\n\n**PELANGGARAN**: Agen yang merespons tanpa analisis kritis atau pemeriksaan error.\n\n<!-- METADATA: Template integrasi agen aturan berpikir kritis dengan algoritma verifikasi dan analisis -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+      }
+    }
+  },
+  "rootTemplates": {
+    "en": "# Agentic Rules Framework Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation.\n\n**MANDATORY**: Agents must respect the bootstrap configuration in `bootstrap.json` and only load rule files when their corresponding settings are enabled.\n\n## Framework Overview\nThis framework provides structured AI agent behaviors through modular rules:\n- **memory-rules/**: Persistent memory system for context retention\n- **rag-rules/**: Retrieval-augmented generation for optimal context usage\n- **critical-thinking-rules/**: Intellectual rigor and hallucination prevention\n\n## Bootstrap Compliance\nBefore loading any rule files, agents MUST:\n1. Read `bootstrap.json` to understand the framework configuration\n2. Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements\n3. Check loading sequence and entry points\n4. Validate user consent and settings\n5. Only load enabled rule integrations\n\n## Rule Integration Requirements\nEach rule provides specific algorithmic implementations that agents must actively execute:\n\n### Memory Rules Integration\n**MANDATORY**: If `memory_rules.enabled = true` in settings.json\n- Location: `memory-rules/AGENTS.md`\n- Implements: Memory initialization, storage, retrieval, and cleanup processes\n- Requires: Proper path configuration and retention policies\n\n### RAG Rules Integration\n**MANDATORY**: If `rag_rules.enabled = true` in settings.json\n- Location: `rag-rules/AGENTS.md`\n- Implements: Context optimization, relevance scoring, and retrieval algorithms\n- Requires: Context window configuration and scoring thresholds\n\n### Critical Thinking Rules Integration\n**MANDATORY**: If `critical_thinking_rules.enabled = true` in settings.json\n- Location: `critical-thinking-rules/AGENTS.md`\n- Implements: Error admission, assumption challenge, and verification processes\n- Requires: Verification thresholds and error handling settings\n\n## Framework Isolation\n**CRITICAL**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.\n\n## Agent Responsibility\nAgents using this framework must:\n- Respect all user settings and configurations\n- Provide clear feedback when rules are disabled\n- Maintain framework neutrality in generated content\n- Follow bootstrap compliance requirements\n\n**VIOLATION**: Agents that do not respect these integration requirements or user settings.\n\n<!-- METADATA: Root level agent integration template with framework overview -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+    "ja": "# Agentic Rules Framework 統合 / Agentic Rules Framework Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで対応する設定が有効になっている場合のみ使用してください。\n\n**必須 / MANDATORY**: エージェントは`bootstrap.json`のブートストラップ設定を尊重し、対応する設定が有効になっている場合のみルールファイルを読み込む必要があります。\n\n## フレームワーク概要 / Framework Overview\nこのフレームワークはモジュラーなルールを通じて構造化されたAIエージェント動作を提供します：\n- **memory-rules/**: コンテキスト保持のための永続的なメモリシステム / Persistent memory system for context retention\n- **rag-rules/**: 最適なコンテキスト使用のための検索拡張生成 / Retrieval-augmented generation for optimal context usage\n- **critical-thinking-rules/**: 知的厳密性と幻覚防止 / Intellectual rigor and hallucination prevention\n\n## ブートストラップ準拠 / Bootstrap Compliance\nルールファイルを読み込む前に、エージェントは必ず：\n1. フレームワーク設定を理解するために`bootstrap.json`を読み取る / Read `bootstrap.json` to understand the framework configuration\n2. 詳細なアルゴリズム仕様と準拠要件については`Bootstrap.md`を確認 / Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements\n3. 読み込み順序とエントリーポイントを確認 / Check loading sequence and entry points\n4. ユーザー同意と設定を検証 / Validate user consent and settings\n5. 有効化されたルール統合のみを読み込む / Only load enabled rule integrations\n\n## ルール統合要件 / Rule Integration Requirements\n各ルールはエージェントが積極的に実行する必要がある特定のアルゴリズム実装を提供します：\n\n### メモリールール統合 / Memory Rules Integration\n**必須 / MANDATORY**: settings.jsonで`memory_rules.enabled = true`の場合\n- 場所 / Location: `memory-rules/AGENTS.md`\n- 実装 / Implements: メモリ初期化、保存、検索、クリーンアッププロセス / Memory initialization, storage, retrieval, and cleanup processes\n- 必要 / Requires: 適切なパス設定と保持ポリシー / Proper path configuration and retention policies\n\n### RAGルール統合 / RAG Rules Integration\n**必須 / MANDATORY**: settings.jsonで`rag_rules.enabled = true`の場合\n- 場所 / Location: `rag-rules/AGENTS.md`\n- 実装 / Implements: コンテキスト最適化、関連性スコアリング、検索アルゴリズム / Context optimization, relevance scoring, and retrieval algorithms\n- 必要 / Requires: コンテキストウィンドウ設定とスコアリングしきい値 / Context window configuration and scoring thresholds\n\n### 批判的思考ルール統合 / Critical Thinking Rules Integration\n**必須 / MANDATORY**: settings.jsonで`critical_thinking_rules.enabled = true`の場合\n- 場所 / Location: `critical-thinking-rules/AGENTS.md`\n- 実装 / Implements: エラー承認、仮定挑戦、検証プロセス / Error admission, assumption challenge, and verification processes\n- 必要 / Requires: 検証しきい値とエラー処理設定 / Verification thresholds and error handling settings\n\n## フレームワーク分離 / Framework Isolation\n**重要 / CRITICAL**: このフレームワークはツールとして残り、ユーザーprojectコードベースに含めるべきではありません。すべての統合はそれぞれのディレクトリのルールファイルを通じて行われます。\n\n## エージェント責任 / Agent Responsibility\nこのフレームワークを使用するエージェントは：\n- すべてのユーザー設定と設定を尊重する / Respect all user settings and configurations\n- ルールが無効化されている場合に明確なフィードバックを提供する / Provide clear feedback when rules are disabled\n- 生成されたコンテンツでフレームワークのニュートラリティを維持する / Maintain framework neutrality in generated content\n- ブートストラップ準拠要件に従う / Follow bootstrap compliance requirements\n\n**違反 / VIOLATION**: これらの統合要件またはユーザー設定を尊重しないエージェント / Agents that do not respect these integration requirements or user settings.\n\n<!-- METADATA: Root level agent integration template with framework overview (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+    "id": "# Integrasi Kerangka Aturan Agentic\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna.\n\n**WAJIB**: Agen harus menghormati konfigurasi bootstrap di `bootstrap.json` dan hanya memuat file aturan ketika pengaturan yang sesuai diaktifkan.\n\n## Gambaran Kerangka\nKerangka ini menyediakan perilaku agen AI terstruktur melalui aturan modular:\n- **memory-rules/**: Sistem memori persisten untuk retensi konteks\n- **rag-rules/**: Retrieval-augmented generation untuk penggunaan konteks optimal\n- **critical-thinking-rules/**: Keketatan intelektual dan pencegahan halusinasi\n\n## Kepatuhan Bootstrap\nSebelum memuat file aturan apa pun, agen HARUS:\n1. Baca `bootstrap.json` untuk memahami konfigurasi kerangka\n2. Tinjau `Bootstrap.md` untuk spesifikasi algoritma detail dan persyaratan kepatuhan\n3. Periksa urutan pemuatan dan titik masuk\n4. Validasi persetujuan dan pengaturan pengguna\n5. Hanya muat integrasi aturan yang diaktifkan\n\n## Persyaratan Integrasi Aturan\nSetiap aturan menyediakan implementasi algoritma spesifik yang harus dieksekusi agen secara aktif:\n\n### Integrasi Aturan Memori\n**WAJIB**: Jika `memory_rules.enabled = true` di settings.json\n- Lokasi: `memory-rules/AGENTS.md`\n- Mengimplementasikan: Proses inisialisasi memori, penyimpanan, pengambilan, dan pembersihan\n- Membutuhkan: Konfigurasi path yang tepat dan kebijakan retensi\n\n### Integrasi Aturan RAG\n**WAJIB**: Jika `rag_rules.enabled = true` di settings.json\n- Lokasi: `rag-rules/AGENTS.md`\n- Mengimplementasikan: Optimasi konteks, skor relevansi, dan algoritma pengambilan\n- Membutuhkan: Konfigurasi jendela konteks dan ambang skor\n\n### Integrasi Aturan Berpikir Kritis\n**WAJIB**: Jika `critical_thinking_rules.enabled = true` di settings.json\n- Lokasi: `critical-thinking-rules/AGENTS.md`\n- Mengimplementasikan: Pengakuan error, tantangan asumsi, dan proses verifikasi\n- Membutuhkan: Ambang verifikasi dan pengaturan penanganan error\n\n## Isolasi Kerangka\n**KRITIS**: Kerangka ini tetap menjadi alat dan tidak boleh pernah disertakan dalam basis kode proyek pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.\n\n## Tanggung Jawab Agen\nAgen yang menggunakan kerangka ini harus:\n- Menghormati semua pengaturan dan konfigurasi pengguna\n- Berikan umpan balik yang jelas ketika aturan dinonaktifkan\n- Pertahankan netralitas kerangka dalam konten yang dihasilkan\n- Ikuti persyaratan kepatuhan bootstrap\n\n**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.\n\n<!-- METADATA: Template integrasi agen tingkat root dengan gambaran kerangka -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+  }
+}

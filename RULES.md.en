@@ -1,0 +1,55 @@
+# Agentic Rules Framework Integration
+
+**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation.
+
+**MANDATORY**: Agents must respect the bootstrap configuration in `bootstrap.json` and only load rule files when their corresponding settings are enabled.
+
+## Framework Overview
+This framework provides structured AI agent behaviors through modular rules:
+- **memory-rules/**: Persistent memory system for context retention
+- **rag-rules/**: Retrieval-augmented generation for optimal context usage
+- **critical-thinking-rules/**: Intellectual rigor and hallucination prevention
+
+## Bootstrap Compliance
+Before loading any rule files, agents MUST:
+1. Read `bootstrap.json` to understand the framework configuration
+2. Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements
+3. Check loading sequence and entry points
+4. Validate user consent and settings
+5. Only load enabled rule integrations
+
+## Rule Integration Requirements
+Each rule provides specific algorithmic implementations that agents must actively execute:
+
+### Memory Rules Integration
+**MANDATORY**: If `memory_rules.enabled = true` in settings.json
+- Location: `memory-rules/AGENTS.md`
+- Implements: Memory initialization, storage, retrieval, and cleanup processes
+- Requires: Proper path configuration and retention policies
+
+### RAG Rules Integration
+**MANDATORY**: If `rag_rules.enabled = true` in settings.json
+- Location: `rag-rules/AGENTS.md`
+- Implements: Context optimization, relevance scoring, and retrieval algorithms
+- Requires: Context window configuration and scoring thresholds
+
+### Critical Thinking Rules Integration
+**MANDATORY**: If `critical_thinking_rules.enabled = true` in settings.json
+- Location: `critical-thinking-rules/AGENTS.md`
+- Implements: Error admission, assumption challenge, and verification processes
+- Requires: Verification thresholds and error handling settings
+
+## Framework Isolation
+**CRITICAL**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.
+
+## Agent Responsibility
+Agents using this framework must:
+- Respect all user settings and configurations
+- Provide clear feedback when rules are disabled
+- Maintain framework neutrality in generated content
+- Follow bootstrap compliance requirements
+
+**VIOLATION**: Agents that do not respect these integration requirements or user settings.
+
+<!-- METADATA: Root level agent integration template with framework overview -->
+<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
