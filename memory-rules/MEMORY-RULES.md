@@ -12,6 +12,12 @@ Memory rules enable agents to maintain persistent understanding through structur
 - **ALWAYS** prompt user for consent OR skip operations gracefully
 - **SECURITY VIOLATION**: Auto-enabling is forbidden and constitutes a breach
 
+**MANDATORY**: When memory construction is requested and memory is enabled, agents MUST:
+- **ALWAYS** create actual local files in the configured storage location
+- **NEVER** store memory only in session context - persist to filesystem
+- **ALWAYS** follow the Memory Storage Process algorithm exactly
+- **ALWAYS** verify file creation and provide confirmation
+
 ### Implementation Guards
 
 **REQUIRED**: Every memory operation must check `memory_rules.enabled` first.
@@ -72,9 +78,13 @@ if (!getMemorySettings().enabled) {
 8. **Migration Notes**: Include cross-system compatibility information
 9. **Framework Neutrality**: Always exclude framework licensing and branding from generated content
 10. **Path Construction**: Build full file path based on routing decision
-11. **Structuring Phase**: Format understanding in standardized markdown template with version metadata
-12. **Persistence Phase**: Save to local filesystem in designated memory directory
-13. **Indexing Phase**: Update both global and project-specific memory indexes
+11. **Directory Creation**: **MANDATORY** - Create all necessary directories if they don't exist
+12. **File Creation**: **MANDATORY** - Create actual markdown files with content
+13. **Structuring Phase**: Format understanding in standardized markdown template with version metadata
+14. **Persistence Phase**: **MANDATORY** - Save to local filesystem and verify file exists
+15. **Verification Phase**: **MANDATORY** - Confirm file was created and is readable
+16. **Confirmation Phase**: **MANDATORY** - Report successful file creation with path
+17. **Indexing Phase**: Update both global and project-specific memory indexes
 
 ### Memory Retrieval Process
 1. **Query Analysis**: Parse incoming requests for memory relevance

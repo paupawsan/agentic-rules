@@ -166,7 +166,7 @@ For users who want to get memory working immediately with minimal setup:
 
 ### One-Prompt Setup
 ```
-"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm developing a [language/framework] application using [key technologies]. My preferences: [2-3 key preferences]. Please build memory with: 1) Project overview and goals, 2) Technology stack details and architecture, 3) My coding style preferences, 4) Common patterns and solutions I use, 5) Project-specific requirements and constraints. Store this information so you remember it across all future sessions."
+"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm developing a [language/framework] application using [key technologies]. My preferences: [2-3 key preferences]. Please build memory with: 1) Project overview and goals, 2) Technology stack details and architecture, 3) My coding style preferences, 4) Common patterns and solutions I use, 5) Project-specific requirements and constraints. Execute the Memory Storage Process algorithm to CREATE ACTUAL LOCAL FILES in the configured storage directory. Verify file creation and provide confirmation of file paths created."
 ```
 
 **That's it!** Memory will be activated and initial project memory will be constructed immediately. The system will remember your project details and preferences across all future sessions.
@@ -345,17 +345,18 @@ DEBUGGING APPROACH:
 → Memory builds troubleshooting knowledge base
 
 ### Step 5: Validation & Testing
-Verify memory setup is working:
+Verify memory setup is working and files were created:
 
 ```
-"Let's test that you've remembered the key project information:
+"Let's test that you've remembered the key project information AND that memory files were created:
 
 1. What programming language and framework are we using?
 2. What are the main directories and their purposes?
 3. What are my code review priorities?
 4. What should you check first when there's a database error?
+5. What local files were created during memory construction? (Check the configured storage directory)
 
-If you remember these correctly, then memory setup is complete!"
+If you remember these correctly AND can confirm the actual files exist, then memory setup is complete!"
 ```
 → Validates memory retention and understanding
 
