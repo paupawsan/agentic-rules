@@ -206,13 +206,13 @@ For users who want to get memory working immediately with minimal setup:
 ### Example Quick Setups
 ```
 # Web Development
-"Enable memory for this React/TypeScript web app using Next.js and Tailwind CSS. I prefer functional components and custom hooks."
+"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm developing a React/TypeScript web application using Next.js and Tailwind CSS. My preferences: functional components and custom hooks. Build memory with: project overview, React/Next.js architecture, TypeScript patterns, component design preferences, and styling approach with Tailwind."
 
 # Data Science
-"Enable memory for this Python data analysis project using pandas, numpy, and matplotlib. I prefer clear variable names and comprehensive documentation."
+"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm working on a Python data analysis project using pandas, numpy, and matplotlib. My preferences: clear variable names and comprehensive documentation. Build memory with: project goals, data analysis workflow, Python best practices, visualization preferences, and documentation standards."
 
 # Backend API
-"Enable memory for this Node.js/Express API using MongoDB. I prefer async/await, input validation, and comprehensive error handling."
+"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm building a Node.js/Express API using MongoDB. My preferences: async/await, input validation, and comprehensive error handling. Build memory with: API architecture, database design, authentication approach, error handling patterns, and performance considerations."
 ```
 
 ---
