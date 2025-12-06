@@ -12,11 +12,15 @@ Memory rules enable agents to maintain persistent understanding through structur
 - **ALWAYS** prompt user for consent OR skip operations gracefully
 - **SECURITY VIOLATION**: Auto-enabling is forbidden and constitutes a breach
 
+**MANDATORY FILE FORMAT**: All memory MUST be stored as markdown (.md) files, NEVER JSON or other formats.
+
 **MANDATORY**: When memory construction is requested and memory is enabled, agents MUST:
-- **ALWAYS** create actual local files in the configured storage location
+- **ALWAYS** create actual local markdown (.md) files in the configured storage location
+- **NEVER** use JSON format - use markdown format exclusively
 - **NEVER** store memory only in session context - persist to filesystem
-- **ALWAYS** follow the Memory Storage Process algorithm exactly
-- **ALWAYS** verify file creation and provide confirmation
+- **ALWAYS** follow the exact directory structure: [storage.base_path]/projects/[project-id]/[category]/
+- **ALWAYS** use standardized markdown templates from this specification
+- **ALWAYS** verify file creation and provide confirmation with exact file paths
 
 ### Implementation Guards
 
@@ -70,21 +74,42 @@ if (!getMemorySettings().enabled) {
 2. **Disabled Handling**: If memory or category is disabled:
    - **CRITICAL**: Do NOT auto-enable - respect user's configuration choice
    - **MUST** skip storage operation without prompting
-3. **Observation Phase**: Agent identifies significant understanding or decision points
+3. **File Format Verification**: **MANDATORY** - Confirm all files will be created as .md (markdown) format, never JSON
 4. **Project Identification**: Determine current project context using project identification algorithm
-5. **Categorization Phase**: Classify information by type (technical, behavioral, contextual)
-6. **Memory Routing**: Apply memory routing algorithm to determine storage location (common vs private)
+5. **Categorization Phase**: Classify information by type (technical, behavioral, contextual, personal, session, topic)
+6. **Memory Routing**: Apply memory routing algorithm - project memories go to [storage.base_path]/projects/[project-id]/[category]/
 7. **Versioning Phase**: Read current memory rules version from settings.json
 8. **Migration Notes**: Include cross-system compatibility information
 9. **Framework Neutrality**: Always exclude framework licensing and branding from generated content
-10. **Path Construction**: Build full file path based on routing decision
-11. **Directory Creation**: **MANDATORY** - Create all necessary directories if they don't exist
-12. **File Creation**: **MANDATORY** - Create actual markdown files with content
-13. **Structuring Phase**: Format understanding in standardized markdown template with version metadata
-14. **Persistence Phase**: **MANDATORY** - Save to local filesystem and verify file exists
-15. **Verification Phase**: **MANDATORY** - Confirm file was created and is readable
-16. **Confirmation Phase**: **MANDATORY** - Report successful file creation with path
+10. **Path Construction**: **MANDATORY** - Build exact path: [storage.base_path]/projects/[project-id]/[category]/[timestamp]_[category]_memory.md
+11. **Directory Creation**: **MANDATORY** - Create directory structure [storage.base_path]/projects/[project-id]/[category]/
+12. **File Creation**: **MANDATORY** - Create markdown (.md) files using standardized templates
+13. **Structuring Phase**: Format using exact markdown template with version metadata and proper headers
+14. **Persistence Phase**: **MANDATORY** - Save to local filesystem and verify .md file exists
+15. **Verification Phase**: **MANDATORY** - Confirm .md file was created, is readable, and contains proper markdown content
+16. **Confirmation Phase**: **MANDATORY** - Report successful file creation with exact .md file paths
 17. **Indexing Phase**: Update both global and project-specific memory indexes
+
+### Expected Project Memory File Structure
+When constructing project memory, create files in this exact structure:
+
+```
+[storage.base_path]/projects/[project-id]/
+├── contextual/
+│   └── [timestamp]_contextual_memory.md
+├── technical/
+│   └── [timestamp]_technical_memory.md
+├── behavioral/
+│   └── [timestamp]_behavioral_memory.md
+├── personal/
+│   └── [timestamp]_personal_memory.md
+├── sessions/
+│   └── [timestamp]_session_memory.md
+└── topics/
+    └── [timestamp]_topic_memory.md
+```
+
+**MANDATORY**: Each .md file MUST use the corresponding standardized template (Standard Memory Template, Session Memory Template, Topic Memory Template, etc.)
 
 ### Memory Retrieval Process
 1. **Query Analysis**: Parse incoming requests for memory relevance

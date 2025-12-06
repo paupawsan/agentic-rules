@@ -166,7 +166,7 @@ For users who want to get memory working immediately with minimal setup:
 
 ### One-Prompt Setup
 ```
-"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm developing a [language/framework] application using [key technologies]. My preferences: [2-3 key preferences]. Please build memory with: 1) Project overview and goals, 2) Technology stack details and architecture, 3) My coding style preferences, 4) Common patterns and solutions I use, 5) Project-specific requirements and constraints. Execute the Memory Storage Process algorithm to CREATE ACTUAL LOCAL FILES in the configured storage directory. Verify file creation and provide confirmation of file paths created."
+"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm developing a [language/framework] application using [key technologies]. My preferences: [2-3 key preferences]. Please build memory with: 1) Project overview and goals, 2) Technology stack details and architecture, 3) My coding style preferences, 4) Common patterns and solutions I use, 5) Project-specific requirements and constraints. Execute the Memory Storage Process algorithm EXACTLY as specified in MEMORY-RULES.md to CREATE ACTUAL LOCAL MARKDOWN (.md) FILES in the proper directory structure: [storage.base_path]/projects/[project-id]/[category]/[timestamp]_[category]_memory.md. Use the standardized markdown templates. Verify file creation and provide confirmation of exact .md file paths created."
 ```
 
 **That's it!** Memory will be activated and initial project memory will be constructed immediately. The system will remember your project details and preferences across all future sessions.
@@ -206,13 +206,13 @@ For users who want to get memory working immediately with minimal setup:
 ### Example Quick Setups
 ```
 # Web Development
-"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm developing a React/TypeScript web application using Next.js and Tailwind CSS. My preferences: functional components and custom hooks. Build memory with: project overview, React/Next.js architecture, TypeScript patterns, component design preferences, and styling approach with Tailwind."
+"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm developing a React/TypeScript web application using Next.js and Tailwind CSS. My preferences: functional components and custom hooks. Build memory with: project overview, React/Next.js architecture, TypeScript patterns, component design preferences, and styling approach with Tailwind. Create MARKDOWN (.md) files in [storage.base_path]/projects/[project-id]/[category]/ directory structure."
 
 # Data Science
-"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm working on a Python data analysis project using pandas, numpy, and matplotlib. My preferences: clear variable names and comprehensive documentation. Build memory with: project goals, data analysis workflow, Python best practices, visualization preferences, and documentation standards."
+"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm working on a Python data analysis project using pandas, numpy, and matplotlib. My preferences: clear variable names and comprehensive documentation. Build memory with: project goals, data analysis workflow, Python best practices, visualization preferences, and documentation standards. Create MARKDOWN (.md) files in [storage.base_path]/projects/[project-id]/[category]/ directory structure."
 
 # Backend API
-"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm building a Node.js/Express API using MongoDB. My preferences: async/await, input validation, and comprehensive error handling. Build memory with: API architecture, database design, authentication approach, error handling patterns, and performance considerations."
+"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm building a Node.js/Express API using MongoDB. My preferences: async/await, input validation, and comprehensive error handling. Build memory with: API architecture, database design, authentication approach, error handling patterns, and performance considerations. Create MARKDOWN (.md) files in [storage.base_path]/projects/[project-id]/[category]/ directory structure."
 ```
 
 ---
