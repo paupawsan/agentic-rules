@@ -1,0 +1,65 @@
+# {{display_name}} 代理集成 (中文)
+
+**⚠️ 安全警告**: 这是一个 TEMPLATE 文件。代理不得自动加载此文件。仅在明确的用户激活后将其重命名为 `AGENTS.md`、`GEMINI.md` 或 `CLAUDE.md` 且 settings.json 中 `{{plugin_key}}.enabled = true` 时才加载。
+
+**强制**: 如果 settings.json 中 {{plugin_key}}.enabled = true，代理必须实现以下所有算法。
+
+## {{display_name}} 概述
+{{description}}
+
+## 强制实施算法
+
+### 算法: {{pascal_case_name}}_Initialization_Process
+**强制**: 当 {{plugin_key}}.enabled = true 时执行
+
+**步骤**:
+1. 读取 {{plugin_name}}/settings.json
+2. 初始化 {{plugin_name_kebab}} 系统
+3. 验证配置设置
+4. 返回已初始化的系统
+
+**重要**: 不要自动激活 - 尊重用户设置。
+
+### 算法: {{pascal_case_name}}_Main_Process
+**强制**: 当激活时为所有相关用户交互执行
+
+**步骤**:
+1. 检查 {{plugin_key}}.enabled = true
+2. 分析当前上下文和请求
+3. 应用 {{plugin_name_kebab}} 算法
+4. 处理并返回结果
+
+### 算法: {{pascal_case_name}}_Cleanup_Process
+**强制**: 定期执行，需要用户同意
+
+**步骤**:
+1. 检查清理设置
+2. 识别过时数据
+3. 请求用户同意进行清理
+4. 执行安全的清理操作
+
+## 配置要求
+- 设置文件: `{{plugin_name}}/settings.json`
+- 配置键: `{{plugin_key}}.enabled`
+- 强制要求引导程序合规性
+
+## 错误处理
+**强制**: 代理必须正确处理错误:
+- 未找到配置文件 → 跳过 {{plugin_name_kebab}} 操作
+- 无效设置 → 使用默认值并记录警告
+- 系统错误 → 在没有 {{plugin_name_kebab}} 功能的情况下继续
+
+## 框架集成
+**强制**: 此框架仍然是一个工具，不应包含在用户项目代码库中。所有集成都通过各自目录中的规则文件进行。
+
+## 代理责任
+使用此框架的代理必须:
+- 尊重所有用户设置和配置
+- 在 {{plugin_name_kebab}} 被禁用时提供清晰反馈
+- 在生成的内容中维护框架的中立性
+- 遵守引导程序合规性要求
+
+**违规**: 不尊重这些集成要求或用户设置的代理。
+
+<!-- METADATA: {{display_name}} 代理集成模板 -->
+<!-- LICENSE: Copyright (c) {{current_year}} {{author_name}} - 根据 MIT 许可证授权。有关详细信息，请参阅 LICENSE 文件。 -->

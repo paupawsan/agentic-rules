@@ -1,0 +1,65 @@
+# {{display_name}} 에이전트 통합 (한국어)
+
+**⚠️ 보안 주의사항**: 이것은 TEMPLATE 파일입니다. 에이전트는 이 파일을 자동으로 로드해서는 안 됩니다. `AGENTS.md`, `GEMINI.md` 또는 `CLAUDE.md`로 이름을 변경한 후 명시적 사용자 활성화 시점과 settings.json에서 `{{plugin_key}}.enabled = true`일 때만 로드합니다.
+
+**필수**: settings.json에서 {{plugin_key}}.enabled = true인 경우, 에이전트는 아래의 모든 알고리즘을 구현해야 합니다.
+
+## {{display_name}} 개요
+{{description}}
+
+## 필수 구현 알고리즘
+
+### 알고리즘: {{pascal_case_name}}_Initialization_Process
+**필수**: {{plugin_key}}.enabled = true일 때 실행
+
+**단계**:
+1. {{plugin_name}}/settings.json 읽기
+2. {{plugin_name_kebab}} 시스템 초기화
+3. 구성 설정 검증
+4. 초기화된 시스템 반환
+
+**중요**: 자동 활성화하지 않음 - 사용자 설정 존중.
+
+### 알고리즘: {{pascal_case_name}}_Main_Process
+**필수**: 활성화 시 모든 관련 사용자 상호작용에 대해 실행
+
+**단계**:
+1. {{plugin_key}}.enabled = true 확인
+2. 현재 컨텍스트와 요청 분석
+3. {{plugin_name_kebab}} 알고리즘 적용
+4. 결과 처리 및 반환
+
+### 알고리즘: {{pascal_case_name}}_Cleanup_Process
+**필수**: 주기적으로 실행, 사용자 동의 필요
+
+**단계**:
+1. 정리 설정 확인
+2. 오래된 데이터 식별
+3. 정리 작업에 대한 사용자 동의 요청
+4. 안전한 정리 작업 수행
+
+## 구성 요구사항
+- 설정 파일: `{{plugin_name}}/settings.json`
+- 구성 키: `{{plugin_key}}.enabled`
+- 부트스트랩 준수 필요
+
+## 오류 처리
+**필수**: 에이전트는 오류를 올바르게 처리해야 함:
+- 구성 파일을 찾을 수 없음 → {{plugin_name_kebab}} 작업 건너뛰기
+- 잘못된 설정 → 기본값 사용 및 경고 기록
+- 시스템 오류 → {{plugin_name_kebab}} 기능 없이 계속 진행
+
+## 프레임워크 통합
+**필수**: 이 프레임워크는 도구로 남아 있어야 하며 사용자 프로젝트 코드베이스에 포함되어서는 안 됩니다. 모든 통합은 각 디렉토리의 규칙 파일을 통해 이루어집니다.
+
+## 에이전트 책임
+이 프레임워크를 사용하는 에이전트는 다음을 수행해야 함:
+- 모든 사용자 설정 및 구성 존중
+- {{plugin_name_kebab}}이 비활성화되었을 때 명확한 피드백 제공
+- 생성된 콘텐츠에서 프레임워크 중립성 유지
+- 부트스트랩 준수 요구사항 준수
+
+**위반**: 이러한 통합 요구사항이나 사용자 설정을 존중하지 않는 에이전트.
+
+<!-- METADATA: {{display_name}} 에이전트 통합 템플릿 -->
+<!-- LICENSE: Copyright (c) {{current_year}} {{author_name}} - MIT 라이선스에 따라 라이선스됨. 세부 사항은 LICENSE 파일 참조. -->
