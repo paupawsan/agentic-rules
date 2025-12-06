@@ -67,7 +67,26 @@ class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
             # Security check - only allow specific file types and locations
             allowed_extensions = ['.md', '.json']
-            allowed_dirs = ['.', 'memory-rules', 'rag-rules', 'critical-thinking-rules']
+
+            # Load allowed plugin directories from plugins.json
+            try:
+                plugins_file = self.server_directory / 'plugins.json'
+                with open(plugins_file, 'r', encoding='utf-8') as f:
+                    plugins_data = json.load(f)
+                    plugins_from_json = plugins_data.get('plugins', [])
+            except (FileNotFoundError, json.JSONDecodeError):
+                # Fallback to hardcoded list if plugins.json is missing or invalid
+                plugins_from_json = ['memory-rules', 'rag-rules', 'critical-thinking-rules']
+
+            # Validate plugins exist as directories and add to allowed_dirs
+            allowed_dirs = ['.']  # Root directory is always allowed
+            for plugin_name in plugins_from_json:
+                plugin_path = self.server_directory / plugin_name
+                if plugin_path.is_dir() and plugin_path.exists():
+                    allowed_dirs.append(plugin_name)
+                else:
+                    # Log warning for plugins that don't exist as directories
+                    print(f"Warning: Plugin '{plugin_name}' listed in plugins.json but directory not found", file=sys.stderr)
 
             if not any(filename.endswith(ext) for ext in allowed_extensions):
                 self.send_error(400, "Invalid file type")

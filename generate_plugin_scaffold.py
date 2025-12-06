@@ -980,29 +980,46 @@ def create_plugin_scaffold(plugin_name, display_name, description, languages, en
 
         # Always add to plugins.json
         plugins_file = script_dir / "plugins.json"
-        if plugins_file.exists():
+
+        # Ensure plugins.json exists with proper structure
+        if not plugins_file.exists():
+            # Create plugins.json if it doesn't exist
+            plugins_config = {
+                "_comment": f"Copyright (c) {current_year} Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
+                "version": "0.1.0",
+                "plugins": [],
+                "description": "Manifest of available agentic-rules plugins"
+            }
             try:
-                with open(plugins_file, 'r', encoding='utf-8') as f:
-                    plugins_config = json.load(f)
-
-                if 'plugins' not in plugins_config:
-                    plugins_config['plugins'] = []
-
-                if plugin_name not in plugins_config['plugins']:
-                    plugins_config['plugins'].append(plugin_name)
-                    plugins_config['plugins'].sort()  # Keep sorted
-
-                    with open(plugins_file, 'w', encoding='utf-8') as f:
-                        json.dump(plugins_config, f, indent=2, ensure_ascii=False)
-
-                    print(f"✓ Added '{plugin_name}' to plugins.json")
-                else:
-                    print(f"⚠️  '{plugin_name}' already in plugins.json")
-
+                with open(plugins_file, 'w', encoding='utf-8') as f:
+                    json.dump(plugins_config, f, indent=2, ensure_ascii=False)
+                print(f"✓ Created plugins.json")
             except Exception as e:
-                print(f"⚠️  Could not update plugins.json: {e}")
+                print(f"⚠️  Could not create plugins.json: {e}")
+
+        # Now update plugins.json
+        try:
+            with open(plugins_file, 'r', encoding='utf-8') as f:
+                plugins_config = json.load(f)
+
+            # Ensure plugins array exists
+            if 'plugins' not in plugins_config:
+                plugins_config['plugins'] = []
+
+            # Add plugin if not already present
+            if plugin_name not in plugins_config['plugins']:
+                plugins_config['plugins'].append(plugin_name)
+                plugins_config['plugins'].sort()  # Keep sorted
+
+                with open(plugins_file, 'w', encoding='utf-8') as f:
+                    json.dump(plugins_config, f, indent=2, ensure_ascii=False)
+
+                print(f"✓ Added '{plugin_name}' to plugins.json")
             else:
-                print("⚠️  plugins.json not found, skipping auto-registration")
+                print(f"⚠️  '{plugin_name}' already in plugins.json")
+
+        except Exception as e:
+            print(f"⚠️  Could not update plugins.json: {e}")
 
         print("\n🎉 Plugin scaffold created successfully!")
         print(f"📂 Location: {plugin_dir}")
