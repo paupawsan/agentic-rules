@@ -1,0 +1,65 @@
+# Integrasi Agen {{display_name}} (Bahasa Indonesia)
+
+**⚠️ PRECAUTION KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `{{plugin_key}}.enabled = true` dalam settings.json.
+
+**WAJIB**: Jika {{plugin_key}}.enabled = true dalam settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.
+
+## Ringkasan {{display_name}}
+{{description}}
+
+## Algoritma Implementasi yang Diperlukan
+
+### Algoritma: {{pascal_case_name}}_Initialization_Process
+**WAJIB**: Eksekusi ketika {{plugin_key}}.enabled = true
+
+**Langkah**:
+1. Baca {{plugin_name}}/settings.json
+2. Inisialisasi sistem {{plugin_name_kebab}}
+3. Validasi pengaturan konfigurasi
+4. Kembalikan sistem yang diinisialisasi
+
+**KRITIS**: JANGAN aktifkan otomatis - hormati pengaturan aktif pengguna.
+
+### Algoritma: {{pascal_case_name}}_Main_Process
+**WAJIB**: Eksekusi untuk semua interaksi pengguna terkait ketika aktif
+
+**Langkah**:
+1. Periksa {{plugin_key}}.enabled = true
+2. Analisis konteks dan permintaan saat ini
+3. Terapkan algoritma {{plugin_name_kebab}}
+4. Proses dan kembalikan hasil
+
+### Algoritma: {{pascal_case_name}}_Cleanup_Process
+**WAJIB**: Eksekusi secara berkala, memerlukan persetujuan pengguna
+
+**Langkah**:
+1. Periksa pengaturan pembersihan
+2. Identifikasi data yang kedaluwarsa
+3. Minta persetujuan pengguna untuk pembersihan
+4. Lakukan pembersihan yang aman
+
+## Persyaratan Konfigurasi
+- File pengaturan: `{{plugin_name}}/settings.json`
+- Kunci konfigurasi: `{{plugin_key}}.enabled`
+- Kepatuhan bootstrap wajib
+
+## Penanganan Error
+**WAJIB**: Agen harus menangani error dengan baik:
+- File konfigurasi hilang → Lewati operasi {{plugin_name_kebab}}
+- Pengaturan tidak valid → Gunakan nilai default dan log peringatan
+- Error sistem → Lanjutkan operasi tanpa fitur {{plugin_name_kebab}}
+
+## Integrasi Framework
+**WAJIB**: Framework ini tetap menjadi alat dan tidak boleh dimasukkan ke dalam codebase proyek pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.
+
+## Tanggung Jawab Agen
+Agen yang menggunakan framework ini harus:
+- Menghormati semua pengaturan dan konfigurasi pengguna
+- Memberikan umpan balik yang jelas ketika {{plugin_name_kebab}} dinonaktifkan
+- Mempertahankan netralitas framework dalam konten yang dihasilkan
+- Mengikuti persyaratan kepatuhan bootstrap
+
+**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.
+
+<!-- METADATA: template integrasi agen {{display_name}} -->
+<!-- LICENSE: Copyright (c) {{current_year}} {{author_name}} - Dilisensikan di bawah Lisensi MIT. Lihat file LICENSE untuk detail. -->

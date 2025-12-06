@@ -1,0 +1,65 @@
+# {{display_name}} Agent Integration (English)
+
+**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+
+**MANDATORY**: If {{plugin_key}}.enabled = true in settings.json, agents MUST implement all algorithms below.
+
+## {{display_name}} Overview
+{{description}}
+
+## Required Implementation Algorithms
+
+### Algorithm: {{pascal_case_name}}_Initialization_Process
+**MANDATORY**: Execute when {{plugin_key}}.enabled = true
+
+**Steps**:
+1. Read {{plugin_name}}/settings.json
+2. Initialize {{plugin_name_kebab}} system
+3. Validate configuration settings
+4. Return initialized system
+
+**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.
+
+### Algorithm: {{pascal_case_name}}_Main_Process
+**MANDATORY**: Execute for all relevant user interactions when enabled
+
+**Steps**:
+1. Check {{plugin_key}}.enabled = true
+2. Analyze current context and request
+3. Apply {{plugin_name_kebab}} algorithms
+4. Process and return results
+
+### Algorithm: {{pascal_case_name}}_Cleanup_Process
+**MANDATORY**: Execute periodically, require user consent
+
+**Steps**:
+1. Check cleanup settings
+2. Identify obsolete data
+3. Request user consent for cleanup
+4. Perform safe cleanup operations
+
+## Configuration Requirements
+- Settings file: `{{plugin_name}}/settings.json`
+- Configuration key: `{{plugin_key}}.enabled`
+- Bootstrap compliance required
+
+## Error Handling
+**MANDATORY**: Agents must handle errors gracefully:
+- Configuration file missing → Skip {{plugin_name_kebab}} operations
+- Invalid settings → Use default values and log warnings
+- System errors → Continue operation without {{plugin_name_kebab}} features
+
+## Framework Integration
+**MANDATORY**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.
+
+## Agent Responsibility
+Agents using this framework must:
+- Respect all user settings and configurations
+- Provide clear feedback when {{plugin_name_kebab}} is disabled
+- Maintain framework neutrality in generated content
+- Follow bootstrap compliance requirements
+
+**VIOLATION**: Agents that do not respect these integration requirements or user settings.
+
+<!-- METADATA: {{display_name}} agent integration template -->
+<!-- LICENSE: Copyright (c) {{current_year}} {{author_name}} - Licensed under the MIT License. See LICENSE file for details. -->

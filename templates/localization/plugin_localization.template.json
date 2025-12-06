@@ -1,0 +1,7 @@
+{
+  "_comment": "Plugin localization template - replace {{language_code}} with actual language code",
+  "{{language_code}}": {
+    "plugin_name": "{{display_name}} ({{native_language_name}})",
+    "description": "{{plugin_description}}"
+  }
+}

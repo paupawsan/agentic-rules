@@ -1,0 +1,141 @@
+# {{display_name}}
+
+{{description}}
+
+## Overview
+
+This is a custom plugin for the Agentic Rules Framework that provides {{plugin_name_kebab}} functionality for AI agents.
+
+## Features
+
+- **Algorithm Implementation**: Provides structured algorithms for {{plugin_name_kebab}} operations
+- **Configuration Management**: Flexible settings through `settings.json`
+- **Multi-language Support**: Templates available in multiple languages
+- **Framework Integration**: Seamless integration with the Agentic Rules Framework
+
+## Installation
+
+1. Copy this plugin directory to your agentic-rules framework
+2. Add the plugin name to `plugins.json` (optional, for web interface)
+3. Run `python generate_simple_setup.py` to update web configuration
+4. Activate the plugin using `python setup.py`
+
+## Configuration
+
+### Basic Settings (`settings.json`)
+
+```json
+{
+  "{{plugin_key}}": {
+    "enabled": true,
+    "config": {
+      "example_setting": "example_value",
+      "max_entries": 100,
+      "cleanup_days": 90
+    },
+    "advanced": {
+      "debug_mode": false,
+      "performance_mode": "balanced"
+    }
+  }
+}
+```
+
+### Settings Description
+
+- `enabled`: Enable/disable the plugin
+- `config.max_entries`: Maximum number of entries to maintain
+- `config.cleanup_days`: Days to retain data before cleanup
+- `advanced.debug_mode`: Enable debug logging
+- `advanced.performance_mode`: Performance optimization mode
+
+## Usage
+
+1. **Enable the Plugin**: Set `enabled: true` in `settings.json`
+2. **Activate Rules**: Use `python setup.py` to generate rule files
+3. **Integration**: Copy the generated rule file (e.g., `AGENTS.md`) to your project
+4. **Configuration**: Customize settings in `{{plugin_name}}/settings.json`
+
+## Rule Algorithms
+
+This plugin implements the following algorithms:
+
+### {{pascal_case_name}} Initialization Process
+- Initializes the {{plugin_name_kebab}} system
+- Validates configuration
+- Sets up required data structures
+
+### {{pascal_case_name}} Main Process
+- Processes user interactions
+- Applies {{plugin_name_kebab}} logic
+- Returns processed results
+
+### {{pascal_case_name}} Cleanup Process
+- Performs periodic cleanup
+- Requires user consent
+- Maintains data integrity
+
+## File Structure
+
+```
+{{plugin_name}}/
+├── README.md              # This documentation
+├── RULES.md.en           # English rule template
+├── RULES.md.ja           # Japanese template (if requested)
+├── RULES.md.id           # Indonesian template (if requested)
+├── settings.json         # Default settings
+└── setup.json           # Web interface configuration
+```
+
+## Development
+
+### Adding New Languages
+
+1. Create `RULES.md.{{language_code}}` with translated template
+2. Add localization to `setup.json`
+3. Update `settings.json` if needed
+
+### Customizing Algorithms
+
+Edit the `RULES.md.*` files to modify the algorithms and behavior.
+
+### Testing
+
+1. Enable the plugin in settings
+2. Run setup.py to generate rule files
+3. Test the generated rules in your AI agent
+
+## Troubleshooting
+
+### Plugin Not Detected
+- Ensure the plugin directory exists
+- Check that at least one `RULES.md.*` file exists
+- Verify `plugins.json` includes the plugin name (for web interface)
+
+### Configuration Errors
+- Check `settings.json` syntax
+- Verify all required settings are present
+- Ensure file permissions are correct
+
+### Rule Activation Fails
+- Check that the plugin is enabled in settings
+- Verify `setup.py` completed successfully
+- Ensure generated rule files are properly copied
+
+## License
+
+Copyright (c) {{current_year}} {{author_name}}
+
+Licensed under the MIT License. See LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+For major changes, please open an issue first to discuss the proposed changes.

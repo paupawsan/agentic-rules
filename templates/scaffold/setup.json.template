@@ -1,0 +1,469 @@
+{
+  "_comment": "Copyright (c) {{current_year}} {{author_name}} - Licensed under the MIT License. See LICENSE file for details.",
+  "localization": {
+    "en": {
+      "plugin_name": "{{display_name}}",
+      "description": "{{description}}"
+    },
+    "ja": {
+      "plugin_name": "{{display_name}} (日本語)",
+      "description": "{{description}}"
+    },
+    "id": {
+      "plugin_name": "{{display_name}} (Bahasa Indonesia)",
+      "description": "{{description}}"
+    },
+    "de": {
+      "plugin_name": "{{display_name}} (Deutsch)",
+      "description": "{{description}}"
+    },
+    "fr": {
+      "plugin_name": "{{display_name}} (Français)",
+      "description": "{{description}}"
+    },
+    "es": {
+      "plugin_name": "{{display_name}} (Español)",
+      "description": "{{description}}"
+    },
+    "ar": {
+      "plugin_name": "{{display_name}} (العربية)",
+      "description": "{{description}}"
+    },
+    "ko": {
+      "plugin_name": "{{display_name}} (한국어)",
+      "description": "{{description}}"
+    },
+    "jv": {
+      "plugin_name": "{{display_name}} (Basa Jawa)",
+      "description": "{{description}}"
+    },
+    "hi": {
+      "plugin_name": "{{display_name}} (हिन्दी)",
+      "description": "{{description}}"
+    },
+    "pt": {
+      "plugin_name": "{{display_name}} (Português)",
+      "description": "{{description}}"
+    },
+    "ru": {
+      "plugin_name": "{{display_name}} (Русский)",
+      "description": "{{description}}"
+    },
+    "tr": {
+      "plugin_name": "{{display_name}} (Türkçe)",
+      "description": "{{description}}"
+    },
+    "vi": {
+      "plugin_name": "{{display_name}} (Tiếng Việt)",
+      "description": "{{description}}"
+    },
+    "th": {
+      "plugin_name": "{{display_name}} (ภาษาไทย)",
+      "description": "{{description}}"
+    },
+    "si": {
+      "plugin_name": "{{display_name}} (සිංහල)",
+      "description": "{{description}}"
+    },
+    "ta": {
+      "plugin_name": "{{display_name}} (தமிழ்)",
+      "description": "{{description}}"
+    }
+  },
+  "mandatory_config": [
+    {
+      "name": "{{plugin_key}}_enable",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Enable {{display_name}}",
+          "description": "Enable or disable {{display_name}} functionality"
+        },
+        "ja": {
+          "title": "{{display_name}}を有効化",
+          "description": "{{display_name}}機能を有効または無効にします"
+        },
+        "id": {
+          "title": "Aktifkan {{display_name}}",
+          "description": "Aktifkan atau nonaktifkan fungsi {{display_name}}"
+        },
+        "de": {
+          "title": "{{display_name}} aktivieren",
+          "description": "{{display_name}} Funktionalität aktivieren oder deaktivieren"
+        },
+        "fr": {
+          "title": "Activer {{display_name}}",
+          "description": "Activer ou désactiver la fonctionnalité {{display_name}}"
+        },
+        "es": {
+          "title": "Habilitar {{display_name}}",
+          "description": "Habilitar o deshabilitar la funcionalidad de {{display_name}}"
+        },
+        "ar": {
+          "title": "تفعيل {{display_name}}",
+          "description": "تفعيل أو تعطيل وظائف {{display_name}}"
+        },
+        "ko": {
+          "title": "{{display_name}} 활성화",
+          "description": "{{display_name}} 기능을 활성화 또는 비활성화합니다"
+        },
+        "jv": {
+          "title": "Aktifake {{display_name}}",
+          "description": "Aktifake utawa mateni fungsi {{display_name}}"
+        },
+        "hi": {
+          "title": "{{display_name}} सक्षम करें",
+          "description": "{{display_name}} कार्यक्षमता सक्षम या अक्षम करें"
+        },
+        "pt": {
+          "title": "Ativar {{display_name}}",
+          "description": "Ativar ou desativar a funcionalidade do {{display_name}}"
+        },
+        "ru": {
+          "title": "Включить {{display_name}}",
+          "description": "Включить или отключить функциональность {{display_name}}"
+        },
+        "tr": {
+          "title": "{{display_name}}'i etkinleştir",
+          "description": "{{display_name}} işlevini etkinleştirin veya devre dışı bırakın"
+        },
+        "vi": {
+          "title": "Kích hoạt {{display_name}}",
+          "description": "Kích hoạt hoặc tắt chức năng {{display_name}}"
+        },
+        "th": {
+          "title": "เปิดใช้งาน {{display_name}}",
+          "description": "เปิดใช้งานหรือปิดใช้งานฟังก์ชัน {{display_name}}"
+        },
+        "si": {
+          "title": "{{display_name}} සක්‍රිය කරන්න",
+          "description": "{{display_name}} ක්‍රියාකාරකම සක්‍රිය හෝ අක්‍රිය කරන්න"
+        },
+        "ta": {
+          "title": "{{display_name}} செயல்படுத்து",
+          "description": "{{display_name}} செயல்பாட்டை இயக்கு அல்லது முடக்கு"
+        }
+      },
+      "options": [
+        {
+          "name": "enable",
+          "localization": {
+            "en": {
+              "description": "Enable {{display_name}}"
+            },
+            "ja": {
+              "description": "{{display_name}}を有効化"
+            },
+            "id": {
+              "description": "Aktifkan {{display_name}}"
+            },
+            "de": {
+              "description": "{{display_name}} aktivieren"
+            },
+            "fr": {
+              "description": "Activer {{display_name}}"
+            },
+            "es": {
+              "description": "Habilitar {{display_name}}"
+            },
+            "ar": {
+              "description": "تفعيل {{display_name}}"
+            },
+            "ko": {
+              "description": "{{display_name}} 활성화"
+            },
+            "jv": {
+              "description": "Aktifake {{display_name}}"
+            },
+            "hi": {
+              "description": "{{display_name}} सक्षम करें"
+            },
+            "pt": {
+              "description": "Ativar {{display_name}}"
+            },
+            "ru": {
+              "description": "Включить {{display_name}}"
+            },
+            "tr": {
+              "description": "{{display_name}}'i etkinleştir"
+            },
+            "vi": {
+              "description": "Kích hoạt {{display_name}}"
+            },
+            "th": {
+              "description": "เปิดใช้งาน {{display_name}}"
+            },
+            "si": {
+              "description": "{{display_name}} සක්‍රිය කරන්න"
+            },
+            "ta": {
+              "description": "{{display_name}} செயல்படுத்து"
+            }
+          },
+          "recommended": true,
+          "settings": {
+            "{{plugin_key}}.enabled": true
+          }
+        },
+        {
+          "name": "disable",
+          "localization": {
+            "en": {
+              "description": "Disable {{display_name}}"
+            },
+            "ja": {
+              "description": "{{display_name}}を無効化"
+            },
+            "id": {
+              "description": "Nonaktifkan {{display_name}}"
+            },
+            "de": {
+              "description": "{{display_name}} deaktivieren"
+            },
+            "fr": {
+              "description": "Désactiver {{display_name}}"
+            },
+            "es": {
+              "description": "Deshabilitar {{display_name}}"
+            },
+            "ar": {
+              "description": "تعطيل {{display_name}}"
+            },
+            "ko": {
+              "description": "{{display_name}} 비활성화"
+            },
+            "jv": {
+              "description": "Mateni {{display_name}}"
+            },
+            "hi": {
+              "description": "{{display_name}} अक्षम करें"
+            },
+            "pt": {
+              "description": "Desativar {{display_name}}"
+            },
+            "ru": {
+              "description": "Отключить {{display_name}}"
+            },
+            "tr": {
+              "description": "{{display_name}}'i devre dışı bırak"
+            },
+            "vi": {
+              "description": "Tắt {{display_name}}"
+            },
+            "th": {
+              "description": "ปิดใช้งาน {{display_name}}"
+            },
+            "si": {
+              "description": "{{display_name}} අක්‍රිය කරන්න"
+            },
+            "ta": {
+              "description": "{{display_name}} முடக்கு"
+            }
+          },
+          "settings": {
+            "{{plugin_key}}.enabled": false
+          }
+        }
+      ],
+      "settings_key": "{{plugin_key}}.enabled",
+      "required": true
+    }
+  ],
+  "optional_config": [
+    {
+      "name": "performance_mode",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Performance Mode",
+          "description": "Choose performance optimization mode"
+        },
+        "ja": {
+          "title": "パフォーマンスモード",
+          "description": "パフォーマンス最適化モードを選択"
+        },
+        "id": {
+          "title": "Mode Performa",
+          "description": "Pilih mode optimasi performa"
+        },
+        "de": {
+          "title": "Leistungsmodus",
+          "description": "Leistungsoptimierungsmodus wählen"
+        },
+        "fr": {
+          "title": "Mode Performance",
+          "description": "Choisir le mode d'optimisation des performances"
+        },
+        "es": {
+          "title": "Modo de Rendimiento",
+          "description": "Elegir modo de optimización de rendimiento"
+        },
+        "ar": {
+          "title": "وضع الأداء",
+          "description": "اختر وضع تحسين الأداء"
+        },
+        "ko": {
+          "title": "성능 모드",
+          "description": "성능 최적화 모드를 선택하세요"
+        },
+        "jv": {
+          "title": "Mode Performa",
+          "description": "Pilih mode optimasi performa"
+        },
+        "hi": {
+          "title": "प्रदर्शन मोड",
+          "description": "प्रदर्शन अनुकूलन मोड चुनें"
+        },
+        "pt": {
+          "title": "Modo de Performance",
+          "description": "Escolher modo de otimização de performance"
+        },
+        "ru": {
+          "title": "Режим производительности",
+          "description": "Выбрать режим оптимизации производительности"
+        },
+        "tr": {
+          "title": "Performans Modu",
+          "description": "Performans optimizasyon modunu seçin"
+        },
+        "vi": {
+          "title": "Chế độ Hiệu suất",
+          "description": "Chọn chế độ tối ưu hóa hiệu suất"
+        },
+        "th": {
+          "title": "โหมดประสิทธิภาพ",
+          "description": "เลือกโหมดการเพิ่มประสิทธิภาพ"
+        },
+        "si": {
+          "title": "ක්‍රියාකාරීත්ව ආකාරය",
+          "description": "ක්‍රියාකාරීත්ව ආශ්‍රිත කිරීමේ ආකාරය තෝරන්න"
+        },
+        "ta": {
+          "title": "செயல்திறன் முறை",
+          "description": "செயல்திறன் மேம்பாட்டு முறையைத் தேர்ந்தெடுக்கவும்"
+        }
+      },
+      "options": [
+        {
+          "name": "balanced",
+          "localization": {
+            "en": {
+              "description": "Balanced performance and features"
+            },
+            "ja": {
+              "description": "パフォーマンスと機能をバランスよく"
+            },
+            "id": {
+              "description": "Performa dan fitur seimbang"
+            },
+            "de": {
+              "description": "Ausgewogene Leistung und Funktionen"
+            },
+            "fr": {
+              "description": "Performance et fonctionnalités équilibrées"
+            },
+            "es": {
+              "description": "Rendimiento y características equilibrados"
+            },
+            "ar": {
+              "description": "أداء وميزات متوازنة"
+            },
+            "ko": {
+              "description": "균형 잡힌 성능과 기능"
+            },
+            "jv": {
+              "description": "Performa lan fitur sing seimbang"
+            },
+            "hi": {
+              "description": "संतुलित प्रदर्शन और सुविधाएँ"
+            },
+            "pt": {
+              "description": "Performance e recursos equilibrados"
+            },
+            "ru": {
+              "description": "Сбалансированная производительность и функции"
+            },
+            "tr": {
+              "description": "Dengeli performans ve özellikler"
+            },
+            "vi": {
+              "description": "Hiệu suất và tính năng cân bằng"
+            },
+            "th": {
+              "description": "สมดุลประสิทธิภาพและคุณสมบัติ"
+            },
+            "si": {
+              "description": "සමබරපත් ක්‍රියාකාරීත්වය සහ අංග"
+            },
+            "ta": {
+              "description": "சமநிலையான செயல்திறன் மற்றும் அம்சங்கள்"
+            }
+          },
+          "recommended": true,
+          "settings": {
+            "{{plugin_key}}.advanced.performance_mode": "balanced"
+          }
+        },
+        {
+          "name": "fast",
+          "localization": {
+            "en": {
+              "description": "Optimized for speed"
+            },
+            "ja": {
+              "description": "速度を最適化"
+            },
+            "id": {
+              "description": "Dioptimalkan untuk kecepatan"
+            },
+            "de": {
+              "description": "Für Geschwindigkeit optimiert"
+            },
+            "fr": {
+              "description": "Optimisé pour la vitesse"
+            },
+            "es": {
+              "description": "Optimizado para velocidad"
+            },
+            "ar": {
+              "description": "محسن للسرعة"
+            },
+            "ko": {
+              "description": "속도 최적화"
+            },
+            "jv": {
+              "description": "Dioptimasi kanggo kacepetan"
+            },
+            "hi": {
+              "description": "गति के लिए अनुकूलित"
+            },
+            "pt": {
+              "description": "Otimizado para velocidade"
+            },
+            "ru": {
+              "description": "Оптимизировано для скорости"
+            },
+            "tr": {
+              "description": "Hız için optimize edildi"
+            },
+            "vi": {
+              "description": "Được tối ưu hóa cho tốc độ"
+            },
+            "th": {
+              "description": "ปรับให้เหมาะสมเพื่อความเร็ว"
+            },
+            "si": {
+              "description": "වේගය සඳහා ප්‍රශස්ත කර ඇත"
+            },
+            "ta": {
+              "description": "விரைவிற்கு மேம்படுத்தப்பட்டது"
+            }
+          },
+          "settings": {
+            "{{plugin_key}}.advanced.performance_mode": "fast"
+          }
+        }
+      ]
+    }
+  ]
+}

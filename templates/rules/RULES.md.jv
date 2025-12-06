@@ -1,0 +1,65 @@
+# Integrasi Agen {{display_name}} (Basa Jawa)
+
+**⚠️ PREKOSISI KEAMANAN**: Iki file TEMPLATE. Agen ora kudu mbukak file iki kanthi otomatis. Mung mbukak nalika diganti jeneng dadi `AGENTS.md`, `GEMINI.md`, utawa `CLAUDE.md` sawise aktivasi eksplisit pangguna LAN nalika `{{plugin_key}}.enabled = true` ing settings.json.
+
+**WAJIB**: Yen {{plugin_key}}.enabled = true ing settings.json, agen kudu ngetrapake kabeh algoritma ing ngisor iki.
+
+## Ringkesan {{display_name}}
+{{description}}
+
+## Algoritma Implementasi sing Diwajibake
+
+### Algoritma: {{pascal_case_name}}_Initialization_Process
+**WAJIB**: Dieksekusi nalika {{plugin_key}}.enabled = true
+
+**Langkah-langkah**:
+1. Maca {{plugin_name}}/settings.json
+2. Inisialisasi sistem {{plugin_name_kebab}}
+3. Validasi setelan konfigurasi
+4. Bali sistem sing wis diinisialisasi
+
+**KRITIS**: Aja aktifake kanthi otomatis - hormati setelan pangguna.
+
+### Algoritma: {{pascal_case_name}}_Main_Process
+**WAJIB**: Dieksekusi kanggo kabeh interaksi pangguna sing relevan nalika aktif
+
+**Langkah-langkah**:
+1. Priksa {{plugin_key}}.enabled = true
+2. Analisis konteks lan panjaluk saiki
+3. Terapake algoritma {{plugin_name_kebab}}
+4. Proses lan bali asil
+
+### Algoritma: {{pascal_case_name}}_Cleanup_Process
+**WAJIB**: Dieksekusi kanthi periodik, mbutuhake idin pangguna
+
+**Langkah-langkah**:
+1. Priksa setelan reresikan
+2. Identifikasi data sing wis lawas
+3. Nyuwun idin pangguna kanggo reresikan
+4. Nindakake operasi reresikan sing aman
+
+## Syarat Konfigurasi
+- File setelan: `{{plugin_name}}/settings.json`
+- Kunci konfigurasi: `{{plugin_key}}.enabled`
+- Kepatuhan bootstrap diwajibake
+
+## Penanganan Kesalahan
+**WAJIB**: Agen kudu nangani kesalahan kanthi bener:
+- File konfigurasi ora ditemokake → Lewati operasi {{plugin_name_kebab}}
+- Setelan ora valid → Gunakake nilai standar lan log peringatan
+- Kesalahan sistem → Terusake tanpa fungsi {{plugin_name_kebab}}
+
+## Integrasi Framework
+**WAJIB**: Framework iki tetep dadi alat lan ora kudu dilebokake ing basis kode proyek pangguna. Kabeh integrasi ditindakake liwat file aturan ing direktori masing-masing.
+
+## Tanggung Jawab Agen
+Agen sing nggunakake framework iki kudu:
+- Hormati kabeh setelan lan konfigurasi pangguna
+- Nyedhiyakake umpan balik sing jelas nalika {{plugin_name_kebab}} dipateni
+- Njaga netralitas framework ing konten sing digawe
+- Tundhuk karo syarat kepatuhan bootstrap
+
+**PELANGGARAN**: Agen sing ora hormati syarat integrasi iki utawa setelan pangguna.
+
+<!-- METADATA: template integrasi agen {{display_name}} -->
+<!-- LICENSE: Copyright (c) {{current_year}} {{author_name}} - Dilisensikan miturut Lisensi MIT. Delengen file LICENSE kanggo rincian. -->

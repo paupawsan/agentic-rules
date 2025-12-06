@@ -1,0 +1,65 @@
+# {{display_name}} エージェント統合 (日本語)
+
+**⚠️ 安全対策**: このファイルはTEMPLATEです。エージェントはこのファイルを自動読み込みしてはなりません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後の明示的なユーザー有効化時、およびsettings.jsonで`{{plugin_key}}.enabled = true`の場合のみ読み込みます。
+
+**必須**: settings.jsonで{{plugin_key}}.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。
+
+## {{display_name}} の概要
+{{description}}
+
+## 必要な実装アルゴリズム
+
+### アルゴリズム: {{pascal_case_name}}_Initialization_Process
+**必須**: {{plugin_key}}.enabled = true の場合に実行
+
+**ステップ**:
+1. {{plugin_name}}/settings.json を読み込む
+2. {{plugin_name_kebab}} システムを初期化
+3. 設定を検証
+4. 初期化されたシステムを返す
+
+**重要**: 自動有効化しない - ユーザーの有効設定を尊重する。
+
+### アルゴリズム: {{pascal_case_name}}_Main_Process
+**必須**: 有効時にすべての関連ユーザー操作に対して実行
+
+**ステップ**:
+1. {{plugin_key}}.enabled = true を確認
+2. 現在のコンテキストとリクエストを分析
+3. {{plugin_name_kebab}} アルゴリズムを適用
+4. 結果を処理して返す
+
+### アルゴリズム: {{pascal_case_name}}_Cleanup_Process
+**必須**: 定期的に実行、ユーザー同意を要求
+
+**ステップ**:
+1. クリーンアップ設定を確認
+2. 古くなったデータを特定
+3. ユーザー同意を要求
+4. 安全なクリーンアップを実行
+
+## 設定要件
+- 設定ファイル: `{{plugin_name}}/settings.json`
+- 設定キー: `{{plugin_key}}.enabled`
+- Bootstrap 準拠必須
+
+## エラー処理
+**必須**: エージェントはエラーを適切に処理しなければなりません:
+- 設定ファイルが見つからない → {{plugin_name_kebab}} 操作をスキップ
+- 無効な設定 → デフォルト値を使用し警告をログ
+- システムエラー → {{plugin_name_kebab}} 機能なしで操作を継続
+
+## フレームワーク統合
+**必須**: このフレームワークはツールであり、ユーザープロジェクトのコードベースに含めるべきではありません。すべての統合はそれぞれのディレクトリのルールファイルを通じて行われます。
+
+## エージェントの責任
+このフレームワークを使用するエージェントは:
+- すべてのユーザー設定と構成を尊重
+- {{plugin_name_kebab}} が無効の場合に明確なフィードバックを提供
+- 生成されたコンテンツでフレームワークの中立性を維持
+- Bootstrap 準拠要件に従う
+
+**違反**: これらの統合要件またはユーザー設定を尊重しないエージェント。
+
+<!-- METADATA: {{display_name}} エージェント統合テンプレート -->
+<!-- LICENSE: Copyright (c) {{current_year}} {{author_name}} - MIT Licenseの下でライセンスされています。LICENSEファイルを参照してください。 -->

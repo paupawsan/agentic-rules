@@ -1,0 +1,22 @@
+{
+  "_metadata": {
+    "license": "MIT",
+    "copyright": "Copyright (c) {{current_year}} {{author_name}}",
+    "license_file": "LICENSE",
+    "created": "{{creation_timestamp}}",
+    "last_modified": "{{creation_timestamp}}"
+  },
+  "version": "0.1.0",
+  "{{plugin_key}}": {
+    "enabled": true,
+    "config": {
+      "example_setting": "example_value",
+      "max_entries": 100,
+      "cleanup_days": 90
+    },
+    "advanced": {
+      "debug_mode": false,
+      "performance_mode": "balanced"
+    }
+  }
+}
