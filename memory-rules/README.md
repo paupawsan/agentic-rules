@@ -166,10 +166,10 @@ For users who want to get memory working immediately with minimal setup:
 
 ### One-Prompt Setup
 ```
-"Enable memory for this project. Remember: I'm working on a [language/framework] project using [key technologies]. My preferences: [2-3 key preferences]. Use memory to remember project details, my coding style, and common issues we encounter."
+"ACTIVATE memory rules for this project and CONSTRUCT comprehensive project memory. I'm developing a [language/framework] application using [key technologies]. My preferences: [2-3 key preferences]. Please build memory with: 1) Project overview and goals, 2) Technology stack details and architecture, 3) My coding style preferences, 4) Common patterns and solutions I use, 5) Project-specific requirements and constraints. Store this information so you remember it across all future sessions."
 ```
 
-**That's it!** Memory will start working immediately and learn as you work.
+**That's it!** Memory will be activated and initial project memory will be constructed immediately. The system will remember your project details and preferences across all future sessions.
 
 ### Quick Validation
 **Open a new fresh chat window** and ask:
