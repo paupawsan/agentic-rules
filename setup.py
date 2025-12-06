@@ -97,6 +97,27 @@ def get_script_directory():
     """Get the directory where this script is located."""
     return Path(__file__).parent.absolute()
 
+# Language display names with flags (fallback when localization data is not available)
+LANGUAGE_DISPLAY_NAMES = {
+    'en': '🇺🇸 English',
+    'ja': '🇯🇵 日本語',
+    'id': '🇮🇩 Bahasa Indonesia',
+    'zh': '🇨🇳 中文',
+    'ar': '🇸🇦 العربية',
+    'de': '🇩🇪 Deutsch',
+    'fr': '🇫🇷 Français',
+    'es': '🇪🇸 Español',
+    'ko': '🇰🇷 한국어',
+    'hi': '🇮🇳 हिन्दी',
+    'pt': '🇵🇹 Português',
+    'ru': '🇷🇺 Русский',
+    'si': '🇱🇰 සිංහල',
+    'ta': '🇮🇳 தமிழ்',
+    'th': '🇹🇭 ไทย',
+    'tr': '🇹🇷 Türkçe',
+    'vi': '🇻🇳 Tiếng Việt'
+}
+
 LOCALIZATION = load_localization()
 
 def get_available_languages():
@@ -111,32 +132,24 @@ def get_default_language():
     languages = get_available_languages()
     return languages[0] if languages else 'en'
 
-def get_language_display_name(lang_code, ui_lang='en'):
-    """Get display name for a language code, with localization support."""
-    # Language name mapping with flags
-    lang_names = {
-        'en': '🇺🇸 English',
-        'ja': '🇯🇵 日本語',
-        'id': '🇮🇩 Bahasa Indonesia',
-        'zh': '🇨🇳 中文',
-        'ar': '🇸🇦 العربية',
-        'de': '🇩🇪 Deutsch',
-        'fr': '🇫🇷 Français',
-        'es': '🇪🇸 Español',
-        'ko': '🇰🇷 한국어',
-        'hi': '🇮🇳 हिन्दी',
-        'pt': '🇵🇹 Português',
-        'ru': '🇷🇺 Русский',
-        'si': '🇱🇰 සිංහල',
-        'ta': '🇮🇳 தமிழ்',
-        'th': '🇹🇭 ไทย',
-        'tr': '🇹🇷 Türkçe',
-        'vi': '🇻🇳 Tiếng Việt'
-    }
+def get_language_display_name(lang_code, ui_lang='en', available_langs=None):
+    """Get display name for a language code, using localization data."""
+    # Try to get from localization data first
+    if LOCALIZATION and ui_lang in LOCALIZATION:
+        loc_data = LOCALIZATION[ui_lang]
 
-    # Try to get localized name, fall back to flag + code
-    display_name = lang_names.get(lang_code, f'{lang_code.upper()} ({lang_code})')
-    return display_name
+        # Try the specific lang_option for this language code
+        option_key = f'lang_option_{lang_code}'
+        if option_key in loc_data:
+            return loc_data[option_key]
+
+        # Fallback: search for any lang_option that contains our language code
+        for key, value in loc_data.items():
+            if key.startswith('lang_option_') and lang_code in value:
+                return value
+
+    # Final fallback to predefined display names
+    return LANGUAGE_DISPLAY_NAMES.get(lang_code, f'{lang_code.upper()} ({lang_code})')
 
 def load_config_file(config_path):
     """Load configuration from a JSON file exported from setup.html."""
@@ -327,8 +340,8 @@ def select_plugin_languages(selected_rules, global_agent_lang, ui_lang='en', scr
         while True:
             print(f"    Select language for {rule} (default: {default_lang}):")
             for i, lang in enumerate(available_templates, 1):
-                # Try to get localized name, fall back to language code
-                lang_name = get_language_display_name(lang, ui_lang)
+                # Try to get localized name using proper indexing
+                lang_name = get_language_display_name(lang, ui_lang, available_templates)
                 marker = " (default)" if lang == default_lang else ""
                 print(f"      {i}. {lang_name}{marker}")
 
