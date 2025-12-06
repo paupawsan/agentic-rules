@@ -219,7 +219,7 @@ For users who want to get memory working immediately with minimal setup:
 
 ## 🚀 Comprehensive Memory Enhancement (Advanced Setup)
 
-For comprehensive memory setup with maximum effectiveness (enhances existing memory):
+For optional comprehensive memory enhancement with maximum effectiveness (enhances existing memory):
 
 ### ⚠️ Prerequisites
 **Before starting comprehensive setup, you must first enable memory:**
@@ -233,6 +233,15 @@ If you prefer to skip quick setup, first enable memory manually:
 "Enable memory rules for this project. I'm working on [brief project description]."
 ```
 → This activates the memory system so comprehensive setup will work.
+
+#### Option C: Through Framework Setup
+**Memory construction can also happen during initialization if memory rules are already enabled:**
+
+1. **Using setup.py:** Run `python setup.py` and enable memory-rules in the configuration
+2. **Using setup.html:** Open setup.html, configure memory-rules, and generate configuration files
+3. **Manual settings:** Edit `memory-rules/settings.json` and set `"enabled": true`
+
+→ Once enabled through the setup system, memory will be constructed during the next agent initialization. See the main setup page for configuration options.
 
 ### Step 1: Initial Project Context Setup
 Start with comprehensive project introduction:
