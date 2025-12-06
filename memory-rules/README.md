@@ -217,9 +217,22 @@ For users who want to get memory working immediately with minimal setup:
 
 ---
 
-## 🚀 Setting Up Memory for a New Project
+## 🚀 Comprehensive Memory Enhancement (Advanced Setup)
 
-For comprehensive memory setup with maximum effectiveness:
+For comprehensive memory setup with maximum effectiveness (enhances existing memory):
+
+### ⚠️ Prerequisites
+**Before starting comprehensive setup, you must first enable memory:**
+
+#### Option A: Quick Setup (Recommended)
+Use the one-prompt setup above to get memory working immediately, then enhance it with comprehensive setup.
+
+#### Option B: Manual Enable
+If you prefer to skip quick setup, first enable memory manually:
+```
+"Enable memory rules for this project. I'm working on [brief project description]."
+```
+→ This activates the memory system so comprehensive setup will work.
 
 ### Step 1: Initial Project Context Setup
 Start with comprehensive project introduction:
