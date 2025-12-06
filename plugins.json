@@ -2,9 +2,9 @@
   "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
   "version": "0.1.0",
   "plugins": [
+    "critical-thinking-rules",
     "memory-rules",
-    "rag-rules",
-    "critical-thinking-rules"
+    "rag-rules"
   ],
   "description": "Manifest of available agentic-rules plugins"
 }
