@@ -37,12 +37,48 @@ def load_localization():
     return None
 
 def get_available_languages():
-    """Get list of available languages from localization data."""
+    """Get list of available languages from localization data and template files."""
     localization = load_localization()
-    if localization and '_comment' in localization:
-        # Remove metadata key and return language codes
-        return [lang for lang in localization.keys() if lang != '_comment']
-    return list(localization.keys()) if localization else ['en']
+    loc_langs = []
+    if localization:
+        if '_comment' in localization:
+            # Remove metadata key and return language codes
+            loc_langs = [lang for lang in localization.keys() if lang != '_comment']
+        else:
+            loc_langs = list(localization.keys())
+
+    # Also scan for template files in plugin directories to find additional languages
+    template_langs = set()
+    try:
+        # Check plugins.json for plugin directories
+        plugins_manifest = load_json_file('plugins.json')
+        if plugins_manifest:
+            plugin_names = plugins_manifest.get('plugins', [])
+            for plugin_name in plugin_names:
+                plugin_dir = Path(plugin_name)
+                if plugin_dir.exists() and plugin_dir.is_dir():
+                    # Look for RULES.md.* files
+                    for rules_file in plugin_dir.glob('RULES.md.*'):
+                        if rules_file.is_file():
+                            lang = rules_file.suffix[1:]  # Remove leading dot
+                            template_langs.add(lang)
+
+        # Check for root template files
+        for rules_file in Path('.').glob('RULES.md.*'):
+            if rules_file.is_file():
+                lang = rules_file.suffix[1:]  # Remove leading dot
+                template_langs.add(lang)
+
+    except Exception as e:
+        print(f"Warning: Could not scan for template languages: {e}")
+
+    # Combine localization languages and template languages
+    all_langs = set(loc_langs + list(template_langs))
+
+    # Ensure English is always included as fallback
+    all_langs.add('en')
+
+    return sorted(list(all_langs))
 
 def get_default_language():
     """Get the default language (first available language)."""
@@ -76,9 +112,11 @@ def generate_web_config():
 
     # Initialize web config
     default_lang = get_default_language()
+    available_langs = get_available_languages()
     web_config = {
         "version": "0.1.0",
         "description": "Static web configuration generated from setup.json files",
+        "availableLanguages": available_langs,
         "uiLanguage": default_lang,
         "agentLanguage": default_lang,
         "plugins": {}
@@ -112,8 +150,12 @@ def generate_web_config():
                 try:
                     with open(template_file, 'r', encoding='utf-8') as f:
                         template_content[lang] = f.read()
+                        print(f"✅ Loaded template: {plugin_name}/RULES.md.{lang}")
                 except Exception as e:
                     print(f"⚠️  Warning: Could not read {template_file}: {e}")
+            else:
+                # Template doesn't exist for this language
+                print(f"ℹ️  No template for {plugin_name}/RULES.md.{lang}")
 
         # Read default settings.json template
         default_settings = {}
@@ -193,11 +235,55 @@ def generate_web_config():
     print(f"🎉 Successfully loaded {loaded_plugins} plugins")
     return web_config
 
+def generate_language_options(web_config, supported_langs=None):
+    """Generate HTML options for language selectors based on available languages."""
+    if supported_langs is None:
+        available_langs = web_config.get('availableLanguages', ['en'])
+    else:
+        available_langs = supported_langs
+
+    localization = load_localization() or {}
+
+    options = []
+    for lang in available_langs:
+        # Try to get localized name from localization.json
+        option_text = None
+
+        # Check for lang_option keys in the localization data
+        if lang in localization:
+            lang_data = localization[lang]
+            # Look for language option keys (lang_option_1, lang_option_2, etc.)
+            for i, avail_lang in enumerate(available_langs):
+                option_key = f"lang_option_{i + 1}"
+                if option_key in lang_data and avail_lang == lang:
+                    option_text = lang_data[option_key]
+                    break
+
+        # If not found in localization, use language table
+        if not option_text:
+            from generate_plugin_scaffold import get_language_table
+            lang_table = get_language_table()
+            if lang in lang_table:
+                lang_info = lang_table[lang]
+                flag = lang_info.get('flag', '🏳️')
+                native = lang_info.get('native', lang.upper())
+                option_text = f"{flag} {native}"
+            else:
+                option_text = lang.upper()
+
+        options.append(f'<option value="{lang}">{option_text}</option>')
+
+    return '\n'.join(options)
+
 def embed_config_in_html(web_config):
-    """Embed the web config into setup.html as a JavaScript variable."""
+    """Embed the web config into setup.html as a JavaScript variable and update language options."""
 
     # Convert config to JavaScript format
     js_config = f"const staticWebConfig = {json.dumps(web_config, indent=2, ensure_ascii=False)};"
+
+    # Generate root language options (only en/ja/id for agent-language selector)
+    root_languages = ['en', 'ja', 'id']
+    root_language_options = generate_language_options(web_config, root_languages)
 
     # Read setup.html
     try:
@@ -233,12 +319,32 @@ def embed_config_in_html(web_config):
     # Replace staticWebConfig section
     new_html = html_content[:start_replace_pos] + static_config_only + html_content[end_replace_pos:]
 
+    # Replace Agent language selector with only root languages (en/ja/id)
+    # Find the agent-language select element and its auto-generated content
+    agent_select_pattern = '<select id="agent-language"'
+    agent_select_pos = new_html.find(agent_select_pattern)
+    if agent_select_pos != -1:
+        # Find the auto-generated content within this select
+        agent_start_marker = '<!-- AUTO GENERATED CONTENT START -->'
+        agent_end_marker = '<!-- AUTO GENERATED CONTENT END -->'
+
+        # Start looking for markers after the select element
+        search_start = agent_select_pos + len(agent_select_pattern)
+        agent_start_pos = new_html.find(agent_start_marker, search_start)
+        if agent_start_pos != -1:
+            agent_end_pos = new_html.find(agent_end_marker, agent_start_pos)
+            if agent_end_pos != -1:
+                agent_start_replace = agent_start_pos + len(agent_start_marker)
+                agent_end_replace = agent_end_pos
+                new_html = new_html[:agent_start_replace] + f'\n{root_language_options}\n            ' + new_html[agent_end_replace:]
+
     # Write back to setup.html
     try:
         with open('setup.html', 'w', encoding='utf-8') as f:
             f.write(new_html)
 
         print("✅ Replaced staticWebConfig in setup.html")
+        print(f"✅ Updated language options: {', '.join(web_config.get('availableLanguages', ['en']))}")
         return True
 
     except Exception as e:
