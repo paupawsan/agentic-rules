@@ -1,73 +1,65 @@
-# Integrasi Agen Aturan Berpikir Kritis
+# Integrasi Agen Critical Thinking Rules Extended (Bahasa Indonesia)
 
-**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `critical_thinking_rules.enabled = true` di settings.json.
+**⚠️ PRECAUTION KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `critical_thinking_rules.enabled = true` dalam settings.json.
 
-**WAJIB**: Jika critical_thinking_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.
+**WAJIB**: Jika critical_thinking_rules.enabled = true dalam settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.
 
-## Kerangka Berpikir Kritis
-- **Pengakuan Error**: Segera akui dan koreksi kesalahan
-- **Tantangan Asumsi**: Pertanyakan asumsi implisit dalam permintaan
-- **Verifikasi Pemeriksaan Dasar**: Validasi klaim dengan bukti
-- **Pencegahan Halusinasi**: Respons konservatif dengan kualifikasi ketidakpastian
+## Ringkasan Critical Thinking Rules Extended
+Intellectual rigor and hallucination prevention
 
 ## Algoritma Implementasi yang Diperlukan
 
-### Algoritma: Error_Admission_Process
-**WAJIB**: Eksekusi segera ketika error terdeteksi
+### Algoritma: CriticalThinkingRulesExtended_Initialization_Process
+**WAJIB**: Eksekusi ketika critical_thinking_rules.enabled = true
 
-**Langkah-langkah**:
+**Langkah**:
+1. Baca critical-thinking-rules-extended/settings.json
+2. Inisialisasi sistem critical thinking rules extended
+3. Validasi pengaturan konfigurasi
+4. Kembalikan sistem yang diinisialisasi
+
+**KRITIS**: JANGAN aktifkan otomatis - hormati pengaturan aktif pengguna.
+
+### Algoritma: CriticalThinkingRulesExtended_Main_Process
+**WAJIB**: Eksekusi untuk semua interaksi pengguna terkait ketika aktif
+
+**Langkah**:
 1. Periksa critical_thinking_rules.enabled = true
-2. Monitor respons untuk ketidakakuratan atau inkonsistensi
-3. Segera akui error yang terdeteksi
-4. Berikan penjelasan detail tentang kesalahan
-5. Tawarkan informasi yang dikoreksi dengan bukti pendukung
-6. Log koreksi untuk integrasi sistem memori
+2. Analisis konteks dan permintaan saat ini
+3. Terapkan algoritma critical thinking rules extended
+4. Proses dan kembalikan hasil
 
-### Algoritma: Assumption_Challenge_Process
-**WAJIB**: Eksekusi ketika menganalisis permintaan pengguna
+### Algoritma: CriticalThinkingRulesExtended_Cleanup_Process
+**WAJIB**: Eksekusi secara berkala, memerlukan persetujuan pengguna
 
-**Langkah-langkah**:
-1. Periksa critical_thinking_rules.enabled = true
-2. Parse permintaan pengguna untuk asumsi implisit
-3. Evaluasi asumsi terhadap bukti yang tersedia
-4. Hasilkan contoh kontra dan perspektif alternatif
-5. Presentasikan analisis seimbang dengan berbagai sudut pandang
-6. Minta klarifikasi ketika asumsi tidak jelas
+**Langkah**:
+1. Periksa pengaturan pembersihan
+2. Identifikasi data yang kedaluwarsa
+3. Minta persetujuan pengguna untuk pembersihan
+4. Lakukan pembersihan yang aman
 
-### Algoritma: Ground_Check_Verification_Process
-**WAJIB**: Eksekusi sebelum membuat klaim faktual
+## Persyaratan Konfigurasi
+- File pengaturan: `critical-thinking-rules-extended/settings.json`
+- Kunci konfigurasi: `critical_thinking_rules.enabled`
+- Kepatuhan bootstrap wajib
 
-**Langkah-langkah**:
-1. Periksa critical_thinking_rules.enabled = true
-2. Identifikasi klaim faktual dalam respons yang direncanakan
-3. Kumpulkan verifikasi independen (3+ sumber jika memungkinkan)
-4. Terapkan validasi teknis untuk klaim teknis
-5. Gunakan penalaran formal untuk klaim logis
-6. Kualifikasi ketidakpastian dan berikan tingkat kepercayaan
+## Penanganan Error
+**WAJIB**: Agen harus menangani error dengan baik:
+- File konfigurasi hilang → Lewati operasi critical thinking rules extended
+- Pengaturan tidak valid → Gunakan nilai default dan log peringatan
+- Error sistem → Lanjutkan operasi tanpa fitur critical thinking rules extended
 
-### Algoritma: Response_Validation_Process
-**WAJIB**: Eksekusi pada semua respons ketika diaktifkan
+## Integrasi Framework
+**WAJIB**: Framework ini tetap menjadi alat dan tidak boleh dimasukkan ke dalam codebase proyek pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.
 
-**Langkah-langkah**:
-1. Periksa critical_thinking_rules.enabled = true
-2. Tinjau respons untuk potensi halusinasi
-3. Nilai kelayakan teknis, praktis, dan logis
-4. Gunakan estimasi konservatif daripada kepercayaan berlebihan
-5. Terapkan frasa kualifikasi ketidakpastian secara tepat
-6. Struktur respons: kekuatan, keprihatinan, rekomendasi
+## Tanggung Jawab Agen
+Agen yang menggunakan framework ini harus:
+- Menghormati semua pengaturan dan konfigurasi pengguna
+- Memberikan umpan balik yang jelas ketika critical thinking rules extended dinonaktifkan
+- Mempertahankan netralitas framework dalam konten yang dihasilkan
+- Mengikuti persyaratan kepatuhan bootstrap
 
-## Kepatuhan Pengaturan
-- Hormati semua pengaturan di critical-thinking-rules/settings.json
-- Terapkan ambang verifikasi yang dikonfigurasi
-- Gunakan format kualifikasi ketidakpastian yang ditentukan
-- Berikan prompt kepada pengguna jika critical_thinking_rules.enabled = false selama penalaran kompleks
+**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.
 
-## Titik Integrasi
-- **Integrasi Memori**: Simpan koreksi error dan wawasan pembelajaran
-- **Integrasi RAG**: Berikan jaminan kualitas untuk informasi yang diambil
-- **Koordinasi Bootstrap**: Hormati interkoneksi dan prioritas aturan
-
-**PELANGGARAN**: Agen yang merespons tanpa analisis kritis atau pemeriksaan error.
-
-<!-- METADATA: Template integrasi agen aturan berpikir kritis dengan algoritma verifikasi dan analisis -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- METADATA: template integrasi agen Critical Thinking Rules Extended -->
+<!-- LICENSE: Copyright (c) 2025 {author_name} - Dilisensikan di bawah Lisensi MIT. Lihat file LICENSE untuk detail. -->

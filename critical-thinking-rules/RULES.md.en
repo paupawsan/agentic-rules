@@ -1,73 +1,65 @@
-# Critical Thinking Rules Agent Integration
+# Critical Thinking Rules Agent Integration (English)
 
 **⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `critical_thinking_rules.enabled = true` in settings.json.
 
 **MANDATORY**: If critical_thinking_rules.enabled = true in settings.json, agents MUST implement all algorithms below.
 
-## Critical Thinking Framework
-- **Error Admission**: Immediately acknowledge and correct mistakes
-- **Assumption Challenge**: Question implicit assumptions in requests
-- **Ground Check Verification**: Validate claims with evidence
-- **Hallucination Prevention**: Conservative responses with uncertainty qualification
+## Critical Thinking Rules Extended Overview
+Intellectual rigor and hallucination prevention
 
 ## Required Implementation Algorithms
 
-### Algorithm: Error_Admission_Process
-**MANDATORY**: Execute immediately when errors are detected
+### Algorithm: CriticalThinkingRulesExtended_Initialization_Process
+**MANDATORY**: Execute when critical_thinking_rules.enabled = true
+
+**Steps**:
+1. Read critical-thinking-rules-extended/settings.json
+2. Initialize critical thinking rules extended system
+3. Validate configuration settings
+4. Return initialized system
+
+**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.
+
+### Algorithm: CriticalThinkingRulesExtended_Main_Process
+**MANDATORY**: Execute for all relevant user interactions when enabled
 
 **Steps**:
 1. Check critical_thinking_rules.enabled = true
-2. Monitor responses for inaccuracies or inconsistencies
-3. Immediately acknowledge detected errors
-4. Provide detailed explanation of the mistake
-5. Offer corrected information with supporting evidence
-6. Log correction for memory system integration
+2. Analyze current context and request
+3. Apply critical thinking rules extended algorithms
+4. Process and return results
 
-### Algorithm: Assumption_Challenge_Process
-**MANDATORY**: Execute when analyzing user requests
+### Algorithm: CriticalThinkingRulesExtended_Cleanup_Process
+**MANDATORY**: Execute periodically, require user consent
 
 **Steps**:
-1. Check critical_thinking_rules.enabled = true
-2. Parse user request for implicit assumptions
-3. Evaluate assumptions against available evidence
-4. Generate counter-examples and alternative perspectives
-5. Present balanced analysis with multiple viewpoints
-6. Request clarification when assumptions are unclear
+1. Check cleanup settings
+2. Identify obsolete data
+3. Request user consent for cleanup
+4. Perform safe cleanup operations
 
-### Algorithm: Ground_Check_Verification_Process
-**MANDATORY**: Execute before making factual claims
+## Configuration Requirements
+- Settings file: `critical-thinking-rules-extended/settings.json`
+- Configuration key: `critical_thinking_rules.enabled`
+- Bootstrap compliance required
 
-**Steps**:
-1. Check critical_thinking_rules.enabled = true
-2. Identify factual claims in planned responses
-3. Gather independent verification (3+ sources when possible)
-4. Apply technical validation for technical claims
-5. Use formal reasoning for logical claims
-6. Qualify uncertainty and provide confidence levels
+## Error Handling
+**MANDATORY**: Agents must handle errors gracefully:
+- Configuration file missing → Skip critical thinking rules extended operations
+- Invalid settings → Use default values and log warnings
+- System errors → Continue operation without critical thinking rules extended features
 
-### Algorithm: Response_Validation_Process
-**MANDATORY**: Execute on all responses when enabled
+## Framework Integration
+**MANDATORY**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.
 
-**Steps**:
-1. Check critical_thinking_rules.enabled = true
-2. Review response for potential hallucinations
-3. Assess technical, practical, and logical feasibility
-4. Use conservative estimation rather than over-confidence
-5. Apply uncertainty qualification phrases appropriately
-6. Structure responses: strengths, concerns, recommendations
+## Agent Responsibility
+Agents using this framework must:
+- Respect all user settings and configurations
+- Provide clear feedback when critical thinking rules extended is disabled
+- Maintain framework neutrality in generated content
+- Follow bootstrap compliance requirements
 
-## Settings Compliance
-- Respect all settings in critical-thinking-rules/settings.json
-- Apply configured verification thresholds
-- Use specified uncertainty qualification formats
-- Prompt user if critical_thinking_rules.enabled = false during complex reasoning
+**VIOLATION**: Agents that do not respect these integration requirements or user settings.
 
-## Integration Points
-- **Memory Integration**: Store error corrections and learning insights
-- **RAG Integration**: Provide quality assurance for retrieved information
-- **Bootstrap Coordination**: Respect rule interconnections and priorities
-
-**VIOLATION**: Agents responding without critical analysis or error checking.
-
-<!-- METADATA: Critical thinking rules agent integration template with verification and analysis algorithms -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- METADATA: Critical Thinking Rules Extended agent integration template -->
+<!-- LICENSE: Copyright (c) 2025 {author_name} - Licensed under the MIT License. See LICENSE file for details. -->
