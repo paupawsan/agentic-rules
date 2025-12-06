@@ -1599,6 +1599,8 @@
         <h2>🚀 Generate Configuration</h2>
         <div style="display: flex; gap: 15px; margin-bottom: 20px;">
           <button class="btn" onclick="generateConfig()" id="generate-btn">Generate Configuration Files</button>
+          <button class="btn" onclick="exportConfig()" id="export-btn"
+            style="background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);">Export Configuration</button>
           <button class="btn" onclick="factoryReset()"
             style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);" id="reset-btn">Factory Reset</button>
         </div>
@@ -2089,6 +2091,50 @@
             console.warn('Failed to reapply saved config values:', e);
           }
         }
+      }
+    }
+
+    function exportConfig() {
+      // Export current configuration to a JSON file for use with setup.py
+      const config = {
+        "_metadata": {
+          "exported_from": "setup.html",
+          "export_timestamp": new Date().toISOString(),
+          "version": "0.1.0"
+        },
+        "ui_language": uiLanguage,
+        "agent_language": agentLanguage,
+        "agent_file_type": agentFileType,
+        "selected_rules": selectedRules
+      };
+
+      const configJson = JSON.stringify(config, null, 2);
+      const filename = 'agentic-rules-config.json';
+
+      // Create download link
+      const blob = new Blob([configJson], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // Show success message
+      const resultDiv = document.getElementById('result-success');
+      if (resultDiv) {
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `
+          <h3>✅ Configuration Exported!</h3>
+          <p>Configuration file <code>${filename}</code> has been downloaded.</p>
+          <p>You can use this file with <code>setup.py</code> by placing it in your project directory.</p>
+          <div style="background: #f8f9fa; padding: 10px; border-radius: 4px; margin: 10px 0;">
+            <strong>Usage:</strong><br>
+            <code>python setup.py --config agentic-rules-config.json</code>
+          </div>
+        `;
       }
     }
 
@@ -3151,6 +3197,92 @@ ${enabledRules.map(rule => `- \`${rule}/AGENTS.md\` - ${getRuleDescription(rule,
       savePreferences();
     }
   
+
+    // Per-plugin language selection functions
+    function generateLanguageSection(pluginName, availableLanguages) {
+      const section = document.createElement('div');
+      section.className = 'section';
+      section.id = `${pluginName}-language-config`;
+
+      // Get current plugin language preference
+      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
+
+      // Get plugin display name
+      const pluginData = pluginConfig.plugins[pluginName];
+      const pluginLocalization = pluginData.localization || {};
+      let displayName = pluginName;
+      for (const [lang, data] of Object.entries(pluginLocalization)) {
+        if (data.plugin_name) {
+          displayName = data.plugin_name;
+          break;
+        }
+      }
+
+      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
+      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
+
+      content += `<div class="form-group">`;
+      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
+      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
+
+      // Generate options for available languages
+      for (const lang of availableLanguages) {
+        const isSelected = lang === currentPluginLang;
+        let displayText = lang.toUpperCase();
+
+        // Try to get localized name
+        const langTable = {
+          'en': '🇺🇸 English',
+          'ja': '🇯🇵 日本語',
+          'id': '🇮🇩 Bahasa Indonesia',
+          'jv': '🇮🇩 Basa Jawa',
+          'de': '🇩🇪 Deutsch',
+          'fr': '🇫🇷 Français',
+          'es': '🇪🇸 Español',
+          'ar': '🇸🇦 العربية',
+          'ko': '🇰🇷 한국어',
+          'hi': '🇮🇳 हिन्दी',
+          'pt': '🇵🇹 Português',
+          'ru': '🇷🇺 Русский',
+          'si': '🇱🇰 සිංහල',
+          'ta': '🇮🇳 தமிழ்',
+          'th': '🇹🇭 ไทย',
+          'tr': '🇹🇷 Türkçe',
+          'vi': '🇻🇳 Tiếng Việt',
+          'zh': '🇨🇳 中文'
+        };
+
+        if (langTable[lang]) {
+          displayText = langTable[lang];
+        }
+
+        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
+      }
+
+      content += `</select>`;
+      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
+      content += `</div>`;
+
+      section.innerHTML = content;
+      return section;
+    }
+
+    function updatePluginLanguage(pluginName, language) {
+      // Initialize plugin config if it doesn't exist
+      if (!selectedRules[pluginName]) {
+        selectedRules[pluginName] = {};
+      }
+      if (typeof selectedRules[pluginName] !== 'object') {
+        selectedRules[pluginName] = {};
+      }
+
+      // Store the language preference
+      selectedRules[pluginName].language = language;
+
+      // Save preferences
+      savePreferences();
+    }
+
 
     // Per-plugin language selection functions
     function generateLanguageSection(pluginName, availableLanguages) {

@@ -111,6 +111,31 @@ def get_default_language():
     languages = get_available_languages()
     return languages[0] if languages else 'en'
 
+def load_config_file(config_path):
+    """Load configuration from a JSON file exported from setup.html."""
+    if not config_path:
+        return None
+
+    try:
+        with open(config_path, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+
+        # Validate the config structure
+        if not isinstance(config, dict) or '_metadata' not in config:
+            print(f"Warning: Invalid configuration file format: {config_path}")
+            return None
+
+        print(f"✅ Loaded configuration from {config_path}")
+        if 'exported_from' in config.get('_metadata', {}):
+            print(f"   Exported from: {config['_metadata']['exported_from']}")
+        if 'export_timestamp' in config.get('_metadata', {}):
+            print(f"   Export timestamp: {config['_metadata']['export_timestamp']}")
+
+        return config
+    except Exception as e:
+        print(f"Warning: Could not load configuration file {config_path}: {e}")
+        return None
+
 def detect_rule_plugins(script_dir):
     """Auto-detect rule plugin directories from plugins.json manifest."""
     manifest_file = script_dir / "plugins.json"
@@ -450,7 +475,7 @@ Agents using this framework must:
         errors.append(error_msg)
         return False, errors
 
-def activate_rule_templates(selected_rules, language, file_type, script_dir, lang='en'):
+def activate_rule_templates(selected_rules, language, file_type, script_dir, lang='en', config=None):
     """Activate selected rule templates to AGENTS.md files."""
     activated = []
     errors = []
@@ -514,27 +539,43 @@ def activate_rule_templates(selected_rules, language, file_type, script_dir, lan
         print(f"\n{t('processing_rule', locale=lang, rule=rule)}")
 
         rule_dir = script_dir / rule
-        template_file = rule_dir / f"RULES.md.{language}"
+        # Check for plugin-specific language setting from config
+        plugin_language = language  # Default to global language
+        if config and 'selected_rules' in config and rule in config['selected_rules']:
+            plugin_config = config['selected_rules'][rule]
+            if isinstance(plugin_config, dict) and 'language' in plugin_config:
+                plugin_language = plugin_config['language']
+                print(f"  📝 {rule} → Using plugin-specific language: {plugin_language}")
+
+        template_file = rule_dir / f"RULES.md.{plugin_language}"
         target_file = rule_dir / file_type
         backup_file = rule_dir / f"{file_type}.backup"
 
         try:
-            # Try requested language first
+            # Try plugin-specific language first
             if template_file.exists():
                 actual_template = template_file
-                template_lang = language
-                print(t('processing_template', locale=lang, template=f"RULES.md.{language}"))
+                template_lang = plugin_language
+                print(t('processing_template', locale=lang, template=f"RULES.md.{plugin_language}"))
             else:
-                # Fallback: Look for any available RULES.md.* file
-                available_templates = list(rule_dir.glob("RULES.md.*"))
-                if available_templates:
-                    # Use the first available template (could be any language)
-                    actual_template = available_templates[0]
-                    template_lang = actual_template.suffix[1:]  # Remove the leading dot
-                    print(f"  ⚠️  {rule} → {file_type} (requested {language}, using available {template_lang} template)")
-                    print(f"     Note: Plugin uses non-standard language. Consider adding {language} translation.")
+                # Fallback: Try global language
+                global_template = rule_dir / f"RULES.md.{language}"
+                if global_template.exists() and plugin_language != language:
+                    actual_template = global_template
+                    template_lang = language
+                    print(f"  ⚠️  {rule} → Plugin language {plugin_language} not available, using global {language} template")
+                    print(t('processing_template', locale=lang, template=f"RULES.md.{language}"))
                 else:
-                    raise FileNotFoundError(f"No RULES.md.* template files found in {rule_dir}")
+                    # Final fallback: Look for any available RULES.md.* file
+                    available_templates = list(rule_dir.glob("RULES.md.*"))
+                    if available_templates:
+                        # Use the first available template (could be any language)
+                        actual_template = available_templates[0]
+                        template_lang = actual_template.suffix[1:]  # Remove the leading dot
+                        print(f"  ⚠️  {rule} → Requested {plugin_language}, using available {template_lang} template")
+                        print(f"     Note: Plugin uses non-standard language. Consider adding {plugin_language} translation.")
+                    else:
+                        raise FileNotFoundError(f"No RULES.md.* template files found in {rule_dir}")
 
             template_file = actual_template
 
@@ -1128,6 +1169,7 @@ def main():
     parser.add_argument('--agent-file-type', choices=['AGENTS.md', 'GEMINI.md', 'CLAUDE.md'], help='Agent file type to generate (AGENTS.md/GEMINI.md/CLAUDE.md)')
     parser.add_argument('--lang', choices=available_langs, help=f'Set both UI and agent language ({", ".join(available_langs)})')
     parser.add_argument('--rules', help='Comma-separated list of rules to activate, or "all"')
+    parser.add_argument('--config', help='Path to configuration file exported from setup.html')
     args = parser.parse_args()
 
     script_dir = get_script_directory()
@@ -1148,6 +1190,19 @@ def main():
     print(t('detection_found', count=len(available_rules)))
     for rule in available_rules:
         print(f"  - {rule}")
+
+    # Load configuration file if specified
+    config = None
+    if args.config:
+        config = load_config_file(args.config)
+        if config:
+            # Override settings with config file values
+            if 'ui_language' in config:
+                args.ui_lang = config['ui_language']
+            if 'agent_language' in config:
+                args.agent_lang = config['agent_language']
+            if 'agent_file_type' in config:
+                args.agent_file_type = config['agent_file_type']
 
     # Step 2: Select languages
     # Handle backward compatibility with --lang
@@ -1186,7 +1241,7 @@ def main():
 
     # Step 5: Activate rule templates
     if activated:
-        rule_activated, rule_errors = activate_rule_templates(selected_rules, agent_lang, agent_file_type, script_dir, ui_lang)
+        rule_activated, rule_errors = activate_rule_templates(selected_rules, agent_lang, agent_file_type, script_dir, ui_lang, config)
         # Keep activated list as is, but collect errors
         errors.extend(rule_errors)
 
