@@ -45,7 +45,7 @@ def get_creation_timestamp():
     return datetime.now().isoformat()
 
 def clone_templates_branch():
-    """Clone the Templates branch to a temporary directory and return the path."""
+    """Clone the Template branch to a temporary directory and return the path."""
     temp_dir = Path(tempfile.mkdtemp(prefix="agentic-templates-"))
 
     try:
@@ -55,22 +55,22 @@ def clone_templates_branch():
             capture_output=True, text=True, check=True
         ).stdout.strip()
 
-        # Use git worktree to create a temporary worktree for the Templates branch
+        # Use git worktree to create a temporary worktree for the Template branch
         subprocess.run(
-            ["git", "worktree", "add", "--detach", str(temp_dir), "Templates"],
+            ["git", "worktree", "add", "--detach", str(temp_dir), "Template"],
             check=True, capture_output=True
         )
 
         templates_dir = temp_dir / "templates"
         if not templates_dir.exists():
-            raise FileNotFoundError(f"Templates directory not found in Templates branch: {templates_dir}")
+            raise FileNotFoundError(f"Templates directory not found in Template branch: {templates_dir}")
 
         return temp_dir
 
     except subprocess.CalledProcessError as e:
         # Cleanup on failure
         cleanup_templates_clone(temp_dir)
-        raise RuntimeError(f"Failed to access Templates branch: {e}") from e
+        raise RuntimeError(f"Failed to access Template branch: {e}") from e
     except Exception as e:
         # Cleanup on failure
         cleanup_templates_clone(temp_dir)
@@ -908,7 +908,7 @@ For major changes, please open an issue first to discuss the proposed changes.
 # MAIN SCAFFOLD GENERATION
 # ============================================================================
 def create_plugin_scaffold(plugin_name, display_name, description, languages, enabled_by_default=True, template_plugin=None):
-    """Create a complete plugin scaffold using templates from Templates branch."""
+    """Create a complete plugin scaffold using templates from Template branch."""
 
     script_dir = get_script_directory()
     plugin_dir = script_dir / plugin_name
@@ -922,8 +922,8 @@ def create_plugin_scaffold(plugin_name, display_name, description, languages, en
     print(f"📁 Plugin directory: {plugin_dir}")
 
     try:
-        # Clone Templates branch to get the latest templates
-        print("📥 Cloning Templates branch for latest templates...")
+        # Clone Template branch to get the latest templates
+        print("📥 Cloning Template branch for latest templates...")
         templates_temp_dir = clone_templates_branch()
         templates_dir = templates_temp_dir / "templates"
         print("✅ Templates loaded successfully")
