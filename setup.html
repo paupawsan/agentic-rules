@@ -437,6 +437,161 @@
   "uiLanguage": "en",
   "agentLanguage": "en",
   "plugins": {
+    "critical-thinking-rules": {
+      "name": "critical-thinking-rules",
+      "display_name": "Critical Thinking Rules",
+      "description": "Intellectual rigor and hallucination prevention",
+      "localization": {
+        "en": {
+          "plugin_name": "Critical Thinking Rules",
+          "description": "Intellectual rigor and hallucination prevention"
+        },
+        "ja": {
+          "plugin_name": "批判的思考ルール",
+          "description": "知的厳密さと幻覚防止"
+        },
+        "id": {
+          "plugin_name": "Aturan Berpikir Kritis",
+          "description": "Keketatan intelektual dan pencegahan halusinasi"
+        }
+      },
+      "mandatory_config": [],
+      "optional_config": [
+        {
+          "name": "verification_levels",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Verification Levels",
+              "description": "Configure how thoroughly to verify information"
+            },
+            "ja": {
+              "title": "検証レベル",
+              "description": "情報の検証の徹底度を設定"
+            },
+            "id": {
+              "title": "Tingkat Verifikasi",
+              "description": "Konfigurasikan seberapa menyeluruh verifikasi informasi"
+            }
+          },
+          "options": [
+            {
+              "name": "balanced_verification",
+              "localization": {
+                "en": {
+                  "description": "Verify factual claims with reasonable rigor"
+                },
+                "ja": {
+                  "description": "合理的な厳密さで事実的主張を検証"
+                },
+                "id": {
+                  "description": "Verifikasi klaim faktual dengan ketelitian yang wajar"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "verification.factual_claim_verification": true,
+                "verification.min_sources_required": 2
+              }
+            }
+          ]
+        },
+        {
+          "name": "error_handling",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Error Handling",
+              "description": "Configure error admission and correction behavior"
+            },
+            "ja": {
+              "title": "エラー処理",
+              "description": "エラー承認と修正の動作を設定"
+            },
+            "id": {
+              "title": "Penanganan Error",
+              "description": "Konfigurasikan perilaku pengakuan dan koreksi error"
+            }
+          },
+          "options": [
+            {
+              "name": "transparent_error_handling",
+              "localization": {
+                "en": {
+                  "description": "Immediately admit errors and log corrections"
+                },
+                "ja": {
+                  "description": "すぐにエラーを承認し修正をログ"
+                },
+                "id": {
+                  "description": "Segera akui error dan log koreksi"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "error_handling.immediate_error_admission": true,
+                "error_handling.log_corrections": true
+              }
+            }
+          ]
+        }
+      ],
+      "default_settings": {
+        "enabled": false,
+        "verification_level": "standard",
+        "error_admission": {
+          "enabled": true,
+          "immediate_correction": true,
+          "transparency_logging": true
+        },
+        "assumption_challenge": {
+          "enabled": true,
+          "challenge_threshold": "medium",
+          "automatic_detection": true
+        },
+        "ground_check": {
+          "enabled": true,
+          "required_confirmations": 2,
+          "verification_timeout_seconds": 30,
+          "fallback_to_uncertainty": true
+        },
+        "hallucination_prevention": {
+          "enabled": true,
+          "reality_checks": true,
+          "conservative_estimation": true,
+          "uncertainty_qualification": true
+        },
+        "verification_categories": {
+          "factual": {
+            "min_sources": 3,
+            "require_independent": true
+          },
+          "technical": {
+            "require_testing": true,
+            "allow_simulation": true
+          },
+          "logical": {
+            "check_consistency": true,
+            "identify_fallacies": true
+          }
+        },
+        "confidence_calibration": {
+          "enabled": true,
+          "track_accuracy": true,
+          "adjust_thresholds": true
+        },
+        "response_formats": {
+          "balanced_analysis": true,
+          "error_correction": true,
+          "assumption_challenge": true
+        }
+      },
+      "templates": {
+        "en": "# Critical Thinking Rules Agent Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `critical_thinking_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If critical_thinking_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## Critical Thinking Framework\n- **Error Admission**: Immediately acknowledge and correct mistakes\n- **Assumption Challenge**: Question implicit assumptions in requests\n- **Ground Check Verification**: Validate claims with evidence\n- **Hallucination Prevention**: Conservative responses with uncertainty qualification\n\n## Required Implementation Algorithms\n\n### Algorithm: Error_Admission_Process\n**MANDATORY**: Execute immediately when errors are detected\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Monitor responses for inaccuracies or inconsistencies\n3. Immediately acknowledge detected errors\n4. Provide detailed explanation of the mistake\n5. Offer corrected information with supporting evidence\n6. Log correction for memory system integration\n\n### Algorithm: Assumption_Challenge_Process\n**MANDATORY**: Execute when analyzing user requests\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Parse user request for implicit assumptions\n3. Evaluate assumptions against available evidence\n4. Generate counter-examples and alternative perspectives\n5. Present balanced analysis with multiple viewpoints\n6. Request clarification when assumptions are unclear\n\n### Algorithm: Ground_Check_Verification_Process\n**MANDATORY**: Execute before making factual claims\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Identify factual claims in planned responses\n3. Gather independent verification (3+ sources when possible)\n4. Apply technical validation for technical claims\n5. Use formal reasoning for logical claims\n6. Qualify uncertainty and provide confidence levels\n\n### Algorithm: Response_Validation_Process\n**MANDATORY**: Execute on all responses when enabled\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Review response for potential hallucinations\n3. Assess technical, practical, and logical feasibility\n4. Use conservative estimation rather than over-confidence\n5. Apply uncertainty qualification phrases appropriately\n6. Structure responses: strengths, concerns, recommendations\n\n## Settings Compliance\n- Respect all settings in critical-thinking-rules/settings.json\n- Apply configured verification thresholds\n- Use specified uncertainty qualification formats\n- Prompt user if critical_thinking_rules.enabled = false during complex reasoning\n\n## Integration Points\n- **Memory Integration**: Store error corrections and learning insights\n- **RAG Integration**: Provide quality assurance for retrieved information\n- **Bootstrap Coordination**: Respect rule interconnections and priorities\n\n**VIOLATION**: Agents responding without critical analysis or error checking.\n\n<!-- METADATA: Critical thinking rules agent integration template with verification and analysis algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# 批判的思考ルール エージェント統合 / Critical Thinking Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`critical_thinking_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでcritical_thinking_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## 批判的思考フレームワーク / Critical Thinking Framework\n- **エラー承認 / Error Admission**: すぐに間違いを認め修正する / Immediately acknowledge and correct mistakes\n- **仮定挑戦 / Assumption Challenge**: 要求内の暗黙の仮定に疑問を呈する / Question implicit assumptions in requests\n- **根拠確認検証 / Ground Check Verification**: 証拠で主張を検証する / Validate claims with evidence\n- **幻覚防止 / Hallucination Prevention**: 不確実性資格付きの保守的な応答 / Conservative responses with uncertainty qualification\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Error_Admission_Process / Algorithm: Error_Admission_Process\n**必須 / MANDATORY**: エラーが検出された場合すぐに実行 / Execute immediately when errors are detected\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 不正確性や矛盾のために応答を監視 / Monitor responses for inaccuracies or inconsistencies\n3. 検出されたエラーをすぐに承認 / Immediately acknowledge detected errors\n4. 間違いの詳細な説明を提供 / Provide detailed explanation of the mistake\n5. 支持証拠付きで修正された情報を提供 / Offer corrected information with supporting evidence\n6. メモリシステム統合のために修正をログ / Log correction for memory system integration\n\n### アルゴリズム: Assumption_Challenge_Process / Algorithm: Assumption_Challenge_Process\n**必須 / MANDATORY**: ユーザー要求を分析時に実行 / Execute when analyzing user requests\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 暗黙の仮定のためにユーザー要求を解析 / Parse user request for implicit assumptions\n3. 利用可能な証拠に対して仮定を評価 / Evaluate assumptions against available evidence\n4. 反例と代替視点を作成 / Generate counter-examples and alternative perspectives\n5. 複数の視点でバランスの取れた分析を提示 / Present balanced analysis with multiple viewpoints\n6. 仮定が不明瞭な場合に明確化を要求 / Request clarification when assumptions are unclear\n\n### アルゴリズム: Ground_Check_Verification_Process / Algorithm: Ground_Check_Verification_Process\n**必須 / MANDATORY**: 事実的主張を行う前に実行 / Execute before making factual claims\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 計画された応答で事実的主張を特定 / Identify factual claims in planned responses\n3. 独立した検証を収集（可能な場合は3つ以上のソース） / Gather independent verification (3+ sources when possible)\n4. 技術的主張に技術的検証を適用 / Apply technical validation for technical claims\n5. 論理的主張に形式的推論を使用 / Use formal reasoning for logical claims\n6. 不確実性を資格付け、信頼レベルを提供 / Qualify uncertainty and provide confidence levels\n\n### アルゴリズム: Response_Validation_Process / Algorithm: Response_Validation_Process\n**必須 / MANDATORY**: 有効時にすべての応答で実行 / Execute on all responses when enabled\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 潜在的な幻覚のために応答を確認 / Review response for potential hallucinations\n3. 技術的、実用的、論理的可能性を評価 / Assess technical, practical, and logical feasibility\n4. 過度な自信よりも保守的な推定を使用 / Use conservative estimation rather than over-confidence\n5. 不確実性資格付けフレーズを適切に適用 / Apply uncertainty qualification phrases appropriately\n6. 応答を構造化: 強み、懸念、推奨事項 / Structure responses: strengths, concerns, recommendations\n\n## 設定準拠 / Settings Compliance\n- critical-thinking-rules/settings.jsonのすべての設定を尊重 / Respect all settings in critical-thinking-rules/settings.json\n- 設定された検証しきい値を適用 / Apply configured verification thresholds\n- 指定された不確実性資格付け形式を使用 / Use specified uncertainty qualification formats\n- 複雑な推論中にcritical_thinking_rules.enabled = falseの場合、ユーザーにプロンプト / Prompt user if critical_thinking_rules.enabled = false during complex reasoning\n\n## 統合ポイント / Integration Points\n- **メモリ統合 / Memory Integration**: エラー修正と学習洞察を保存 / Store error corrections and learning insights\n- **RAG統合 / RAG Integration**: 検索された情報の品質保証を提供 / Provide quality assurance for retrieved information\n- **ブートストラップ調整 / Bootstrap Coordination**: ルール相互接続と優先順位を尊重 / Respect rule interconnections and priorities\n\n**違反 / VIOLATION**: 批判的分析やエラーチェックなしで応答するエージェント / Agents responding without critical analysis or error checking.\n\n<!-- METADATA: Critical thinking rules agent integration template with verification and analysis algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Aturan Berpikir Kritis\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `critical_thinking_rules.enabled = true` di settings.json.\n\n**WAJIB**: Jika critical_thinking_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Kerangka Berpikir Kritis\n- **Pengakuan Error**: Segera akui dan koreksi kesalahan\n- **Tantangan Asumsi**: Pertanyakan asumsi implisit dalam permintaan\n- **Verifikasi Pemeriksaan Dasar**: Validasi klaim dengan bukti\n- **Pencegahan Halusinasi**: Respons konservatif dengan kualifikasi ketidakpastian\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Error_Admission_Process\n**WAJIB**: Eksekusi segera ketika error terdeteksi\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Monitor respons untuk ketidakakuratan atau inkonsistensi\n3. Segera akui error yang terdeteksi\n4. Berikan penjelasan detail tentang kesalahan\n5. Tawarkan informasi yang dikoreksi dengan bukti pendukung\n6. Log koreksi untuk integrasi sistem memori\n\n### Algoritma: Assumption_Challenge_Process\n**WAJIB**: Eksekusi ketika menganalisis permintaan pengguna\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Parse permintaan pengguna untuk asumsi implisit\n3. Evaluasi asumsi terhadap bukti yang tersedia\n4. Hasilkan contoh kontra dan perspektif alternatif\n5. Presentasikan analisis seimbang dengan berbagai sudut pandang\n6. Minta klarifikasi ketika asumsi tidak jelas\n\n### Algoritma: Ground_Check_Verification_Process\n**WAJIB**: Eksekusi sebelum membuat klaim faktual\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Identifikasi klaim faktual dalam respons yang direncanakan\n3. Kumpulkan verifikasi independen (3+ sumber jika memungkinkan)\n4. Terapkan validasi teknis untuk klaim teknis\n5. Gunakan penalaran formal untuk klaim logis\n6. Kualifikasi ketidakpastian dan berikan tingkat kepercayaan\n\n### Algoritma: Response_Validation_Process\n**WAJIB**: Eksekusi pada semua respons ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Tinjau respons untuk potensi halusinasi\n3. Nilai kelayakan teknis, praktis, dan logis\n4. Gunakan estimasi konservatif daripada kepercayaan berlebihan\n5. Terapkan frasa kualifikasi ketidakpastian secara tepat\n6. Struktur respons: kekuatan, keprihatinan, rekomendasi\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di critical-thinking-rules/settings.json\n- Terapkan ambang verifikasi yang dikonfigurasi\n- Gunakan format kualifikasi ketidakpastian yang ditentukan\n- Berikan prompt kepada pengguna jika critical_thinking_rules.enabled = false selama penalaran kompleks\n\n## Titik Integrasi\n- **Integrasi Memori**: Simpan koreksi error dan wawasan pembelajaran\n- **Integrasi RAG**: Berikan jaminan kualitas untuk informasi yang diambil\n- **Koordinasi Bootstrap**: Hormati interkoneksi dan prioritas aturan\n\n**PELANGGARAN**: Agen yang merespons tanpa analisis kritis atau pemeriksaan error.\n\n<!-- METADATA: Template integrasi agen aturan berpikir kritis dengan algoritma verifikasi dan analisis -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+      }
+    },
     "memory-rules": {
       "name": "memory-rules",
       "display_name": "Memory Rules",
@@ -840,7 +995,7 @@
         }
       ],
       "default_settings": {
-        "enabled": true,
+        "enabled": false,
         "context_window_optimization": {
           "enabled": true,
           "max_context_tokens": 8000,
@@ -923,161 +1078,6 @@
         "en": "# RAG Rules Agent Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `rag_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If rag_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## RAG System Architecture\n- **Context Optimization**: Prioritize relevant information\n- **Hierarchical Reading**: Read files strategically, not sequentially\n- **Relevance Scoring**: Weight information by importance and recency\n- **Dynamic Context Management**: Adapt context window to task requirements\n\n## Required Implementation Algorithms\n\n### Algorithm: Context_Optimization_Process\n**MANDATORY**: Execute before any user response when enabled\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Analyze user request and available context\n3. Score information relevance using recency, importance, and task-relevance\n4. Prioritize hierarchical reading: summaries → key sections → details\n5. Optimize context window for maximum information density\n6. Return optimized context for response generation\n\n### Algorithm: Information_Retrieval_Process\n**MANDATORY**: Execute when gathering information for responses\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Identify information requirements from user query\n3. Search relevant files using semantic understanding\n4. Apply hierarchical reading patterns\n5. Extract and rank relevant information chunks\n6. Integrate with memory system for personalized context\n\n### Algorithm: Response_Quality_Assurance\n**MANDATORY**: Execute after generating responses\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Validate response against source information\n3. Ensure all claims are supported by retrieved context\n4. Flag any information gaps or assumptions\n5. Optimize response completeness and accuracy\n\n## Settings Compliance\n- Respect all settings in rag-rules/settings.json\n- Apply context_window_size limits appropriately\n- Use configured relevance thresholds\n- Prompt user if rag_rules.enabled = false and complex context needed\n\n## Integration Points\n- **Memory Integration**: Use stored context for personalized retrieval\n- **Critical Thinking**: Provide quality assurance for information validation\n- **Bootstrap Coordination**: Respect loading priorities and interconnections\n\n**VIOLATION**: Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
         "ja": "# RAGルール エージェント統合 / RAG Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`rag_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでrag_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## RAGシステムアーキテクチャ / RAG System Architecture\n- **コンテキスト最適化 / Context Optimization**: 関連情報の優先順位付け / Prioritize relevant information\n- **階層的読み取り / Hierarchical Reading**: ファイルを戦略的に読み取り、順次読み取りしない / Read files strategically, not sequentially\n- **関連性スコアリング / Relevance Scoring**: 重要度と新しさで情報を重み付け / Weight information by importance and recency\n- **動的コンテキスト管理 / Dynamic Context Management**: タスク要件にコンテキストウィンドウを適応 / Adapt context window to task requirements\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Context_Optimization_Process / Algorithm: Context_Optimization_Process\n**必須 / MANDATORY**: 有効時にユーザー応答前に実行 / Execute before any user response when enabled\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザー要求と利用可能なコンテキストを分析 / Analyze user request and available context\n3. 新しさ、重要度、タスク関連性を使用して情報関連性をスコアリング / Score information relevance using recency, importance, and task-relevance\n4. 階層的読み取りを優先: 要約 → 主要セクション → 詳細 / Prioritize hierarchical reading: summaries → key sections → details\n5. 最大情報密度のためにコンテキストウィンドウを最適化 / Optimize context window for maximum information density\n6. 応答生成用の最適化されたコンテキストを返す / Return optimized context for response generation\n\n### アルゴリズム: Information_Retrieval_Process / Algorithm: Information_Retrieval_Process\n**必須 / MANDATORY**: 応答情報の収集時に実行 / Execute when gathering information for responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザークエリからの情報要件を特定 / Identify information requirements from user query\n3. 意味理解を使用して関連ファイルを検索 / Search relevant files using semantic understanding\n4. 階層的読み取りパターンを適用 / Apply hierarchical reading patterns\n5. 関連情報チャンクを抽出しランク付け / Extract and rank relevant information chunks\n6. パーソナライズドコンテキストのためにメモリシステムと統合 / Integrate with memory system for personalized context\n\n### アルゴリズム: Response_Quality_Assurance / Algorithm: Response_Quality_Assurance\n**必須 / MANDATORY**: 応答生成後に実行 / Execute after generating responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ソース情報に対して応答を検証 / Validate response against source information\n3. すべての主張が検索されたコンテキストでサポートされていることを確認 / Ensure all claims are supported by retrieved context\n4. 情報ギャップや仮定にフラグを付ける / Flag any information gaps or assumptions\n5. 応答の完全性と正確性を最適化 / Optimize response completeness and accuracy\n\n## 設定準拠 / Settings Compliance\n- rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json\n- context_window_size制限を適切に適用 / Apply context_window_size limits appropriately\n- 設定された関連性しきい値を使用 / Use configured relevance thresholds\n- rag_rules.enabled = falseで複雑なコンテキストが必要な場合、ユーザーにプロンプト / Prompt user if rag_rules.enabled = false and complex context needed\n\n## 統合ポイント / Integration Points\n- **メモリ統合 / Memory Integration**: パーソナライズド検索のために保存されたコンテキストを使用 / Use stored context for personalized retrieval\n- **批判的思考 / Critical Thinking**: 情報検証のための品質保証を提供 / Provide quality assurance for information validation\n- **ブートストラップ調整 / Bootstrap Coordination**: 読み込み優先順位と相互接続を尊重 / Respect loading priorities and interconnections\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずに非効率的なコンテキスト管理を使用するエージェント / Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
         "id": "# Integrasi Agen Aturan RAG\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `rag_rules.enabled = true` di settings.json.\n\n**WAJIB**: Jika rag_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Arsitektur Sistem RAG\n- **Optimasi Konteks**: Prioritaskan informasi yang relevan\n- **Pembacaan Hierarkis**: Baca file secara strategis, bukan berurutan\n- **Skor Relevansi**: Bobot informasi berdasarkan kepentingan dan kedalaman waktu\n- **Manajemen Konteks Dinamis**: Sesuaikan jendela konteks dengan persyaratan tugas\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Context_Optimization_Process\n**WAJIB**: Eksekusi sebelum respons pengguna apa pun ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Analisis permintaan pengguna dan konteks yang tersedia\n3. Skor relevansi informasi menggunakan kedalaman waktu, kepentingan, dan relevansi tugas\n4. Prioritaskan pembacaan hierarkis: ringkasan → bagian kunci → detail\n5. Optimalkan jendela konteks untuk kepadatan informasi maksimum\n6. Kembalikan konteks yang dioptimalkan untuk generasi respons\n\n### Algoritma: Information_Retrieval_Process\n**WAJIB**: Eksekusi ketika mengumpulkan informasi untuk respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Identifikasi persyaratan informasi dari query pengguna\n3. Cari file yang relevan menggunakan pemahaman semantik\n4. Terapkan pola pembacaan hierarkis\n5. Ekstrak dan rangking potongan informasi yang relevan\n6. Integrasikan dengan sistem memori untuk konteks yang dipersonalisasi\n\n### Algoritma: Response_Quality_Assurance\n**WAJIB**: Eksekusi setelah menghasilkan respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Validasi respons terhadap informasi sumber\n3. Pastikan semua klaim didukung oleh konteks yang diambil\n4. Tandai kesenjangan informasi atau asumsi apa pun\n5. Optimalkan kelengkapan dan akurasi respons\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di rag-rules/settings.json\n- Terapkan batas context_window_size secara tepat\n- Gunakan ambang relevansi yang dikonfigurasi\n- Berikan prompt kepada pengguna jika rag_rules.enabled = false dan konteks kompleks diperlukan\n\n## Titik Integrasi\n- **Integrasi Memori**: Gunakan konteks tersimpan untuk pengambilan yang dipersonalisasi\n- **Berpikir Kritis**: Berikan jaminan kualitas untuk validasi informasi\n- **Koordinasi Bootstrap**: Hormati prioritas pemuatan dan interkoneksi\n\n**PELANGGARAN**: Agen yang menggunakan manajemen konteks yang tidak efisien tanpa mengimplementasikan algoritma ini.\n\n<!-- METADATA: Template integrasi agen aturan RAG dengan algoritma optimasi konteks dan pengambilan -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
-      }
-    },
-    "critical-thinking-rules": {
-      "name": "critical-thinking-rules",
-      "display_name": "Critical Thinking Rules",
-      "description": "Intellectual rigor and hallucination prevention",
-      "localization": {
-        "en": {
-          "plugin_name": "Critical Thinking Rules",
-          "description": "Intellectual rigor and hallucination prevention"
-        },
-        "ja": {
-          "plugin_name": "批判的思考ルール",
-          "description": "知的厳密さと幻覚防止"
-        },
-        "id": {
-          "plugin_name": "Aturan Berpikir Kritis",
-          "description": "Keketatan intelektual dan pencegahan halusinasi"
-        }
-      },
-      "mandatory_config": [],
-      "optional_config": [
-        {
-          "name": "verification_levels",
-          "type": "choice",
-          "localization": {
-            "en": {
-              "title": "Verification Levels",
-              "description": "Configure how thoroughly to verify information"
-            },
-            "ja": {
-              "title": "検証レベル",
-              "description": "情報の検証の徹底度を設定"
-            },
-            "id": {
-              "title": "Tingkat Verifikasi",
-              "description": "Konfigurasikan seberapa menyeluruh verifikasi informasi"
-            }
-          },
-          "options": [
-            {
-              "name": "balanced_verification",
-              "localization": {
-                "en": {
-                  "description": "Verify factual claims with reasonable rigor"
-                },
-                "ja": {
-                  "description": "合理的な厳密さで事実的主張を検証"
-                },
-                "id": {
-                  "description": "Verifikasi klaim faktual dengan ketelitian yang wajar"
-                }
-              },
-              "recommended": true,
-              "settings": {
-                "verification.factual_claim_verification": true,
-                "verification.min_sources_required": 2
-              }
-            }
-          ]
-        },
-        {
-          "name": "error_handling",
-          "type": "choice",
-          "localization": {
-            "en": {
-              "title": "Error Handling",
-              "description": "Configure error admission and correction behavior"
-            },
-            "ja": {
-              "title": "エラー処理",
-              "description": "エラー承認と修正の動作を設定"
-            },
-            "id": {
-              "title": "Penanganan Error",
-              "description": "Konfigurasikan perilaku pengakuan dan koreksi error"
-            }
-          },
-          "options": [
-            {
-              "name": "transparent_error_handling",
-              "localization": {
-                "en": {
-                  "description": "Immediately admit errors and log corrections"
-                },
-                "ja": {
-                  "description": "すぐにエラーを承認し修正をログ"
-                },
-                "id": {
-                  "description": "Segera akui error dan log koreksi"
-                }
-              },
-              "recommended": true,
-              "settings": {
-                "error_handling.immediate_error_admission": true,
-                "error_handling.log_corrections": true
-              }
-            }
-          ]
-        }
-      ],
-      "default_settings": {
-        "enabled": true,
-        "verification_level": "standard",
-        "error_admission": {
-          "enabled": true,
-          "immediate_correction": true,
-          "transparency_logging": true
-        },
-        "assumption_challenge": {
-          "enabled": true,
-          "challenge_threshold": "medium",
-          "automatic_detection": true
-        },
-        "ground_check": {
-          "enabled": true,
-          "required_confirmations": 2,
-          "verification_timeout_seconds": 30,
-          "fallback_to_uncertainty": true
-        },
-        "hallucination_prevention": {
-          "enabled": true,
-          "reality_checks": true,
-          "conservative_estimation": true,
-          "uncertainty_qualification": true
-        },
-        "verification_categories": {
-          "factual": {
-            "min_sources": 3,
-            "require_independent": true
-          },
-          "technical": {
-            "require_testing": true,
-            "allow_simulation": true
-          },
-          "logical": {
-            "check_consistency": true,
-            "identify_fallacies": true
-          }
-        },
-        "confidence_calibration": {
-          "enabled": true,
-          "track_accuracy": true,
-          "adjust_thresholds": true
-        },
-        "response_formats": {
-          "balanced_analysis": true,
-          "error_correction": true,
-          "assumption_challenge": true
-        }
-      },
-      "templates": {
-        "en": "# Critical Thinking Rules Agent Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `critical_thinking_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If critical_thinking_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## Critical Thinking Framework\n- **Error Admission**: Immediately acknowledge and correct mistakes\n- **Assumption Challenge**: Question implicit assumptions in requests\n- **Ground Check Verification**: Validate claims with evidence\n- **Hallucination Prevention**: Conservative responses with uncertainty qualification\n\n## Required Implementation Algorithms\n\n### Algorithm: Error_Admission_Process\n**MANDATORY**: Execute immediately when errors are detected\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Monitor responses for inaccuracies or inconsistencies\n3. Immediately acknowledge detected errors\n4. Provide detailed explanation of the mistake\n5. Offer corrected information with supporting evidence\n6. Log correction for memory system integration\n\n### Algorithm: Assumption_Challenge_Process\n**MANDATORY**: Execute when analyzing user requests\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Parse user request for implicit assumptions\n3. Evaluate assumptions against available evidence\n4. Generate counter-examples and alternative perspectives\n5. Present balanced analysis with multiple viewpoints\n6. Request clarification when assumptions are unclear\n\n### Algorithm: Ground_Check_Verification_Process\n**MANDATORY**: Execute before making factual claims\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Identify factual claims in planned responses\n3. Gather independent verification (3+ sources when possible)\n4. Apply technical validation for technical claims\n5. Use formal reasoning for logical claims\n6. Qualify uncertainty and provide confidence levels\n\n### Algorithm: Response_Validation_Process\n**MANDATORY**: Execute on all responses when enabled\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Review response for potential hallucinations\n3. Assess technical, practical, and logical feasibility\n4. Use conservative estimation rather than over-confidence\n5. Apply uncertainty qualification phrases appropriately\n6. Structure responses: strengths, concerns, recommendations\n\n## Settings Compliance\n- Respect all settings in critical-thinking-rules/settings.json\n- Apply configured verification thresholds\n- Use specified uncertainty qualification formats\n- Prompt user if critical_thinking_rules.enabled = false during complex reasoning\n\n## Integration Points\n- **Memory Integration**: Store error corrections and learning insights\n- **RAG Integration**: Provide quality assurance for retrieved information\n- **Bootstrap Coordination**: Respect rule interconnections and priorities\n\n**VIOLATION**: Agents responding without critical analysis or error checking.\n\n<!-- METADATA: Critical thinking rules agent integration template with verification and analysis algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
-        "ja": "# 批判的思考ルール エージェント統合 / Critical Thinking Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`critical_thinking_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでcritical_thinking_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## 批判的思考フレームワーク / Critical Thinking Framework\n- **エラー承認 / Error Admission**: すぐに間違いを認め修正する / Immediately acknowledge and correct mistakes\n- **仮定挑戦 / Assumption Challenge**: 要求内の暗黙の仮定に疑問を呈する / Question implicit assumptions in requests\n- **根拠確認検証 / Ground Check Verification**: 証拠で主張を検証する / Validate claims with evidence\n- **幻覚防止 / Hallucination Prevention**: 不確実性資格付きの保守的な応答 / Conservative responses with uncertainty qualification\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Error_Admission_Process / Algorithm: Error_Admission_Process\n**必須 / MANDATORY**: エラーが検出された場合すぐに実行 / Execute immediately when errors are detected\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 不正確性や矛盾のために応答を監視 / Monitor responses for inaccuracies or inconsistencies\n3. 検出されたエラーをすぐに承認 / Immediately acknowledge detected errors\n4. 間違いの詳細な説明を提供 / Provide detailed explanation of the mistake\n5. 支持証拠付きで修正された情報を提供 / Offer corrected information with supporting evidence\n6. メモリシステム統合のために修正をログ / Log correction for memory system integration\n\n### アルゴリズム: Assumption_Challenge_Process / Algorithm: Assumption_Challenge_Process\n**必須 / MANDATORY**: ユーザー要求を分析時に実行 / Execute when analyzing user requests\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 暗黙の仮定のためにユーザー要求を解析 / Parse user request for implicit assumptions\n3. 利用可能な証拠に対して仮定を評価 / Evaluate assumptions against available evidence\n4. 反例と代替視点を作成 / Generate counter-examples and alternative perspectives\n5. 複数の視点でバランスの取れた分析を提示 / Present balanced analysis with multiple viewpoints\n6. 仮定が不明瞭な場合に明確化を要求 / Request clarification when assumptions are unclear\n\n### アルゴリズム: Ground_Check_Verification_Process / Algorithm: Ground_Check_Verification_Process\n**必須 / MANDATORY**: 事実的主張を行う前に実行 / Execute before making factual claims\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 計画された応答で事実的主張を特定 / Identify factual claims in planned responses\n3. 独立した検証を収集（可能な場合は3つ以上のソース） / Gather independent verification (3+ sources when possible)\n4. 技術的主張に技術的検証を適用 / Apply technical validation for technical claims\n5. 論理的主張に形式的推論を使用 / Use formal reasoning for logical claims\n6. 不確実性を資格付け、信頼レベルを提供 / Qualify uncertainty and provide confidence levels\n\n### アルゴリズム: Response_Validation_Process / Algorithm: Response_Validation_Process\n**必須 / MANDATORY**: 有効時にすべての応答で実行 / Execute on all responses when enabled\n\n**ステップ / Steps**:\n1. critical_thinking_rules.enabled = trueを確認 / Check critical_thinking_rules.enabled = true\n2. 潜在的な幻覚のために応答を確認 / Review response for potential hallucinations\n3. 技術的、実用的、論理的可能性を評価 / Assess technical, practical, and logical feasibility\n4. 過度な自信よりも保守的な推定を使用 / Use conservative estimation rather than over-confidence\n5. 不確実性資格付けフレーズを適切に適用 / Apply uncertainty qualification phrases appropriately\n6. 応答を構造化: 強み、懸念、推奨事項 / Structure responses: strengths, concerns, recommendations\n\n## 設定準拠 / Settings Compliance\n- critical-thinking-rules/settings.jsonのすべての設定を尊重 / Respect all settings in critical-thinking-rules/settings.json\n- 設定された検証しきい値を適用 / Apply configured verification thresholds\n- 指定された不確実性資格付け形式を使用 / Use specified uncertainty qualification formats\n- 複雑な推論中にcritical_thinking_rules.enabled = falseの場合、ユーザーにプロンプト / Prompt user if critical_thinking_rules.enabled = false during complex reasoning\n\n## 統合ポイント / Integration Points\n- **メモリ統合 / Memory Integration**: エラー修正と学習洞察を保存 / Store error corrections and learning insights\n- **RAG統合 / RAG Integration**: 検索された情報の品質保証を提供 / Provide quality assurance for retrieved information\n- **ブートストラップ調整 / Bootstrap Coordination**: ルール相互接続と優先順位を尊重 / Respect rule interconnections and priorities\n\n**違反 / VIOLATION**: 批判的分析やエラーチェックなしで応答するエージェント / Agents responding without critical analysis or error checking.\n\n<!-- METADATA: Critical thinking rules agent integration template with verification and analysis algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
-        "id": "# Integrasi Agen Aturan Berpikir Kritis\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `critical_thinking_rules.enabled = true` di settings.json.\n\n**WAJIB**: Jika critical_thinking_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Kerangka Berpikir Kritis\n- **Pengakuan Error**: Segera akui dan koreksi kesalahan\n- **Tantangan Asumsi**: Pertanyakan asumsi implisit dalam permintaan\n- **Verifikasi Pemeriksaan Dasar**: Validasi klaim dengan bukti\n- **Pencegahan Halusinasi**: Respons konservatif dengan kualifikasi ketidakpastian\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Error_Admission_Process\n**WAJIB**: Eksekusi segera ketika error terdeteksi\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Monitor respons untuk ketidakakuratan atau inkonsistensi\n3. Segera akui error yang terdeteksi\n4. Berikan penjelasan detail tentang kesalahan\n5. Tawarkan informasi yang dikoreksi dengan bukti pendukung\n6. Log koreksi untuk integrasi sistem memori\n\n### Algoritma: Assumption_Challenge_Process\n**WAJIB**: Eksekusi ketika menganalisis permintaan pengguna\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Parse permintaan pengguna untuk asumsi implisit\n3. Evaluasi asumsi terhadap bukti yang tersedia\n4. Hasilkan contoh kontra dan perspektif alternatif\n5. Presentasikan analisis seimbang dengan berbagai sudut pandang\n6. Minta klarifikasi ketika asumsi tidak jelas\n\n### Algoritma: Ground_Check_Verification_Process\n**WAJIB**: Eksekusi sebelum membuat klaim faktual\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Identifikasi klaim faktual dalam respons yang direncanakan\n3. Kumpulkan verifikasi independen (3+ sumber jika memungkinkan)\n4. Terapkan validasi teknis untuk klaim teknis\n5. Gunakan penalaran formal untuk klaim logis\n6. Kualifikasi ketidakpastian dan berikan tingkat kepercayaan\n\n### Algoritma: Response_Validation_Process\n**WAJIB**: Eksekusi pada semua respons ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Tinjau respons untuk potensi halusinasi\n3. Nilai kelayakan teknis, praktis, dan logis\n4. Gunakan estimasi konservatif daripada kepercayaan berlebihan\n5. Terapkan frasa kualifikasi ketidakpastian secara tepat\n6. Struktur respons: kekuatan, keprihatinan, rekomendasi\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di critical-thinking-rules/settings.json\n- Terapkan ambang verifikasi yang dikonfigurasi\n- Gunakan format kualifikasi ketidakpastian yang ditentukan\n- Berikan prompt kepada pengguna jika critical_thinking_rules.enabled = false selama penalaran kompleks\n\n## Titik Integrasi\n- **Integrasi Memori**: Simpan koreksi error dan wawasan pembelajaran\n- **Integrasi RAG**: Berikan jaminan kualitas untuk informasi yang diambil\n- **Koordinasi Bootstrap**: Hormati interkoneksi dan prioritas aturan\n\n**PELANGGARAN**: Agen yang merespons tanpa analisis kritis atau pemeriksaan error.\n\n<!-- METADATA: Template integrasi agen aturan berpikir kritis dengan algoritma verifikasi dan analisis -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
       }
     }
   },
@@ -2445,7 +2445,7 @@
                                     ${fg.downloadButton}
                                 </button>
                                 ${isEnhancedMode ? `<button onclick="createFile('${filename.replace(/'/g, "\\'")}', this)" style="background: #17a2b8; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;" title="Create file directly">
-                                    📁 Create
+                                    ${fg.createButton}
                                 </button>` : ''}
                             </div>
                         </div>
