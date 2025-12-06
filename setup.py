@@ -111,6 +111,33 @@ def get_default_language():
     languages = get_available_languages()
     return languages[0] if languages else 'en'
 
+def get_language_display_name(lang_code, ui_lang='en'):
+    """Get display name for a language code, with localization support."""
+    # Language name mapping with flags
+    lang_names = {
+        'en': '🇺🇸 English',
+        'ja': '🇯🇵 日本語',
+        'id': '🇮🇩 Bahasa Indonesia',
+        'zh': '🇨🇳 中文',
+        'ar': '🇸🇦 العربية',
+        'de': '🇩🇪 Deutsch',
+        'fr': '🇫🇷 Français',
+        'es': '🇪🇸 Español',
+        'ko': '🇰🇷 한국어',
+        'hi': '🇮🇳 हिन्दी',
+        'pt': '🇵🇹 Português',
+        'ru': '🇷🇺 Русский',
+        'si': '🇱🇰 සිංහල',
+        'ta': '🇮🇳 தமிழ்',
+        'th': '🇹🇭 ไทย',
+        'tr': '🇹🇷 Türkçe',
+        'vi': '🇻🇳 Tiếng Việt'
+    }
+
+    # Try to get localized name, fall back to flag + code
+    display_name = lang_names.get(lang_code, f'{lang_code.upper()} ({lang_code})')
+    return display_name
+
 def load_config_file(config_path):
     """Load configuration from a JSON file exported from setup.html."""
     if not config_path:
@@ -276,8 +303,6 @@ def select_plugin_languages(selected_rules, global_agent_lang, ui_lang='en', scr
     print(f"\n{t('plugin_lang_title', locale=ui_lang) if 'plugin_lang_title' in LOCALIZATION.get(ui_lang, {}) else 'Plugin Language Selection'}")
     print(f"{t('plugin_lang_description', locale=ui_lang) if 'plugin_lang_description' in LOCALIZATION.get(ui_lang, {}) else 'Choose language for each plugin template:'}")
 
-    available_langs = get_available_languages()
-
     for rule in selected_rules:
         print(f"\n  Plugin: {rule}")
 
@@ -292,19 +317,20 @@ def select_plugin_languages(selected_rules, global_agent_lang, ui_lang='en', scr
             print(f"    Available templates: {', '.join(available_templates)}")
         else:
             print("    No templates available")
+            continue
+
         # Default to global language, but allow override
         default_lang = global_agent_lang
-        if default_lang not in available_langs:
-            default_lang = available_langs[0] if available_langs else 'en'
+        if default_lang not in available_templates:
+            default_lang = available_templates[0] if available_templates else 'en'
 
         while True:
             print(f"    Select language for {rule} (default: {default_lang}):")
-            for i, lang in enumerate(available_langs, 1):
-                lang_name = t(f'lang_option_{i}', locale=ui_lang)
-                if lang_name == f'lang_option_{i}':  # Key not found, use default
-                    lang_name = f'{i}. {lang.upper()} ({lang})'
+            for i, lang in enumerate(available_templates, 1):
+                # Try to get localized name, fall back to language code
+                lang_name = get_language_display_name(lang, ui_lang)
                 marker = " (default)" if lang == default_lang else ""
-                print(f"      {lang_name}{marker}")
+                print(f"      {i}. {lang_name}{marker}")
 
             choice = input("    Enter choice (or press Enter for default): ").strip().lower()
 
@@ -315,12 +341,12 @@ def select_plugin_languages(selected_rules, global_agent_lang, ui_lang='en', scr
             elif choice in ['q', 'quit', 'exit']:
                 print("Setup cancelled.")
                 sys.exit(0)
-            elif choice.isdigit() and 1 <= int(choice) <= len(available_langs):
-                selected_lang = available_langs[int(choice) - 1]
+            elif choice.isdigit() and 1 <= int(choice) <= len(available_templates):
+                selected_lang = available_templates[int(choice) - 1]
                 plugin_languages[rule] = selected_lang
                 print(f"    ✓ Selected: {selected_lang}")
                 break
-            elif choice in available_langs:
+            elif choice in available_templates:
                 plugin_languages[rule] = choice
                 print(f"    ✓ Selected: {choice}")
                 break
