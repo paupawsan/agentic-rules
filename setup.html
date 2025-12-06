@@ -2463,8 +2463,14 @@
 
       } catch (error) {
         console.error('Configuration failed:', error);
-        document.getElementById('result-error').style.display = 'block';
-        document.getElementById('error-message').textContent = error.message;
+        const errorDiv = document.getElementById('result-error');
+        const errorMessageDiv = document.getElementById('error-message');
+        if (errorDiv) {
+          errorDiv.style.display = 'block';
+        }
+        if (errorMessageDiv) {
+          errorMessageDiv.textContent = error.message;
+        }
       } finally {
         generateBtn.disabled = false;
         const strings = localization[uiLanguage] || localization['en'];
@@ -2535,8 +2541,17 @@
       generatedFiles = files;
 
       // Hide error result and show success result
-      document.getElementById('result-error').style.display = 'none';
-      document.getElementById('result-success').style.display = 'block';
+      const errorDiv = document.getElementById('result-error');
+      const successDiv = document.getElementById('result-success');
+      const generatedFilesDiv = document.getElementById('generated-files');
+
+      if (!errorDiv || !successDiv || !generatedFilesDiv) {
+        console.error('Required DOM elements not found for showing generated files');
+        return;
+      }
+
+      errorDiv.style.display = 'none';
+      successDiv.style.display = 'block';
 
       // Get localized strings
       const strings = localization[uiLanguage] || localization['en'];
@@ -2633,7 +2648,7 @@
                 </div>
             `;
 
-      document.getElementById('generated-files').innerHTML = html;
+      generatedFilesDiv.innerHTML = html;
     }
 
     function generateAgentsFile(config) {
