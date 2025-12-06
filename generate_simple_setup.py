@@ -36,49 +36,40 @@ def load_localization():
             print(f"Warning: Could not load localization.json: {e}")
     return None
 
-def get_available_languages():
-    """Get list of available languages from localization data and template files."""
-    localization = load_localization()
-    loc_langs = []
-    if localization:
-        if '_comment' in localization:
-            # Remove metadata key and return language codes
-            loc_langs = [lang for lang in localization.keys() if lang != '_comment']
-        else:
-            loc_langs = list(localization.keys())
+def get_available_languages(script_dir=None):
+    """Get list of available languages from installed plugin templates."""
+    if script_dir is None:
+        script_dir = Path('.')
 
-    # Also scan for template files in plugin directories to find additional languages
-    template_langs = set()
+    installed_languages = set()
+
     try:
         # Check plugins.json for plugin directories
         plugins_manifest = load_json_file('plugins.json')
         if plugins_manifest:
             plugin_names = plugins_manifest.get('plugins', [])
             for plugin_name in plugin_names:
-                plugin_dir = Path(plugin_name)
+                plugin_dir = script_dir / plugin_name
                 if plugin_dir.exists() and plugin_dir.is_dir():
                     # Look for RULES.md.* files
                     for rules_file in plugin_dir.glob('RULES.md.*'):
                         if rules_file.is_file():
                             lang = rules_file.suffix[1:]  # Remove leading dot
-                            template_langs.add(lang)
+                            installed_languages.add(lang)
 
         # Check for root template files
-        for rules_file in Path('.').glob('RULES.md.*'):
+        for rules_file in script_dir.glob('RULES.md.*'):
             if rules_file.is_file():
                 lang = rules_file.suffix[1:]  # Remove leading dot
-                template_langs.add(lang)
+                installed_languages.add(lang)
 
     except Exception as e:
-        print(f"Warning: Could not scan for template languages: {e}")
+        print(f"Warning: Could not scan for installed languages: {e}")
 
-    # Combine localization languages and template languages
-    all_langs = set(loc_langs + list(template_langs))
+    # Ensure English is always available as fallback
+    installed_languages.add('en')
 
-    # Ensure English is always included as fallback
-    all_langs.add('en')
-
-    return sorted(list(all_langs))
+    return sorted(list(installed_languages))
 
 def get_default_language():
     """Get the default language (first available language)."""

@@ -99,12 +99,53 @@ def get_script_directory():
 
 LOCALIZATION = load_localization()
 
-def get_available_languages():
-    """Get list of available languages from localization data."""
-    if LOCALIZATION and '_comment' in LOCALIZATION:
-        # Remove metadata key and return language codes
-        return [lang for lang in LOCALIZATION.keys() if lang != '_comment']
-    return list(LOCALIZATION.keys()) if LOCALIZATION else ['en']
+def load_json_file(filepath):
+    """Load and parse a JSON file."""
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Error loading {filepath}: {e}")
+        return None
+
+def get_installed_languages(script_dir=None):
+    """Dynamically detect all languages available from installed plugin templates."""
+    if script_dir is None:
+        script_dir = Path('.')
+
+    installed_languages = set()
+
+    try:
+        # Check plugins.json for plugin directories
+        plugins_manifest = load_json_file('plugins.json')
+        if plugins_manifest:
+            plugin_names = plugins_manifest.get('plugins', [])
+            for plugin_name in plugin_names:
+                plugin_dir = script_dir / plugin_name
+                if plugin_dir.exists() and plugin_dir.is_dir():
+                    # Look for RULES.md.* files
+                    for rules_file in plugin_dir.glob('RULES.md.*'):
+                        if rules_file.is_file():
+                            lang = rules_file.suffix[1:]  # Remove leading dot
+                            installed_languages.add(lang)
+
+        # Check for root template files
+        for rules_file in script_dir.glob('RULES.md.*'):
+            if rules_file.is_file():
+                lang = rules_file.suffix[1:]  # Remove leading dot
+                installed_languages.add(lang)
+
+    except Exception as e:
+        print(f"Warning: Could not scan for installed languages: {e}")
+
+    # Ensure English is always available as fallback
+    installed_languages.add('en')
+
+    return sorted(list(installed_languages))
+
+def get_available_languages(script_dir=None):
+    """Get list of available languages from installed plugin templates."""
+    return get_installed_languages(script_dir)
 
 def get_default_language():
     """Get the default language (first available language)."""
