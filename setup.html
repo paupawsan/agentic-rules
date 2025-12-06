@@ -430,7 +430,7 @@
   <!-- This section is automatically updated by update_localization.py and generate_simple_setup.py -->
   <!-- Sources: localization.json and setup.json files with RULES.md templates -->
   <script>
-  // ---AUTO GENERATED STATICWEBCONFIG START---
+    // ---AUTO GENERATED STATICWEBCONFIG START---
   const staticWebConfig = {
   "version": "0.1.0",
   "description": "Static web configuration generated from setup.json files",
@@ -1148,9 +1148,8 @@
     "ja": "# Agentic Rules Framework 統合 / Agentic Rules Framework Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで対応する設定が有効になっている場合のみ使用してください。\n\n**必須 / MANDATORY**: エージェントは`bootstrap.json`のブートストラップ設定を尊重し、対応する設定が有効になっている場合のみルールファイルを読み込む必要があります。\n\n## フレームワーク概要 / Framework Overview\nこのフレームワークはモジュラーなルールを通じて構造化されたAIエージェント動作を提供します：\n- **memory-rules/**: コンテキスト保持のための永続的なメモリシステム / Persistent memory system for context retention\n- **rag-rules/**: 最適なコンテキスト使用のための検索拡張生成 / Retrieval-augmented generation for optimal context usage\n- **critical-thinking-rules/**: 知的厳密性と幻覚防止 / Intellectual rigor and hallucination prevention\n\n## ブートストラップ準拠 / Bootstrap Compliance\nルールファイルを読み込む前に、エージェントは必ず：\n1. フレームワーク設定を理解するために`bootstrap.json`を読み取る / Read `bootstrap.json` to understand the framework configuration\n2. 詳細なアルゴリズム仕様と準拠要件については`Bootstrap.md`を確認 / Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements\n3. 読み込み順序とエントリーポイントを確認 / Check loading sequence and entry points\n4. ユーザー同意と設定を検証 / Validate user consent and settings\n5. 有効化されたルール統合のみを読み込む / Only load enabled rule integrations\n\n## ルール統合要件 / Rule Integration Requirements\n各ルールはエージェントが積極的に実行する必要がある特定のアルゴリズム実装を提供します：\n\n### メモリールール統合 / Memory Rules Integration\n**必須 / MANDATORY**: settings.jsonで`memory_rules.enabled = true`の場合\n- 場所 / Location: `memory-rules/AGENTS.md`\n- 実装 / Implements: メモリ初期化、保存、検索、クリーンアッププロセス / Memory initialization, storage, retrieval, and cleanup processes\n- 必要 / Requires: 適切なパス設定と保持ポリシー / Proper path configuration and retention policies\n\n### RAGルール統合 / RAG Rules Integration\n**必須 / MANDATORY**: settings.jsonで`rag_rules.enabled = true`の場合\n- 場所 / Location: `rag-rules/AGENTS.md`\n- 実装 / Implements: コンテキスト最適化、関連性スコアリング、検索アルゴリズム / Context optimization, relevance scoring, and retrieval algorithms\n- 必要 / Requires: コンテキストウィンドウ設定とスコアリングしきい値 / Context window configuration and scoring thresholds\n\n### 批判的思考ルール統合 / Critical Thinking Rules Integration\n**必須 / MANDATORY**: settings.jsonで`critical_thinking_rules.enabled = true`の場合\n- 場所 / Location: `critical-thinking-rules/AGENTS.md`\n- 実装 / Implements: エラー承認、仮定挑戦、検証プロセス / Error admission, assumption challenge, and verification processes\n- 必要 / Requires: 検証しきい値とエラー処理設定 / Verification thresholds and error handling settings\n\n## フレームワーク分離 / Framework Isolation\n**重要 / CRITICAL**: このフレームワークはツールとして残り、ユーザーprojectコードベースに含めるべきではありません。すべての統合はそれぞれのディレクトリのルールファイルを通じて行われます。\n\n## エージェント責任 / Agent Responsibility\nこのフレームワークを使用するエージェントは：\n- すべてのユーザー設定と設定を尊重する / Respect all user settings and configurations\n- ルールが無効化されている場合に明確なフィードバックを提供する / Provide clear feedback when rules are disabled\n- 生成されたコンテンツでフレームワークのニュートラリティを維持する / Maintain framework neutrality in generated content\n- ブートストラップ準拠要件に従う / Follow bootstrap compliance requirements\n\n**違反 / VIOLATION**: これらの統合要件またはユーザー設定を尊重しないエージェント / Agents that do not respect these integration requirements or user settings.\n\n<!-- METADATA: Root level agent integration template with framework overview (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
   }
 };  // ---AUTO GENERATED STATICWEBCONFIG END---
-
-  // ---AUTO GENERATED LOCALIZATION START---
-  const localization = JSON.parse(`{
+    // ---AUTO GENERATED LOCALIZATION START---
+    const localization = JSON.parse(`{
   "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
   "en": {
     "header": {
@@ -1499,8 +1498,9 @@
     }
   }
 }`);  // ---AUTO GENERATED LOCALIZATION END---
+
   </script>
-  
+
 </head>
 
 <body>
@@ -1510,17 +1510,18 @@
         <!-- Modern Language Selector -->
         <div class="language-selector">
           <select id="ui-language" onchange="updateUILanguage()">
-<!-- AUTO GENERATED CONTENT START -->
-<option value="en">🇺🇸 English</option>
-<option value="ja">🇯🇵 日本語</option>
-<option value="id">🇮🇩 Bahasa Indonesia</option>
-<!-- AUTO GENERATED CONTENT END -->
+            <!-- AUTO GENERATED CONTENT START -->
+            <option value="en">🇺🇸 English</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="id">🇮🇩 Bahasa Indonesia</option>
+            <!-- AUTO GENERATED CONTENT END -->
           </select>
         </div>
 
         <!-- Server shutdown button (enhanced mode only) -->
         <div id="server-controls" style="display: none;">
-          <button onclick="shutdownServer()" style="background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px;">
+          <button onclick="shutdownServer()"
+            style="background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px;">
             🛑 Stop Server
           </button>
         </div>
@@ -1540,12 +1541,12 @@
           <div class="form-group">
             <label for="agent-language">Agent Language:</label>
             <select id="agent-language" onchange="updateAgentLanguage()">
-<!-- AUTO GENERATED CONTENT START -->
+              <!-- AUTO GENERATED CONTENT START -->
 <option value="en">🇺🇸 English</option>
 <option value="ja">🇯🇵 日本語</option>
 <option value="id">🇮🇩 Bahasa Indonesia</option>
             <!-- AUTO GENERATED CONTENT END -->
-</select>
+            </select>
             <div class="help-text">Language for generated agent files</div>
           </div>
           <div class="form-group">
@@ -1560,7 +1561,8 @@
         </div>
 
         <div class="help-text" style="margin-top: 15px;">
-          <strong>Agent Language:</strong> Controls the language of generated agent files (AGENTS.md, GEMINI.md, or CLAUDE.md)
+          <strong>Agent Language:</strong> Controls the language of generated agent files (AGENTS.md, GEMINI.md, or
+          CLAUDE.md)
         </div>
       </div>
 
@@ -1824,8 +1826,8 @@
     function checkEnhancedMode() {
       // Check if running with enhanced access (localhost with API access)
       isEnhancedMode = window.location.hostname === 'localhost' ||
-                      window.location.hostname === '127.0.0.1' ||
-                      window.location.protocol === 'http:' || window.location.protocol === 'https:';
+        window.location.hostname === '127.0.0.1' ||
+        window.location.protocol === 'http:' || window.location.protocol === 'https:';
       return isEnhancedMode;
     }
 
@@ -2231,6 +2233,8 @@
       const container = document.getElementById('config-container');
       container.innerHTML = '';
 
+
+
       
       // Add mandatory configs first
       for (const [pluginName, pluginData] of Object.entries(pluginConfig.plugins)) {
@@ -2245,10 +2249,6 @@
           const langSection = generateLanguageSection(pluginName, availablePluginLanguages);
           container.appendChild(langSection);
         }
-
-        // Mandatory configs
-      for (const [pluginName, pluginData] of Object.entries(pluginConfig.plugins)) {
-        if (!selectedRules[pluginName]) continue;
 
         // Mandatory configs
         for (const config of pluginData.mandatory_config || []) {
@@ -2757,7 +2757,7 @@ ${enabledRules.map(rule => `- \`${rule}/AGENTS.md\` - ${getRuleDescription(rule,
             startIn: 'documents', // Start in Documents folder for easier access to projects
             types: [{
               description: 'Markdown/Text Files',
-              accept: {'text/plain': ['.md', '.txt'], 'application/json': ['.json']}
+              accept: { 'text/plain': ['.md', '.txt'], 'application/json': ['.json'] }
             }]
           };
 
@@ -2979,7 +2979,265 @@ ${enabledRules.map(rule => `- \`${rule}/AGENTS.md\` - ${getRuleDescription(rule,
 
     // Initialize
     // Config visibility is handled by toggleRule() when rules are selected/deselected
+
+
+    // Per-plugin language selection functions
+    function generateLanguageSection(pluginName, availableLanguages) {
+      const section = document.createElement('div');
+      section.className = 'section';
+      section.id = `${pluginName}-language-config`;
+
+      // Get current plugin language preference
+      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
+
+      // Get plugin display name
+      const pluginData = pluginConfig.plugins[pluginName];
+      const pluginLocalization = pluginData.localization || {};
+      let displayName = pluginName;
+      for (const [lang, data] of Object.entries(pluginLocalization)) {
+        if (data.plugin_name) {
+          displayName = data.plugin_name;
+          break;
+        }
+      }
+
+      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
+      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
+
+      content += `<div class="form-group">`;
+      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
+      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
+
+      // Generate options for available languages
+      for (const lang of availableLanguages) {
+        const isSelected = lang === currentPluginLang;
+        let displayText = lang.toUpperCase();
+
+        // Try to get localized name
+        const langTable = {
+          'en': '🇺🇸 English',
+          'ja': '🇯🇵 日本語',
+          'id': '🇮🇩 Bahasa Indonesia',
+          'jv': '🇮🇩 Basa Jawa',
+          'de': '🇩🇪 Deutsch',
+          'fr': '🇫🇷 Français',
+          'es': '🇪🇸 Español',
+          'ar': '🇸🇦 العربية',
+          'ko': '🇰🇷 한국어',
+          'hi': '🇮🇳 हिन्दी',
+          'pt': '🇵🇹 Português',
+          'ru': '🇷🇺 Русский',
+          'si': '🇱🇰 සිංහල',
+          'ta': '🇮🇳 தமிழ்',
+          'th': '🇹🇭 ไทย',
+          'tr': '🇹🇷 Türkçe',
+          'vi': '🇻🇳 Tiếng Việt',
+          'zh': '🇨🇳 中文'
+        };
+
+        if (langTable[lang]) {
+          displayText = langTable[lang];
+        }
+
+        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
+      }
+
+      content += `</select>`;
+      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
+      content += `</div>`;
+
+      section.innerHTML = content;
+      return section;
+    }
+
+    function updatePluginLanguage(pluginName, language) {
+      // Initialize plugin config if it doesn't exist
+      if (!selectedRules[pluginName]) {
+        selectedRules[pluginName] = {};
+      }
+      if (typeof selectedRules[pluginName] !== 'object') {
+        selectedRules[pluginName] = {};
+      }
+
+      // Store the language preference
+      selectedRules[pluginName].language = language;
+
+      // Save preferences
+      savePreferences();
+    }
+
+
+    // Per-plugin language selection functions
+    function generateLanguageSection(pluginName, availableLanguages) {
+      const section = document.createElement('div');
+      section.className = 'section';
+      section.id = `${pluginName}-language-config`;
+
+      // Get current plugin language preference
+      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
+
+      // Get plugin display name
+      const pluginData = pluginConfig.plugins[pluginName];
+      const pluginLocalization = pluginData.localization || {};
+      let displayName = pluginName;
+      for (const [lang, data] of Object.entries(pluginLocalization)) {
+        if (data.plugin_name) {
+          displayName = data.plugin_name;
+          break;
+        }
+      }
+
+      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
+      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
+
+      content += `<div class="form-group">`;
+      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
+      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
+
+      // Generate options for available languages
+      for (const lang of availableLanguages) {
+        const isSelected = lang === currentPluginLang;
+        let displayText = lang.toUpperCase();
+
+        // Try to get localized name
+        const langTable = {
+          'en': '🇺🇸 English',
+          'ja': '🇯🇵 日本語',
+          'id': '🇮🇩 Bahasa Indonesia',
+          'jv': '🇮🇩 Basa Jawa',
+          'de': '🇩🇪 Deutsch',
+          'fr': '🇫🇷 Français',
+          'es': '🇪🇸 Español',
+          'ar': '🇸🇦 العربية',
+          'ko': '🇰🇷 한국어',
+          'hi': '🇮🇳 हिन्दी',
+          'pt': '🇵🇹 Português',
+          'ru': '🇷🇺 Русский',
+          'si': '🇱🇰 සිංහල',
+          'ta': '🇮🇳 தமிழ்',
+          'th': '🇹🇭 ไทย',
+          'tr': '🇹🇷 Türkçe',
+          'vi': '🇻🇳 Tiếng Việt',
+          'zh': '🇨🇳 中文'
+        };
+
+        if (langTable[lang]) {
+          displayText = langTable[lang];
+        }
+
+        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
+      }
+
+      content += `</select>`;
+      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
+      content += `</div>`;
+
+      section.innerHTML = content;
+      return section;
+    }
+
+    function updatePluginLanguage(pluginName, language) {
+      // Initialize plugin config if it doesn't exist
+      if (!selectedRules[pluginName]) {
+        selectedRules[pluginName] = {};
+      }
+      if (typeof selectedRules[pluginName] !== 'object') {
+        selectedRules[pluginName] = {};
+      }
+
+      // Store the language preference
+      selectedRules[pluginName].language = language;
+
+      // Save preferences
+      savePreferences();
+    }
   
+
+    // Per-plugin language selection functions
+    function generateLanguageSection(pluginName, availableLanguages) {
+      const section = document.createElement('div');
+      section.className = 'section';
+      section.id = `${pluginName}-language-config`;
+
+      // Get current plugin language preference
+      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
+
+      // Get plugin display name
+      const pluginData = pluginConfig.plugins[pluginName];
+      const pluginLocalization = pluginData.localization || {};
+      let displayName = pluginName;
+      for (const [lang, data] of Object.entries(pluginLocalization)) {
+        if (data.plugin_name) {
+          displayName = data.plugin_name;
+          break;
+        }
+      }
+
+      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
+      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
+
+      content += `<div class="form-group">`;
+      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
+      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
+
+      // Generate options for available languages
+      for (const lang of availableLanguages) {
+        const isSelected = lang === currentPluginLang;
+        let displayText = lang.toUpperCase();
+
+        // Try to get localized name
+        const langTable = {
+          'en': '🇺🇸 English',
+          'ja': '🇯🇵 日本語',
+          'id': '🇮🇩 Bahasa Indonesia',
+          'jv': '🇮🇩 Basa Jawa',
+          'de': '🇩🇪 Deutsch',
+          'fr': '🇫🇷 Français',
+          'es': '🇪🇸 Español',
+          'ar': '🇸🇦 العربية',
+          'ko': '🇰🇷 한국어',
+          'hi': '🇮🇳 हिन्दी',
+          'pt': '🇵🇹 Português',
+          'ru': '🇷🇺 Русский',
+          'si': '🇱🇰 සිංහල',
+          'ta': '🇮🇳 தமிழ்',
+          'th': '🇹🇭 ไทย',
+          'tr': '🇹🇷 Türkçe',
+          'vi': '🇻🇳 Tiếng Việt',
+          'zh': '🇨🇳 中文'
+        };
+
+        if (langTable[lang]) {
+          displayText = langTable[lang];
+        }
+
+        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
+      }
+
+      content += `</select>`;
+      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
+      content += `</div>`;
+
+      section.innerHTML = content;
+      return section;
+    }
+
+    function updatePluginLanguage(pluginName, language) {
+      // Initialize plugin config if it doesn't exist
+      if (!selectedRules[pluginName]) {
+        selectedRules[pluginName] = {};
+      }
+      if (typeof selectedRules[pluginName] !== 'object') {
+        selectedRules[pluginName] = {};
+      }
+
+      // Store the language preference
+      selectedRules[pluginName].language = language;
+
+      // Save preferences
+      savePreferences();
+    }
+
 
     // Per-plugin language selection functions
     function generateLanguageSection(pluginName, availableLanguages) {

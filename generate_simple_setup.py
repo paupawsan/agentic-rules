@@ -342,14 +342,30 @@ def embed_config_in_html(web_config):
     # Find the script section that contains generateConfigInterface
     generate_config_pos = new_html.find('function generateConfigInterface() {')
     if generate_config_pos != -1:
-        # Find the function body
+        # Find the function body start and end
         function_start = new_html.find('{', generate_config_pos)
         if function_start != -1:
-            # Find where the mandatory configs are added
-            mandatory_pos = new_html.find('// Add mandatory configs first', function_start)
-            if mandatory_pos != -1:
-                # Insert per-plugin language selection logic
-                language_selection_code = '''
+            # Find the end of the function (matching closing brace)
+            brace_count = 0
+            function_end = function_start
+            for i in range(function_start, len(new_html)):
+                if new_html[i] == '{':
+                    brace_count += 1
+                elif new_html[i] == '}':
+                    brace_count -= 1
+                    if brace_count == 0:
+                        function_end = i
+                        break
+
+            if function_end > function_start:
+                # Extract the current function content
+                current_function = new_html[function_start:function_end + 1]
+
+                # Replace the entire function with the corrected version
+                corrected_function = '''{
+      const container = document.getElementById('config-container');
+      container.innerHTML = '';
+
       // Add mandatory configs first
       for (const [pluginName, pluginData] of Object.entries(pluginConfig.plugins)) {
         if (!selectedRules[pluginName]) continue;
@@ -364,8 +380,21 @@ def embed_config_in_html(web_config):
           container.appendChild(langSection);
         }
 
-        // Mandatory configs'''
-                new_html = new_html[:mandatory_pos] + language_selection_code + new_html[mandatory_pos + len('// Add mandatory configs first'):]
+        // Mandatory configs
+        for (const config of pluginData.mandatory_config || []) {
+          const configSection = generateConfigSection(pluginName, config, true);
+          container.appendChild(configSection);
+        }
+
+        // Optional configs
+        for (const config of pluginData.optional_config || []) {
+          const configSection = generateConfigSection(pluginName, config, false);
+          container.appendChild(configSection);
+        }
+      }
+    }'''
+
+                new_html = new_html[:function_start] + corrected_function + new_html[function_end + 1:]
 
         # Add the generateLanguageSection and updatePluginLanguage functions
         # Find a good place to insert them (before the closing script tag after generateConfigInterface)
