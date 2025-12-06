@@ -45,48 +45,107 @@ def get_creation_timestamp():
     return datetime.now().isoformat()
 
 def clone_templates_branch():
-    """Clone the Template branch to a temporary directory and return the path."""
+    """Clone the Template branch to a temporary directory and return the path.
+    Falls back to downloading from GitHub if local git access fails."""
     temp_dir = Path(tempfile.mkdtemp(prefix="agentic-templates-"))
 
     try:
-        # Get the current repository root
-        repo_root = subprocess.run(
-            ["git", "rev-parse", "--show-toplevel"],
-            capture_output=True, text=True, check=True
-        ).stdout.strip()
+        # First try: Use local git worktree (preferred method)
+        try:
+            # Get the current repository root
+            repo_root = subprocess.run(
+                ["git", "rev-parse", "--show-toplevel"],
+                capture_output=True, text=True, check=True
+            ).stdout.strip()
 
-        # Use git worktree to create a temporary worktree for the Template branch
-        subprocess.run(
-            ["git", "worktree", "add", "--detach", str(temp_dir), "Template"],
-            check=True, capture_output=True
-        )
+            # Use git worktree to create a temporary worktree for the Template branch
+            subprocess.run(
+                ["git", "worktree", "add", "--detach", str(temp_dir), "Template"],
+                check=True, capture_output=True
+            )
 
-        templates_dir = temp_dir / "templates"
-        if not templates_dir.exists():
-            raise FileNotFoundError(f"Templates directory not found in Template branch: {templates_dir}")
+            templates_dir = temp_dir / "templates"
+            if not templates_dir.exists():
+                raise FileNotFoundError(f"Templates directory not found in Template branch: {templates_dir}")
 
-        return temp_dir
+            print("📥 Using local Template branch")
+            return temp_dir
 
-    except subprocess.CalledProcessError as e:
-        # Cleanup on failure
-        cleanup_templates_clone(temp_dir)
-        raise RuntimeError(f"Failed to access Template branch: {e}") from e
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            # Local git method failed, try downloading from GitHub
+            print("📥 Local Template branch not available, downloading from GitHub...")
+
+            # Clean up the failed git worktree attempt
+            cleanup_templates_clone(temp_dir)
+            temp_dir = Path(tempfile.mkdtemp(prefix="agentic-templates-"))
+
+            # Download from GitHub as zip
+            import urllib.request
+            import zipfile
+
+            # Get the remote repository URL
+            try:
+                remote_url = subprocess.run(
+                    ["git", "config", "--get", "remote.origin.url"],
+                    capture_output=True, text=True, check=True
+                ).stdout.strip()
+
+                # Convert SSH URL to HTTPS if needed
+                if remote_url.startswith("git@github.com:"):
+                    remote_url = remote_url.replace("git@github.com:", "https://github.com/")
+
+                # Remove .git suffix if present
+                if remote_url.endswith(".git"):
+                    remote_url = remote_url[:-4]
+
+                # Construct zip download URL for Template branch
+                zip_url = f"{remote_url}/archive/refs/heads/Template.zip"
+                zip_path = temp_dir / "template.zip"
+
+                print(f"📦 Downloading templates from: {zip_url}")
+
+                # Download the zip file
+                with urllib.request.urlopen(zip_url) as response:
+                    with open(zip_path, 'wb') as f:
+                        f.write(response.read())
+
+                # Extract the zip file
+                with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+                    zip_ref.extractall(temp_dir)
+
+                # Find the extracted directory (GitHub zip includes branch name)
+                extracted_dirs = [d for d in temp_dir.iterdir() if d.is_dir() and d.name != "__MACOSX"]
+                if not extracted_dirs:
+                    raise RuntimeError("No directories found in downloaded zip")
+
+                templates_dir = extracted_dirs[0] / "templates"
+                if not templates_dir.exists():
+                    raise FileNotFoundError(f"Templates directory not found in downloaded zip: {templates_dir}")
+
+                print("✅ Templates downloaded and extracted successfully")
+                return temp_dir
+
+            except Exception as e:
+                # Cleanup on failure
+                cleanup_templates_clone(temp_dir)
+                raise RuntimeError(f"Failed to download templates from GitHub: {e}") from e
+
     except Exception as e:
         # Cleanup on failure
         cleanup_templates_clone(temp_dir)
         raise e
 
 def cleanup_templates_clone(temp_dir):
-    """Clean up the cloned templates directory."""
+    """Clean up the cloned/downloaded templates directory."""
     if temp_dir and temp_dir.exists():
         try:
-            # Try to remove git worktree first
+            # Try to remove git worktree first (for local git method)
             subprocess.run(
                 ["git", "worktree", "remove", str(temp_dir)],
                 capture_output=True
             )
         except:
-            # Fallback to regular directory removal
+            # Fallback to regular directory removal (for zip download or failed git worktree)
             shutil.rmtree(temp_dir, ignore_errors=True)
 
 def load_template(template_path, variables):
