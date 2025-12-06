@@ -47,7 +47,7 @@ Choose your experience level:
 
 **We welcome contributions!** This project thrives on community input and collaboration.
 
-- 📝 **Report Issues**: Found a bug? Have a suggestion? [Open an issue](https://github.com/your-repo/issues)
+- 📝 **Report Issues**: Found a bug? Have a suggestion? [Open an issue]([https://github.com/your-repo](https://github.com/paupawsan/agentic-rules)/issues)
 - 🔧 **Submit Pull Requests**: Help improve the framework
 - 💬 **Discussions**: Join conversations about agentic systems and AI behavior
 - 📖 **Documentation**: Help improve guides and documentation
