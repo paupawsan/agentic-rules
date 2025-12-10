@@ -54,7 +54,7 @@ This is a custom plugin for the Agentic Rules Framework that provides {{plugin_n
 1. **Enable the Plugin**: Set `enabled: true` in `settings.json`
 2. **Activate Rules**: Use `python setup.py` to generate rule files
 3. **Integration**: Copy the generated rule file (e.g., `AGENTS.md`) to your project
-4. **Configuration**: Customize settings in `{{plugin_name}}/settings.json`
+4. **Configuration**: Customize settings in `modules/{{plugin_name}}/settings.json`
 
 ## Rule Algorithms
 
@@ -78,7 +78,7 @@ This plugin implements the following algorithms:
 ## File Structure
 
 ```
-{{plugin_name}}/
+modules/{{plugin_name}}/
 ├── README.md              # This documentation
 ├── RULES.md.en           # English rule template
 ├── RULES.md.ja           # Japanese template (if requested)

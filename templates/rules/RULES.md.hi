@@ -13,7 +13,7 @@
 **अनिवार्य**: जब {{plugin_key}}.enabled = true हो तब निष्पादित करें
 
 **चरण**:
-1. {{plugin_name}}/settings.json पढ़ें
+1. modules/{{plugin_name}}/settings.json पढ़ें
 2. {{plugin_name_kebab}} सिस्टम आरंभ करें
 3. विन्यास सेटिंग्स मान्य करें
 4. आरंभित सिस्टम वापस करें
@@ -39,7 +39,7 @@
 4. सुरक्षित सफाई कार्य करें
 
 ## विन्यास आवश्यकताएं
-- सेटिंग्स फ़ाइल: `{{plugin_name}}/settings.json`
+- सेटिंग्स फ़ाइल: `modules/{{plugin_name}}/settings.json`
 - विन्यास कुंजी: `{{plugin_key}}.enabled`
 - बूटस्ट्रैप अनुपालन आवश्यक
 

@@ -13,7 +13,7 @@
 **VERPFLICHTEND**: Ausführen wenn {{plugin_key}}.enabled = true
 
 **Schritte**:
-1. {{plugin_name}}/settings.json lesen
+1. modules/{{plugin_name}}/settings.json lesen
 2. {{plugin_name_kebab}} System initialisieren
 3. Konfigurationseinstellungen validieren
 4. Initialisiertes System zurückgeben
@@ -39,7 +39,7 @@
 4. Sichere Bereinigungsvorgänge durchführen
 
 ## Konfigurationsanforderungen
-- Settings-Datei: `{{plugin_name}}/settings.json`
+- Settings-Datei: `modules/{{plugin_name}}/settings.json`
 - Konfigurationsschlüssel: `{{plugin_key}}.enabled`
 - Bootstrap-Konformität erforderlich
 

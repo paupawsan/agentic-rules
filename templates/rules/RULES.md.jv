@@ -13,7 +13,7 @@
 **WAJIB**: Dieksekusi nalika {{plugin_key}}.enabled = true
 
 **Langkah-langkah**:
-1. Maca {{plugin_name}}/settings.json
+1. Maca modules/{{plugin_name}}/settings.json
 2. Inisialisasi sistem {{plugin_name_kebab}}
 3. Validasi setelan konfigurasi
 4. Bali sistem sing wis diinisialisasi
@@ -39,7 +39,7 @@
 4. Nindakake operasi reresikan sing aman
 
 ## Syarat Konfigurasi
-- File setelan: `{{plugin_name}}/settings.json`
+- File setelan: `modules/{{plugin_name}}/settings.json`
 - Kunci konfigurasi: `{{plugin_key}}.enabled`
 - Kepatuhan bootstrap diwajibake
 

@@ -13,7 +13,7 @@
 **บังคับ**: ดำเนินการเมื่อ {{plugin_key}}.enabled = true
 
 **ขั้นตอน**:
-1. อ่าน {{plugin_name}}/settings.json
+1. อ่าน modules/{{plugin_name}}/settings.json
 2. เริ่มต้นระบบ {{plugin_name_kebab}}
 3. ตรวจสอบการตั้งค่าการกำหนดค่า
 4. ส่งคืนระบบที่เริ่มต้นแล้ว
@@ -39,7 +39,7 @@
 4. ดำเนินการล้างข้อมูลอย่างปลอดภัย
 
 ## ข้อกำหนด การกำหนดค่า
-- ไฟล์การตั้งค่า: `{{plugin_name}}/settings.json`
+- ไฟล์การตั้งค่า: `modules/{{plugin_name}}/settings.json`
 - คีย์การกำหนดค่า: `{{plugin_key}}.enabled`
 - การปฏิบัติตาม bootstrap บังคับ
 

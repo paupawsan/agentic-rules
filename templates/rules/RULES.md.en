@@ -13,7 +13,7 @@
 **MANDATORY**: Execute when {{plugin_key}}.enabled = true
 
 **Steps**:
-1. Read {{plugin_name}}/settings.json
+1. Read modules/{{plugin_name}}/settings.json
 2. Initialize {{plugin_name_kebab}} system
 3. Validate configuration settings
 4. Return initialized system
@@ -39,7 +39,7 @@
 4. Perform safe cleanup operations
 
 ## Configuration Requirements
-- Settings file: `{{plugin_name}}/settings.json`
+- Settings file: `modules/{{plugin_name}}/settings.json`
 - Configuration key: `{{plugin_key}}.enabled`
 - Bootstrap compliance required
 

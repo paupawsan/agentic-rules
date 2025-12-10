@@ -13,7 +13,7 @@
 **ОБЯЗАТЕЛЬНО**: Выполнять когда {{plugin_key}}.enabled = true
 
 **Шаги**:
-1. Прочитать {{plugin_name}}/settings.json
+1. Прочитать modules/{{plugin_name}}/settings.json
 2. Инициализировать систему {{plugin_name_kebab}}
 3. Проверить настройки конфигурации
 4. Вернуть инициализированную систему
@@ -39,7 +39,7 @@
 4. Выполнить безопасные операции очистки
 
 ## Требования Конфигурации
-- Файл настроек: `{{plugin_name}}/settings.json`
+- Файл настроек: `modules/{{plugin_name}}/settings.json`
 - Ключ конфигурации: `{{plugin_key}}.enabled`
 - Требуется соответствие bootstrap
 

@@ -13,7 +13,7 @@
 **OBLIGATOIRE**: Exécuter lorsque {{plugin_key}}.enabled = true
 
 **Étapes**:
-1. Lire {{plugin_name}}/settings.json
+1. Lire modules/{{plugin_name}}/settings.json
 2. Initialiser le système {{plugin_name_kebab}}
 3. Valider les paramètres de configuration
 4. Retourner le système initialisé
@@ -39,7 +39,7 @@
 4. Effectuer des opérations de nettoyage sécurisées
 
 ## Exigences de configuration
-- Fichier de paramètres: `{{plugin_name}}/settings.json`
+- Fichier de paramètres: `modules/{{plugin_name}}/settings.json`
 - Clé de configuration: `{{plugin_key}}.enabled`
 - Conformité bootstrap requise
 

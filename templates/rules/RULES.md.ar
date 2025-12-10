@@ -13,7 +13,7 @@
 **إلزامي**: تنفيذ عندما {{plugin_key}}.enabled = true
 
 **الخطوات**:
-1. قراءة {{plugin_name}}/settings.json
+1. قراءة modules/{{plugin_name}}/settings.json
 2. تهيئة نظام {{plugin_name_kebab}}
 3. التحقق من صحة إعدادات التكوين
 4. إرجاع النظام المُهيأ
@@ -39,7 +39,7 @@
 4. إجراء عمليات تنظيف آمنة
 
 ## متطلبات التكوين
-- ملف الإعدادات: `{{plugin_name}}/settings.json`
+- ملف الإعدادات: `modules/{{plugin_name}}/settings.json`
 - مفتاح التكوين: `{{plugin_key}}.enabled`
 - الامتثال للبوتستراب مطلوب
 

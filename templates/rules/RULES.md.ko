@@ -13,7 +13,7 @@
 **필수**: {{plugin_key}}.enabled = true일 때 실행
 
 **단계**:
-1. {{plugin_name}}/settings.json 읽기
+1. modules/{{plugin_name}}/settings.json 읽기
 2. {{plugin_name_kebab}} 시스템 초기화
 3. 구성 설정 검증
 4. 초기화된 시스템 반환
@@ -39,7 +39,7 @@
 4. 안전한 정리 작업 수행
 
 ## 구성 요구사항
-- 설정 파일: `{{plugin_name}}/settings.json`
+- 설정 파일: `modules/{{plugin_name}}/settings.json`
 - 구성 키: `{{plugin_key}}.enabled`
 - 부트스트랩 준수 필요
 

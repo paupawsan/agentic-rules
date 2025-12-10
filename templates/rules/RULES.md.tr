@@ -13,7 +13,7 @@
 **ZORUNLU**: {{plugin_key}}.enabled = true olduğunda çalıştır
 
 **Adımlar**:
-1. {{plugin_name}}/settings.json dosyasını oku
+1. modules/{{plugin_name}}/settings.json dosyasını oku
 2. {{plugin_name_kebab}} sistemini başlat
 3. Yapılandırma ayarlarını doğrula
 4. Başlatılmış sistemi döndür
@@ -39,7 +39,7 @@
 4. Güvenli temizlik işlemleri gerçekleştir
 
 ## Yapılandırma Gereksinimleri
-- Ayarlar dosyası: `{{plugin_name}}/settings.json`
+- Ayarlar dosyası: `modules/{{plugin_name}}/settings.json`
 - Yapılandırma anahtarı: `{{plugin_key}}.enabled`
 - Bootstrap uyumluluğu gerekli
 

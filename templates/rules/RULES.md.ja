@@ -13,7 +13,7 @@
 **必須**: {{plugin_key}}.enabled = true の場合に実行
 
 **ステップ**:
-1. {{plugin_name}}/settings.json を読み込む
+1. modules/{{plugin_name}}/settings.json を読み込む
 2. {{plugin_name_kebab}} システムを初期化
 3. 設定を検証
 4. 初期化されたシステムを返す
@@ -39,7 +39,7 @@
 4. 安全なクリーンアップを実行
 
 ## 設定要件
-- 設定ファイル: `{{plugin_name}}/settings.json`
+- 設定ファイル: `modules/{{plugin_name}}/settings.json`
 - 設定キー: `{{plugin_key}}.enabled`
 - Bootstrap 準拠必須
 

@@ -13,7 +13,7 @@
 **BẮT BUỘC**: Thực hiện khi {{plugin_key}}.enabled = true
 
 **Các bước**:
-1. Đọc {{plugin_name}}/settings.json
+1. Đọc modules/{{plugin_name}}/settings.json
 2. Khởi tạo hệ thống {{plugin_name_kebab}}
 3. Xác thực cài đặt cấu hình
 4. Trả về hệ thống đã khởi tạo
@@ -39,7 +39,7 @@
 4. Thực hiện các hoạt động dọn dẹp an toàn
 
 ## Yêu cầu Cấu hình
-- Tệp cài đặt: `{{plugin_name}}/settings.json`
+- Tệp cài đặt: `modules/{{plugin_name}}/settings.json`
 - Khóa cấu hình: `{{plugin_key}}.enabled`
 - Tuân thủ bootstrap bắt buộc
 

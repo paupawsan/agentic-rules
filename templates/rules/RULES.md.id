@@ -13,7 +13,7 @@
 **WAJIB**: Eksekusi ketika {{plugin_key}}.enabled = true
 
 **Langkah**:
-1. Baca {{plugin_name}}/settings.json
+1. Baca modules/{{plugin_name}}/settings.json
 2. Inisialisasi sistem {{plugin_name_kebab}}
 3. Validasi pengaturan konfigurasi
 4. Kembalikan sistem yang diinisialisasi
@@ -39,7 +39,7 @@
 4. Lakukan pembersihan yang aman
 
 ## Persyaratan Konfigurasi
-- File pengaturan: `{{plugin_name}}/settings.json`
+- File pengaturan: `modules/{{plugin_name}}/settings.json`
 - Kunci konfigurasi: `{{plugin_key}}.enabled`
 - Kepatuhan bootstrap wajib
 

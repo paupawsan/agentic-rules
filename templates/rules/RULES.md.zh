@@ -13,7 +13,7 @@
 **强制**: 当 {{plugin_key}}.enabled = true 时执行
 
 **步骤**:
-1. 读取 {{plugin_name}}/settings.json
+1. 读取 modules/{{plugin_name}}/settings.json
 2. 初始化 {{plugin_name_kebab}} 系统
 3. 验证配置设置
 4. 返回已初始化的系统
@@ -39,7 +39,7 @@
 4. 执行安全的清理操作
 
 ## 配置要求
-- 设置文件: `{{plugin_name}}/settings.json`
+- 设置文件: `modules/{{plugin_name}}/settings.json`
 - 配置键: `{{plugin_key}}.enabled`
 - 强制要求引导程序合规性
 
