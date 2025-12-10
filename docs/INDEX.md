@@ -18,9 +18,9 @@ This directory contains detailed documentation for the Agentic Rules Framework.
 - **[EXTENSION-MANUAL.md](EXTENSION-MANUAL.md)** - Step-by-step guide for extending the framework
 
 ### 📚 Plugin Documentation
-- **[../memory-rules/README.md](../memory-rules/README.md)** - Memory Rules: capabilities, use cases, configuration
-- **[../rag-rules/README.md](../rag-rules/README.md)** - RAG Rules: capabilities, use cases, configuration
-- **[../critical-thinking-rules/README.md](../critical-thinking-rules/README.md)** - Critical Thinking Rules: capabilities, use cases, configuration
+- **[../modules/memory-rules/README.md](../modules/memory-rules/README.md)** - Memory Rules: capabilities, use cases, configuration
+- **[../modules/rag-rules/README.md](../modules/rag-rules/README.md)** - RAG Rules: capabilities, use cases, configuration
+- **[../modules/critical-thinking-rules/README.md](../modules/critical-thinking-rules/README.md)** - Critical Thinking Rules: capabilities, use cases, configuration
 
 ### ⚙️ Configuration & Technical
 - **[../settings/README.md](../settings/README.md)** - Global settings configuration guide
@@ -60,6 +60,29 @@ When adding new rules or features:
 2. Add entries to this index
 3. Follow the established format and structure
 4. Include examples and troubleshooting
+
+## Localization / 多言語対応 / Pelokalan
+
+<details>
+<summary>🌍 Available in multiple languages / 複数の言語で利用可能 / Tersedia dalam berbagai bahasa</summary>
+
+### Japanese (日本語)
+- **[説明書の目次](localization/ja/README.ja.md)** - 説明書の全体像
+- **[ユーザーガイド](localization/ja/USER-GUIDE.ja.md)** - 初心者向けガイド
+- **[開発者ガイド](localization/ja/DEVELOPER-GUIDE.ja.md)** - 技術者向け詳細
+- **[システムの説明](localization/ja/SYSTEM-OVERVIEW.ja.md)** - システムの仕組み
+- **[拡張マニュアル](localization/ja/EXTENSION-MANUAL.ja.md)** - プラグイン開発
+- **[トラブルシューティング](localization/ja/TROUBLESHOOTING.ja.md)** - 問題解決ガイド
+
+### Indonesian (Bahasa Indonesia)
+- **[Indeks Dokumentasi](localization/id/README.id.md)** - Ringkasan dokumentasi
+- **[Panduan Pengguna](localization/id/USER-GUIDE.id.md)** - Panduan untuk pemula
+- **[Panduan Pengembang](localization/id/DEVELOPER-GUIDE.id.md)** - Detail teknis untuk insinyur
+- **[Ikhtisar Sistem](localization/id/SYSTEM-OVERVIEW.id.md)** - Detail arsitektur
+- **[Manual Ekstensi](localization/id/EXTENSION-MANUAL.id.md)** - Pengembangan plugin
+- **[Panduan Pemecahan Masalah](localization/id/TROUBLESHOOTING.id.md)** - Panduan penyelesaian masalah
+
+</details>
 
 ## Version
 This documentation corresponds to framework version 0.1.0.
