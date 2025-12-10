@@ -97,10 +97,10 @@ Before extending, understand the bootstrap components:
 {
   "entry_points": {
     "global_config": "settings/global-settings.json",
-    "rag_config": "rag-rules/settings.json",        // High priority: loads first
-    "memory_config": "memory-rules/settings.json",   // Medium priority: loads second
+    "rag_config": "modules/rag-rules/settings.json",        // High priority: loads first
+    "memory_config": "modules/memory-rules/settings.json",   // Medium priority: loads second
     // Add new rule config here
-    "critical_thinking_config": "critical-thinking-rules/settings.json"  // High priority
+    "critical_thinking_config": "modules/critical-thinking-rules/settings.json"  // High priority
   },
   "loading_sequence": [
     // Priority-based loading order (lower step numbers = higher priority)
@@ -160,7 +160,7 @@ Algorithms for efficient information processing...
 ```
 
 ### Step 3: Create Rule Settings
-Create [`rag-rules/settings.json`](../rag-rules/settings.json):
+Create [`modules/rag-rules/settings.json`](../modules/rag-rules/settings.json):
 
 ```json
 {
@@ -194,7 +194,7 @@ Add to [`bootstrap.json`](../bootstrap.json) entry_points:
 
 ```json
 "entry_points": {
-  "rag_config": "rag-rules/settings.json"
+  "rag_config": "modules/rag-rules/settings.json"
 }
 ```
 
@@ -205,7 +205,7 @@ Insert into [`bootstrap.json`](../bootstrap.json) loading_sequence array:
 {
   "step": 4,
   "action": "load_rag_config",
-  "file": "rag-rules/settings.json",
+  "file": "modules/rag-rules/settings.json",
   "condition": "global_config.agentic_rules_framework.rule_categories.rag_rules.enabled",
   "priority": "high"
 }
@@ -233,7 +233,7 @@ Add to [`bootstrap.json`](../bootstrap.json) framework_validation:
 
 ```json
 "required_config_files": [
-  "rag-rules/settings.json"
+  "modules/rag-rules/settings.json"
 ],
 "required_rule_files": [
   "rag-rules/RAG-RULES.md"
@@ -264,7 +264,7 @@ Add to [`../README.md`](../README.md) Rule Categories section:
 # Validate all JSON files
 python3 -m json.tool bootstrap.json
 python3 -m json.tool settings/global-settings.json
-python3 -m json.tool rag-rules/settings.json
+python3 -m json.tool modules/rag-rules/settings.json
 ```
 
 ### Step 12: Update Plugin Manifest for Web Interface (Manual Process)
