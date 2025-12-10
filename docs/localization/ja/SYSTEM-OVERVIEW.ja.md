@@ -38,9 +38,9 @@ Agentic Rules Frameworkは3つの基本原則に基づいて作られていま�
 └── 多言語システム (localization.json)
 
 ルール層
-├── メモリールール (memory-rules/)
-├── RAGルール (rag-rules/)
-└── 批判的思考ルール (critical-thinking-rules/)
+├── メモリールール (modules/memory-rules/)
+├── RAGルール (modules/rag-rules/)
+└── 批判的思考ルール (modules/critical-thinking-rules/)
 
 実装層
 ├── ルールテンプレート (RULES.md.*)

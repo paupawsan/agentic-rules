@@ -8,9 +8,9 @@ Pengaturan mengontrol aktivasi dan perilaku aturan agentic. Setiap kategori atur
 
 ```
 global-settings.json (kontrol utama)
-├── memory-rules/settings.json
-├── critical-thinking-rules/settings.json
-└── rag-rules/settings.json
+├── modules/memory-rules/settings.json
+├── modules/critical-thinking-rules/settings.json
+└── modules/rag-rules/settings.json
 ```
 
 ## Pengaturan Global

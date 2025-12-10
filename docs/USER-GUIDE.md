@@ -42,16 +42,17 @@ Choose how you want to save the files:
 Your AI project should look like this:
 ```
 your-ai-project/
-├── AGENTS.md           # Main agent configuration
-├── memory-rules/       # Memory system rules
-│   ├── AGENTS.md      # Memory-specific rules
-│   └── settings.json  # Memory configuration
-├── rag-rules/         # RAG system rules
-│   ├── AGENTS.md      # RAG-specific rules
-│   └── settings.json  # RAG configuration
-└── critical-thinking-rules/  # Critical thinking rules
-    ├── AGENTS.md      # Thinking-specific rules
-    └── settings.json  # Thinking configuration
+├── AGENTS.md              # Main agent configuration
+├── modules/               # Plugin modules directory
+│   ├── memory-rules/      # Memory system rules
+│   │   ├── AGENTS.md     # Memory-specific rules
+│   │   └── settings.json # Memory configuration
+│   ├── rag-rules/        # RAG system rules
+│   │   ├── AGENTS.md     # RAG-specific rules
+│   │   └── settings.json # RAG configuration
+│   └── critical-thinking-rules/  # Critical thinking rules
+│       ├── AGENTS.md     # Thinking-specific rules
+│       └── settings.json # Thinking configuration
 ```
 
 ## 🎯 What Each Rule Does

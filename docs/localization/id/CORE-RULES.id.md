@@ -71,9 +71,9 @@ Framework tetap menjadi alat pengembangan saja. Jangan pernah menyertakan file f
 ## 🎯 Kategori Aturan AI
 
 ### 🧠 Aturan Memori (Prioritas: Sedang)
-**File Algoritma**: [`memory-rules/MEMORY-RULES.md`](memory-rules/MEMORY-RULES.md)
-**Pengaturan**: [`memory-rules/settings.json`](memory-rules/settings.json)
-**Integrasi yang Dihasilkan**: [`memory-rules/AGENTS.md`](memory-rules/AGENTS.md) (dihasilkan oleh antarmuka web)
+**File Algoritma**: [`modules/memory-rules/MEMORY-RULES.md`](modules/memory-rules/MEMORY-RULES.md)
+**Pengaturan**: [`modules/memory-rules/settings.json`](modules/memory-rules/settings.json)
+**Integrasi yang Dihasilkan**: [`modules/memory-rules/AGENTS.md`](modules/memory-rules/AGENTS.md) (dihasilkan oleh antarmuka web)
 
 **Kemampuan**:
 - Penyimpanan pengetahuan terstruktur berbasis markdown
@@ -88,9 +88,9 @@ Framework tetap menjadi alat pengembangan saja. Jangan pernah menyertakan file f
 - Harus terintegrasi dengan aturan RAG untuk konteks yang ditingkatkan
 
 ### 🔍 Aturan RAG (Prioritas: Tinggi)
-**File Algoritma**: [`rag-rules/RAG-RULES.md`](rag-rules/RAG-RULES.md)
-**Pengaturan**: [`rag-rules/settings.json`](rag-rules/settings.json)
-**Integrasi yang Dihasilkan**: [`rag-rules/AGENTS.md`](rag-rules/AGENTS.md) (dihasilkan oleh antarmuka web)
+**File Algoritma**: [`modules/rag-rules/RAG-RULES.md`](modules/rag-rules/RAG-RULES.md)
+**Pengaturan**: [`modules/rag-rules/settings.json`](modules/rag-rules/settings.json)
+**Integrasi yang Dihasilkan**: [`modules/rag-rules/AGENTS.md`](modules/rag-rules/AGENTS.md) (dihasilkan oleh antarmuka web)
 
 **Kemampuan**:
 - Pembacaan dan analisis dokumen hierarkis
@@ -105,9 +105,9 @@ Framework tetap menjadi alat pengembangan saja. Jangan pernah menyertakan file f
 - Harus mengimplementasikan algoritma penilaian relevansi
 
 ### 🤔 Aturan Berpikir Kritis (Prioritas: Tinggi)
-**File Algoritma**: [`critical-thinking-rules/CRITICAL-THINKING-RULES.md`](critical-thinking-rules/CRITICAL-THINKING-RULES.md)
-**Pengaturan**: [`critical-thinking-rules/settings.json`](critical-thinking-rules/settings.json)
-**Integrasi yang Dihasilkan**: [`critical-thinking-rules/AGENTS.md`](critical-thinking-rules/AGENTS.md) (dihasilkan oleh antarmuka web)
+**File Algoritma**: [`modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md`](modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md)
+**Pengaturan**: [`modules/critical-thinking-rules/settings.json`](modules/critical-thinking-rules/settings.json)
+**Integrasi yang Dihasilkan**: [`modules/critical-thinking-rules/AGENTS.md`](modules/critical-thinking-rules/AGENTS.md) (dihasilkan oleh antarmuka web)
 
 **Kemampuan**:
 - Tantangan asumsi sistematis

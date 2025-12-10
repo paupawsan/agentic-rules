@@ -71,9 +71,9 @@ The framework remains a development tool and is never included in user project c
 ## 🎯 AI Rule Categories
 
 ### 🧠 Memory Rules (Priority: Medium)
-**Algorithm File**: [`memory-rules/MEMORY-RULES.md`](memory-rules/MEMORY-RULES.md)
-**Settings**: [`memory-rules/settings.json`](memory-rules/settings.json)
-**Generated Integration**: [`memory-rules/AGENTS.md`](memory-rules/AGENTS.md) (created by web interface)
+**Algorithm File**: [`modules/memory-rules/MEMORY-RULES.md`](modules/memory-rules/MEMORY-RULES.md)
+**Settings**: [`modules/memory-rules/settings.json`](modules/memory-rules/settings.json)
+**Generated Integration**: [`modules/memory-rules/AGENTS.md`](modules/memory-rules/AGENTS.md) (created by web interface)
 
 **Capabilities**:
 - Structured markdown-based knowledge storage
@@ -88,9 +88,9 @@ The framework remains a development tool and is never included in user project c
 - Should integrate with RAG rules for enhanced context
 
 ### 🔍 RAG Rules (Priority: High)
-**Algorithm File**: [`rag-rules/RAG-RULES.md`](rag-rules/RAG-RULES.md)
-**Settings**: [`rag-rules/settings.json`](rag-rules/settings.json)
-**Generated Integration**: [`rag-rules/AGENTS.md`](rag-rules/AGENTS.md) (created by web interface)
+**Algorithm File**: [`modules/rag-rules/RAG-RULES.md`](modules/rag-rules/RAG-RULES.md)
+**Settings**: [`modules/rag-rules/settings.json`](modules/rag-rules/settings.json)
+**Generated Integration**: [`modules/rag-rules/AGENTS.md`](modules/rag-rules/AGENTS.md) (created by web interface)
 
 **Capabilities**:
 - Hierarchical document reading and analysis
@@ -105,9 +105,9 @@ The framework remains a development tool and is never included in user project c
 - Must implement relevance scoring algorithms
 
 ### 🤔 Critical Thinking Rules (Priority: High)
-**Algorithm File**: [`critical-thinking-rules/CRITICAL-THINKING-RULES.md`](critical-thinking-rules/CRITICAL-THINKING-RULES.md)
-**Settings**: [`critical-thinking-rules/settings.json`](critical-thinking-rules/settings.json)
-**Generated Integration**: [`critical-thinking-rules/AGENTS.md`](critical-thinking-rules/AGENTS.md) (created by web interface)
+**Algorithm File**: [`modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md`](modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md)
+**Settings**: [`modules/critical-thinking-rules/settings.json`](modules/critical-thinking-rules/settings.json)
+**Generated Integration**: [`modules/critical-thinking-rules/AGENTS.md`](modules/critical-thinking-rules/AGENTS.md) (created by web interface)
 
 **Capabilities**:
 - Systematic assumption challenging

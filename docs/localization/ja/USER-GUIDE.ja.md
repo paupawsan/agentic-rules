@@ -42,16 +42,17 @@
 AIプロジェクトは以下のようになります：
 ```
 your-ai-project/
-├── AGENTS.md           # メインエージェント設定
-├── memory-rules/       # メモリシステムルール
-│   ├── AGENTS.md      # メモリ固有ルール
-│   └── settings.json  # メモリ設定
-├── rag-rules/         # RAGシステムルール
-│   ├── AGENTS.md      # RAG固有ルール
-│   └── settings.json  # RAG設定
-└── critical-thinking-rules/  # 批判的思考ルール
-    ├── AGENTS.md      # 思考固有ルール
-    └── settings.json  # 思考設定
+├── AGENTS.md              # メインエージェント設定
+├── modules/               # プラグインモジュールディレクトリ
+│   ├── memory-rules/      # メモリシステムルール
+│   │   ├── AGENTS.md     # メモリ固有ルール
+│   │   └── settings.json # メモリ設定
+│   ├── rag-rules/        # RAGシステムルール
+│   │   ├── AGENTS.md     # RAG固有ルール
+│   │   └── settings.json # RAG設定
+│   └── critical-thinking-rules/  # 批判的思考ルール
+│       ├── AGENTS.md     # 思考固有ルール
+│       └── settings.json # 思考設定
 ```
 
 ## 🎯 各ルールの機能

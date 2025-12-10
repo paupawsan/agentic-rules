@@ -38,9 +38,9 @@ Framework Level
 └── Localization System (localization.json)
 
 Rule Level
-├── Memory Rules (memory-rules/)
-├── RAG Rules (rag-rules/)
-└── Critical Thinking Rules (critical-thinking-rules/)
+├── Memory Rules (modules/memory-rules/)
+├── RAG Rules (modules/rag-rules/)
+└── Critical Thinking Rules (modules/critical-thinking-rules/)
 
 Implementation Level
 ├── Rule Templates (RULES.md.*)

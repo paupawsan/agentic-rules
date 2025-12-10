@@ -71,9 +71,9 @@ Agentic Rules Frameworkは、構造化されたルールを通じてAIエージ�
 ## 🎯 AIルールカテゴリ
 
 ### 🧠 メモリールール (優先度: 中)
-**アルゴリズムファイル**: [`memory-rules/MEMORY-RULES.md`](memory-rules/MEMORY-RULES.md)
-**設定**: [`memory-rules/settings.json`](memory-rules/settings.json)
-**生成された統合**: [`memory-rules/AGENTS.md`](memory-rules/AGENTS.md) (Webインターフェースで生成)
+**アルゴリズムファイル**: [`modules/memory-rules/MEMORY-RULES.md`](modules/memory-rules/MEMORY-RULES.md)
+**設定**: [`modules/memory-rules/settings.json`](modules/memory-rules/settings.json)
+**生成された統合**: [`modules/memory-rules/AGENTS.md`](modules/memory-rules/AGENTS.md) (Webインターフェースで生成)
 
 **機能**:
 - マークダウンベースの構造化知識ストレージ
@@ -88,9 +88,9 @@ Agentic Rules Frameworkは、構造化されたルールを通じてAIエージ�
 - RAGルールと統合して強化されたコンテキストを提供
 
 ### 🔍 RAGルール (優先度: 高)
-**アルゴリズムファイル**: [`rag-rules/RAG-RULES.md`](rag-rules/RAG-RULES.md)
-**設定**: [`rag-rules/settings.json`](rag-rules/settings.json)
-**生成された統合**: [`rag-rules/AGENTS.md`](rag-rules/AGENTS.md) (Webインターフェースで生成)
+**アルゴリズムファイル**: [`modules/rag-rules/RAG-RULES.md`](modules/rag-rules/RAG-RULES.md)
+**設定**: [`modules/rag-rules/settings.json`](modules/rag-rules/settings.json)
+**生成された統合**: [`modules/rag-rules/AGENTS.md`](modules/rag-rules/AGENTS.md) (Webインターフェースで生成)
 
 **機能**:
 - 階層的ドキュメント読み取りと分析
@@ -105,9 +105,9 @@ Agentic Rules Frameworkは、構造化されたルールを通じてAIエージ�
 - 関連性スコアリングアルゴリズムを実装する必要
 
 ### 🤔 批判的思考ルール (優先度: 高)
-**アルゴリズムファイル**: [`critical-thinking-rules/CRITICAL-THINKING-RULES.md`](critical-thinking-rules/CRITICAL-THINKING-RULES.md)
-**設定**: [`critical-thinking-rules/settings.json`](critical-thinking-rules/settings.json)
-**生成された統合**: [`critical-thinking-rules/AGENTS.md`](critical-thinking-rules/AGENTS.md) (Webインターフェースで生成)
+**アルゴリズムファイル**: [`modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md`](modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md)
+**設定**: [`modules/critical-thinking-rules/settings.json`](modules/critical-thinking-rules/settings.json)
+**生成された統合**: [`modules/critical-thinking-rules/AGENTS.md`](modules/critical-thinking-rules/AGENTS.md) (Webインターフェースで生成)
 
 **機能**:
 - 体系的な仮定挑戦

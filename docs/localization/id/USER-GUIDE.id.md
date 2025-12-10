@@ -42,16 +42,17 @@ Pilih cara menyimpan file:
 Proyek AI Anda harus terlihat seperti ini:
 ```
 your-ai-project/
-├── AGENTS.md           # Konfigurasi agen utama
-├── memory-rules/       # Aturan sistem memori
-│   ├── AGENTS.md      # Aturan khusus memori
-│   └── settings.json  # Konfigurasi memori
-├── rag-rules/         # Aturan sistem RAG
-│   ├── AGENTS.md      # Aturan khusus RAG
-│   └── settings.json  # Konfigurasi RAG
-└── critical-thinking-rules/  # Aturan berpikir kritis
-    ├── AGENTS.md      # Aturan khusus berpikir
-    └── settings.json  # Konfigurasi berpikir
+├── AGENTS.md              # Konfigurasi agen utama
+├── modules/               # Direktori modul plugin
+│   ├── memory-rules/      # Aturan sistem memori
+│   │   ├── AGENTS.md     # Aturan khusus memori
+│   │   └── settings.json # Konfigurasi memori
+│   ├── rag-rules/        # Aturan sistem RAG
+│   │   ├── AGENTS.md     # Aturan khusus RAG
+│   │   └── settings.json # Konfigurasi RAG
+│   └── critical-thinking-rules/  # Aturan berpikir kritis
+│       ├── AGENTS.md     # Aturan khusus berpikir
+│       └── settings.json # Konfigurasi berpikir
 ```
 
 ## 🎯 Apa yang Dilakukan Setiap Aturan

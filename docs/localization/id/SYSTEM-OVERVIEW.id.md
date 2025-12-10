@@ -38,9 +38,9 @@ Bagian Framework
 └── Sistem Bahasa (localization.json)
 
 Bagian Aturan
-├── Aturan Memori (memory-rules/)
-├── Aturan RAG (rag-rules/)
-└── Aturan Berpikir Kritis (critical-thinking-rules/)
+├── Aturan Memori (modules/memory-rules/)
+├── Aturan RAG (modules/rag-rules/)
+└── Aturan Berpikir Kritis (modules/critical-thinking-rules/)
 
 Bagian Pelaksanaan
 ├── Template Aturan (RULES.md.*)

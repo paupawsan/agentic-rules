@@ -8,9 +8,9 @@
 
 ```
 global-settings.json (メインコントロール)
-├── memory-rules/settings.json
-├── critical-thinking-rules/settings.json
-└── rag-rules/settings.json
+├── modules/memory-rules/settings.json
+├── modules/critical-thinking-rules/settings.json
+└── modules/rag-rules/settings.json
 ```
 
 ## グローバル設定
