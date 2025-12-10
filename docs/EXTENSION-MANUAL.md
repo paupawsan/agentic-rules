@@ -878,5 +878,17 @@ python generate_simple_setup.py  # Web integration
 
 ---
 
+## Localization / 多言語対応 / Pelokalan
+
+<details>
+<summary>🌍 This manual is also available in / このマニュアルは以下の言語でも利用可能です / Manual ini juga tersedia dalam</summary>
+
+- **[日本語 (Japanese)](localization/ja/EXTENSION-MANUAL.ja.md)** - 拡張マニュアル
+- **[Bahasa Indonesia (Indonesian)](localization/id/EXTENSION-MANUAL.id.md)** - Manual Ekstensi
+
+</details>
+
+---
+
 Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).
 

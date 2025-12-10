@@ -379,6 +379,16 @@ If you continue to experience issues:
 
 Remember: Manual loading always works as a fallback when automatic systems fail!
 
+## Localization / 多言語対応 / Pelokalan
+
+<details>
+<summary>🌍 This guide is also available in / このガイドは以下の言語でも利用可能です / Panduan ini juga tersedia dalam</summary>
+
+- **[日本語 (Japanese)](localization/ja/TROUBLESHOOTING.ja.md)** - トラブルシューティングガイド
+- **[Bahasa Indonesia (Indonesian)](localization/id/TROUBLESHOOTING.id.md)** - Panduan Pemecahan Masalah
+
+</details>
+
 ---
 
 Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).

@@ -76,7 +76,7 @@ class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                     plugins_from_json = plugins_data.get('plugins', [])
             except (FileNotFoundError, json.JSONDecodeError):
                 # Fallback to hardcoded list if plugins.json is missing or invalid
-                plugins_from_json = ['memory-rules', 'rag-rules', 'critical-thinking-rules']
+                plugins_from_json = ['modules/memory-rules', 'modules/rag-rules', 'modules/critical-thinking-rules']
 
             # Validate plugins exist as directories and add to allowed_dirs
             allowed_dirs = ['.']  # Root directory is always allowed
@@ -94,8 +94,29 @@ class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
             # Check if file is in allowed directory
             file_path = self.server_directory / filename
-            if file_path.parent != self.server_directory and file_path.parent.name not in allowed_dirs:
-                self.send_error(400, "Invalid file location")
+            
+            # Files directly in root are always allowed
+            if file_path.parent == self.server_directory:
+                is_allowed = True
+            else:
+                # Check if file is within any allowed plugin directory
+                is_allowed = False
+                for allowed_dir in allowed_dirs:
+                    if allowed_dir == '.':
+                        # Skip root directory check here (already handled above)
+                        continue
+                    allowed_path = self.server_directory / allowed_dir
+                    try:
+                        # Check if file_path is within allowed_path
+                        file_path.relative_to(allowed_path)
+                        is_allowed = True
+                        break
+                    except ValueError:
+                        # file_path is not within allowed_path, continue checking
+                        continue
+
+            if not is_allowed:
+                self.send_error(400, f"Invalid file location: {filename} must be in root or within allowed plugin directories")
                 return
 
             # Create backup if file exists
@@ -152,7 +173,7 @@ class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                             cleaned_files.append(f"{ext_variant}")
 
             # Clean up rule directories
-            rule_dirs = ['memory-rules', 'rag-rules', 'critical-thinking-rules']
+            rule_dirs = ['modules/memory-rules', 'modules/rag-rules', 'modules/critical-thinking-rules']
             for rule_dir in rule_dirs:
                 rule_path = self.server_directory / rule_dir
                 if rule_path.exists():

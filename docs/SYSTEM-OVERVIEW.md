@@ -397,4 +397,14 @@ Information Retrieval → Critical Verification → Source Validation → Confid
 
 **🔧 System Overview**: Comprehensive technical architecture and design principles of the Agentic Rules Framework.
 
+## Localization / 多言語対応 / Pelokalan
+
+<details>
+<summary>🌍 This document is also available in / このドキュメントは以下の言語でも利用可能です / Dokumen ini juga tersedia dalam</summary>
+
+- **[日本語 (Japanese)](localization/ja/SYSTEM-OVERVIEW.ja.md)** - システムの説明
+- **[Bahasa Indonesia (Indonesian)](localization/id/SYSTEM-OVERVIEW.id.md)** - Ikhtisar Sistem
+
+</details>
+
 *Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License.*

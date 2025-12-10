@@ -102,6 +102,16 @@ your-ai-project/
 
 **🎉 Congratulations!** Your AI agent now has enhanced capabilities through the Agentic Rules Framework.
 
+## Localization / 多言語対応 / Pelokalan
+
+<details>
+<summary>🌍 This guide is also available in / このガイドは以下の言語でも利用可能です / Panduan ini juga tersedia dalam</summary>
+
+- **[日本語 (Japanese)](localization/ja/USER-GUIDE.ja.md)** - ユーザーガイド
+- **[Bahasa Indonesia (Indonesian)](localization/id/USER-GUIDE.id.md)** - Panduan Pengguna
+
+</details>
+
 ---
 
 Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).

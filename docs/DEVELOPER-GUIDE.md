@@ -299,6 +299,16 @@ curl -X POST http://localhost:9000/api/shutdown
 
 **🔧 Advanced users**: This framework provides maximum flexibility for integrating structured AI behaviors into any agentic system.
 
+## Localization / 多言語対応 / Pelokalan
+
+<details>
+<summary>🌍 This guide is also available in / このガイドは以下の言語でも利用可能です / Panduan ini juga tersedia dalam</summary>
+
+- **[日本語 (Japanese)](localization/ja/DEVELOPER-GUIDE.ja.md)** - 開発者ガイド
+- **[Bahasa Indonesia (Indonesian)](localization/id/DEVELOPER-GUIDE.id.md)** - Panduan Pengembang
+
+</details>
+
 ---
 
 Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).

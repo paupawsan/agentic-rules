@@ -2,18 +2,53 @@
 
 A plug-and-play framework providing structured rules for intelligent AI agent behavior across different platforms.
 
+## 🌍 Localization / 多言語対応 / Pelokalan
+
+<details open>
+<summary>📚 Documentation available in multiple languages / ドキュメントが複数の言語で利用可能です / Dokumentasi tersedia dalam berbagai bahasa</summary>
+
+### Japanese (日本語)
+<details>
+<summary>🇯🇵 Japanese Documentation / 日本語ドキュメント</summary>
+
+- **[メインページ / Main Page](docs/README.ja.md)** - フレームワークの概要とクイックスタート
+- **[説明書の目次 / Documentation Index](docs/localization/ja/INDEX.ja.md)** - 説明書の全体像
+- **[ユーザーガイド / User Guide](docs/localization/ja/USER-GUIDE.ja.md)** - 初心者向けガイド
+- **[開発者ガイド / Developer Guide](docs/localization/ja/DEVELOPER-GUIDE.ja.md)** - 技術者向け詳細
+- **[システムの説明 / System Overview](docs/localization/ja/SYSTEM-OVERVIEW.ja.md)** - システムの仕組み
+- **[拡張マニュアル / Extension Manual](docs/localization/ja/EXTENSION-MANUAL.ja.md)** - プラグイン開発
+- **[トラブルシューティング / Troubleshooting](docs/localization/ja/TROUBLESHOOTING.ja.md)** - 問題解決ガイド
+
+</details>
+
+### Indonesian (Bahasa Indonesia)
+<details>
+<summary>🇮🇩 Indonesian Documentation / Dokumentasi Bahasa Indonesia</summary>
+
+- **[Halaman Utama / Main Page](docs/README.id.md)** - Ikhtisar framework dan mulai cepat
+- **[Indeks Dokumentasi / Documentation Index](docs/localization/id/INDEX.id.md)** - Ringkasan dokumentasi
+- **[Panduan Pengguna / User Guide](docs/localization/id/USER-GUIDE.id.md)** - Panduan untuk pemula
+- **[Panduan Pengembang / Developer Guide](docs/localization/id/DEVELOPER-GUIDE.id.md)** - Detail teknis untuk insinyur
+- **[Ikhtisar Sistem / System Overview](docs/localization/id/SYSTEM-OVERVIEW.id.md)** - Detail arsitektur
+- **[Manual Ekstensi / Extension Manual](docs/localization/id/EXTENSION-MANUAL.id.md)** - Pengembangan plugin
+- **[Panduan Pemecahan Masalah / Troubleshooting](docs/localization/id/TROUBLESHOOTING.id.md)** - Panduan penyelesaian masalah
+
+</details>
+
+</details>
+
 ## 🎯 Framework Overview
 
 The **Agentic Rules Framework** enhances AI agent capabilities through three specialized rule systems:
 
 ### 🧠 **Memory Rules**
-📖 **[Plugin Details](memory-rules/README.md)** - Intelligent memory management with 10 specialized categories for persistent context, learning, and personalization across sessions.
+📖 **[Plugin Details](modules/memory-rules/README.md)** - Intelligent memory management with 10 specialized categories for persistent context, learning, and personalization across sessions.
 
 ### 📚 **RAG Rules**
-📖 **[Plugin Details](rag-rules/README.md)** - Advanced information processing with smart reading strategies, context optimization, and relevance scoring for efficient knowledge utilization.
+📖 **[Plugin Details](modules/rag-rules/README.md)** - Advanced information processing with smart reading strategies, context optimization, and relevance scoring for efficient knowledge utilization.
 
 ### 🤔 **Critical Thinking Rules**
-📖 **[Plugin Details](critical-thinking-rules/README.md)** - Systematic reasoning enhancement with error prevention, assumption validation, and evidence-based decision making.
+📖 **[Plugin Details](modules/critical-thinking-rules/README.md)** - Systematic reasoning enhancement with error prevention, assumption validation, and evidence-based decision making.
 
 **Key Benefits:**
 - **🔌 Plug-and-Play**: Enable/disable rules without modifying agent behavior

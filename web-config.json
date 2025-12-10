@@ -3,15 +3,14 @@
   "description": "Static web configuration generated from setup.json files",
   "availableLanguages": [
     "en",
-    "es",
     "id",
     "ja"
   ],
   "uiLanguage": "en",
   "agentLanguage": "en",
   "plugins": {
-    "critical-thinking-rules": {
-      "name": "critical-thinking-rules",
+    "modules/critical-thinking-rules": {
+      "name": "modules/critical-thinking-rules",
       "display_name": "Critical Thinking Rules",
       "description": "Intellectual rigor and hallucination prevention",
       "localization": {
@@ -110,64 +109,65 @@
         }
       ],
       "default_settings": {
-        "enabled": false,
-        "verification_level": "standard",
-        "error_admission": {
-          "enabled": true,
-          "immediate_correction": true,
-          "transparency_logging": true
-        },
-        "assumption_challenge": {
-          "enabled": true,
-          "challenge_threshold": "medium",
-          "automatic_detection": true
-        },
-        "ground_check": {
-          "enabled": true,
-          "required_confirmations": 2,
-          "verification_timeout_seconds": 30,
-          "fallback_to_uncertainty": true
-        },
-        "hallucination_prevention": {
-          "enabled": true,
-          "reality_checks": true,
-          "conservative_estimation": true,
-          "uncertainty_qualification": true
-        },
-        "verification_categories": {
-          "factual": {
-            "min_sources": 3,
-            "require_independent": true
+        "critical_thinking_rules": {
+          "enabled": false,
+          "verification_level": "standard",
+          "error_admission": {
+            "enabled": true,
+            "immediate_correction": true,
+            "transparency_logging": true
           },
-          "technical": {
-            "require_testing": true,
-            "allow_simulation": true
+          "assumption_challenge": {
+            "enabled": true,
+            "challenge_threshold": "medium",
+            "automatic_detection": true
           },
-          "logical": {
-            "check_consistency": true,
-            "identify_fallacies": true
+          "ground_check": {
+            "enabled": true,
+            "required_confirmations": 2,
+            "verification_timeout_seconds": 30,
+            "fallback_to_uncertainty": true
+          },
+          "hallucination_prevention": {
+            "enabled": true,
+            "reality_checks": true,
+            "conservative_estimation": true,
+            "uncertainty_qualification": true
+          },
+          "verification_categories": {
+            "factual": {
+              "min_sources": 3,
+              "require_independent": true
+            },
+            "technical": {
+              "require_testing": true,
+              "allow_simulation": true
+            },
+            "logical": {
+              "check_consistency": true,
+              "identify_fallacies": true
+            }
+          },
+          "confidence_calibration": {
+            "enabled": true,
+            "track_accuracy": true,
+            "adjust_thresholds": true
+          },
+          "response_formats": {
+            "balanced_analysis": true,
+            "error_correction": true,
+            "assumption_challenge": true
           }
-        },
-        "confidence_calibration": {
-          "enabled": true,
-          "track_accuracy": true,
-          "adjust_thresholds": true
-        },
-        "response_formats": {
-          "balanced_analysis": true,
-          "error_correction": true,
-          "assumption_challenge": true
         }
       },
       "templates": {
         "en": "# Critical Thinking Rules Agent Integration (English)\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `critical_thinking_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If critical_thinking_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## Critical Thinking Rules Extended Overview\nIntellectual rigor and hallucination prevention\n\n## Required Implementation Algorithms\n\n### Algorithm: CriticalThinkingRulesExtended_Initialization_Process\n**MANDATORY**: Execute when critical_thinking_rules.enabled = true\n\n**Steps**:\n1. Read critical-thinking-rules-extended/settings.json\n2. Initialize critical thinking rules extended system\n3. Validate configuration settings\n4. Return initialized system\n\n**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.\n\n### Algorithm: CriticalThinkingRulesExtended_Main_Process\n**MANDATORY**: Execute for all relevant user interactions when enabled\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Analyze current context and request\n3. Apply critical thinking rules extended algorithms\n4. Process and return results\n\n### Algorithm: CriticalThinkingRulesExtended_Cleanup_Process\n**MANDATORY**: Execute periodically, require user consent\n\n**Steps**:\n1. Check cleanup settings\n2. Identify obsolete data\n3. Request user consent for cleanup\n4. Perform safe cleanup operations\n\n## Configuration Requirements\n- Settings file: `critical-thinking-rules-extended/settings.json`\n- Configuration key: `critical_thinking_rules.enabled`\n- Bootstrap compliance required\n\n## Error Handling\n**MANDATORY**: Agents must handle errors gracefully:\n- Configuration file missing → Skip critical thinking rules extended operations\n- Invalid settings → Use default values and log warnings\n- System errors → Continue operation without critical thinking rules extended features\n\n## Framework Integration\n**MANDATORY**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.\n\n## Agent Responsibility\nAgents using this framework must:\n- Respect all user settings and configurations\n- Provide clear feedback when critical thinking rules extended is disabled\n- Maintain framework neutrality in generated content\n- Follow bootstrap compliance requirements\n\n**VIOLATION**: Agents that do not respect these integration requirements or user settings.\n\n<!-- METADATA: Critical Thinking Rules Extended agent integration template -->\n<!-- LICENSE: Copyright (c) 2025 {author_name} - Licensed under the MIT License. See LICENSE file for details. -->\n",
-        "es": "# Integración de Agente {{display_name}} (Español)\n\n**⚠️ PRECAUCIÓN DE SEGURIDAD**: Este es un archivo TEMPLATE. Los agentes NO DEBEN cargar automáticamente este archivo. Solo cargar cuando se renombre a `AGENTS.md`, `GEMINI.md` o `CLAUDE.md` después de la activación explícita del usuario Y cuando `{{plugin_key}}.enabled = true` en settings.json.\n\n**OBLIGATORIO**: Si {{plugin_key}}.enabled = true en settings.json, los agentes DEBEN implementar todos los algoritmos a continuación.\n\n## Resumen de {{display_name}}\n{{description}}\n\n## Algoritmos de implementación requeridos\n\n### Algoritmo: {{pascal_case_name}}_Initialization_Process\n**OBLIGATORIO**: Ejecutar cuando {{plugin_key}}.enabled = true\n\n**Pasos**:\n1. Leer {{plugin_name}}/settings.json\n2. Inicializar sistema {{plugin_name_kebab}}\n3. Validar configuraciones de parámetros\n4. Devolver sistema inicializado\n\n**CRÍTICO**: NO activar automáticamente - respetar configuración del usuario.\n\n### Algoritmo: {{pascal_case_name}}_Main_Process\n**OBLIGATORIO**: Ejecutar para todas las interacciones de usuario relevantes cuando esté activado\n\n**Pasos**:\n1. Verificar {{plugin_key}}.enabled = true\n2. Analizar contexto y solicitud actuales\n3. Aplicar algoritmos {{plugin_name_kebab}}\n4. Procesar y devolver resultados\n\n### Algoritmo: {{pascal_case_name}}_Cleanup_Process\n**OBLIGATORIO**: Ejecutar periódicamente, consentimiento de usuario requerido\n\n**Pasos**:\n1. Verificar configuraciones de limpieza\n2. Identificar datos obsoletos\n3. Solicitar consentimiento del usuario para limpieza\n4. Realizar operaciones de limpieza seguras\n\n## Requisitos de configuración\n- Archivo de configuración: `{{plugin_name}}/settings.json`\n- Clave de configuración: `{{plugin_key}}.enabled`\n- Cumplimiento bootstrap requerido\n\n## Manejo de errores\n**OBLIGATORIO**: Los agentes deben manejar errores correctamente:\n- Archivo de configuración no encontrado → Omitir operaciones {{plugin_name_kebab}}\n- Configuraciones inválidas → Usar valores predeterminados y registrar advertencias\n- Errores del sistema → Continuar sin funciones {{plugin_name_kebab}}\n\n## Integración del framework\n**OBLIGATORIO**: Este framework permanece como una herramienta y nunca debería incluirse en las bases de código de proyectos de usuario. Todas las integraciones se hacen a través de los archivos de reglas en sus respectivos directorios.\n\n## Responsabilidad del agente\nLos agentes que usan este framework deben:\n- Respetar todos los parámetros y configuraciones del usuario\n- Proporcionar retroalimentación clara cuando {{plugin_name_kebab}} esté desactivado\n- Mantener neutralidad del framework en contenido generado\n- Cumplir con requisitos de cumplimiento bootstrap\n\n**VIOLACIÓN**: Agentes que no respetan estos requisitos de integración o configuraciones de usuario.\n\n<!-- METADATA: Plantilla de integración de agente {{display_name}} -->\n<!-- LICENSE: Copyright (c) {{current_year}} {{author_name}} - Con licencia MIT. Ver archivo LICENSE para detalles. -->\n",
         "id": "# Integrasi Agen Critical Thinking Rules Extended (Bahasa Indonesia)\n\n**⚠️ PRECAUTION KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `critical_thinking_rules.enabled = true` dalam settings.json.\n\n**WAJIB**: Jika critical_thinking_rules.enabled = true dalam settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Ringkasan Critical Thinking Rules Extended\nIntellectual rigor and hallucination prevention\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: CriticalThinkingRulesExtended_Initialization_Process\n**WAJIB**: Eksekusi ketika critical_thinking_rules.enabled = true\n\n**Langkah**:\n1. Baca critical-thinking-rules-extended/settings.json\n2. Inisialisasi sistem critical thinking rules extended\n3. Validasi pengaturan konfigurasi\n4. Kembalikan sistem yang diinisialisasi\n\n**KRITIS**: JANGAN aktifkan otomatis - hormati pengaturan aktif pengguna.\n\n### Algoritma: CriticalThinkingRulesExtended_Main_Process\n**WAJIB**: Eksekusi untuk semua interaksi pengguna terkait ketika aktif\n\n**Langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Analisis konteks dan permintaan saat ini\n3. Terapkan algoritma critical thinking rules extended\n4. Proses dan kembalikan hasil\n\n### Algoritma: CriticalThinkingRulesExtended_Cleanup_Process\n**WAJIB**: Eksekusi secara berkala, memerlukan persetujuan pengguna\n\n**Langkah**:\n1. Periksa pengaturan pembersihan\n2. Identifikasi data yang kedaluwarsa\n3. Minta persetujuan pengguna untuk pembersihan\n4. Lakukan pembersihan yang aman\n\n## Persyaratan Konfigurasi\n- File pengaturan: `critical-thinking-rules-extended/settings.json`\n- Kunci konfigurasi: `critical_thinking_rules.enabled`\n- Kepatuhan bootstrap wajib\n\n## Penanganan Error\n**WAJIB**: Agen harus menangani error dengan baik:\n- File konfigurasi hilang → Lewati operasi critical thinking rules extended\n- Pengaturan tidak valid → Gunakan nilai default dan log peringatan\n- Error sistem → Lanjutkan operasi tanpa fitur critical thinking rules extended\n\n## Integrasi Framework\n**WAJIB**: Framework ini tetap menjadi alat dan tidak boleh dimasukkan ke dalam codebase proyek pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.\n\n## Tanggung Jawab Agen\nAgen yang menggunakan framework ini harus:\n- Menghormati semua pengaturan dan konfigurasi pengguna\n- Memberikan umpan balik yang jelas ketika critical thinking rules extended dinonaktifkan\n- Mempertahankan netralitas framework dalam konten yang dihasilkan\n- Mengikuti persyaratan kepatuhan bootstrap\n\n**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.\n\n<!-- METADATA: template integrasi agen Critical Thinking Rules Extended -->\n<!-- LICENSE: Copyright (c) 2025 {author_name} - Dilisensikan di bawah Lisensi MIT. Lihat file LICENSE untuk detail. -->\n",
         "ja": "# Critical Thinking Rules Extended エージェント統合 (日本語)\n\n**⚠️ 安全対策**: このファイルはTEMPLATEです。エージェントはこのファイルを自動読み込みしてはなりません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後の明示的なユーザー有効化時、およびsettings.jsonで`critical_thinking_rules.enabled = true`の場合のみ読み込みます。\n\n**必須**: settings.jsonでcritical_thinking_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## Critical Thinking Rules Extended の概要\nIntellectual rigor and hallucination prevention\n\n## 必要な実装アルゴリズム\n\n### アルゴリズム: CriticalThinkingRulesExtended_Initialization_Process\n**必須**: critical_thinking_rules.enabled = true の場合に実行\n\n**ステップ**:\n1. critical-thinking-rules-extended/settings.json を読み込む\n2. critical thinking rules extended システムを初期化\n3. 設定を検証\n4. 初期化されたシステムを返す\n\n**重要**: 自動有効化しない - ユーザーの有効設定を尊重する。\n\n### アルゴリズム: CriticalThinkingRulesExtended_Main_Process\n**必須**: 有効時にすべての関連ユーザー操作に対して実行\n\n**ステップ**:\n1. critical_thinking_rules.enabled = true を確認\n2. 現在のコンテキストとリクエストを分析\n3. critical thinking rules extended アルゴリズムを適用\n4. 結果を処理して返す\n\n### アルゴリズム: CriticalThinkingRulesExtended_Cleanup_Process\n**必須**: 定期的に実行、ユーザー同意を要求\n\n**ステップ**:\n1. クリーンアップ設定を確認\n2. 古くなったデータを特定\n3. ユーザー同意を要求\n4. 安全なクリーンアップを実行\n\n## 設定要件\n- 設定ファイル: `critical-thinking-rules-extended/settings.json`\n- 設定キー: `critical_thinking_rules.enabled`\n- Bootstrap 準拠必須\n\n## エラー処理\n**必須**: エージェントはエラーを適切に処理しなければなりません:\n- 設定ファイルが見つからない → critical thinking rules extended 操作をスキップ\n- 無効な設定 → デフォルト値を使用し警告をログ\n- システムエラー → critical thinking rules extended 機能なしで操作を継続\n\n## フレームワーク統合\n**必須**: このフレームワークはツールであり、ユーザープロジェクトのコードベースに含めるべきではありません。すべての統合はそれぞれのディレクトリのルールファイルを通じて行われます。\n\n## エージェントの責任\nこのフレームワークを使用するエージェントは:\n- すべてのユーザー設定と構成を尊重\n- critical thinking rules extended が無効の場合に明確なフィードバックを提供\n- 生成されたコンテンツでフレームワークの中立性を維持\n- Bootstrap 準拠要件に従う\n\n**違反**: これらの統合要件またはユーザー設定を尊重しないエージェント。\n\n<!-- METADATA: Critical Thinking Rules Extended エージェント統合テンプレート -->\n<!-- LICENSE: Copyright (c) 2025 {author_name} - MIT Licenseの下でライセンスされています。LICENSEファイルを参照してください。 -->\n"
       }
     },
-    "memory-rules": {
-      "name": "memory-rules",
+    "modules/memory-rules": {
+      "name": "modules/memory-rules",
       "display_name": "Memory Rules",
       "description": "Persistent memory system for AI agents",
       "localization": {
@@ -307,167 +307,179 @@
         }
       ],
       "default_settings": {
-        "enabled": true,
-        "max_entries_per_category": 100,
-        "cleanup_guidance_days": 90,
-        "index_update_frequency": "realtime",
-        "project_support": {
+        "memory_rules": {
           "enabled": true,
-          "auto_detect_projects": true,
-          "project_identification_method": "git_remote_or_directory_name",
-          "common_memory_enabled": true,
-          "private_memory_enabled": true,
-          "git_history_analysis": {
+          "max_entries_per_category": 100,
+          "cleanup_guidance_days": 90,
+          "index_update_frequency": "realtime",
+          "project_support": {
+            "enabled": true,
+            "auto_detect_projects": true,
+            "project_identification_method": "git_remote_or_directory_name",
+            "common_memory_enabled": true,
+            "private_memory_enabled": true,
+            "git_history_analysis": {
+              "enabled": false,
+              "trigger_on_unknown_context": true,
+              "max_commit_history_days": 90,
+              "max_commits_to_analyze": 100,
+              "analyze_commit_messages": true,
+              "analyze_file_changes": true,
+              "track_branch_evolution": false,
+              "extract_project_milestones": true,
+              "include_author_info": false,
+              "analyze_code_patterns": true,
+              "performance_mode": "fast",
+              "cache_analysis_results": true,
+              "analysis_timeout_seconds": 30
+            }
+          },
+          "categories": {
+            "technical": {
+              "enabled": true,
+              "suggested_retention_days": 90,
+              "storage_location": "common",
+              "share_across_projects": true
+            },
+            "behavioral": {
+              "enabled": true,
+              "suggested_retention_days": 60,
+              "storage_location": "common",
+              "share_across_projects": true
+            },
+            "contextual": {
+              "enabled": true,
+              "suggested_retention_days": 120,
+              "storage_location": "private",
+              "share_across_projects": false
+            },
+            "user_interaction": {
+              "enabled": true,
+              "suggested_retention_days": 30,
+              "capture_full_prompts": true,
+              "capture_responses": true,
+              "include_metadata": true,
+              "storage_location": "project",
+              "share_across_projects": false
+            },
+            "session": {
+              "enabled": true,
+              "suggested_retention_days": 60,
+              "auto_session_detection": true,
+              "topic_tracking": true,
+              "quality_metrics": true,
+              "storage_location": "project",
+              "share_across_projects": false
+            },
+            "topic": {
+              "enabled": true,
+              "suggested_retention_days": 180,
+              "evolution_tracking": true,
+              "pattern_recognition": true,
+              "cross_topic_linking": true,
+              "storage_location": "project",
+              "share_across_projects": false
+            },
+            "git_history": {
+              "enabled": true,
+              "suggested_retention_days": 365,
+              "analyze_commits": true,
+              "track_milestones": true,
+              "extract_patterns": true,
+              "storage_location": "project",
+              "share_across_projects": false
+            },
+            "personal": {
+              "enabled": true,
+              "suggested_retention_days": 3650,
+              "storage_location": "private",
+              "share_across_projects": false
+            },
+            "credentials": {
+              "enabled": true,
+              "suggested_retention_days": 3650,
+              "storage_location": "private",
+              "share_across_projects": false,
+              "encryption_required": true,
+              "flexible_naming": true,
+              "naming_logic": "agent_decides_based_on_context"
+            },
+            "sensitive": {
+              "enabled": true,
+              "suggested_retention_days": 3650,
+              "storage_location": "private",
+              "share_across_projects": false,
+              "encryption_required": true,
+              "access_controlled": true
+            }
+          },
+          "compression": {
             "enabled": false,
-            "trigger_on_unknown_context": true,
-            "max_commit_history_days": 90,
-            "max_commits_to_analyze": 100,
-            "analyze_commit_messages": true,
-            "analyze_file_changes": true,
-            "track_branch_evolution": false,
-            "extract_project_milestones": true,
-            "include_author_info": false,
-            "analyze_code_patterns": true,
-            "performance_mode": "fast",
-            "cache_analysis_results": true,
-            "analysis_timeout_seconds": 30
+            "threshold_mb": 50
+          },
+          "search": {
+            "enable_full_text": true,
+            "enable_tag_search": true,
+            "enable_topic_search": true,
+            "enable_session_search": true,
+            "max_results": 20,
+            "include_interaction_history": true
+          },
+          "capture_settings": {
+            "auto_capture_interactions": true,
+            "session_boundary_detection": true,
+            "topic_extraction": true,
+            "user_prompt_filtering": false,
+            "sensitive_data_masking": true
+          },
+          "auto_recording": {
+            "enabled": true,
+            "interaction_threshold": "medium",
+            "min_interaction_length": 10,
+            "record_all_prompts": true,
+            "record_all_responses": true,
+            "continuous_session_tracking": true,
+            "real_time_indexing": true,
+            "background_processing": false
+          },
+          "migration_settings": {
+            "auto_detect_existing_memories": true,
+            "prompt_user_for_migration": true,
+            "supported_source_systems": [
+              "cursor",
+              "github_copilot",
+              "custom_agent_frameworks",
+              "legacy_memory_systems"
+            ],
+            "migration_backup_originals": true,
+            "cross_system_compatibility": true,
+            "migration_notes_inclusion": true,
+            "selective_import_enabled": true
+          },
+          "cleanup_guidance": {
+            "enabled": true,
+            "notify_overdue_memories": true,
+            "notification_frequency_days": 30,
+            "interactive_cleanup": true,
+            "require_user_consent": true,
+            "suggest_cleanup_actions": true,
+            "preserve_important_memories": true,
+            "batch_cleanup_limit": 10
+          },
+          "integration": {
+            "cross_category_linking": true,
+            "session_context_inclusion": true,
+            "topic_evolution_tracking": true,
+            "user_pattern_analysis": true
           }
         },
-        "categories": {
-          "technical": {
-            "enabled": true,
-            "suggested_retention_days": 90,
-            "storage_location": "common",
-            "share_across_projects": true
-          },
-          "behavioral": {
-            "enabled": true,
-            "suggested_retention_days": 60,
-            "storage_location": "common",
-            "share_across_projects": true
-          },
-          "contextual": {
-            "enabled": true,
-            "suggested_retention_days": 120,
-            "storage_location": "private",
-            "share_across_projects": false
-          },
-          "user_interaction": {
-            "enabled": true,
-            "suggested_retention_days": 30,
-            "capture_full_prompts": true,
-            "capture_responses": true,
-            "include_metadata": true,
-            "storage_location": "project",
-            "share_across_projects": false
-          },
-          "session": {
-            "enabled": true,
-            "suggested_retention_days": 60,
-            "auto_session_detection": true,
-            "topic_tracking": true,
-            "quality_metrics": true,
-            "storage_location": "project",
-            "share_across_projects": false
-          },
-          "topic": {
-            "enabled": true,
-            "suggested_retention_days": 180,
-            "evolution_tracking": true,
-            "pattern_recognition": true,
-            "cross_topic_linking": true,
-            "storage_location": "project",
-            "share_across_projects": false
-          },
-          "git_history": {
-            "enabled": true,
-            "suggested_retention_days": 365,
-            "analyze_commits": true,
-            "track_milestones": true,
-            "extract_patterns": true,
-            "storage_location": "project",
-            "share_across_projects": false
-          },
-          "personal": {
-            "enabled": true,
-            "suggested_retention_days": 3650,
-            "storage_location": "private",
-            "share_across_projects": false
-          },
-          "credentials": {
-            "enabled": true,
-            "suggested_retention_days": 3650,
-            "storage_location": "private",
-            "share_across_projects": false,
-            "encryption_required": true,
-            "flexible_naming": true,
-            "naming_logic": "agent_decides_based_on_context"
-          },
-          "sensitive": {
-            "enabled": true,
-            "suggested_retention_days": 3650,
-            "storage_location": "private",
-            "share_across_projects": false,
-            "encryption_required": true,
-            "access_controlled": true
-          }
-        },
-        "compression": {
-          "enabled": false,
-          "threshold_mb": 50
-        },
-        "search": {
-          "enable_full_text": true,
-          "enable_tag_search": true,
-          "enable_topic_search": true,
-          "enable_session_search": true,
-          "max_results": 20,
-          "include_interaction_history": true
-        },
-        "capture_settings": {
-          "auto_capture_interactions": true,
-          "session_boundary_detection": true,
-          "topic_extraction": true,
-          "user_prompt_filtering": false,
-          "sensitive_data_masking": true
-        },
-        "auto_recording": {
-          "enabled": true,
-          "interaction_threshold": "medium",
-          "min_interaction_length": 10,
-          "record_all_prompts": true,
-          "record_all_responses": true,
-          "continuous_session_tracking": true,
-          "real_time_indexing": true,
-          "background_processing": false
-        },
-        "migration_settings": {
-          "auto_detect_existing_memories": true,
-          "prompt_user_for_migration": true,
-          "supported_source_systems": [
-            "cursor",
-            "github_copilot",
-            "custom_agent_frameworks",
-            "legacy_memory_systems"
-          ],
-          "migration_backup_originals": true,
-          "cross_system_compatibility": true,
-          "migration_notes_inclusion": true,
-          "selective_import_enabled": true
+        "storage": {
+          "base_path": "./memory"
         },
         "cleanup_guidance": {
           "notify_overdue_memories": true,
           "interactive_cleanup": true,
           "require_user_consent": true
-        },
-        "integration": {
-          "cross_category_linking": true,
-          "session_context_inclusion": true,
-          "topic_evolution_tracking": true,
-          "user_pattern_analysis": true
-        },
-        "storage": {
-          "base_path": "./memory"
         }
       },
       "templates": {
@@ -476,8 +488,8 @@
         "ja": "# メモリールール エージェント統合 / Memory Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`memory_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでmemory_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## メモリシステムアーキテクチャ / Memory System Architecture\n- **common/**: プロジェクト間で共有される知識 / Shared knowledge across projects\n- **private/**: 個人/機密データ（資格情報、設定） / Personal/sensitive data (credentials, preferences)\n- **project/**: プロジェクト固有のメモリとコンテキスト / Project-specific memory and context\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Memory_Initialization_Process / Algorithm: Memory_Initialization_Process\n**必須 / MANDATORY**: memory_rules.enabled = trueの場合に実行 / Execute when memory_rules.enabled = true\n\n**ステップ / Steps**:\n1. memory-rules/settings.jsonを読み取る / Read memory-rules/settings.json\n2. ディレクトリ構造を作成: common/, private/, project/ / Create directory structure: common/, private/, project/\n3. storage_pathの権限を検証し、必要に応じて作成 / Validate storage_path permissions and create if needed\n4. project_support.enabled = trueの場合、メモリインデックスを初期化 / Initialize memory index if project_support.enabled = true\n5. 初期化されたメモリシステムを返す / Return initialized memory system\n\n**重要 / CRITICAL**: 自動有効化しない - ユーザーの有効設定を尊重する / Do NOT auto-enable - respect user's enabled setting.\n\n### アルゴリズム: Memory_Storage_Process / Algorithm: Memory_Storage_Process\n**必須 / MANDATORY**: 有効時すべてのユーザー操作に対して実行 / Execute for all user interactions when enabled\n\n**ステップ / Steps**:\n1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true\n2. 操作を分類: common/private/project / Classify interaction: common/private/project\n3. 設定からの保持ポリシーを適用 / Apply retention policies from settings\n4. メタデータ付きで保存（タイムスタンプ、コンテキスト、重要度） / Store with metadata (timestamp, context, importance)\n5. 検索用のメモリインデックスを更新 / Update memory index for retrieval\n\n### アルゴリズム: Memory_Retrieval_Process / Algorithm: Memory_Retrieval_Process\n**必須 / MANDATORY**: ユーザー要求に応答する前に実行 / Execute before responding to user requests\n\n**ステップ / Steps**:\n1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true\n2. 現在のコンテキストと要求を分析 / Analyze current context and request\n3. 関連するメモリカテゴリをクエリ / Query relevant memory categories\n4. 関連性スコアリングとフィルタリングを適用 / Apply relevance scoring and filtering\n5. 応答用の最適化されたコンテキストを返す / Return optimized context for response\n\n### アルゴリズム: Memory_Cleanup_Process / Algorithm: Memory_Cleanup_Process\n**必須 / MANDATORY**: 定期的に実行、ユーザー同意を要求 / Execute periodically, require user consent\n\n**ステップ / Steps**:\n1. cleanup_guidance.enabled = trueを確認 / Check cleanup_guidance.enabled = true\n2. 保持期間を超えたメモリを特定 / Identify memories past retention periods\n3. 期限切れメモリをユーザーに通知 / Notify user of overdue memories\n4. 削除のための明示的なユーザー同意を要求 / Require explicit user consent for deletion\n5. 年齢に関係なく重要なメモリを保存 / Preserve important memories regardless of age\n\n## 設定準拠 / Settings Compliance\n- memory-rules/settings.jsonのすべての設定を尊重 / Respect all settings in memory-rules/settings.json\n- memory_rules.enabled = falseでユーザーがメモリ機能を要求した場合、ユーザーにプロンプト / Prompt user if memory_rules.enabled = false and user requests memory features\n- ユーザー同意なしで機能を自動有効化しない / Never auto-enable features without user consent\n\n## 統合ポイント / Integration Points\n- **RAG統合 / RAG Integration**: 最適化のためのコンテキストチャンクを提供 / Provide context chunks for optimization\n- **批判的思考 / Critical Thinking**: エラー修正と学習洞察を保存 / Store error corrections and learning insights\n- **ユーザー同意 / User Consent**: すべてのクリーンアップ操作にユーザー承認が必要 / All cleanup operations require user approval\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずにメモリ統合を主張するエージェント / Agents claiming memory integration without implementing these algorithms.\n\n<!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
       }
     },
-    "rag-rules": {
-      "name": "rag-rules",
+    "modules/rag-rules": {
+      "name": "modules/rag-rules",
       "display_name": "RAG Rules",
       "description": "Retrieval-Augmented Generation for optimal context usage",
       "localization": {
@@ -569,83 +581,85 @@
         }
       ],
       "default_settings": {
-        "enabled": false,
-        "context_window_optimization": {
-          "enabled": true,
-          "max_context_tokens": 8000,
-          "relevance_threshold": 0.7,
-          "progressive_expansion": true
-        },
-        "hierarchical_reading": {
-          "enabled": true,
-          "max_depth": 3,
-          "section_preference": "task_relevant",
-          "recursive_processing": true
-        },
-        "log_analysis": {
-          "enabled": true,
-          "initial_sample_lines": 50,
-          "error_priority": true,
-          "temporal_sampling": true,
-          "pattern_recognition": true
-        },
-        "reading_strategies": {
-          "document_reading": {
+        "rag_rules": {
+          "enabled": false,
+          "context_window_optimization": {
             "enabled": true,
-            "toc_priority": true,
-            "summary_first": true
+            "max_context_tokens": 8000,
+            "relevance_threshold": 0.7,
+            "progressive_expansion": true
           },
-          "code_reading": {
+          "hierarchical_reading": {
             "enabled": true,
-            "signature_first": true,
-            "dependency_tracing": true
+            "max_depth": 3,
+            "section_preference": "task_relevant",
+            "recursive_processing": true
           },
-          "selective_reading": {
+          "log_analysis": {
             "enabled": true,
-            "importance_scoring": true,
-            "chunking_size": 1000
+            "initial_sample_lines": 50,
+            "error_priority": true,
+            "temporal_sampling": true,
+            "pattern_recognition": true
+          },
+          "reading_strategies": {
+            "document_reading": {
+              "enabled": true,
+              "toc_priority": true,
+              "summary_first": true
+            },
+            "code_reading": {
+              "enabled": true,
+              "signature_first": true,
+              "dependency_tracing": true
+            },
+            "selective_reading": {
+              "enabled": true,
+              "importance_scoring": true,
+              "chunking_size": 1000
+            }
+          },
+          "context_management": {
+            "chunking": {
+              "enabled": true,
+              "semantic_segmentation": true,
+              "max_chunk_size": 2000
+            },
+            "memory_buffer": {
+              "working_memory_mb": 50,
+              "compression_threshold": 80,
+              "cache_enabled": true
+            }
+          },
+          "tool_integration": {
+            "filesystem_tools": true,
+            "search_tools": true,
+            "external_tools": true,
+            "streaming_reads": true
+          },
+          "multi_language_support": {
+            "language_detection": true,
+            "encoding_handling": true,
+            "cross_language_patterns": true,
+            "fallback_strategies": true
+          },
+          "performance_optimization": {
+            "lazy_loading": true,
+            "parallel_processing": true,
+            "caching_strategy": "lru",
+            "prefetching": false
+          },
+          "quality_assurance": {
+            "completeness_check": true,
+            "accuracy_verification": true,
+            "cross_reference_checking": true
+          },
+          "adaptive_learning": {
+            "pattern_recognition": true,
+            "usage_tracking": true,
+            "strategy_refinement": true,
+            "context_prediction": true
           }
-        },
-        "context_management": {
-          "chunking": {
-            "enabled": true,
-            "semantic_segmentation": true,
-            "max_chunk_size": 2000
-          },
-          "memory_buffer": {
-            "working_memory_mb": 50,
-            "compression_threshold": 80,
-            "cache_enabled": true
-          }
-        },
-        "tool_integration": {
-          "filesystem_tools": true,
-          "search_tools": true,
-          "external_tools": true,
-          "streaming_reads": true
-        },
-        "multi_language_support": {
-          "language_detection": true,
-          "encoding_handling": true,
-          "cross_language_patterns": true,
-          "fallback_strategies": true
-        },
-        "performance_optimization": {
-          "lazy_loading": true,
-          "parallel_processing": true,
-          "caching_strategy": "lru",
-          "prefetching": false
-        },
-        "quality_assurance": {
-          "completeness_check": true,
-          "accuracy_verification": true,
-          "cross_reference_checking": true
-        },
-        "adaptive_learning": {
-          "pattern_recognition": true,
-          "usage_tracking": true,
-          "strategy_refinement": true,
-          "context_prediction": true
         }
       },
       "templates": {

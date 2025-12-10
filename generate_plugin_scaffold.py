@@ -167,20 +167,22 @@ def get_existing_plugins():
     """Get list of existing plugin directories."""
     script_dir = get_script_directory()
     plugins = []
+    modules_dir = script_dir / "modules"
 
-    for item in script_dir.iterdir():
-        if item.is_dir() and not item.name.startswith('.') and item.name not in ['docs', '__pycache__']:
-            # Check if it has the required plugin files
-            if (item / "settings.json").exists() and any((item / f"RULES.md.{lang}").exists() for lang in ['en', 'ja', 'id', 'zh']):
-                plugins.append(item.name)
+    if modules_dir.exists():
+        for item in modules_dir.iterdir():
+            if item.is_dir() and not item.name.startswith('.') and item.name not in ['docs', '__pycache__']:
+                # Check if it has the required plugin files
+                if (item / "settings.json").exists() and any((item / f"RULES.md.{lang}").exists() for lang in ['en', 'ja', 'id', 'zh']):
+                    plugins.append(item.name)
 
     return sorted(plugins)
 
 def copy_from_template(template_plugin, new_plugin_name, new_display_name, new_description, templates_dir=None):
     """Copy files from an existing plugin as template."""
     script_dir = get_script_directory()
-    template_dir = script_dir / template_plugin
-    new_plugin_dir = script_dir / new_plugin_name
+    template_dir = script_dir / "modules" / template_plugin
+    new_plugin_dir = script_dir / "modules" / new_plugin_name
     current_year = get_current_year()
 
     if not template_dir.exists():
@@ -548,9 +550,9 @@ def validate_plugin_name(name):
 
     # Check if plugin already exists
     script_dir = get_script_directory()
-    plugin_dir = script_dir / name
+    plugin_dir = script_dir / "modules" / name
     if plugin_dir.exists():
-        return False, f"Plugin directory '{name}' already exists"
+        return False, f"Plugin directory 'modules/{name}' already exists"
 
     return True, ""
 
@@ -837,8 +839,8 @@ This is a custom plugin for the Agentic Rules Framework that provides {plugin_na
 
 ## Installation
 
-1. Copy this plugin directory to your agentic-rules framework
-2. Add the plugin name to `plugins.json` (optional, for web interface)
+1. Copy this plugin directory to the `modules/` folder in your agentic-rules framework
+2. The script automatically adds `modules/{plugin_name}` to `plugins.json`
 3. Run `python generate_simple_setup.py` to update web configuration
 4. Activate the plugin using `python setup.py`
 
@@ -930,7 +932,7 @@ Edit the `RULES.md.*` files to modify the algorithms and behavior.
 ### Plugin Not Detected
 - Ensure the plugin directory exists
 - Check that at least one `RULES.md.*` file exists
-- Verify `plugins.json` includes the plugin name (for web interface)
+- Verify `plugins.json` includes `modules/{plugin_name}` (for web interface)
 
 ### Configuration Errors
 - Check `settings.json` syntax
@@ -970,7 +972,7 @@ def create_plugin_scaffold(plugin_name, display_name, description, languages, en
     """Create a complete plugin scaffold using templates from Template branch."""
 
     script_dir = get_script_directory()
-    plugin_dir = script_dir / plugin_name
+    plugin_dir = script_dir / "modules" / plugin_name
     current_year = get_current_year()
     templates_temp_dir = None
 
@@ -1066,16 +1068,17 @@ def create_plugin_scaffold(plugin_name, display_name, description, languages, en
                 plugins_config['plugins'] = []
 
             # Add plugin if not already present
-            if plugin_name not in plugins_config['plugins']:
-                plugins_config['plugins'].append(plugin_name)
+            plugin_full_name = f"modules/{plugin_name}"
+            if plugin_full_name not in plugins_config['plugins']:
+                plugins_config['plugins'].append(plugin_full_name)
                 plugins_config['plugins'].sort()  # Keep sorted
 
                 with open(plugins_file, 'w', encoding='utf-8') as f:
                     json.dump(plugins_config, f, indent=2, ensure_ascii=False)
 
-                print(f"✓ Added '{plugin_name}' to plugins.json")
+                print(f"✓ Added '{plugin_full_name}' to plugins.json")
             else:
-                print(f"⚠️  '{plugin_name}' already in plugins.json")
+                print(f"⚠️  '{plugin_full_name}' already in plugins.json")
 
         except Exception as e:
             print(f"⚠️  Could not update plugins.json: {e}")

@@ -531,9 +531,9 @@ def generate_root_file(selected_rules, language, file_type, script_dir, lang='en
 
 ## Framework Overview
 This framework provides structured AI agent behaviors through modular rules:
-- **memory-rules/**: Persistent memory system for context retention
-- **rag-rules/**: Retrieval-augmented generation for optimal context usage
-- **critical-thinking-rules/**: Intellectual rigor and hallucination prevention
+- **modules/memory-rules/**: Persistent memory system for context retention
+- **modules/rag-rules/**: Retrieval-augmented generation for optimal context usage
+- **modules/critical-thinking-rules/**: Intellectual rigor and hallucination prevention
 
 ## Bootstrap Compliance
 Before loading any rule files, agents MUST:
@@ -547,17 +547,17 @@ Each rule provides specific algorithmic implementations that agents must activel
 
 ### Memory Rules Integration
 **MANDATORY**: If `memory_rules.enabled = true` in settings.json
-- Location: `memory-rules/{file_type}`
+- Location: `modules/memory-rules/{file_type}`
 - Implements: Memory initialization, storage, retrieval, and cleanup processes
 
 ### RAG Rules Integration
 **MANDATORY**: If `rag_rules.enabled = true` in settings.json
-- Location: `rag-rules/{file_type}`
+- Location: `modules/rag-rules/{file_type}`
 - Implements: Context optimization, relevance scoring, and retrieval algorithms
 
 ### Critical Thinking Rules Integration
 **MANDATORY**: If `critical_thinking_rules.enabled = true` in settings.json
-- Location: `critical-thinking-rules/{file_type}`
+- Location: `modules/critical-thinking-rules/{file_type}`
 - Implements: Error admission, assumption challenge, and verification processes
 
 ## Framework Isolation
