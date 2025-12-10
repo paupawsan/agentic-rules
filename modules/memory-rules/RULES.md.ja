@@ -15,7 +15,7 @@
 **必須 / MANDATORY**: memory_rules.enabled = trueの場合に実行 / Execute when memory_rules.enabled = true
 
 **ステップ / Steps**:
-1. memory-rules/settings.jsonを読み取る / Read memory-rules/settings.json
+1. modules/memory-rules/settings.jsonを読み取る / Read memory-rules/settings.json
 2. ディレクトリ構造を作成: common/, private/, project/ / Create directory structure: common/, private/, project/
 3. storage_pathの権限を検証し、必要に応じて作成 / Validate storage_path permissions and create if needed
 4. project_support.enabled = trueの場合、メモリインデックスを初期化 / Initialize memory index if project_support.enabled = true
@@ -54,7 +54,7 @@
 5. 年齢に関係なく重要なメモリを保存 / Preserve important memories regardless of age
 
 ## 設定準拠 / Settings Compliance
-- memory-rules/settings.jsonのすべての設定を尊重 / Respect all settings in memory-rules/settings.json
+- modules/memory-rules/settings.jsonのすべての設定を尊重 / Respect all settings in memory-rules/settings.json
 - memory_rules.enabled = falseでユーザーがメモリ機能を要求した場合、ユーザーにプロンプト / Prompt user if memory_rules.enabled = false and user requests memory features
 - ユーザー同意なしで機能を自動有効化しない / Never auto-enable features without user consent
 

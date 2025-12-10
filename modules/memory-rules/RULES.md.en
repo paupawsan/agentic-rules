@@ -15,7 +15,7 @@
 **MANDATORY**: Execute when memory_rules.enabled = true
 
 **Steps**:
-1. Read memory-rules/settings.json
+1. Read modules/memory-rules/settings.json
 2. Create directory structure: common/, private/, project/
 3. Validate storage_path permissions and create if needed
 4. Initialize memory index if project_support.enabled = true
@@ -54,7 +54,7 @@
 5. Preserve important memories regardless of age
 
 ## Settings Compliance
-- Respect all settings in memory-rules/settings.json
+- Respect all settings in modules/memory-rules/settings.json
 - Prompt user if memory_rules.enabled = false and user requests memory features
 - Never auto-enable features without user consent
 

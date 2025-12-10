@@ -15,7 +15,7 @@
 **WAJIB**: Eksekusi ketika memory_rules.enabled = true
 
 **Langkah-langkah**:
-1. Baca memory-rules/settings.json
+1. Baca modules/memory-rules/settings.json
 2. Buat struktur direktori: common/, private/, project/
 3. Validasi izin storage_path dan buat jika diperlukan
 4. Inisialisasi indeks memori jika project_support.enabled = true
@@ -54,7 +54,7 @@
 5. Pertahankan memori penting terlepas dari usia
 
 ## Kepatuhan Pengaturan
-- Hormati semua pengaturan di memory-rules/settings.json
+- Hormati semua pengaturan di modules/memory-rules/settings.json
 - Berikan prompt kepada pengguna jika memory_rules.enabled = false dan pengguna meminta fitur memori
 - Jangan pernah aktifkan fitur secara otomatis tanpa persetujuan pengguna
 

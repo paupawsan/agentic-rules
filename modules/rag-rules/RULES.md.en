@@ -45,7 +45,7 @@
 5. Optimize response completeness and accuracy
 
 ## Settings Compliance
-- Respect all settings in rag-rules/settings.json
+- Respect all settings in modules/rag-rules/settings.json
 - Apply context_window_size limits appropriately
 - Use configured relevance thresholds
 - Prompt user if rag_rules.enabled = false and complex context needed

@@ -45,7 +45,7 @@
 5. Optimalkan kelengkapan dan akurasi respons
 
 ## Kepatuhan Pengaturan
-- Hormati semua pengaturan di rag-rules/settings.json
+- Hormati semua pengaturan di modules/rag-rules/settings.json
 - Terapkan batas context_window_size secara tepat
 - Gunakan ambang relevansi yang dikonfigurasi
 - Berikan prompt kepada pengguna jika rag_rules.enabled = false dan konteks kompleks diperlukan

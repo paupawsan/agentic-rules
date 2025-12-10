@@ -45,7 +45,7 @@
 5. 応答の完全性と正確性を最適化 / Optimize response completeness and accuracy
 
 ## 設定準拠 / Settings Compliance
-- rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json
+- modules/rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json
 - context_window_size制限を適切に適用 / Apply context_window_size limits appropriately
 - 設定された関連性しきい値を使用 / Use configured relevance thresholds
 - rag_rules.enabled = falseで複雑なコンテキストが必要な場合、ユーザーにプロンプト / Prompt user if rag_rules.enabled = false and complex context needed
