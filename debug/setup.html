@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!-- Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
 <html lang="en">
@@ -1552,10 +1553,10 @@
             <label for="agent-language">Agent Language:</label>
             <select id="agent-language" onchange="updateAgentLanguage()">
               <!-- AUTO GENERATED CONTENT START -->
-<option value="en">🇺🇸 English</option>
-<option value="ja">🇯🇵 日本語</option>
-<option value="id">🇮🇩 Bahasa Indonesia</option>
-            <!-- AUTO GENERATED CONTENT END -->
+<option value="en">EN (en)</option>
+<option value="ja">JA (ja)</option>
+<option value="id">ID (id)</option>
+<!-- AUTO GENERATED CONTENT END -->
             </select>
             <div class="help-text">Language for generated agent files</div>
           </div>
@@ -3237,92 +3238,6 @@ ${enabledRules.map(rule => `- \`${rule}/AGENTS.md\` - ${getRuleDescription(rule,
       savePreferences();
     }
   
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-
 
     // Per-plugin language selection functions
     function generateLanguageSection(pluginName, availableLanguages) {
