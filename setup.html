@@ -2432,18 +2432,21 @@
         for (const [pluginName, pluginData] of Object.entries(pluginConfig.plugins)) {
           if (!selectedRules[pluginName]) continue;
 
-          config.settings[pluginName] = {};
+          // Convert plugin name to settings key (remove modules/ prefix and convert hyphens to underscores)
+          const settingsKey = pluginName.replace('modules/', '').replace(/-/g, '_');
+
+          config.settings[settingsKey] = {};
 
           // Explicitly enable the selected plugin
-          setNestedValue(config.settings[pluginName], 'enabled', true);
+          setNestedValue(config.settings[settingsKey], 'enabled', true);
 
           // Handle mandatory configs
           for (const mandatoryConfig of pluginData.mandatory_config || []) {
             const inputElement = document.getElementById(`${pluginName}-${mandatoryConfig.name}-input`);
             if (inputElement) {
               // Use settings_key to map to correct location, fallback to config name
-              const settingsKey = mandatoryConfig.settings_key || mandatoryConfig.name;
-              setNestedValue(config.settings[pluginName], settingsKey, inputElement.value || '');
+              const configSettingsKey = mandatoryConfig.settings_key || mandatoryConfig.name;
+              setNestedValue(config.settings[settingsKey], configSettingsKey, inputElement.value || '');
             }
           }
 
@@ -2455,8 +2458,8 @@
               if (checkbox && checkbox.checked) {
                 // Apply the settings from the selected option
                 if (option.settings) {
-                  config.settings[pluginName] = {
-                    ...config.settings[pluginName],
+                  config.settings[settingsKey] = {
+                    ...config.settings[settingsKey],
                     ...option.settings
                   };
                 }
