@@ -2434,6 +2434,9 @@
 
           config.settings[pluginName] = {};
 
+          // Explicitly enable the selected plugin
+          setNestedValue(config.settings[pluginName], 'enabled', true);
+
           // Handle mandatory configs
           for (const mandatoryConfig of pluginData.mandatory_config || []) {
             const inputElement = document.getElementById(`${pluginName}-${mandatoryConfig.name}-input`);
