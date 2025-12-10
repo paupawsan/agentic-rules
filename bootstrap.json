@@ -14,9 +14,9 @@
     "settings_confirmation_mandatory": true,
     "entry_points": {
       "global_config": "settings/global-settings.json",
-      "memory_config": "memory-rules/settings.json",
-      "thinking_config": "critical-thinking-rules/settings.json",
-      "rag_config": "rag-rules/settings.json"
+      "memory_config": "modules/memory-rules/settings.json",
+      "thinking_config": "modules/critical-thinking-rules/settings.json",
+      "rag_config": "modules/rag-rules/settings.json"
     },
     "loading_sequence": [
       {
@@ -42,7 +42,7 @@
       {
         "step": 4,
         "action": "load_rag_config",
-        "file": "rag-rules/settings.json",
+        "file": "modules/rag-rules/settings.json",
         "condition": "global_config.agentic_rules_framework.rule_categories.rag_rules.enabled",
         "priority": "high",
         "user_approval_required": true,
@@ -51,7 +51,7 @@
       {
         "step": 5,
         "action": "load_memory_config",
-        "file": "memory-rules/settings.json",
+        "file": "modules/memory-rules/settings.json",
         "condition": "global_config.agentic_rules_framework.rule_categories.memory_rules.enabled",
         "priority": "medium",
         "user_approval_required": true,
@@ -60,7 +60,7 @@
       {
         "step": 6,
         "action": "load_thinking_config",
-        "file": "critical-thinking-rules/settings.json",
+        "file": "modules/critical-thinking-rules/settings.json",
         "condition": "global_config.agentic_rules_framework.rule_categories.critical_thinking_rules.enabled",
         "priority": "high",
         "user_approval_required": true,
@@ -165,14 +165,14 @@
     "framework_validation": {
       "required_config_files": [
         "settings/global-settings.json",
-        "memory-rules/settings.json",
-        "critical-thinking-rules/settings.json",
-        "rag-rules/settings.json"
+        "modules/memory-rules/settings.json",
+        "modules/critical-thinking-rules/settings.json",
+        "modules/rag-rules/settings.json"
       ],
       "required_rule_files": [
-        "memory-rules/MEMORY-RULES.md",
-        "critical-thinking-rules/CRITICAL-THINKING-RULES.md",
-        "rag-rules/RAG-RULES.md"
+        "modules/memory-rules/MEMORY-RULES.md",
+        "modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md",
+        "modules/rag-rules/RAG-RULES.md"
       ],
       "bootstrap_compliance": {
         "loading_sequence_mandatory": true,
