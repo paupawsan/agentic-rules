@@ -815,6 +815,7 @@ def generate_readme(plugin_name, display_name, description, current_year=None, t
                 'plugin_name_kebab': plugin_name.replace('-', ' '),
                 'display_name': display_name,
                 'description': description,
+                'pascal_case_name': kebab_to_pascal_case(plugin_name),
                 'author_name': '{author_name}',  # Keep as placeholder
                 'current_year': current_year
             }
