@@ -62,6 +62,13 @@
       "allow_settings_modification": true,
       "privacy_mode": "transparent",
       "user_data_control": "user_managed"
+    },
+    "scaffold_config": {
+      "template_version": "1.0.0",
+      "template_tag_format": "Template_{version}",
+      "github_repo": "https://github.com/paupawsan/agentic-rules",
+      "prefer_local_templates": true,
+      "template_cache_enabled": true
     }
   }
 }

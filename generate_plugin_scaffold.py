@@ -44,36 +44,109 @@ def get_creation_timestamp():
     """Get the current timestamp in ISO format for creation metadata."""
     return datetime.now().isoformat()
 
+def get_scaffold_config():
+    """Get scaffold configuration from global settings."""
+    try:
+        # Read global settings
+        script_dir = get_script_directory()
+        settings_file = script_dir / "settings" / "global-settings.json"
+
+        if not settings_file.exists():
+            # Fallback to default config
+            return {
+                "template_version": "1.0.0",
+                "template_tag_format": "Template_{version}",
+                "github_repo": "https://github.com/paupawsan/agentic-rules",
+                "prefer_local_templates": True,
+                "template_cache_enabled": True
+            }
+
+        with open(settings_file, 'r', encoding='utf-8') as f:
+            settings = json.load(f)
+
+        scaffold_config = settings.get("agentic_rules_framework", {}).get("scaffold_config", {})
+
+        # Merge with defaults
+        defaults = {
+            "template_version": "1.0.0",
+            "template_tag_format": "Template_{version}",
+            "github_repo": "https://github.com/paupawsan/agentic-rules",
+            "prefer_local_templates": True,
+            "template_cache_enabled": True
+        }
+
+        for key, value in defaults.items():
+            if key not in scaffold_config:
+                scaffold_config[key] = value
+
+        return scaffold_config
+
+    except Exception as e:
+        print(f"⚠️  Warning: Could not read scaffold config: {e}")
+        return {
+            "template_version": "1.0.0",
+            "template_tag_format": "Template_{version}",
+            "github_repo": "https://github.com/paupawsan/agentic-rules",
+            "prefer_local_templates": True,
+            "template_cache_enabled": True
+        }
+
+def get_template_tag_name(scaffold_config=None):
+    """Get the template tag name based on configuration."""
+    if scaffold_config is None:
+        scaffold_config = get_scaffold_config()
+
+    template_version = scaffold_config["template_version"]
+    tag_format = scaffold_config["template_tag_format"]
+
+    return tag_format.format(version=template_version)
+
 def clone_templates_branch():
-    """Clone the Template branch to a temporary directory and return the path.
+    """Clone the Template tag to a temporary directory and return the path.
     Falls back to downloading from GitHub if local git access fails."""
+
+    scaffold_config = get_scaffold_config()
+    template_tag = get_template_tag_name(scaffold_config)
+    prefer_local = scaffold_config.get("prefer_local_templates", True)
     temp_dir = Path(tempfile.mkdtemp(prefix="agentic-templates-"))
 
     try:
-        # First try: Use local git worktree (preferred method)
-        try:
-            # Get the current repository root
-            repo_root = subprocess.run(
-                ["git", "rev-parse", "--show-toplevel"],
-                capture_output=True, text=True, check=True
-            ).stdout.strip()
+        # First try: Use local git worktree (preferred method) if enabled
+        if prefer_local:
+            try:
+                # Get the current repository root
+                repo_root = subprocess.run(
+                    ["git", "rev-parse", "--show-toplevel"],
+                    capture_output=True, text=True, check=True
+                ).stdout.strip()
 
-            # Use git worktree to create a temporary worktree for the Template branch
-            subprocess.run(
-                ["git", "worktree", "add", "--detach", str(temp_dir), "Template"],
-                check=True, capture_output=True
-            )
+                # Check if the tag exists locally
+                tag_check = subprocess.run(
+                    ["git", "tag", "-l", template_tag],
+                    capture_output=True, text=True
+                )
+                if template_tag not in tag_check.stdout.strip():
+                    print(f"⚠️  Local tag '{template_tag}' not found, will download from GitHub")
+                    raise FileNotFoundError(f"Tag {template_tag} not found locally")
 
-            templates_dir = temp_dir / "templates"
-            if not templates_dir.exists():
-                raise FileNotFoundError(f"Templates directory not found in Template branch: {templates_dir}")
+                # Use git worktree to create a temporary worktree for the Template tag
+                subprocess.run(
+                    ["git", "worktree", "add", "--detach", str(temp_dir), f"tags/{template_tag}"],
+                    check=True, capture_output=True
+                )
 
-            print("📥 Using local Template branch")
-            return temp_dir
+                templates_dir = temp_dir / "templates"
+                if not templates_dir.exists():
+                    raise FileNotFoundError(f"Templates directory not found in {template_tag}: {templates_dir}")
 
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            # Local git method failed, try downloading from GitHub
-            print("📥 Local Template branch not available, downloading from GitHub...")
+                print(f"📥 Using local tag '{template_tag}'")
+                return temp_dir
+
+            except (subprocess.CalledProcessError, FileNotFoundError):
+                # Local git method failed, try downloading from GitHub
+                print(f"📥 Local tag '{template_tag}' not available, downloading from GitHub...")
+
+        # Download from GitHub if local is disabled or failed
 
             # Clean up the failed git worktree attempt
             cleanup_templates_clone(temp_dir)
@@ -98,11 +171,11 @@ def clone_templates_branch():
                 if remote_url.endswith(".git"):
                     remote_url = remote_url[:-4]
 
-                # Construct zip download URL for Template branch
-                zip_url = f"{remote_url}/archive/refs/heads/Template.zip"
+                # Construct zip download URL for Template tag
+                zip_url = f"{remote_url}/archive/refs/tags/{template_tag}.zip"
                 zip_path = temp_dir / "template.zip"
 
-                print(f"📦 Downloading templates from: {zip_url}")
+                print(f"📦 Downloading templates from tag '{template_tag}': {zip_url}")
 
                 # Download the zip file
                 with urllib.request.urlopen(zip_url) as response:
@@ -113,7 +186,7 @@ def clone_templates_branch():
                 with zipfile.ZipFile(zip_path, 'r') as zip_ref:
                     zip_ref.extractall(temp_dir)
 
-                # Find the extracted directory (GitHub zip includes branch name)
+                # Find the extracted directory (GitHub zip includes tag name)
                 extracted_dirs = [d for d in temp_dir.iterdir() if d.is_dir() and d.name != "__MACOSX"]
                 if not extracted_dirs:
                     raise RuntimeError("No directories found in downloaded zip")
