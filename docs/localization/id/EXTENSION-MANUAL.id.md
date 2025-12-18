@@ -13,7 +13,7 @@ python generate_plugin_scaffold.py
 **Fitur:**
 - Antarmuka wizard terpandu
 - Generasi file otomatis
-- Dukungan multi-bahasa
+- Dukungan multi-bahasa (3 inti + 15+ bahasa diperluas)
 - Pendaftaran plugin di `plugins.json`
 
 ### Opsi 2: Pembuatan Plugin Baris Perintah
@@ -25,6 +25,7 @@ python generate_plugin_scaffold.py --name my-plugin --description "Plugin hebat 
 python generate_plugin_scaffold.py --template memory-rules --name my-memory-plugin
 
 # Plugin multi-bahasa (deskripsi diperlukan)
+# Catatan: Framework inti mendukung EN/JA/ID, plugin dapat menggunakan 15+ bahasa tambahan
 python generate_plugin_scaffold.py --name my-plugin --description "Contoh plugin multi-bahasa" --langs en,ja,id,zh
 
 # Lanjutan: dinonaktifkan secara default

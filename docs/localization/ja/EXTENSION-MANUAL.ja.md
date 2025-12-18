@@ -13,7 +13,7 @@ python generate_plugin_scaffold.py
 **機能:**
 - ガイド付きウィザードインターフェース
 - 自動ファイル生成
-- 多言語サポート
+- 多言語サポート（3つのコア + 15以上の拡張言語）
 - `plugins.json`でのプラグイン登録
 
 ### オプション2: コマンドラインプラグイン作成
@@ -25,6 +25,7 @@ python generate_plugin_scaffold.py --name my-plugin --description "My awesome pl
 python generate_plugin_scaffold.py --template memory-rules --name my-memory-plugin
 
 # 多言語プラグイン（説明必須）
+# 注意: コアフレームワークはEN/JA/IDをサポート、プラグインは15以上の追加言語を使用可能
 python generate_plugin_scaffold.py --name my-plugin --description "Multi-language plugin example" --langs en,ja,id,zh
 
 # 高度: デフォルトで無効化

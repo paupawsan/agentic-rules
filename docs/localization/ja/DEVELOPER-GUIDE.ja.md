@@ -60,7 +60,7 @@ xdg-open setup.html  # Linux
 
 ### 2. 設定の構成
 
-- **エージェント言語**: 生成ファイルの言語を選択（18以上の言語対応）
+- **エージェント言語**: 生成ファイルの言語を選択（EN/JA/IDコア、プラグイン用に15以上の拡張）
 - **ファイルタイプ**: AGENTS.md（標準）、GEMINI.md（Gemini）、CLAUDE.md（Claude）
 - **ルール選択**: 必要なAI動作を有効化
 
@@ -108,7 +108,7 @@ agentic-rules/
 ├── bootstrap.json         # フレームワーク設定
 ├── CORE-RULES.md         # フレームワーク概要
 └── [rule-name]/          # ルールディレクトリ
-    ├── RULES.md.*        # ルールテンプレート (EN/JA/ID)
+    ├── RULES.md.*        # ルールテンプレート (EN/JA/IDコア言語)
     ├── settings.json     # デフォルト設定
     └── setup.json       # ルール設定
 ```

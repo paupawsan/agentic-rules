@@ -15,7 +15,9 @@
 2. Browser web default Anda akan terbuka secara otomatis
 
 ### Langkah 3: Konfigurasi Aturan Anda
-1. **Pilih Bahasa**: Pilih dari 18+ bahasa yang didukung (🇺🇸 English, 🇯🇵 日本語, 🇮🇩 Bahasa Indonesia, 🇩🇪 Deutsch, 🇫🇷 Français, dll.)
+1. **Pilih Bahasa**: Pilih dari bahasa yang didukung
+   - **Framework Inti**: 🇺🇸 English, 🇯🇵 日本語, 🇮🇩 Bahasa Indonesia (dukungan resmi)
+   - **Diperluas**: 15+ bahasa tambahan tersedia untuk plugin (🇩🇪 Deutsch, 🇫🇷 Français, dll.)
 2. **Pilih Aturan**: Centang kotak untuk perilaku AI yang Anda inginkan:
    - 🧠 **Aturan Memori**: Membantu AI mengingat konteks di seluruh percakapan
    - 📚 **Aturan RAG**: Meningkatkan kemampuan AI untuk mencari dan menggunakan informasi yang relevan

@@ -60,7 +60,7 @@ Membuka setup.html dengan dialog unduh/simpan.
 
 ### 2. Konfigurasi Pengaturan
 
-- **Bahasa Agen**: Pilih bahasa untuk file yang dihasilkan (18+ bahasa didukung)
+- **Bahasa Agen**: Pilih bahasa untuk file yang dihasilkan (EN/JA/ID inti, 15+ diperluas untuk plugin)
 - **Jenis File**: AGENTS.md (standar), GEMINI.md (Gemini), atau CLAUDE.md (Claude)
 - **Pemilihan Aturan**: Aktifkan perilaku AI yang diinginkan
 
@@ -108,7 +108,7 @@ agentic-rules/
 ├── bootstrap.json         # Konfigurasi framework
 ├── CORE-RULES.md         # Ikhtisar framework
 └── [rule-name]/          # Direktori aturan
-    ├── RULES.md.*        # Template aturan (EN/JA/ID)
+    ├── RULES.md.*        # Template aturan (bahasa inti EN/JA/ID)
     ├── settings.json     # Pengaturan default
     └── setup.json       # Konfigurasi aturan
 ```
