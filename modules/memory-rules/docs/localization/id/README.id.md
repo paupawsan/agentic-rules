@@ -2,7 +2,47 @@
 
 ## Ikhtisar
 
-**Plugin Aturan Memori** memberikan kemampuan memori persisten untuk agen AI, memungkinkan mereka untuk mengingat konteks, belajar dari interaksi, dan membangun pengetahuan seiring waktu. Plugin ini mengimplementasikan sistem memori canggih dengan beberapa kategori dan pengorganisasian cerdas.
+**Plugin Aturan Memori** memberikan kemampuan **memori persisten lokal** untuk agen AI, memungkinkan mereka untuk mengingat konteks, belajar dari interaksi, dan membangun pengetahuan seiring waktu. Plugin ini mengimplementasikan sistem memori canggih dengan beberapa kategori dan pengorganisasian cerdas.
+
+## 📖 Kisah di Balik Proyek Ini
+
+Ini adalah ekstensi praktis dari format panduan agen AI yang ada. Ini bukan teknologi tinggi—ini adalah solusi praktis yang lahir dari kebutuhan dunia nyata.
+
+**Catatan**: Format panduan agen AI memberikan konteks dan instruksi untuk membantu agen AI bekerja secara efektif di proyek, mirip dengan bagaimana file README memandu pengembang manusia.
+
+### Mengapa Ini Ada
+
+Saya telah menggunakan banyak alat memori, termasuk server MCP memori. Mereka cepat dan efisien, tetapi ada masalah fundamental: **data yang mereka simpan terlalu minimal dan saya tidak bisa melihatnya dengan mata manusia biasa tanpa ekstraksi data yang tepat.**
+
+Jadi saya memutuskan untuk membuat **sistem memori lokal** ini—pendekatan sederhana yang dapat dibaca manusia yang memberi Anda visibilitas dan kontrol penuh atas memori agen AI Anda.
+
+### Apa yang Membantu Anda Lakukan
+
+📊 **Analisis Harian**: Membantu agen menganalisis temuan harian Anda, hambatan, perjuangan, dan kelemahan secara lokal
+📝 **Laporan Harian**: Secara otomatis menghasilkan laporan harian dari sesi kerja Anda
+🔍 **Analisis Basis Kode**: Analisis basis kode Anda sekali, simpan di memori, lalu agen akan memperbarui secara tepat saat Anda mengubah cabang atau melakukan refactoring besar—tidak perlu menganalisis ulang semuanya
+
+### ⚠️ Penyangkalan Penting
+
+#### Pertimbangan Privasi
+Jika Anda peduli dengan privasi, **jangan berikan konten sensitif privasi pada awalnya.**
+
+Meskipun data Anda disimpan dengan aman secara lokal, agen yang Anda gunakan tidak bersifat pribadi. Ini tergantung pada pengaturan Anda jika berlaku untuk mencegah agen mengumpulkan atau belajar dari prompt yang Anda berikan.
+
+Cara yang aman: Gunakan model lokal dengan layanan lokal seperti:
+
+Ollama
+llama.cpp
+LM Studio
+
+#### Keterbatasan Sistem
+- Sistem ini adalah template dengan upaya terbaik—dikuratori sebisa mungkin agar generik
+- **Anda perlu aktif**: Anda yang perlu meminta agen untuk melakukan apa pun
+- **Perluas sendiri**: Berdasarkan preferensi Anda, Anda perlu memperluas sistem sendiri
+- **Gunakan model berkualitas tinggi untuk hasil terbaik** saat membuat aturan dan preferensi Anda sendiri:
+  Gemini 3 Pro (Thinking)
+  Cursor Composer 1
+  GPT-5.1 (Thinking)
 
 ## 🎯 Yang Dilakukan
 

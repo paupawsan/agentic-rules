@@ -2,7 +2,46 @@
 
 ## Overview
 
-The **Memory Rules** plugin provides persistent memory capabilities for AI agents, enabling them to retain context, learn from interactions, and build knowledge over time. This plugin implements a sophisticated memory system with multiple categories and intelligent organization.
+The **Memory Rules** plugin provides **local persistent memory** capabilities for AI agents, enabling them to retain context, learn from interactions, and build knowledge over time. This plugin implements a sophisticated memory system with multiple categories and intelligent organization.
+
+## 📖 The Story Behind This Project
+
+This is a practical extension of existing AI agent guidance formats. It's not high-tech—it's a practical solution born from real-world needs.
+
+**Note**: AI agent guidance formats provide context and instructions to help AI agents work effectively on projects, similar to how README files guide human developers.
+
+### Why This Exists
+
+I've used many memory tools, including memory MCP servers. They're fast and efficient, but there's a fundamental problem: **the data they store is too minimal and I can't see it with my bare human eye without proper data extraction.**
+
+So I decided to create this **local memory system**—a simple, human-readable approach that gives you full visibility and control over your AI agent's memory.
+
+### What It Helps You Do
+
+📊 **Daily Analysis**: Help agents analyze your daily findings, obstacles, struggles, and weaknesses locally
+📝 **Daily Reports**: Automatically generate daily reports from your work sessions
+🔍 **Codebase Analysis**: Analyze your codebase once, save it in memory, then agents will update appropriately when you change branches or do big refactoring—no need to re-analyze everything
+
+### ⚠️ Important Disclaimers
+
+#### Privacy Considerations
+If you care about privacy, **do not feed any privacy-sensitive content in the first place.**
+
+Even if your data is stored securely locally, the agent you're using is not private. It depends on your settings if applicable to prevent the agent from collecting or training on the prompts you feed to it.
+
+The safe way: Use local models with local services like:
+- Ollama
+- llama.cpp
+- LM Studio
+
+#### System Limitations
+- This system is a template at best effort—curated as much as possible to be generic
+- **You need to be active**: You're the one who needs to ask the agent to do anything
+- **Extend by yourself**: Based on your preferences, you'll need to extend the system yourself
+- **Use high-grade models for best results** when creating your own rules and preferences:
+  - Gemini 3 Pro (Thinking)
+  - Cursor Composer 1
+  - GPT-5.1 (Thinking)
 
 ## 🎯 What It Does
 

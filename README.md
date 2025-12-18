@@ -41,8 +41,8 @@ A plug-and-play framework providing structured rules for intelligent AI agent be
 
 The **Agentic Rules Framework** enhances AI agent capabilities through three specialized rule systems:
 
-### 🧠 **Memory Rules**
-📖 **[Plugin Details](modules/memory-rules/README.md)** - Intelligent memory management with 10 specialized categories for persistent context, learning, and personalization across sessions.
+### 🧠 **Memory Rules** (Local Memory System)
+📖 **[Plugin Details](modules/memory-rules/README.md)** - **Local, human-readable memory** system with 10 specialized categories for persistent context, learning, and personalization across sessions. Full visibility and control over your AI agent's memory data.
 
 ### 📚 **RAG Rules**
 📖 **[Plugin Details](modules/rag-rules/README.md)** - Advanced information processing with smart reading strategies, context optimization, and relevance scoring for efficient knowledge utilization.

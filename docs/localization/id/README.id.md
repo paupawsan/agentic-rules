@@ -41,8 +41,8 @@ Framework plug-and-play yang menyediakan aturan terstruktur untuk perilaku agen 
 
 **Agentic Rules Framework** meningkatkan kemampuan agen AI melalui 3 sistem aturan khusus:
 
-### 🧠 **Aturan Memori**
-📖 **[Detail Plugin](modules/memory-rules/README.md)** - Manajemen memori cerdas dengan 10 kategori khusus untuk konteks persisten, pembelajaran, dan personalisasi di seluruh sesi.
+### 🧠 **Aturan Memori** (Sistem Memori Lokal)
+📖 **[Detail Plugin](modules/memory-rules/README.md)** - **Sistem memori lokal yang dapat dibaca manusia** dengan 10 kategori khusus untuk konteks persisten, pembelajaran, dan personalisasi di seluruh sesi. Visibilitas dan kontrol penuh atas data memori agen AI Anda.
 
 ### 📚 **Aturan RAG**
 📖 **[Detail Plugin](modules/rag-rules/README.md)** - Pemrosesan informasi canggih dengan strategi membaca cerdas, optimasi konteks, dan penilaian relevansi untuk pemanfaatan pengetahuan yang efisien.
