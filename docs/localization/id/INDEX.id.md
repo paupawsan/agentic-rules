@@ -5,7 +5,7 @@ Folder ini berisi panduan lengkap untuk Agentic Rules Framework.
 ## Daftar Isi Dokumentasi
 
 ### 📖 Dokumentasi Utama
-- **[../../../README.md](../../../README.md)** - Penjelasan singkat framework, cara memulai cepat, dan panduan pengguna
+- **[../../README.id.md](../../README.id.md)** - Penjelasan singkat framework, cara memulai cepat, dan panduan pengguna
 - **[../../localization/id/CORE-RULES.id.md](../../localization/id/CORE-RULES.id.md)** - Aturan dasar dan struktur framework
 - **[SYSTEM-OVERVIEW.id.md](SYSTEM-OVERVIEW.id.md)** - Penjelasan lengkap tentang cara kerja sistem
 
