@@ -25,7 +25,7 @@
 <details>
 <summary>🇮🇩 Indonesian Documentation / インドネシア語ドキュメント</summary>
 
-- **[Halaman Utama / メインページ](docs/README.id.md)** - Ikhtisar framework dan mulai cepat
+- **[メインページ / Halaman Utama](../id/README.id.md)** - Ikhtisar framework dan mulai cepat
 - **[Indeks Dokumentasi / 説明書の目次](docs/localization/id/INDEX.id.md)** - Ringkasan dokumentasi
 - **[Panduan Pengguna / ユーザーガイド](docs/localization/id/USER-GUIDE.id.md)** - Panduan untuk pemula
 - **[Panduan Pengembang / 開発者ガイド](docs/localization/id/DEVELOPER-GUIDE.id.md)** - Detail teknis untuk insinyur
@@ -63,13 +63,13 @@
 経験レベルを選択してください：
 
 ### 👥 **すべての人向け** (技術知識不要)
-📖 **[ユーザーガイド](docs/localization/ja/USER-GUIDE.ja.md)** - ステップバイステップのセットアップ手順
+📖 **[ユーザーガイド](USER-GUIDE.ja.md)** - ステップバイステップのセットアップ手順
 
 ### 🔧 **エンジニア・開発者向け**
-📖 **[開発者ガイド](docs/localization/ja/DEVELOPER-GUIDE.ja.md)** - サーバーセットアップ、自動化、およびAPI使用
+📖 **[開発者ガイド](DEVELOPER-GUIDE.ja.md)** - サーバーセットアップ、自動化、およびAPI使用
 
 ### 🔌 **プラグイン開発者向け**
-📖 **[拡張マニュアル](docs/localization/ja/EXTENSION-MANUAL.ja.md)** - 新しいプラグインの作成方法
+📖 **[拡張マニュアル](EXTENSION-MANUAL.ja.md)** - 新しいプラグインの作成方法
 
 ## 📋 要件
 
@@ -107,17 +107,17 @@ python setup-launcher.py
 ## 📚 ドキュメント
 
 ### 🌍 多言語ドキュメント
-- **[English Documentation](README.md)** - 英語版ドキュメント
-- **[Dokumentasi Indonesia](docs/README.id.md)** - インドネシア語版ドキュメント
+- **[English Documentation](../../../README.md)** - 英語版ドキュメント
+- **[Dokumentasi Indonesia](../id/README.id.md)** - インドネシア語版ドキュメント
 
 ### 📖 主要ドキュメント
-- **[システムの概要](docs/localization/ja/SYSTEM-OVERVIEW.ja.md)** - アーキテクチャと仕組み
-- **[拡張マニュアル](docs/localization/ja/EXTENSION-MANUAL.ja.md)** - プラグイン開発ガイド
-- **[トラブルシューティング](docs/localization/ja/TROUBLESHOOTING.ja.md)** - 問題解決ガイド
+- **[システムの概要](SYSTEM-OVERVIEW.ja.md)** - アーキテクチャと仕組み
+- **[拡張マニュアル](EXTENSION-MANUAL.ja.md)** - プラグイン開発ガイド
+- **[トラブルシューティング](TROUBLESHOOTING.ja.md)** - 問題解決ガイド
 
 ### 🏗️ 開発者向け
-- **[開発者ガイド](docs/localization/ja/DEVELOPER-GUIDE.ja.md)** - 技術実装の詳細
-- **[コアルール](docs/localization/ja/CORE-RULES.ja.md)** - フレームワークの基本ルール
+- **[開発者ガイド](DEVELOPER-GUIDE.ja.md)** - 技術実装の詳細
+- **[コアルール](CORE-RULES.ja.md)** - フレームワークの基本ルール
 
 ## 🤝 貢献
 

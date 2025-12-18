@@ -25,7 +25,7 @@ Framework plug-and-play yang menyediakan aturan terstruktur untuk perilaku agen 
 <details>
 <summary>🇯🇵 Japanese Documentation / Dokumentasi Bahasa Jepang</summary>
 
-- **[メインページ / Halaman Utama](docs/README.ja.md)** - フレームワークの概要とクイックスタート
+- **[メインページ / Halaman Utama](../ja/README.ja.md)** - フレームワークの概要とクイックスタート
 - **[説明書の目次 / Indeks Dokumentasi](docs/localization/ja/INDEX.ja.md)** - 説明書の全体像
 - **[ユーザーガイド / Panduan Pengguna](docs/localization/ja/USER-GUIDE.ja.md)** - 初心者向けガイド
 - **[開発者ガイド / Panduan Pengembang](docs/localization/ja/DEVELOPER-GUIDE.ja.md)** - 技術者向け詳細
@@ -63,13 +63,13 @@ Framework plug-and-play yang menyediakan aturan terstruktur untuk perilaku agen 
 Pilih level pengalaman Anda:
 
 ### 👥 **Untuk Semua Orang** (Tidak Perlu Pengetahuan Teknis)
-📖 **[Panduan Pengguna](docs/localization/id/USER-GUIDE.id.md)** - Setup langkah demi langkah dengan instruksi
+📖 **[Panduan Pengguna](USER-GUIDE.id.md)** - Setup langkah demi langkah dengan instruksi
 
 ### 🔧 **Untuk Insinyur & Pengembang**
-📖 **[Panduan Pengembang](docs/localization/id/DEVELOPER-GUIDE.id.md)** - Setup server, otomasi, dan penggunaan API
+📖 **[Panduan Pengembang](DEVELOPER-GUIDE.id.md)** - Setup server, otomasi, dan penggunaan API
 
 ### 🔌 **Untuk Pengembang Plugin**
-📖 **[Manual Ekstensi](docs/localization/id/EXTENSION-MANUAL.id.md)** - Cara membuat plugin baru
+📖 **[Manual Ekstensi](EXTENSION-MANUAL.id.md)** - Cara membuat plugin baru
 
 ## 📋 Persyaratan
 
@@ -107,17 +107,17 @@ python setup-launcher.py
 ## 📚 Dokumentasi
 
 ### 🌍 Dokumentasi Multi-Bahasa
-- **[English Documentation](README.md)** - Dokumentasi versi Bahasa Inggris
-- **[日本語ドキュメント](docs/README.ja.md)** - Dokumentasi versi Bahasa Jepang
+- **[English Documentation](../../../README.md)** - Dokumentasi versi Bahasa Inggris
+- **[日本語ドキュメント](../ja/README.ja.md)** - Dokumentasi versi Bahasa Jepang
 
 ### 📖 Dokumentasi Utama
-- **[Ikhtisar Sistem](docs/localization/id/SYSTEM-OVERVIEW.id.md)** - Arsitektur dan mekanisme lengkap
-- **[Manual Ekstensi](docs/localization/id/EXTENSION-MANUAL.id.md)** - Panduan pengembangan plugin
-- **[Panduan Pemecahan Masalah](docs/localization/id/TROUBLESHOOTING.id.md)** - Panduan penyelesaian masalah
+- **[Ikhtisar Sistem](SYSTEM-OVERVIEW.id.md)** - Arsitektur dan mekanisme lengkap
+- **[Manual Ekstensi](EXTENSION-MANUAL.id.md)** - Panduan pengembangan plugin
+- **[Panduan Pemecahan Masalah](TROUBLESHOOTING.id.md)** - Panduan penyelesaian masalah
 
 ### 🏗️ Untuk Pengembang
-- **[Panduan Pengembang](docs/localization/id/DEVELOPER-GUIDE.id.md)** - Detail implementasi teknis
-- **[Aturan Inti](docs/localization/id/CORE-RULES.id.md)** - Aturan dasar framework
+- **[Panduan Pengembang](DEVELOPER-GUIDE.id.md)** - Detail implementasi teknis
+- **[Aturan Inti](CORE-RULES.id.md)** - Aturan dasar framework
 
 ## 🤝 Berkontribusi
 

@@ -11,7 +11,7 @@ A plug-and-play framework providing structured rules for intelligent AI agent be
 <details>
 <summary>🇯🇵 Japanese Documentation / 日本語ドキュメント</summary>
 
-- **[メインページ / Main Page](docs/README.ja.md)** - フレームワークの概要とクイックスタート
+- **[メインページ / Main Page](docs/localization/ja/README.ja.md)** - フレームワークの概要とクイックスタート
 - **[説明書の目次 / Documentation Index](docs/localization/ja/INDEX.ja.md)** - 説明書の全体像
 - **[ユーザーガイド / User Guide](docs/localization/ja/USER-GUIDE.ja.md)** - 初心者向けガイド
 - **[開発者ガイド / Developer Guide](docs/localization/ja/DEVELOPER-GUIDE.ja.md)** - 技術者向け詳細
@@ -25,7 +25,7 @@ A plug-and-play framework providing structured rules for intelligent AI agent be
 <details>
 <summary>🇮🇩 Indonesian Documentation / Dokumentasi Bahasa Indonesia</summary>
 
-- **[Halaman Utama / Main Page](docs/README.id.md)** - Ikhtisar framework dan mulai cepat
+- **[Halaman Utama / Main Page](docs/localization/id/README.id.md)** - Ikhtisar framework dan mulai cepat
 - **[Indeks Dokumentasi / Documentation Index](docs/localization/id/INDEX.id.md)** - Ringkasan dokumentasi
 - **[Panduan Pengguna / User Guide](docs/localization/id/USER-GUIDE.id.md)** - Panduan untuk pemula
 - **[Panduan Pengembang / Developer Guide](docs/localization/id/DEVELOPER-GUIDE.id.md)** - Detail teknis untuk insinyur
