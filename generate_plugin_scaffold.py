@@ -117,13 +117,15 @@ def clone_templates_branch():
                 # Get the current repository root
                 repo_root = subprocess.run(
                     ["git", "rev-parse", "--show-toplevel"],
-                    capture_output=True, text=True, check=True
+                    capture_output=True, text=True, check=True,
+                    cwd=get_script_directory()
                 ).stdout.strip()
 
                 # Check if the tag exists locally
                 tag_check = subprocess.run(
                     ["git", "tag", "-l", template_tag],
-                    capture_output=True, text=True
+                    capture_output=True, text=True,
+                    cwd=repo_root
                 )
                 if template_tag not in tag_check.stdout.strip():
                     print(f"⚠️  Local tag '{template_tag}' not found, will download from GitHub")
@@ -132,12 +134,22 @@ def clone_templates_branch():
                 # Use git worktree to create a temporary worktree for the Template tag
                 subprocess.run(
                     ["git", "worktree", "add", "--detach", str(temp_dir), f"tags/{template_tag}"],
-                    check=True, capture_output=True
+                    check=True, capture_output=True,
+                    cwd=repo_root
                 )
 
                 templates_dir = temp_dir / "templates"
                 if not templates_dir.exists():
-                    raise FileNotFoundError(f"Templates directory not found in {template_tag}: {templates_dir}")
+                    print(f"⚠️  Templates directory not found in worktree for tag '{template_tag}', checking if tag contains templates...")
+                    # The tag might exist but the templates directory might not be at the root
+                    # Let's check if there are any files in the worktree
+                    worktree_files = list(temp_dir.glob("*"))
+                    if worktree_files:
+                        print(f"Worktree contains: {[f.name for f in worktree_files]}")
+                        # If the tag exists but templates dir doesn't exist at root, it might be structured differently
+                        raise FileNotFoundError(f"Templates directory not found in {template_tag}: {templates_dir}")
+                    else:
+                        raise FileNotFoundError(f"Worktree for tag '{template_tag}' appears to be empty")
 
                 print(f"📥 Using local tag '{template_tag}'")
                 return temp_dir
@@ -160,7 +172,8 @@ def clone_templates_branch():
             try:
                 remote_url = subprocess.run(
                     ["git", "config", "--get", "remote.origin.url"],
-                    capture_output=True, text=True, check=True
+                    capture_output=True, text=True, check=True,
+                    cwd=repo_root
                 ).stdout.strip()
 
                 # Convert SSH URL to HTTPS if needed
