@@ -15,7 +15,9 @@
 2. Your default web browser will open automatically
 
 ### Step 3: Configure Your Rules
-1. **Choose Language**: Select from 18+ supported languages (🇺🇸 English, 🇯🇵 日本語, 🇮🇩 Bahasa Indonesia, 🇩🇪 Deutsch, 🇫🇷 Français, etc.)
+1. **Choose Language**: Select from supported languages
+   - **Core Framework**: 🇺🇸 English, 🇯🇵 日本語, 🇮🇩 Bahasa Indonesia (officially supported)
+   - **Extended**: 15+ additional languages available for plugins (🇩🇪 Deutsch, 🇫🇷 Français, etc.)
 2. **Select Rules**: Check the boxes for AI behaviors you want:
    - 🧠 **Memory Rules**: Helps AI remember context across conversations
    - 📚 **RAG Rules**: Improves AI's ability to find and use relevant information

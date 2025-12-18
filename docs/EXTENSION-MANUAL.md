@@ -13,7 +13,7 @@ python generate_plugin_scaffold.py
 **Features:**
 - Guided wizard interface
 - Automatic file generation
-- Multi-language support
+- Multi-language support (3 core + 15+ extended languages)
 - Plugin registration in `plugins.json`
 
 ### Option 2: Command-Line Plugin Creation
@@ -25,6 +25,7 @@ python generate_plugin_scaffold.py --name my-plugin --description "My awesome pl
 python generate_plugin_scaffold.py --template memory-rules --name my-memory-plugin
 
 # Multi-language plugin (description required)
+# Note: Core framework supports EN/JA/ID, plugins can use 15+ additional languages
 python generate_plugin_scaffold.py --name my-plugin --description "Multi-language plugin example" --langs en,ja,id,zh
 
 # Advanced: disabled by default
@@ -676,30 +677,41 @@ The scaffold generator supports **150+ world languages** with multiple input met
 
 ## 🌍 Language Support Matrix
 
-The framework provides comprehensive multilingual support across three levels:
+### ⚠️ **Important Language Support Clarification**
+
+**Framework Core Languages**: Only **3 languages** are officially supported for main agent rules:
+- **English (EN)**: Primary framework language
+- **Japanese (JA)**: Official secondary language
+- **Indonesian (ID)**: Official secondary language
+
+**Plugin Extension Languages**: Plugins can support **18+ additional languages** through the template system, but these are not part of the core framework.
+
+### 🔧 **Language Support Levels**
+
+The framework provides multilingual support across different components:
 
 ### 📊 Complete Language Support Table
 
 | Language | Code | Native Name | Rules Template | README Template | Setup UI | Status |
 |----------|------|-------------|----------------|-----------------|----------|--------|
-| **English** | `en` | English | ✅ Full | ✅ Full | ✅ Complete | **Core** |
-| **Japanese** | `ja` | 日本語 | ✅ Full | ❌ N/A | ✅ Complete | **Core** |
-| **Indonesian** | `id` | Bahasa Indonesia | ✅ Full | ❌ N/A | ✅ Complete | **Core** |
-| **German** | `de` | Deutsch | ✅ Full | ✅ Full | ✅ Complete | **Major** |
-| **French** | `fr` | Français | ✅ Full | ✅ Full | ✅ Complete | **Major** |
-| **Spanish** | `es` | Español | ✅ Full | ✅ Full | ✅ Complete | **Major** |
-| **Arabic** | `ar` | العربية | ✅ Full | ✅ Full | ✅ Complete | **Major** |
-| **Chinese** | `zh` | 中文 | ✅ Full | ❌ N/A | ❌ N/A | **Major** |
-| **Korean** | `ko` | 한국어 | ✅ Full | ❌ N/A | ✅ Complete | **Major** |
-| **Hindi** | `hi` | हिन्दी | ✅ Full | ❌ N/A | ✅ Complete | **Major** |
-| **Portuguese** | `pt` | Português | ✅ Full | ❌ N/A | ✅ Complete | **Major** |
-| **Russian** | `ru` | Русский | ✅ Full | ❌ N/A | ✅ Complete | **Major** |
-| **Turkish** | `tr` | Türkçe | ✅ Full | ❌ N/A | ✅ Complete | **Major** |
-| **Vietnamese** | `vi` | Tiếng Việt | ✅ Full | ❌ N/A | ✅ Complete | **Major** |
-| **Thai** | `th` | ภาษาไทย | ✅ Full | ❌ N/A | ✅ Complete | **Major** |
-| **Javanese** | `jv` | Basa Jawa | ✅ Full | ❌ N/A | ✅ Complete | **Major** |
-| **Sinhala** | `si` | සිංහල | ✅ Full | ❌ N/A | ✅ Complete | **Major** |
-| **Tamil** | `ta` | தமிழ் | ✅ Full | ❌ N/A | ✅ Complete | **Major** |
+| **English** | `en` | English | ✅ Full | ✅ Full | ✅ Complete | **🎯 Core** |
+| **Japanese** | `ja` | 日本語 | ✅ Full | ❌ N/A | ✅ Complete | **🎯 Core** |
+| **Indonesian** | `id` | Bahasa Indonesia | ✅ Full | ❌ N/A | ✅ Complete | **🎯 Core** |
+| **German** | `de` | Deutsch | ✅ Full | ✅ Full | ✅ Complete | **🔌 Plugin** |
+| **French** | `fr` | Français | ✅ Full | ✅ Full | ✅ Complete | **🔌 Plugin** |
+| **Spanish** | `es` | Español | ✅ Full | ✅ Full | ✅ Complete | **🔌 Plugin** |
+| **Arabic** | `ar` | العربية | ✅ Full | ✅ Full | ✅ Complete | **🔌 Plugin** |
+| **Chinese** | `zh` | 中文 | ✅ Full | ❌ N/A | ❌ N/A | **🔌 Plugin** |
+| **Korean** | `ko` | 한국어 | ✅ Full | ❌ N/A | ✅ Complete | **🔌 Plugin** |
+| **Hindi** | `hi` | हिन्दी | ✅ Full | ❌ N/A | ✅ Complete | **🔌 Plugin** |
+| **Portuguese** | `pt` | Português | ✅ Full | ❌ N/A | ✅ Complete | **🔌 Plugin** |
+| **Russian** | `ru` | Русский | ✅ Full | ❌ N/A | ✅ Complete | **🔌 Plugin** |
+| **Turkish** | `tr` | Türkçe | ✅ Full | ❌ N/A | ✅ Complete | **🔌 Plugin** |
+| **Vietnamese** | `vi` | Tiếng Việt | ✅ Full | ❌ N/A | ✅ Complete | **🔌 Plugin** |
+| **Thai** | `th` | ภาษาไทย | ✅ Full | ❌ N/A | ✅ Complete | **🔌 Plugin** |
+| **Javanese** | `jv` | Basa Jawa | ✅ Full | ❌ N/A | ✅ Complete | **🔌 Plugin** |
+| **Sinhala** | `si` | සිංහල | ✅ Full | ❌ N/A | ✅ Complete | **🔌 Plugin** |
+| **Tamil** | `ta` | தமிழ் | ✅ Full | ❌ N/A | ✅ Complete | **🔌 Plugin** |
 
 ### 🎯 Support Level Definitions
 
@@ -716,8 +728,9 @@ The framework provides comprehensive multilingual support across three levels:
 - ❌ **N/A**: English interface only
 
 #### **Status Categories**
-- **Core**: Original framework languages with complete support
-- **Major**: Extended languages with comprehensive support
+- **🎯 Core**: Official framework languages (EN/JA/ID only)
+- **🔌 Plugin**: Extended languages available for plugin development
+- **🌐 Global**: Additional world languages supported for validation
 
 **All World Languages (150+ ISO codes supported):**
 - 🌍 **African**: Arabic, Amharic, Hausa, Swahili, Yoruba, Zulu, Afrikaans...
@@ -738,10 +751,21 @@ Available plugins for `--template`:
 - `critical-thinking-rules` - Reasoning validation, error prevention, verification
 
 ### Language Support Details
-**Template Languages**: Only EN, JA, ID, ZH have actual rule templates
-**Input Languages**: 150+ world languages accepted for future template creation
-**Validation**: Comprehensive ISO 639-1 code validation with aliases
-**Display**: Interactive mode shows supported languages with native names and flags
+
+#### **Framework Core Templates**
+- **Main Agent Rules**: Only **EN/JA/ID** have complete rule templates
+- **Official Support**: Core framework functionality in 3 languages only
+- **Consistency**: All framework documentation and rules in EN/JA/ID
+
+#### **Plugin Extension Templates**
+- **Template Branch**: 18+ languages available for plugin development
+- **Scaffold Generation**: `generate_plugin_scaffold.py` supports all template languages
+- **Flexibility**: Plugins can be created in any supported language
+
+#### **Language Validation**
+- **Input Languages**: 150+ world languages accepted for plugin creation
+- **ISO 639-1**: Comprehensive code validation with aliases
+- **Display**: Interactive mode shows all supported languages with native names and flags
 
 ### Generated File Structure
 ```

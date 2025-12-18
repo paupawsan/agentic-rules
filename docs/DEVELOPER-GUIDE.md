@@ -60,7 +60,7 @@ Opens setup.html with download/save dialogs.
 
 ### 2. Configure Settings
 
-- **Agent Language**: Choose language for generated files (18+ languages supported)
+- **Agent Language**: Choose language for generated files (EN/JA/ID core, 15+ extended for plugins)
 - **File Type**: AGENTS.md (standard), GEMINI.md (Gemini), or CLAUDE.md (Claude)
 - **Rules Selection**: Enable desired AI behaviors
 
@@ -108,7 +108,7 @@ agentic-rules/
 ├── bootstrap.json         # Framework configuration
 ├── CORE-RULES.md         # Framework overview
 └── [rule-name]/          # Rule directories
-    ├── RULES.md.*        # Rule templates (EN/JA/ID)
+    ├── RULES.md.*        # Rule templates (EN/JA/ID core languages)
     ├── settings.json     # Default settings
     └── setup.json       # Rule configuration
 ```
