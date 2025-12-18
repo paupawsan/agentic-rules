@@ -15,9 +15,12 @@
 2. Browser web default Anda akan terbuka secara otomatis
 
 ### Langkah 3: Konfigurasi Aturan Anda
-1. **Pilih Bahasa**: Pilih dari bahasa yang didukung
-   - **Framework Inti**: 🇺🇸 English, 🇯🇵 日本語, 🇮🇩 Bahasa Indonesia (dukungan resmi)
-   - **Diperluas**: 15+ bahasa tambahan tersedia untuk plugin (🇩🇪 Deutsch, 🇫🇷 Français, dll.)
+1. **Pilih Bahasa**: Pilih dari bahasa yang didukung secara resmi
+   - 🇺🇸 **English** (Bahasa utama)
+   - 🇯🇵 **日本語** (Bahasa Jepang)
+   - 🇮🇩 **Bahasa Indonesia**
+
+   > 💡 **Untuk Pengembang Plugin**: Jika Anda ingin membuat plugin kustom dengan bahasa tambahan (🇩🇪 Deutsch, 🇫🇷 Français, 🇪🇸 Español, dll.), lihat [Manual Ekstensi](EXTENSION-MANUAL.id.md) untuk detail teknis penggunaan `generate_plugin_scaffold.py` dengan dukungan template multi-bahasa.
 2. **Pilih Aturan**: Centang kotak untuk perilaku AI yang Anda inginkan:
    - 🧠 **Aturan Memori**: Membantu AI mengingat konteks di seluruh percakapan
    - 📚 **Aturan RAG**: Meningkatkan kemampuan AI untuk mencari dan menggunakan informasi yang relevan
