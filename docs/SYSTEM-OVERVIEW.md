@@ -91,7 +91,7 @@ User interaction → Rule algorithms execute → Results coordinated → Respons
 ```json
 {
   "_metadata": {
-    "version": "0.1.0",
+    "version": "1.0.0",
     "compatibility": ["cursor", "vscode", "custom"],
     "license": "MIT"
   },
@@ -118,7 +118,7 @@ User interaction → Rule algorithms execute → Results coordinated → Respons
 {
   "_metadata": {
     "rule_name": "memory-rules",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "compatibility": ["cursor", "vscode"],
     "dependencies": ["rag-rules"]
   },

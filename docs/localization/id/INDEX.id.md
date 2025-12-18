@@ -62,7 +62,7 @@ Saat menambahkan aturan atau fitur baru:
 4. Sertakan contoh dan cara mengatasi masalah
 
 ## Versi
-Dokumentasi ini untuk versi framework 0.1.0.
+Dokumentasi ini untuk versi framework 1.0.0.
 
 ---
 

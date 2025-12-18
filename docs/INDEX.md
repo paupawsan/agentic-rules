@@ -85,7 +85,7 @@ When adding new rules or features:
 </details>
 
 ## Version
-This documentation corresponds to framework version 0.1.0.
+This documentation corresponds to framework version 1.0.0.
 
 ---
 

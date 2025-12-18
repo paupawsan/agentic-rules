@@ -91,7 +91,7 @@ Interaksi pengguna → Jalankan aturan → Gabungkan hasil → Buat respons
 ```json
 {
   "_info": {
-    "versi": "0.1.0",
+    "versi": "1.0.0",
     "kompatibilitas": ["cursor", "vscode", "custom"],
     "lisensi": "MIT"
   },

@@ -5,7 +5,7 @@
     "license_file": "LICENSE"
   },
   "agentic_bootstrap": {
-    "version": "0.1.0",
+    "version": "1.0.0",
     "framework_id": "agentic-core-rules-v1",
     "agent_algorithm_reference": "Bootstrap.md",
     "distributed_integration": true,

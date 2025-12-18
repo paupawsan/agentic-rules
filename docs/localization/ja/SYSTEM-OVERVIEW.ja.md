@@ -91,7 +91,7 @@ bootstrap.jsonを読み込み → 設定を確認 → ルールの読み込み�
 ```json
 {
   "_info": {
-    "version": "0.1.0",
+    "version": "1.0.0",
     "compatibility": ["cursor", "vscode", "custom"],
     "license": "MIT"
   },
@@ -118,7 +118,7 @@ bootstrap.jsonを読み込み → 設定を確認 → ルールの読み込み�
 {
   "_metadata": {
     "rule_name": "memory-rules",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "compatibility": ["cursor", "vscode"],
     "dependencies": ["rag-rules"]
   },

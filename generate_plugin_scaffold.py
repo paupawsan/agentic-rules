@@ -640,7 +640,7 @@ def generate_settings_json(plugin_name, display_name, enabled_by_default=True, c
             "created": creation_timestamp,
             "last_modified": creation_timestamp
         },
-        "version": "0.1.0",
+        "version": "1.0.0",
         f"{plugin_name.replace('-', '_')}": {
             "enabled": enabled_by_default,
             "config": {
@@ -1048,7 +1048,7 @@ def create_plugin_scaffold(plugin_name, display_name, description, languages, en
             # Create plugins.json if it doesn't exist
             plugins_config = {
                 "_comment": f"Copyright (c) {current_year} Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
-                "version": "0.1.0",
+                "version": "1.0.0",
                 "plugins": [],
                 "description": "Manifest of available agentic-rules plugins"
             }
