@@ -1,6 +1,8 @@
 # メモリールール エージェント統合 / Memory Rules Agent Integration
 
+<!-- SAFETY_PRECAUTION_START -->
 **⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`memory_rules.enabled = true`の場合のみ使用してください。
+<!-- SAFETY_PRECAUTION_END -->
 
 **必須 / MANDATORY**: settings.jsonでmemory_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。
 

@@ -1,6 +1,6 @@
 {
   "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "plugins": [
     "modules/critical-thinking-rules",
     "modules/memory-rules",

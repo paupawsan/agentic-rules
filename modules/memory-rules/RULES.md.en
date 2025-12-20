@@ -1,6 +1,8 @@
 # Memory Rules Agent Integration
 
+<!-- SAFETY_PRECAUTION_START -->
 **⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `memory_rules.enabled = true` in settings.json.
+<!-- SAFETY_PRECAUTION_END -->
 
 **MANDATORY**: If memory_rules.enabled = true in settings.json, agents MUST implement all algorithms below.
 

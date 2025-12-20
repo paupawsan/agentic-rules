@@ -60,23 +60,36 @@ The **Agentic Rules Framework** enhances AI agent capabilities through three spe
 
 ## 🚀 Quick Start
 
-Choose your experience level:
+### ⚡ **First-Time Setup** (One-Time Only)
+1. **Initialize Framework**: Run `initiate agentic rules` in your AI agent
+2. **Grant Consent**: Approve framework activation when prompted
+3. **Framework Ready**: System remembers initialization - no repeated prompts needed
 
-### 👥 **For Everyone** (No Technical Knowledge)
+**After initialization, the framework activates automatically with your agent.**
+
+### 📋 **Choose Your Experience Level**
+
+#### 👥 **For Everyone** (No Technical Knowledge)
 📖 **[User Guide](docs/USER-GUIDE.md)** - Double-click setup with step-by-step instructions
 
-### 🔧 **For Engineers & Developers**
+#### 🔧 **For Engineers & Developers**
 📖 **[Developer Guide](docs/DEVELOPER-GUIDE.md)** - Server setup, automation, and API usage
 
-### 🛠️ **For Plugin Developers**
+#### 🛠️ **For Plugin Developers**
 📖 **[Extension Manual](docs/EXTENSION-MANUAL.md)** - Plugin development and framework extension
 
-### 📚 **System Architecture & Technical Deep Dive**
+#### 📚 **System Architecture & Technical Deep Dive**
 📖 **[System Overview](docs/SYSTEM-OVERVIEW.md)** - Complete technical architecture and design principles
 
-### 🐛 **Troubleshooting & FAQ**
-📖 **[Troubleshooting Guide](docs/TROUBLESHOOTING.md)** - Solutions for common issues and manual loading instructions  
+#### 🐛 **Troubleshooting & FAQ**
+📖 **[Troubleshooting Guide](docs/TROUBLESHOOTING.md)** - Solutions for common issues and manual loading instructions
 🛠️ **Quick Scaffold**: `python generate_plugin_scaffold.py --help` - Generate plugin templates instantly
+
+### 🔄 **Framework Lifecycle**
+- **Initialization**: One-time setup with user consent
+- **Automatic Activation**: Framework loads automatically after first setup
+- **Configuration**: Modify settings in `settings/global-settings.json`
+- **Reset**: Delete `.agentic_initialized` file to force re-initialization
 
 ## 🤝 Contributing
 

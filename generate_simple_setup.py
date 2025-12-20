@@ -105,7 +105,7 @@ def generate_web_config():
     default_lang = get_default_language()
     available_langs = get_available_languages()
     web_config = {
-        "version": "1.0.0",
+        "version": "1.1.0",
         "description": "Static web configuration generated from setup.json files",
         "availableLanguages": available_langs,
         "uiLanguage": default_lang,
@@ -329,156 +329,6 @@ def embed_config_in_html(web_config):
                 agent_end_replace = agent_end_pos
                 new_html = new_html[:agent_start_replace] + f'\n{root_language_options}\n            ' + new_html[agent_end_replace:]
 
-    # Add per-plugin language selection JavaScript functions
-    # Find the script section that contains generateConfigInterface
-    generate_config_pos = new_html.find('function generateConfigInterface() {')
-    if generate_config_pos != -1:
-        # Find the function body start and end
-        function_start = new_html.find('{', generate_config_pos)
-        if function_start != -1:
-            # Find the end of the function (matching closing brace)
-            brace_count = 0
-            function_end = function_start
-            for i in range(function_start, len(new_html)):
-                if new_html[i] == '{':
-                    brace_count += 1
-                elif new_html[i] == '}':
-                    brace_count -= 1
-                    if brace_count == 0:
-                        function_end = i
-                        break
-
-            if function_end > function_start:
-                # Extract the current function content
-                current_function = new_html[function_start:function_end + 1]
-
-                # Replace the entire function with the corrected version
-                corrected_function = '''{
-      const container = document.getElementById('config-container');
-      container.innerHTML = '';
-
-      // Add mandatory configs first
-      for (const [pluginName, pluginData] of Object.entries(pluginConfig.plugins)) {
-        if (!selectedRules[pluginName]) continue;
-
-        // Check if plugin has multiple language templates
-        const availablePluginLanguages = Object.keys(pluginData.templates || {});
-        const hasMultipleLanguages = availablePluginLanguages.length > 1;
-
-        // Add language selector for plugins with multiple languages
-        if (hasMultipleLanguages) {
-          const langSection = generateLanguageSection(pluginName, availablePluginLanguages);
-          container.appendChild(langSection);
-        }
-
-        // Mandatory configs
-        for (const config of pluginData.mandatory_config || []) {
-          const configSection = generateConfigSection(pluginName, config, true);
-          container.appendChild(configSection);
-        }
-
-        // Optional configs
-        for (const config of pluginData.optional_config || []) {
-          const configSection = generateConfigSection(pluginName, config, false);
-          container.appendChild(configSection);
-        }
-      }
-    }'''
-
-                new_html = new_html[:function_start] + corrected_function + new_html[function_end + 1:]
-
-        # Add the generateLanguageSection and updatePluginLanguage functions
-        # Find a good place to insert them (before the closing script tag after generateConfigInterface)
-        script_end_after_generate = new_html.find('</script>', new_html.find('function generateConfigInterface()', generate_config_pos) + 1000)
-        if script_end_after_generate != -1:
-            per_plugin_functions = '''
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-'''
-            new_html = new_html[:script_end_after_generate] + per_plugin_functions + new_html[script_end_after_generate:]
 
     # Write back to setup.html
     try:
@@ -487,7 +337,6 @@ def embed_config_in_html(web_config):
 
         print("✅ Replaced staticWebConfig in setup.html")
         print(f"✅ Updated language options: {', '.join(root_languages)}")
-        print("✅ Added per-plugin language selection functions")
         return True
 
     except Exception as e:

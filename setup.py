@@ -178,6 +178,17 @@ def get_language_display_name(lang_code, ui_lang='en', available_langs=None):
     flag = flag_emojis.get(lang_code, '🏳️')
     return f'{flag} {lang_code.upper()}'
 
+def remove_safety_precaution_line(content, file_type):
+    """Remove safety precaution section when renaming to specific file types."""
+    if file_type in ['AGENTS.md', 'GEMINI.md', 'CLAUDE.md']:
+        import re
+        # Remove content between safety precaution markers
+        pattern = r'<!-- SAFETY_PRECAUTION_START -->.*?\n<!-- SAFETY_PRECAUTION_END -->'
+        content = re.sub(pattern, '', content, flags=re.DOTALL)
+        # Remove any extra blank lines that might be left after removing the section
+        content = re.sub(r'\n\n\n+', '\n\n', content)
+    return content
+
 def load_config_file(config_path):
     """Load configuration from a JSON file exported from setup.html."""
     if not config_path:
@@ -588,6 +599,9 @@ Agents using this framework must:
             shutil.copy2(target_file, backup_file)
             print("    Backed up existing file")
 
+        # Remove safety precaution line if renaming to specific file types
+        template_content = remove_safety_precaution_line(template_content, file_type)
+
         # Write the root file
         with open(target_file, 'w', encoding='utf-8') as f:
             f.write(template_content)
@@ -714,9 +728,16 @@ def activate_rule_templates(selected_rules, language, file_type, script_dir, lan
                 shutil.copy2(target_file, backup_file)
                 print(t('processing_backup', locale=lang))
 
-            # Copy template to target
-            import shutil
-            shutil.copy2(template_file, target_file)
+            # Read template content, remove safety precaution line if needed, and write to target
+            with open(template_file, 'r', encoding='utf-8') as f:
+                template_content = f.read()
+
+            # Remove safety precaution line if renaming to specific file types
+            template_content = remove_safety_precaution_line(template_content, file_type)
+
+            # Write the modified content to target file
+            with open(target_file, 'w', encoding='utf-8') as f:
+                f.write(template_content)
 
             print(t('processing_success', locale=lang, rule=rule))
             activated.append(rule)

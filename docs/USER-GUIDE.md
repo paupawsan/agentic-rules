@@ -4,17 +4,36 @@
 
 **Zero technical knowledge required!** This guide will walk you through setting up AI agent rules with simple double-clicks.
 
-## 🚀 Quick Start (Double-Click Method)
+## 🚀 Quick Start
 
-### Step 1: Download the Framework
+Choose the method that works best for you:
+
+### ⚡ **Method 1: Direct Agent Command (Recommended)**
+**One-time setup with your AI agent - no downloads required!**
+
+1. **Initialize Framework**: Tell your AI agent to run `initiate agentic rules`
+2. **Grant Permission**: When prompted, type `y` to enable the framework
+3. **Confirm Settings**: Review and confirm the rule settings (Memory, RAG, Critical Thinking)
+4. **Framework Active**: Your agent now has enhanced capabilities automatically!
+
+**Benefits:**
+- ✅ **Automatic**: Framework activates immediately with your agent
+- ✅ **No Files**: No downloads or file management needed
+- ✅ **Persistent**: System remembers setup - no repeated prompts
+- ✅ **Smart**: Only asks for permission once, then loads automatically
+
+### 🖱️ **Method 2: Web Interface Setup (Alternative)**
+For users who prefer visual configuration:
+
+#### Step 1: Download the Framework
 1. Download the `agentic-rules` framework files from GitHub
 2. Extract/unzip the downloaded files to any folder on your computer
 
-### Step 2: Launch the Setup
+#### Step 2: Launch the Setup
 1. **Double-click** `setup.html` in the extracted folder
 2. Your default web browser will open automatically
 
-### Step 3: Configure Your Rules
+#### Step 3: Configure Your Rules
 1. **Choose Language**: Select from officially supported languages
    - 🇺🇸 **English** (Primary language)
    - 🇯🇵 **日本語** (Japanese)
@@ -26,18 +45,18 @@
    - 📚 **RAG Rules**: Improves AI's ability to find and use relevant information
    - 🤔 **Critical Thinking Rules**: Makes AI more careful and accurate
 
-### Step 4: Generate Configuration
+#### Step 4: Generate Configuration
 1. Click **"Generate Configuration Files"**
 2. The interface will create your personalized AI rules
 
-### Step 5: Save Your Files
+#### Step 5: Save Your Files
 Choose how you want to save the files:
 
 - **💾 Save**: Opens a file browser to choose exactly where to save
 - **📥 Download**: Downloads files directly to your Downloads folder
 - **📋 Copy**: Copies content to clipboard for manual saving
 
-### Step 6: Use with Your AI Agent
+#### Step 6: Use with Your AI Agent
 1. Copy the generated files to your AI project's root directory
 2. Configure your AI agent to load the rule files
 3. Your AI agent now has enhanced capabilities!

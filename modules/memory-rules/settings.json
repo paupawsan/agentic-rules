@@ -6,7 +6,7 @@
   },
   "version": "1.0.0",
   "memory_rules": {
-    "enabled": true,
+    "enabled": false,
     "max_entries_per_category": 100,
     "cleanup_guidance_days": 90,
     "index_update_frequency": "realtime",

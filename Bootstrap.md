@@ -80,16 +80,20 @@
 ### Bootstrap Context Verification (MANDATORY - Execute First)
 **Algorithm: Verify_Bootstrap_Context**
 ```
-1. Check if bootstrap configuration is currently loaded in agent context
-2. IF bootstrap context is MISSING or INVALID:
+1. Check for initialization marker file (.agentic_initialized)
+2. IF marker file exists and is valid:
+   - Skip user consent prompts for standard initialization
+   - Proceed directly to configuration validation
+   - Log: "Framework previously initialized - skipping consent prompts"
+3. IF marker file is MISSING or INVALID:
    - Display user prompt: "Bootstrap configuration not found. Initialize Agentic Rules Framework? (y/n)"
    - REQUIRE explicit user approval before proceeding
    - IF user approves: Execute Framework_Bootstrap_Initialization
    - IF user declines: Terminate framework operations
-3. IF bootstrap context exists: Validate integrity and version compatibility
-4. IF validation fails: Display user prompt: "Bootstrap configuration corrupted. Reload framework? (y/n)"
-5. REQUIRE user confirmation for any bootstrap reload operations
-6. FORBIDDEN: Operate without valid bootstrap context
+4. IF bootstrap context exists: Validate integrity and version compatibility
+5. IF validation fails: Display user prompt: "Bootstrap configuration corrupted. Reload framework? (y/n)"
+6. REQUIRE user confirmation for any bootstrap reload operations
+7. FORBIDDEN: Operate without valid bootstrap context
 ```
 
 **MANDATORY**: Execute Verify_Bootstrap_Context before any framework operation.
@@ -113,7 +117,10 @@
 2. Validate framework version compatibility
 3. EXECUTE LOADING SEQUENCE DYNAMICALLY FROM CONFIGURATION:
    FOR each step in bootstrap.loading_sequence (in order):
-     - Read step.action, step.required, step.user_prompt, etc.
+     - Read step.action, step.required, step.condition, etc.
+     - IF step.condition exists (e.g., "not_initialized"):
+       - Check initialization status before executing
+       - SKIP step if condition not met
      - Execute the specified action according to step configuration
      - REQUIRE user approval for steps with user_approval_required: true
      - FORBIDDEN: Skip required steps or bypass user consent requirements
@@ -122,9 +129,10 @@
 4. Load configuration files specified in bootstrap.entry_points
 5. Apply platform adapters from bootstrap.platform_adapters
 6. Set up rule interconnections from bootstrap.rule_interconnections
-7. Run framework validation from bootstrap.framework_validation
-8. Log all bootstrap compliance actions
-9. Return initialized framework or error if compliance violated
+7. Create initialization marker file (.agentic_initialized) on successful completion
+8. Run framework validation from bootstrap.framework_validation
+9. Log all bootstrap compliance actions
+10. Return initialized framework or error if compliance violated
 ```
 
 #### 2. Rule Interconnection Management

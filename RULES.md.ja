@@ -1,6 +1,8 @@
 # Agentic Rules Framework 統合 / Agentic Rules Framework Integration
 
+<!-- SAFETY_PRECAUTION_START -->
 **⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで対応する設定が有効になっている場合のみ使用してください。
+<!-- SAFETY_PRECAUTION_END -->
 
 **必須 / MANDATORY**: エージェントは`bootstrap.json`のブートストラップ設定を尊重し、対応する設定が有効になっている場合のみルールファイルを読み込む必要があります。
 

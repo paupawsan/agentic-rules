@@ -1,6 +1,8 @@
 # Integrasi Agen Aturan RAG
 
+<!-- SAFETY_PRECAUTION_START -->
 **⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `rag_rules.enabled = true` di settings.json.
+<!-- SAFETY_PRECAUTION_END -->
 
 **WAJIB**: Jika rag_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.
 

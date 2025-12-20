@@ -5,7 +5,7 @@
     "license_file": "LICENSE"
   },
   "agentic_bootstrap": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "framework_id": "agentic-core-rules-v1",
     "agent_algorithm_reference": "Bootstrap.md",
     "distributed_integration": true,
@@ -20,10 +20,19 @@
     },
     "loading_sequence": [
       {
+        "step": 0,
+        "action": "check_initialization_status",
+        "description": "Check if framework has been previously initialized",
+        "required": true,
+        "initialization_marker": ".agentic_initialized",
+        "skip_if_initialized": true
+      },
+      {
         "step": 1,
         "action": "user_consent_prompt",
         "description": "Request user permission to enable Agentic Rules Framework",
         "required": true,
+        "condition": "not_initialized",
         "user_prompt": "The Agentic Rules Framework enhances AI behavior with systematic reasoning, memory, and context management. Do you want to enable this framework? (y/n)"
       },
       {

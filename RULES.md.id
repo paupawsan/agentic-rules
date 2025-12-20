@@ -1,6 +1,8 @@
 # Integrasi Kerangka Aturan Agentic
 
+<!-- SAFETY_PRECAUTION_START -->
 **⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna.
+<!-- SAFETY_PRECAUTION_END -->
 
 **WAJIB**: Agen harus menghormati konfigurasi bootstrap di `bootstrap.json` dan hanya memuat file aturan ketika pengaturan yang sesuai diaktifkan.
 
