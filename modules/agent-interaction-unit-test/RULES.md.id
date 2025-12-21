@@ -1,0 +1,76 @@
+# Integrasi Agen Unit Test Interaksi Agen
+
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `agent_interaction_unit_test.enabled = true` di settings.json.
+<!-- SAFETY_PRECAUTION_END -->
+
+**WAJIB**: Jika agent_interaction_unit_test.enabled = true dalam settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.
+
+## Gambaran Unit Test Interaksi Agen
+Kerangka kerja validasi dan pengujian otomatis untuk percakapan agen dengan transparansi maksimum dan persyaratan ground check, secara khusus dirancang untuk menguji pola interaksi agen.
+
+## Algoritma Implementasi yang Diperlukan
+
+**WAJIB**: Jika agent_interaction_unit_test.enabled = true dalam settings.json, agen HARUS mengimplementasikan semua algoritma dalam `CORE-RULES.md`.
+
+Lihat [CORE-RULES.md](CORE-RULES.md) untuk spesifikasi algoritma yang detail.
+
+## Kepatuhan Pengaturan
+- Hormati semua pengaturan di modules/agent-interaction-unit-test/settings.json
+- Aktifkan/nonaktifkan melalui toggle pengaturan (default: false)
+- Prompt pengguna jika agent_interaction_unit_test.enabled = false dan unit testing diminta
+- Jangan pernah aktifkan mode testing otomatis tanpa persetujuan eksplisit pengguna
+
+## Titik Integrasi
+- **Integrasi Memori**: Simpan hasil tes dan riwayat validasi
+- **Integrasi RAG**: Optimalkan konteks untuk skenario testing
+- **Critical Thinking**: Berikan dukungan validasi ground check
+- **Koordinasi Bootstrap**: Hormati prioritas loading dan sequencing aturan
+
+## Instruksi Penggunaan
+
+### Untuk Unit Testing:
+1. Set `agent_interaction_unit_test.enabled = true` di settings.json
+2. Eksekusi agen dengan test case
+3. Tinjau laporan kepatuhan untuk kriteria validasi
+4. Periksa cakupan ground check dan deteksi kesalahan
+5. Validasi transparansi pemanggilan tool dan dokumentasi keputusan
+
+### Format Test Case:
+```
+UNIT TEST: [Test_Name]
+Framework: Agentic Rules v1.1.0
+Task: [Specific_Test_Task]
+
+[Execute with unit test validation...]
+```
+
+### Kriteria Validasi:
+- ✅ **100% Kepatuhan Kerangka Kerja** - Semua algoritma dieksekusi
+- ✅ **100% Cakupan Ground Check** - Semua klaim diverifikasi
+- ✅ **0% Halusinasi** - Semua informasi diverifikasi sumber
+- ✅ **Transparansi Tool Lengkap** - Semua pemanggilan dicatat
+- ✅ **Dokumentasi Proses Keputusan** - Semua pilihan dijelaskan
+
+## Penanganan Kesalahan
+**WAJIB**: Agen harus menangani kesalahan secara transparan:
+- File konfigurasi hilang → Lewati operasi unit test
+- Pengaturan tidak valid → Gunakan nilai default dan log peringatan
+- Kesalahan sistem → Lanjutkan operasi tanpa fitur unit test
+- Kegagalan tes → Dokumentasikan masalah dan berikan panduan koreksi
+
+## Integrasi Kerangka Kerja
+**WAJIB**: Kerangka kerja ini tetap sebagai tool dan tidak boleh pernah disertakan dalam codebase project pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.
+
+## Tanggung Jawab Agen
+Agen yang menggunakan kerangka kerja ini harus:
+- Hormati semua pengaturan dan konfigurasi pengguna
+- Berikan feedback yang jelas ketika unit testing dinonaktifkan
+- Pertahankan netralitas kerangka kerja dalam konten yang dihasilkan
+- Ikuti persyaratan kepatuhan bootstrap
+- Akui kegagalan testing secara segera dan transparan
+
+**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.
+
+<!-- METADATA: Aturan unit test interaksi agen untuk integrasi agen validasi dan pengujian otomatis -->
+<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

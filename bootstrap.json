@@ -16,7 +16,8 @@
       "global_config": "settings/global-settings.json",
       "memory_config": "modules/memory-rules/settings.json",
       "thinking_config": "modules/critical-thinking-rules/settings.json",
-      "rag_config": "modules/rag-rules/settings.json"
+      "rag_config": "modules/rag-rules/settings.json",
+      "agent_interaction_unit_test_config": "modules/agent-interaction-unit-test/settings.json"
     },
     "loading_sequence": [
       {
@@ -74,6 +75,15 @@
         "priority": "high",
         "user_approval_required": true,
         "approval_prompt": "Critical Thinking Rules will validate responses and prevent hallucinations. Enable? (y/n)"
+      },
+      {
+        "step": 6.5,
+        "action": "load_agent_interaction_unit_test_config",
+        "file": "modules/agent-interaction-unit-test/settings.json",
+        "condition": "global_config.agentic_rules_framework.rule_categories.agent_interaction_unit_test.enabled",
+        "priority": "low",
+        "user_approval_required": true,
+        "approval_prompt": "Agent Interaction Unit Test will enable automated validation and testing framework. Enable? (y/n)"
       },
       {
         "step": 7,
@@ -176,12 +186,14 @@
         "settings/global-settings.json",
         "modules/memory-rules/settings.json",
         "modules/critical-thinking-rules/settings.json",
-        "modules/rag-rules/settings.json"
+        "modules/rag-rules/settings.json",
+        "modules/agent-interaction-unit-test/settings.json"
       ],
       "required_rule_files": [
         "modules/memory-rules/MEMORY-RULES.md",
         "modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md",
-        "modules/rag-rules/RAG-RULES.md"
+        "modules/rag-rules/RAG-RULES.md",
+        "modules/agent-interaction-unit-test/AGENTS.md"
       ],
       "bootstrap_compliance": {
         "loading_sequence_mandatory": true,

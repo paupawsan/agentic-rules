@@ -27,6 +27,12 @@
         "enabled": true,
         "priority": "high",
         "description": "Efficient information processing and context management"
+      },
+      "agent_interaction_unit_test": {
+        "path": "../agent-interaction-unit-test",
+        "enabled": false,
+        "priority": "low",
+        "description": "Automated validation and testing framework for agent conversations"
       }
     },
     "global_settings": {

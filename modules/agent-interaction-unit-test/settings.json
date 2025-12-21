@@ -1,0 +1,60 @@
+{
+  "agent_interaction_unit_test": {
+    "enabled": false,
+    "validation_level": "standard",
+    "ground_check": {
+      "enabled": true,
+      "required_coverage": 100,
+      "source_verification": true,
+      "cross_reference_checking": true
+    },
+    "assumption_challenge": {
+      "enabled": true,
+      "automatic_detection": true,
+      "challenge_threshold": "medium"
+    },
+    "error_admission": {
+      "enabled": true,
+      "immediate_correction": true,
+      "transparency_logging": true,
+      "prevention_measures": true
+    },
+    "tool_call_audit": {
+      "enabled": true,
+      "parameter_logging": true,
+      "execution_time_tracking": true,
+      "relevance_scoring": true
+    },
+    "decision_audit": {
+      "enabled": true,
+      "alternative_analysis": true,
+      "risk_assessment": true,
+      "validation_requirements": true
+    },
+    "context_management_audit": {
+      "enabled": true,
+      "window_utilization_tracking": true,
+      "information_prioritization": true,
+      "memory_integration_logging": true
+    },
+    "compliance_validation": {
+      "framework_compliance_check": true,
+      "ground_check_coverage_check": true,
+      "hallucination_detection": true,
+      "tool_transparency_check": true,
+      "decision_documentation_check": true
+    },
+    "reporting": {
+      "detailed_reports": true,
+      "pass_fail_criteria": true,
+      "performance_metrics": true,
+      "recommendation_generation": true
+    },
+    "test_configuration": {
+      "test_case_format_validation": true,
+      "response_structure_checking": true,
+      "documentation_completeness": true
+    },
+    "agent_interaction_unit_test.advanced.performance_mode": "balanced"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
+  "localization": {
+    "en": {
+      "plugin_name": "Agent Interaction Unit Test",
+      "description": "Automated validation and testing framework for agent conversations with maximum transparency and ground check requirements"
+    },
+    "ja": {
+      "plugin_name": "エージェントインタラクションユニットテスト",
+      "description": "エージェント会話の自動検証・テストフレームワーク。最大限の透明性とグラウンドチェック要件を備えています"
+    },
+    "id": {
+      "plugin_name": "Unit Test Interaksi Agen",
+      "description": "Kerangka kerja validasi dan pengujian otomatis untuk percakapan agen dengan transparansi maksimum dan persyaratan ground check"
+    }
+  },
+  "mandatory_config": [
+    {
+      "name": "agent_interaction_unit_test_enable",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Enable Agent Interaction Unit Test",
+          "description": "Enable or disable Agent Interaction Unit Test functionality"
+        },
+        "ja": {
+          "title": "エージェントインタラクションユニットテストを有効化",
+          "description": "エージェントインタラクションユニットテスト機能を有効または無効にします"
+        },
+        "id": {
+          "title": "Aktifkan Unit Test Interaksi Agen",
+          "description": "Aktifkan atau nonaktifkan fungsionalitas Unit Test Interaksi Agen"
+        }
+      },
+      "options": [
+        {
+          "name": "enable",
+          "localization": {
+            "en": {
+              "description": "Enable Agent Interaction Unit Test"
+            },
+            "ja": {
+              "description": "エージェントインタラクションユニットテストを有効化"
+            },
+            "id": {
+              "description": "Aktifkan Unit Test Interaksi Agen"
+            }
+          },
+          "recommended": false,
+          "settings": {
+            "agent_interaction_unit_test.enabled": true
+          }
+        },
+        {
+          "name": "disable",
+          "localization": {
+            "en": {
+              "description": "Disable Agent Interaction Unit Test"
+            },
+            "ja": {
+              "description": "エージェントインタラクションユニットテストを無効化"
+            },
+            "id": {
+              "description": "Nonaktifkan Unit Test Interaksi Agen"
+            }
+          },
+          "recommended": true,
+          "settings": {
+            "agent_interaction_unit_test.enabled": false
+          }
+        }
+      ],
+      "settings_key": "agent_interaction_unit_test.enabled",
+      "required": true
+    }
+  ],
+  "optional_config": [
+    {
+      "name": "performance_mode",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Performance Mode",
+          "description": "Choose performance optimization mode"
+        },
+        "ja": {
+          "title": "パフォーマンスモード",
+          "description": "パフォーマンス最適化モードを選択してください"
+        },
+        "id": {
+          "title": "Mode Performa",
+          "description": "Pilih mode optimasi performa"
+        }
+      },
+      "options": [
+        {
+          "name": "balanced",
+          "localization": {
+            "en": {
+              "description": "Balanced performance and features"
+            },
+            "ja": {
+              "description": "パフォーマンスと機能をバランスよく"
+            },
+            "id": {
+              "description": "Performa dan fitur seimbang"
+            }
+          },
+          "recommended": true,
+          "settings": {
+            "agent_interaction_unit_test.advanced.performance_mode": "balanced"
+          }
+        },
+        {
+          "name": "fast",
+          "localization": {
+            "en": {
+              "description": "Optimized for speed"
+            },
+            "ja": {
+              "description": "速度優先で最適化"
+            },
+            "id": {
+              "description": "Dioptimalkan untuk kecepatan"
+            }
+          },
+          "settings": {
+            "agent_interaction_unit_test.advanced.performance_mode": "fast"
+          }
+        }
+      ]
+    }
+  ]
+}

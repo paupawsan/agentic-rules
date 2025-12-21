@@ -9,6 +9,206 @@
   "uiLanguage": "en",
   "agentLanguage": "en",
   "plugins": {
+    "modules/agent-interaction-unit-test": {
+      "name": "modules/agent-interaction-unit-test",
+      "display_name": "Agent Interaction Unit Test",
+      "description": "Automated validation and testing framework for agent conversations with maximum transparency and ground check requirements",
+      "localization": {
+        "en": {
+          "plugin_name": "Agent Interaction Unit Test",
+          "description": "Automated validation and testing framework for agent conversations with maximum transparency and ground check requirements"
+        },
+        "ja": {
+          "plugin_name": "エージェントインタラクションユニットテスト",
+          "description": "エージェント会話の自動検証・テストフレームワーク。最大限の透明性とグラウンドチェック要件を備えています"
+        },
+        "id": {
+          "plugin_name": "Unit Test Interaksi Agen",
+          "description": "Kerangka kerja validasi dan pengujian otomatis untuk percakapan agen dengan transparansi maksimum dan persyaratan ground check"
+        }
+      },
+      "mandatory_config": [
+        {
+          "name": "agent_interaction_unit_test_enable",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Enable Agent Interaction Unit Test",
+              "description": "Enable or disable Agent Interaction Unit Test functionality"
+            },
+            "ja": {
+              "title": "エージェントインタラクションユニットテストを有効化",
+              "description": "エージェントインタラクションユニットテスト機能を有効または無効にします"
+            },
+            "id": {
+              "title": "Aktifkan Unit Test Interaksi Agen",
+              "description": "Aktifkan atau nonaktifkan fungsionalitas Unit Test Interaksi Agen"
+            }
+          },
+          "options": [
+            {
+              "name": "enable",
+              "localization": {
+                "en": {
+                  "description": "Enable Agent Interaction Unit Test"
+                },
+                "ja": {
+                  "description": "エージェントインタラクションユニットテストを有効化"
+                },
+                "id": {
+                  "description": "Aktifkan Unit Test Interaksi Agen"
+                }
+              },
+              "recommended": false,
+              "settings": {
+                "agent_interaction_unit_test.enabled": true
+              }
+            },
+            {
+              "name": "disable",
+              "localization": {
+                "en": {
+                  "description": "Disable Agent Interaction Unit Test"
+                },
+                "ja": {
+                  "description": "エージェントインタラクションユニットテストを無効化"
+                },
+                "id": {
+                  "description": "Nonaktifkan Unit Test Interaksi Agen"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "agent_interaction_unit_test.enabled": false
+              }
+            }
+          ],
+          "settings_key": "agent_interaction_unit_test.enabled",
+          "required": true
+        }
+      ],
+      "optional_config": [
+        {
+          "name": "performance_mode",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Performance Mode",
+              "description": "Choose performance optimization mode"
+            },
+            "ja": {
+              "title": "パフォーマンスモード",
+              "description": "パフォーマンス最適化モードを選択してください"
+            },
+            "id": {
+              "title": "Mode Performa",
+              "description": "Pilih mode optimasi performa"
+            }
+          },
+          "options": [
+            {
+              "name": "balanced",
+              "localization": {
+                "en": {
+                  "description": "Balanced performance and features"
+                },
+                "ja": {
+                  "description": "パフォーマンスと機能をバランスよく"
+                },
+                "id": {
+                  "description": "Performa dan fitur seimbang"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "agent_interaction_unit_test.advanced.performance_mode": "balanced"
+              }
+            },
+            {
+              "name": "fast",
+              "localization": {
+                "en": {
+                  "description": "Optimized for speed"
+                },
+                "ja": {
+                  "description": "速度優先で最適化"
+                },
+                "id": {
+                  "description": "Dioptimalkan untuk kecepatan"
+                }
+              },
+              "settings": {
+                "agent_interaction_unit_test.advanced.performance_mode": "fast"
+              }
+            }
+          ]
+        }
+      ],
+      "default_settings": {
+        "agent_interaction_unit_test": {
+          "enabled": false,
+          "validation_level": "standard",
+          "ground_check": {
+            "enabled": true,
+            "required_coverage": 100,
+            "source_verification": true,
+            "cross_reference_checking": true
+          },
+          "assumption_challenge": {
+            "enabled": true,
+            "automatic_detection": true,
+            "challenge_threshold": "medium"
+          },
+          "error_admission": {
+            "enabled": true,
+            "immediate_correction": true,
+            "transparency_logging": true,
+            "prevention_measures": true
+          },
+          "tool_call_audit": {
+            "enabled": true,
+            "parameter_logging": true,
+            "execution_time_tracking": true,
+            "relevance_scoring": true
+          },
+          "decision_audit": {
+            "enabled": true,
+            "alternative_analysis": true,
+            "risk_assessment": true,
+            "validation_requirements": true
+          },
+          "context_management_audit": {
+            "enabled": true,
+            "window_utilization_tracking": true,
+            "information_prioritization": true,
+            "memory_integration_logging": true
+          },
+          "compliance_validation": {
+            "framework_compliance_check": true,
+            "ground_check_coverage_check": true,
+            "hallucination_detection": true,
+            "tool_transparency_check": true,
+            "decision_documentation_check": true
+          },
+          "reporting": {
+            "detailed_reports": true,
+            "pass_fail_criteria": true,
+            "performance_metrics": true,
+            "recommendation_generation": true
+          },
+          "test_configuration": {
+            "test_case_format_validation": true,
+            "response_structure_checking": true,
+            "documentation_completeness": true
+          }
+        }
+      },
+      "templates": {
+        "en": "# Agent Interaction Unit Test Agent Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `agent_interaction_unit_test.enabled = true` in settings.json.\n<!-- SAFETY_PRECAUTION_END -->\n\n**MANDATORY**: If agent_interaction_unit_test.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## Agent Interaction Unit Test Overview\nAutomated validation and testing framework for agent conversations with maximum transparency and ground check requirements, specifically designed for testing agent interaction patterns.\n\n## Required Implementation Algorithms\n\n### Algorithm: AgentInteractionUnitTestValidation_Initialization_Process\n**MANDATORY**: Execute when agent_interaction_unit_test.enabled = true\n\n**Steps**:\n1. Read agent-interaction-unit-test/settings.json\n2. Initialize agent interaction unit test validation system\n3. Validate test configuration settings\n4. Return initialized agent interaction unit test framework\n\n**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.\n\n### Algorithm: GroundCheckValidation_Process\n**MANDATORY**: Execute for all information provided during unit testing\n\n**Steps**:\n1. Check agent_interaction_unit_test.enabled = true\n2. For each information piece provided:\n   - Verify source exists and content matches\n   - Cross-reference with alternative sources\n   - Flag any unverified claims\n3. Generate validation report with accuracy score\n4. Return ground check results\n\n### Algorithm: AssumptionChallenge_Process\n**MANDATORY**: Execute before responding to identify assumptions\n\n**Steps**:\n1. Check agent_interaction_unit_test.enabled = true\n2. Scan response for implicit assumptions\n3. Challenge each assumption with contrary evidence\n4. Require explicit validation for unsupported assumptions\n5. Return assumption validation results\n\n### Algorithm: ErrorAdmission_Process\n**MANDATORY**: Execute immediately when errors detected\n\n**Steps**:\n1. Check agent_interaction_unit_test.enabled = true\n2. Detect hallucinations or inaccuracies\n3. Immediately admit error with evidence\n4. Provide corrected information with sources\n5. Document prevention measures\n6. Return error correction report\n\n### Algorithm: ToolCallAudit_Process\n**MANDATORY**: Execute for every tool call during testing\n\n**Steps**:\n1. Check agent_interaction_unit_test.enabled = true\n2. Log exact function name and parameters\n3. Record return data and execution time\n4. Perform ground check validation\n5. Calculate relevance score with justification\n6. Return audited tool call data\n\n### Algorithm: DecisionAudit_Process\n**MANDATORY**: Execute for every decision point\n\n**Steps**:\n1. Check agent_interaction_unit_test.enabled = true\n2. Document alternative options considered\n3. Record chosen option with rationale\n4. Assess risks and mitigation strategies\n5. Validate decision against ground truth\n6. Return decision audit trail\n\n### Algorithm: ContextManagementAudit_Process\n**MANDATORY**: Execute to monitor context usage\n\n**Steps**:\n1. Check agent_interaction_unit_test.enabled = true\n2. Monitor context window utilization\n3. Track information prioritization decisions\n4. Log memory system integration\n5. Record optimization actions and impact\n6. Return context management metrics\n\n### Algorithm: AgentInteractionUnitTestCompliance_Process\n**MANDATORY**: Execute at response completion\n\n**Steps**:\n1. Check agent_interaction_unit_test.enabled = true\n2. Validate 100% framework compliance\n3. Verify 100% ground check coverage\n4. Confirm 0% hallucinations detected\n5. Assess complete tool transparency\n6. Generate agent interaction unit test report with pass/fail criteria\n7. Return compliance validation results\n\n## Settings Compliance\n- Respect all settings in modules/agent-interaction-unit-test/settings.json\n- Enable/disable via settings toggle (default: false)\n- Prompt user if agent_interaction_unit_test.enabled = false and unit testing requested\n- Never auto-enable testing mode without explicit user consent\n\n## Integration Points\n- **Memory Integration**: Store test results and validation history\n- **RAG Integration**: Optimize context for testing scenarios\n- **Critical Thinking**: Provide ground check validation support\n- **Bootstrap Coordination**: Respect loading priorities and rule sequencing\n\n## Usage Instructions\n\n### For Unit Testing:\n1. Set `agent_interaction_unit_test.enabled = true` in settings.json\n2. Execute agent with test case\n3. Review compliance report for validation criteria\n4. Check ground check coverage and error detection\n5. Validate tool call transparency and decision documentation\n\n### Test Case Format:\n```\nUNIT TEST: [Test_Name]\nFramework: Agentic Rules v1.1.0\nTask: [Specific_Test_Task]\n\n[Execute with unit test validation...]\n```\n\n### Validation Criteria:\n- ✅ **100% Framework Compliance** - All algorithms executed\n- ✅ **100% Ground Check Coverage** - All claims verified\n- ✅ **0% Hallucinations** - All information source-verified\n- ✅ **Complete Tool Transparency** - Every call logged\n- ✅ **Decision Process Documentation** - All choices explained\n\n## Error Handling\n**MANDATORY**: Agents must handle errors transparently:\n- Configuration file missing → Skip unit test operations\n- Invalid settings → Use default values and log warnings\n- System errors → Continue operation without unit test features\n- Test failures → Document issues and provide correction guidance\n\n## Framework Integration\n**MANDATORY**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.\n\n## Agent Responsibility\nAgents using this framework must:\n- Respect all user settings and configurations\n- Provide clear feedback when unit testing is disabled\n- Maintain framework neutrality in generated content\n- Follow bootstrap compliance requirements\n- Admit any testing failures immediately and transparently\n\n**VIOLATION**: Agents that do not respect these integration requirements or user settings.\n\n<!-- METADATA: Agent interaction unit test rules agent integration for automated validation and testing -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Unit Test Interaksi Agen\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `agent_interaction_unit_test.enabled = true` di settings.json.\n<!-- SAFETY_PRECAUTION_END -->\n\n**WAJIB**: Jika agent_interaction_unit_test.enabled = true dalam settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Gambaran Unit Test Interaksi Agen\nKerangka kerja validasi dan pengujian otomatis untuk percakapan agen dengan transparansi maksimum dan persyaratan ground check, secara khusus dirancang untuk menguji pola interaksi agen.\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algorithm: AgentInteractionUnitTestValidation_Initialization_Process\n**WAJIB**: Eksekusi ketika agent_interaction_unit_test.enabled = true\n\n**Langkah-langkah**:\n1. Baca agent-interaction-unit-test/settings.json\n2. Inisialisasi sistem validasi unit test interaksi agen\n3. Validasi pengaturan konfigurasi tes\n4. Kembalikan kerangka kerja unit test interaksi agen yang diinisialisasi\n\n**KRITIS**: Jangan aktifkan otomatis - hormati pengaturan aktif pengguna.\n\n### Algorithm: GroundCheckValidation_Process\n**WAJIB**: Eksekusi untuk semua informasi yang diberikan selama unit testing\n\n**Langkah-langkah**:\n1. Periksa agent_interaction_unit_test.enabled = true\n2. Untuk setiap bagian informasi yang diberikan:\n   - Verifikasi sumber ada dan konten cocok\n   - Cross-reference dengan sumber alternatif\n   - Tandai klaim yang tidak diverifikasi\n3. Hasilkan laporan validasi dengan skor akurasi\n4. Kembalikan hasil ground check\n\n### Algorithm: AssumptionChallenge_Process\n**WAJIB**: Eksekusi sebelum merespons untuk mengidentifikasi asumsi\n\n**Langkah-langkah**:\n1. Periksa agent_interaction_unit_test.enabled = true\n2. Pindai respons untuk asumsi implisit\n3. Tantang setiap asumsi dengan bukti yang bertentangan\n4. Memerlukan validasi eksplisit untuk asumsi yang tidak didukung\n5. Kembalikan hasil validasi asumsi\n\n### Algorithm: ErrorAdmission_Process\n**WAJIB**: Eksekusi segera ketika kesalahan terdeteksi\n\n**Langkah-langkah**:\n1. Periksa agent_interaction_unit_test.enabled = true\n2. Deteksi halusinasi atau ketidakakuratan\n3. Segera akui kesalahan dengan bukti\n4. Berikan informasi yang dikoreksi dengan sumber\n5. Dokumentasikan langkah pencegahan\n6. Kembalikan laporan koreksi kesalahan\n\n### Algorithm: ToolCallAudit_Process\n**WAJIB**: Eksekusi untuk setiap pemanggilan tool selama testing\n\n**Langkah-langkah**:\n1. Periksa agent_interaction_unit_test.enabled = true\n2. Log nama fungsi dan parameter yang tepat\n3. Catat data kembali dan waktu eksekusi\n4. Lakukan validasi ground check\n5. Hitung skor relevansi dengan justifikasi\n6. Kembalikan data pemanggilan tool yang diaudit\n\n### Algorithm: DecisionAudit_Process\n**WAJIB**: Eksekusi untuk setiap titik keputusan\n\n**Langkah-langkah**:\n1. Periksa agent_interaction_unit_test.enabled = true\n2. Dokumentasikan opsi alternatif yang dipertimbangkan\n3. Catat opsi yang dipilih dengan rationale\n4. Nilai risiko dan strategi mitigasi\n5. Validasi keputusan terhadap ground truth\n6. Kembalikan audit trail keputusan\n\n### Algorithm: ContextManagementAudit_Process\n**WAJIB**: Eksekusi untuk memantau penggunaan konteks\n\n**Langkah-langkah**:\n1. Periksa agent_interaction_unit_test.enabled = true\n2. Pantau pemanfaatan jendela konteks\n3. Lacak keputusan prioritas informasi\n4. Log integrasi sistem memori\n5. Catat tindakan optimasi dan dampak\n6. Kembalikan metrik manajemen konteks\n\n### Algorithm: AgentInteractionUnitTestCompliance_Process\n**WAJIB**: Eksekusi saat penyelesaian respons\n\n**Langkah-langkah**:\n1. Periksa agent_interaction_unit_test.enabled = true\n2. Validasi 100% kepatuhan kerangka kerja\n3. Verifikasi 100% cakupan ground check\n4. Konfirmasi 0% halusinasi terdeteksi\n5. Nilai transparansi tool yang lengkap\n6. Hasilkan laporan unit test interaksi agen dengan kriteria lulus/gagal\n7. Kembalikan hasil validasi kepatuhan\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di modules/agent-interaction-unit-test/settings.json\n- Aktifkan/nonaktifkan melalui toggle pengaturan (default: false)\n- Prompt pengguna jika agent_interaction_unit_test.enabled = false dan unit testing diminta\n- Jangan pernah aktifkan mode testing otomatis tanpa persetujuan eksplisit pengguna\n\n## Titik Integrasi\n- **Integrasi Memori**: Simpan hasil tes dan riwayat validasi\n- **Integrasi RAG**: Optimalkan konteks untuk skenario testing\n- **Critical Thinking**: Berikan dukungan validasi ground check\n- **Koordinasi Bootstrap**: Hormati prioritas loading dan sequencing aturan\n\n## Instruksi Penggunaan\n\n### Untuk Unit Testing:\n1. Set `agent_interaction_unit_test.enabled = true` di settings.json\n2. Eksekusi agen dengan test case\n3. Tinjau laporan kepatuhan untuk kriteria validasi\n4. Periksa cakupan ground check dan deteksi kesalahan\n5. Validasi transparansi pemanggilan tool dan dokumentasi keputusan\n\n### Format Test Case:\n```\nUNIT TEST: [Test_Name]\nFramework: Agentic Rules v1.1.0\nTask: [Specific_Test_Task]\n\n[Execute with unit test validation...]\n```\n\n### Kriteria Validasi:\n- ✅ **100% Kepatuhan Kerangka Kerja** - Semua algoritma dieksekusi\n- ✅ **100% Cakupan Ground Check** - Semua klaim diverifikasi\n- ✅ **0% Halusinasi** - Semua informasi diverifikasi sumber\n- ✅ **Transparansi Tool Lengkap** - Semua pemanggilan dicatat\n- ✅ **Dokumentasi Proses Keputusan** - Semua pilihan dijelaskan\n\n## Penanganan Kesalahan\n**WAJIB**: Agen harus menangani kesalahan secara transparan:\n- File konfigurasi hilang → Lewati operasi unit test\n- Pengaturan tidak valid → Gunakan nilai default dan log peringatan\n- Kesalahan sistem → Lanjutkan operasi tanpa fitur unit test\n- Kegagalan tes → Dokumentasikan masalah dan berikan panduan koreksi\n\n## Integrasi Kerangka Kerja\n**WAJIB**: Kerangka kerja ini tetap sebagai tool dan tidak boleh pernah disertakan dalam codebase project pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.\n\n## Tanggung Jawab Agen\nAgen yang menggunakan kerangka kerja ini harus:\n- Hormati semua pengaturan dan konfigurasi pengguna\n- Berikan feedback yang jelas ketika unit testing dinonaktifkan\n- Pertahankan netralitas kerangka kerja dalam konten yang dihasilkan\n- Ikuti persyaratan kepatuhan bootstrap\n- Akui kegagalan testing secara segera dan transparan\n\n**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.\n\n<!-- METADATA: Aturan unit test interaksi agen untuk integrasi agen validasi dan pengujian otomatis -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# エージェントインタラクションユニットテスト エージェント統合\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`agent_interaction_unit_test.enabled = true`の場合のみ使用してください。\n<!-- SAFETY_PRECAUTION_END -->\n\n**必須**: settings.json で agent_interaction_unit_test.enabled = true の場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## エージェントインタラクションユニットテスト概要\nエージェント会話の自動検証・テストフレームワーク。最大限の透明性とグラウンドチェック要件を備え、エージェントインタラクションパターンのテスト専用に設計されています。\n\n## 必須実装アルゴリズム\n\n### Algorithm: AgentInteractionUnitTestValidation_Initialization_Process\n**必須**: agent_interaction_unit_test.enabled = true の場合に実行\n\n**手順**:\n1. agent-interaction-unit-test/settings.json を読み込み\n2. エージェントインタラクションユニットテスト検証システムを初期化\n3. テスト設定を検証\n4. 初期化されたエージェントインタラクションユニットテストフレームワークを返す\n\n**重要**: 自動有効化しない - ユーザーの有効設定を尊重すること。\n\n### Algorithm: GroundCheckValidation_Process\n**必須**: ユニットテスト中に提供されるすべての情報に対して実行\n\n**手順**:\n1. agent_interaction_unit_test.enabled = true をチェック\n2. 提供された各情報について:\n   - ソースが存在し内容が一致することを検証\n   - 代替ソースと相互参照\n   - 未検証の主張にフラグを立てる\n3. 正確性スコア付きの検証レポートを生成\n4. グラウンドチェック結果を返す\n\n### Algorithm: AssumptionChallenge_Process\n**必須**: 応答前に実行して仮定を特定\n\n**手順**:\n1. agent_interaction_unit_test.enabled = true をチェック\n2. 応答から暗黙の仮定をスキャン\n3. 各仮定に反対の証拠で挑戦\n4. サポートされていない仮定に対して明示的な検証を要求\n5. 仮定検証結果を返す\n\n### Algorithm: ErrorAdmission_Process\n**必須**: エラーが検出された場合すぐに実行\n\n**手順**:\n1. agent_interaction_unit_test.enabled = true をチェック\n2. ハルシネーションや不正確さを検出\n3. 証拠とともにエラーを即座に認める\n4. ソース付きの修正情報を提供\n5. 防止策を文書化\n6. エラー修正レポートを返す\n\n### Algorithm: ToolCallAudit_Process\n**必須**: テスト中のすべてのツール呼び出しに対して実行\n\n**手順**:\n1. agent_interaction_unit_test.enabled = true をチェック\n2. 正確な関数名とパラメータをログ\n3. 戻りデータと実行時間を記録\n4. グラウンドチェック検証を実行\n5. 正当性スコアを計算\n6. 監査されたツール呼び出しデータを返す\n\n### Algorithm: DecisionAudit_Process\n**必須**: すべての決定ポイントで実行\n\n**手順**:\n1. agent_interaction_unit_test.enabled = true をチェック\n2. 考慮された代替オプションを文書化\n3. 選択されたオプションと理由を記録\n4. リスクと緩和戦略を評価\n5. グラウンドトゥルースに対して決定を検証\n6. 決定監査証跡を返す\n\n### Algorithm: ContextManagementAudit_Process\n**必須**: コンテキスト使用を監視するために実行\n\n**手順**:\n1. agent_interaction_unit_test.enabled = true をチェック\n2. コンテキストウィンドウ利用率を監視\n3. 情報優先順位付けの決定を追跡\n4. メモリシステム統合をログ\n5. 最適化アクションと影響を記録\n6. コンテキスト管理メトリクスを返す\n\n### Algorithm: AgentInteractionUnitTestCompliance_Process\n**必須**: 応答完了時に実行\n\n**手順**:\n1. agent_interaction_unit_test.enabled = true をチェック\n2. 100% フレームワークコンプライアンスを検証\n3. 100% グラウンドチェックカバレッジを確認\n4. 0% ハルシネーション検出を確認\n5. 完全なツール透明性を評価\n6. パス/フェイル基準付きのエージェントインタラクションユニットテストレポートを生成\n7. コンプライアンス検証結果を返す\n\n## 設定コンプライアンス\n- modules/agent-interaction-unit-test/settings.json のすべての設定を尊重\n- 設定トグルで有効/無効 (デフォルト: false)\n- agent_interaction_unit_test.enabled = false でユニットテストが要求された場合、ユーザーにプロンプト\n- 明示的なユーザー同意なしにテストモードを自動有効化しない\n\n## 統合ポイント\n- **メモリ統合**: テスト結果と検証履歴を保存\n- **RAG統合**: テストシナリオ向けにコンテキストを最適化\n- **クリティカルシンキング**: グラウンドチェック検証サポートを提供\n- **ブートストラップ調整**: 読み込み優先順位とルールシーケンスを尊重\n\n## 使用方法\n\n### ユニットテスト用:\n1. settings.json で `agent_interaction_unit_test.enabled = true` を設定\n2. テストケースでエージェントを実行\n3. 検証基準のコンプライアンスレポートを確認\n4. グラウンドチェックカバレッジとエラー検出を確認\n5. ツール呼び出し透明性と決定文書化を検証\n\n### テストケース形式:\n```\nUNIT TEST: [Test_Name]\nFramework: Agentic Rules v1.1.0\nTask: [Specific_Test_Task]\n\n[Execute with unit test validation...]\n```\n\n### 検証基準:\n- ✅ **100% フレームワークコンプライアンス** - すべてのアルゴリズムが実行\n- ✅ **100% グラウンドチェックカバレッジ** - すべての主張が検証\n- ✅ **0% ハルシネーション** - すべての情報がソース検証済み\n- ✅ **完全なツール透明性** - すべての呼び出しがログ\n- ✅ **決定プロセス文書化** - すべての選択が説明\n\n## エラーハンドリング\n**必須**: エージェントはエラーを透明に処理しなければならない:\n- 設定ファイル欠落 → ユニットテスト操作をスキップ\n- 無効な設定 → デフォルト値を使用し警告をログ\n- システムエラー → ユニットテスト機能なしで操作を継続\n- テスト失敗 → 問題を文書化し修正ガイドを提供\n\n## フレームワーク統合\n**必須**: このフレームワークはツールであり、ユーザーprojectコードベースに含まれるべきではない。すべての統合はそれぞれのディレクトリのルールファイルを通じて行われる。\n\n## エージェント責任\nこのフレームワークを使用するエージェントは:\n- すべてのユーザー設定と構成を尊重\n- ユニットテストが無効化された場合に明確なフィードバックを提供\n- 生成コンテンツでのフレームワーク中立性を維持\n- ブートストラップコンプライアンス要件に従う\n- テスト失敗を即座に透明に認める\n\n**違反**: これらの統合要件やユーザー設定を尊重しないエージェント。\n\n<!-- METADATA: エージェントインタラクションユニットテストルール エージェント統合 自動検証・テスト用 -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+      }
+    },
     "modules/critical-thinking-rules": {
       "name": "modules/critical-thinking-rules",
       "display_name": "Critical Thinking Rules",
@@ -308,7 +508,7 @@
       ],
       "default_settings": {
         "memory_rules": {
-          "enabled": true,
+          "enabled": false,
           "max_entries_per_category": 100,
           "cleanup_guidance_days": 90,
           "index_update_frequency": "realtime",
