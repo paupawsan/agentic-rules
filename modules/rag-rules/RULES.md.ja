@@ -1,10 +1,14 @@
 # RAGルール エージェント統合 / RAG Rules Agent Integration
 
 <!-- SAFETY_PRECAUTION_START -->
-**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`rag_rules.enabled = true`の場合のみ使用してください。
+**⚠️ 重要テンプレート保護 / CRITICAL TEMPLATE PROTECTION**: このファイルはテンプレート専用です。エージェントは自動読み込み、自動処理、またはこのファイルをどのような状況でも自動実行してはいけません。このファイルは直接実行されることはありません。
+
+**有効な使用方法 / VALID USAGE**: 明示的に以下のいずれかに名前変更された場合のみ読み込み: `AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`。RAGルールのユーザーの明示的な有効化後。
+
+**無効な使用方法 / INVALID USAGE**: このファイルを自動的に読み込まない、起動プロセスで参照しない、自動フレームワーク初期化に含めない。
 <!-- SAFETY_PRECAUTION_END -->
 
-**必須 / MANDATORY**: settings.jsonでrag_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。
+**フレームワーク強化 / FRAMEWORK ENHANCEMENT**: settings.jsonでrag_rules.enabled = trueの場合、エージェントはこれらのアルゴリズムを実装してコンテキスト処理を強化できます。
 
 ## RAGシステムアーキテクチャ / RAG System Architecture
 - **コンテキスト最適化 / Context Optimization**: 関連情報の優先順位付け / Prioritize relevant information

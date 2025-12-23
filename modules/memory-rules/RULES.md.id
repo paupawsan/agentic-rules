@@ -1,10 +1,14 @@
 # Integrasi Agen Aturan Memori
 
 <!-- SAFETY_PRECAUTION_START -->
-**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `rag_rules.enabled = true` di settings.json.
+**⚠️ PERLINDUNGAN TEMPLATE KRITIS**: File ini adalah TEMPLATE SAJA. Agen TIDAK BOLEH memuat otomatis, membaca otomatis, atau memproses otomatis file ini dalam keadaan apa pun. File ini TIDAK PERNAH dieksekusi secara langsung.
+
+**PENGGUNAAN VALID**: Hanya muat template ini ketika secara eksplisit diganti nama menjadi salah satu dari: `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` SETELAH aktivasi eksplisit fitur memori pengguna.
+
+**PENGGUNAAN TIDAK VALID**: Jangan muat file ini secara otomatis, jangan referensikan dalam proses startup, jangan sertakan dalam inisialisasi kerangka kerja otomatis apa pun.
 <!-- SAFETY_PRECAUTION_END -->
 
-**WAJIB**: Jika memory_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.
+**PENINGKATAN KERANGKA**: Ketika memory_rules.enabled = true di settings.json, agen dapat mengimplementasikan algoritma ini untuk kemampuan memori yang lebih baik.
 
 ## Arsitektur Sistem Memori
 - **common/**: Pengetahuan bersama di seluruh proyek

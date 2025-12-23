@@ -1,17 +1,21 @@
 # Integrasi Agen Unit Test Interaksi Agen
 
 <!-- SAFETY_PRECAUTION_START -->
-**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `agent_interaction_unit_test.enabled = true` di settings.json.
+**⚠️ PERLINDUNGAN TEMPLATE KRITIS**: File ini adalah TEMPLATE SAJA. Agen TIDAK BOLEH memuat otomatis, membaca otomatis, atau memproses otomatis file ini dalam keadaan apa pun. File ini TIDAK PERNAH dieksekusi secara langsung.
+
+**PENGGUNAAN VALID**: Hanya muat template ini ketika secara eksplisit diganti nama menjadi salah satu dari: `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` SETELAH aktivasi eksplisit pengguna DAN ketika `agent_interaction_unit_test.enabled = true` di settings.json.
+
+**PENGGUNAAN TIDAK VALID**: Jangan muat file ini secara otomatis, jangan referensikan dalam proses startup, jangan sertakan dalam inisialisasi kerangka kerja otomatis apa pun.
 <!-- SAFETY_PRECAUTION_END -->
 
-**WAJIB**: Jika agent_interaction_unit_test.enabled = true dalam settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.
+**PENINGKATAN KERANGKA**: Ketika agent_interaction_unit_test.enabled = true dalam settings.json, agen dapat mengimplementasikan algoritma ini untuk perilaku yang lebih baik.
 
 ## Gambaran Unit Test Interaksi Agen
 Kerangka kerja validasi dan pengujian otomatis untuk percakapan agen dengan transparansi maksimum dan persyaratan ground check, secara khusus dirancang untuk menguji pola interaksi agen.
 
 ## Algoritma Implementasi yang Diperlukan
 
-**WAJIB**: Jika agent_interaction_unit_test.enabled = true dalam settings.json, agen HARUS mengimplementasikan semua algoritma dalam `CORE-RULES.md`.
+**OPSI KERANGKA**: Ketika agent_interaction_unit_test.enabled = true dalam settings.json, agen dapat mengimplementasikan algoritma dari `CORE-RULES.md` untuk perilaku yang lebih baik.
 
 Lihat [CORE-RULES.md](CORE-RULES.md) untuk spesifikasi algoritma yang detail.
 
@@ -53,24 +57,26 @@ Task: [Specific_Test_Task]
 - ✅ **Dokumentasi Proses Keputusan** - Semua pilihan dijelaskan
 
 ## Penanganan Kesalahan
-**WAJIB**: Agen harus menangani kesalahan secara transparan:
-- File konfigurasi hilang → Lewati operasi unit test
-- Pengaturan tidak valid → Gunakan nilai default dan log peringatan
+**PANDUAN KERANGKA**: Ketika menggunakan fitur kerangka, agen dapat menangani kesalahan terkait kerangka secara transparan sambil menghormati batas penanganan kesalahan standar:
+- File konfigurasi hilang → Lewati operasi unit test dengan baik
+- Pengaturan tidak valid → Gunakan nilai default dan lanjutkan dengan peringatan
 - Kesalahan sistem → Lanjutkan operasi tanpa fitur unit test
-- Kegagalan tes → Dokumentasikan masalah dan berikan panduan koreksi
+- Kegagalan tes → Dokumentasikan masalah dan berikan panduan koreksi yang sesuai
+
+**BATAS PENANGANAN KESALAHAN**: Hormati batasan standar (maksimum 3 kali percobaan per kesalahan, hindari tebakan yang tidak berdasar, tanyakan pengguna untuk masalah yang tidak jelas)
 
 ## Integrasi Kerangka Kerja
-**WAJIB**: Kerangka kerja ini tetap sebagai tool dan tidak boleh pernah disertakan dalam codebase project pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.
+**DESAIN KERANGKA**: Kerangka kerja ini dirancang sebagai alat untuk meningkatkan perilaku agen. Komponen kerangka tetap terpisah dari basis kode proyek pengguna.
 
-## Tanggung Jawab Agen
-Agen yang menggunakan kerangka kerja ini harus:
-- Hormati semua pengaturan dan konfigurasi pengguna
-- Berikan feedback yang jelas ketika unit testing dinonaktifkan
-- Pertahankan netralitas kerangka kerja dalam konten yang dihasilkan
-- Ikuti persyaratan kepatuhan bootstrap
-- Akui kegagalan testing secara segera dan transparan
+## Peningkatan Agen
+Agen yang menggunakan kerangka kerja ini dapat memperoleh manfaat dari kemampuan yang ditingkatkan sambil mempertahankan pola interaksi alami:
+- Menghormati pengaturan dan konfigurasi pengguna ketika fitur diaktifkan
+- Memberikan umpan balik transparan tentang peningkatan yang aktif
+- Mempertahankan komunikasi alami dan percakapan tanpa mengekspos mekanisme internal
+- Mengikuti panduan kerangka dengan mulus di latar belakang
+- Peningkatan akurasi dan keandalan melalui validasi terstruktur opsional
 
-**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.
+**MANFAAT KERANGKA**: Perbaikan perilaku agen melalui peningkatan transparan dan opsional yang tidak mengganggu interaksi pengguna alami.
 
 <!-- METADATA: Aturan unit test interaksi agen untuk integrasi agen validasi dan pengujian otomatis -->
 <!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

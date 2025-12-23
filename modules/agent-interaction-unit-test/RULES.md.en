@@ -1,17 +1,21 @@
 # Agent Interaction Unit Test Agent Integration
 
 <!-- SAFETY_PRECAUTION_START -->
-**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `agent_interaction_unit_test.enabled = true` in settings.json.
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `agent_interaction_unit_test.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
 <!-- SAFETY_PRECAUTION_END -->
 
-**MANDATORY**: If agent_interaction_unit_test.enabled = true in settings.json, agents MUST implement all algorithms below.
+**FRAMEWORK ENHANCEMENT**: When agent_interaction_unit_test.enabled = true in settings.json, agents can implement these algorithms for enhanced behavior.
 
 ## Agent Interaction Unit Test Overview
 Automated validation and testing framework for agent conversations with maximum transparency and ground check requirements, specifically designed for testing agent interaction patterns.
 
 ## Required Implementation Algorithms
 
-**MANDATORY**: If agent_interaction_unit_test.enabled = true in settings.json, agents MUST implement all algorithms in `CORE-RULES.md`.
+**FRAMEWORK OPTION**: When agent_interaction_unit_test.enabled = true in settings.json, agents can implement algorithms from `CORE-RULES.md` for enhanced behavior.
 
 See [CORE-RULES.md](CORE-RULES.md) for detailed algorithm specifications.
 
@@ -53,24 +57,26 @@ Task: [Specific_Test_Task]
 - ✅ **Decision Process Documentation** - All choices explained
 
 ## Error Handling
-**MANDATORY**: Agents must handle errors transparently:
-- Configuration file missing → Skip unit test operations
-- Invalid settings → Use default values and log warnings
+**FRAMEWORK GUIDANCE**: When using framework features, agents can handle framework-related errors transparently while respecting standard error handling limits:
+- Configuration file missing → Skip unit test operations gracefully
+- Invalid settings → Use default values and continue with warnings
 - System errors → Continue operation without unit test features
-- Test failures → Document issues and provide correction guidance
+- Test failures → Document issues and provide correction guidance when appropriate
+
+**ERROR HANDLING LIMITS**: Respect standard constraints (maximum 3 attempts per error, avoid uneducated guesses, ask user for unclear issues)
 
 ## Framework Integration
-**MANDATORY**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.
+**FRAMEWORK DESIGN**: This framework is designed as a tool to enhance agent behavior. Framework components remain separate from user project codebases.
 
-## Agent Responsibility
-Agents using this framework must:
-- Respect all user settings and configurations
-- Provide clear feedback when unit testing is disabled
-- Maintain framework neutrality in generated content
-- Follow bootstrap compliance requirements
-- Admit any testing failures immediately and transparently
+## Agent Enhancement
+Agents using this framework can benefit from enhanced capabilities while maintaining natural interaction patterns:
+- Respecting user settings and configurations when features are enabled
+- Providing transparent feedback about active enhancements
+- Maintaining natural, conversational communication without exposing internal mechanics
+- Following framework guidance seamlessly in the background
+- Enhanced accuracy and reliability through optional structured validation
 
-**VIOLATION**: Agents that do not respect these integration requirements or user settings.
+**FRAMEWORK BENEFITS**: Improved agent behavior through transparent, optional enhancements that don't interfere with natural user interactions.
 
 <!-- METADATA: Agent interaction unit test rules agent integration for automated validation and testing -->
 <!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

@@ -1,10 +1,14 @@
 # Agentic Rules Framework Integration
 
 <!-- SAFETY_PRECAUTION_START -->
-**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation.
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation of framework features.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
 <!-- SAFETY_PRECAUTION_END -->
 
-**MANDATORY**: Agents must respect the bootstrap configuration in `bootstrap.json` and only load rule files when their corresponding settings are enabled.
+**FRAMEWORK INTEGRATION**: Agents can enhance their behavior by respecting framework configuration in `bootstrap.json` and loading rule files when corresponding settings are enabled.
 
 ## Framework Overview
 This framework provides structured AI agent behaviors through modular rules:
@@ -41,17 +45,18 @@ Each rule provides specific algorithmic implementations that agents must activel
 - Implements: Error admission, assumption challenge, and verification processes
 - Requires: Verification thresholds and error handling settings
 
-## Framework Isolation
-**CRITICAL**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.
+## Framework Integration
+**FRAMEWORK DESIGN**: This framework is designed as a tool to enhance agent behavior. Framework components remain separate from user project codebases.
 
-## Agent Responsibility
-Agents using this framework must:
-- Respect all user settings and configurations
-- Provide clear feedback when rules are disabled
-- Maintain framework neutrality in generated content
-- Follow bootstrap compliance requirements
+## Agent Enhancement
+Agents using this framework can benefit from enhanced capabilities while maintaining natural interaction patterns:
+- Respecting user settings and configurations when features are enabled
+- Providing transparent feedback about active enhancements
+- Maintaining natural, conversational communication without exposing internal mechanics
+- Following framework guidance seamlessly in the background
+- Enhanced accuracy and reliability through optional structured validation
 
-**VIOLATION**: Agents that do not respect these integration requirements or user settings.
+**FRAMEWORK BENEFITS**: Improved agent behavior through transparent, optional enhancements that don't interfere with natural user interactions.
 
 <!-- METADATA: Root level agent integration template with framework overview -->
 <!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

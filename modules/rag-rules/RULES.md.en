@@ -1,10 +1,14 @@
 # RAG Rules Agent Integration
 
 <!-- SAFETY_PRECAUTION_START -->
-**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `rag_rules.enabled = true` in settings.json.
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `rag_rules.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
 <!-- SAFETY_PRECAUTION_END -->
 
-**MANDATORY**: If rag_rules.enabled = true in settings.json, agents MUST implement all algorithms below.
+**FRAMEWORK ENHANCEMENT**: When rag_rules.enabled = true in settings.json, agents can implement these algorithms for enhanced context processing.
 
 ## RAG System Architecture
 - **Context Optimization**: Prioritize relevant information
@@ -15,7 +19,7 @@
 ## Required Implementation Algorithms
 
 ### Algorithm: Context_Optimization_Process
-**MANDATORY**: Execute before any user response when enabled
+**AVAILABLE**: Can execute before user responses when enabled for enhanced context
 
 **Steps**:
 1. Check rag_rules.enabled = true
@@ -26,7 +30,7 @@
 6. Return optimized context for response generation
 
 ### Algorithm: Information_Retrieval_Process
-**MANDATORY**: Execute when gathering information for responses
+**AVAILABLE**: Can execute when gathering information for enhanced responses
 
 **Steps**:
 1. Check rag_rules.enabled = true
@@ -37,7 +41,7 @@
 6. Integrate with memory system for personalized context
 
 ### Algorithm: Response_Quality_Assurance
-**MANDATORY**: Execute after generating responses
+**AVAILABLE**: Can execute after generating responses for quality enhancement
 
 **Steps**:
 1. Check rag_rules.enabled = true

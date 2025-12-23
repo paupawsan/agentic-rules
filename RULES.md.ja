@@ -1,10 +1,14 @@
 # Agentic Rules Framework 統合 / Agentic Rules Framework Integration
 
 <!-- SAFETY_PRECAUTION_START -->
-**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで対応する設定が有効になっている場合のみ使用してください。
+**⚠️ 重要テンプレート保護 / CRITICAL TEMPLATE PROTECTION**: このファイルはテンプレート専用です。エージェントは自動読み込み、自動処理、またはこのファイルをどのような状況でも自動実行してはいけません。このファイルは直接実行されることはありません。
+
+**有効な使用方法 / VALID USAGE**: 明示的に以下のいずれかに名前変更された場合のみ読み込み: `AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`。フレームワーク機能のユーザーの明示的な有効化後。
+
+**無効な使用方法 / INVALID USAGE**: このファイルを自動的に読み込まない、起動プロセスで参照しない、自動フレームワーク初期化に含めない。
 <!-- SAFETY_PRECAUTION_END -->
 
-**必須 / MANDATORY**: エージェントは`bootstrap.json`のブートストラップ設定を尊重し、対応する設定が有効になっている場合のみルールファイルを読み込む必要があります。
+**フレームワーク統合 / FRAMEWORK INTEGRATION**: エージェントは`bootstrap.json`のフレームワーク設定を尊重し、対応する設定が有効になっている場合にルールファイルを活用できます。
 
 ## フレームワーク概要 / Framework Overview
 このフレームワークはモジュラーなルールを通じて構造化されたAIエージェント動作を提供します：
@@ -41,17 +45,18 @@
 - 実装 / Implements: エラー承認、仮定挑戦、検証プロセス / Error admission, assumption challenge, and verification processes
 - 必要 / Requires: 検証しきい値とエラー処理設定 / Verification thresholds and error handling settings
 
-## フレームワーク分離 / Framework Isolation
-**重要 / CRITICAL**: このフレームワークはツールとして残り、ユーザーprojectコードベースに含めるべきではありません。すべての統合はそれぞれのディレクトリのルールファイルを通じて行われます。
+## フレームワーク統合 / Framework Integration
+**フレームワーク設計 / FRAMEWORK DESIGN**: このフレームワークはエージェントの動作を強化するためのツールとして設計されています。フレームワークコンポーネントはユーザーprojectコードベースから分離されます。
 
-## エージェント責任 / Agent Responsibility
-このフレームワークを使用するエージェントは：
-- すべてのユーザー設定と設定を尊重する / Respect all user settings and configurations
-- ルールが無効化されている場合に明確なフィードバックを提供する / Provide clear feedback when rules are disabled
-- 生成されたコンテンツでフレームワークのニュートラリティを維持する / Maintain framework neutrality in generated content
-- ブートストラップ準拠要件に従う / Follow bootstrap compliance requirements
+## エージェント強化 / Agent Enhancement
+このフレームワークを使用するエージェントは、自然な対話パターンを維持しながら強化された機能を活用できます：
+- 機能が有効化されている場合にユーザー設定と設定を尊重できる / Can respect user settings and configurations when features are enabled
+- アクティブな拡張機能について透明なフィードバックを提供できる / Can provide transparent feedback about active enhancements
+- 内部メカニズムを公開せずに自然で会話的なコミュニケーションを維持できる / Can maintain natural, conversational communication without exposing internal mechanics
+- バックグラウンドでシームレスにフレームワークのガイダンスに従える / Can follow framework guidance seamlessly in the background
+- オプションの構造化検証による正確性と信頼性の向上 / Enhanced accuracy and reliability through optional structured validation
 
-**違反 / VIOLATION**: これらの統合要件またはユーザー設定を尊重しないエージェント / Agents that do not respect these integration requirements or user settings.
+**フレームワークの利点 / FRAMEWORK BENEFITS**: 自然なユーザー対話を妨げない透明でオプションの拡張によるエージェント動作の改善。
 
 <!-- METADATA: Root level agent integration template with framework overview (Japanese) -->
 <!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

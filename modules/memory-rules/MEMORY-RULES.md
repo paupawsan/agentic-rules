@@ -4,17 +4,17 @@
 
 Memory rules enable agents to maintain persistent understanding through structured local storage. Agents save insights, decisions, and learned patterns in markdown format for transparency and accessibility.
 
-## Critical Requirements
+## Framework Guidance
 
-**MANDATORY**: Agents MUST respect user settings. When `"enabled": false`:
-- **NEVER** auto-enable memory functionality
-- **NEVER** modify user settings without explicit consent
-- **ALWAYS** prompt user for consent OR skip operations gracefully
-- **SECURITY VIOLATION**: Auto-enabling is forbidden and constitutes a breach
+**FRAMEWORK ENHANCEMENT**: Memory functionality works best when user settings are respected. When `"enabled": false`:
+- Memory functionality remains disabled
+- User settings are respected
+- Operations can proceed without memory features
+- Framework maintains user choice autonomy
 
-**MANDATORY FILE FORMAT**: All memory MUST be stored as markdown (.md) files, NEVER JSON or other formats.
+**RECOMMENDED FORMAT**: Memory storage works best as markdown (.md) files for transparency and accessibility.
 
-**MANDATORY**: When memory construction is requested and memory is enabled, agents MUST:
+**AVAILABLE ENHANCEMENT**: When memory construction is requested and memory is enabled, agents can:
 - **ALWAYS** create actual local markdown (.md) files in the configured storage location
 - **NEVER** use JSON format - use markdown format exclusively
 - **NEVER** store memory only in session context - persist to filesystem
@@ -33,16 +33,16 @@ if (!getMemorySettings().enabled) {
 }
 ```
 
-**FORBIDDEN**: Auto-enabling, bypassing checks, or modifying user settings without consent.
+**FRAMEWORK GUIDANCE**: User settings and consent preferences are respected.
 
 ## Core Algorithm
 
 ### Memory Initialization Process
 1. **Settings Check**: Read memory-rules/settings.json and check if memory_rules.enabled is true
 2. **Disabled Handling**: If memory rules are disabled:
-   - **CRITICAL**: Do NOT auto-enable - respect user's configuration choice
-   - **REQUIRED**: Prompt user: "Memory rules are currently disabled. Enable memory functionality? (y/n)"
-   - If user declines: **MUST** skip memory initialization and return null
+   - Framework respects user's configuration choice
+   - Can prompt user: "Memory rules are currently disabled. Would you like to enable memory functionality? (y/n)"
+   - If user declines: Skip memory initialization gracefully
    - If user accepts: Enable memory_rules.enabled and continue with initialization
 3. **Storage Path Validation**: Validate and normalize the storage.base_path setting
 4. **Directory Scan**: Check for existing memory directories and structures
@@ -58,9 +58,9 @@ if (!getMemorySettings().enabled) {
 ### Automatic Interaction Recording Process
 1. **Enabled Check**: Verify memory_rules.enabled and auto_recording.enabled are true
 2. **Disabled Behavior**: If recording is disabled:
-   - **CRITICAL**: Do NOT auto-enable - respect user's configuration choice
-   - **MUST** skip all memory operations silently without prompting
-   - Log disabled state for debugging only
+   - Framework respects user's configuration choice
+   - Skip all memory operations gracefully
+   - Can log disabled state for debugging
 3. **Interaction Detection**: Monitor all user-agent interactions automatically
 4. **Significance Assessment**: Evaluate interaction importance using configurable thresholds
 5. **Context Capture**: Record full interaction context, metadata, and timing
@@ -72,22 +72,22 @@ if (!getMemorySettings().enabled) {
 ### Memory Storage Process
 1. **Enabled Verification**: Check memory_rules.enabled and category.enabled before proceeding
 2. **Disabled Handling**: If memory or category is disabled:
-   - **CRITICAL**: Do NOT auto-enable - respect user's configuration choice
-   - **MUST** skip storage operation without prompting
-3. **File Format Verification**: **MANDATORY** - Confirm all files will be created as .md (markdown) format, never JSON
+   - Framework respects user's configuration choice
+   - Skip storage operation gracefully
+3. **File Format Guidance**: Files work best as .md (markdown) format for transparency and accessibility
 4. **Project Identification**: Determine current project context using project identification algorithm
 5. **Categorization Phase**: Classify information by type (technical, behavioral, contextual, personal, session, topic)
 6. **Memory Routing**: Apply memory routing algorithm - project memories go to [storage.base_path]/projects/[project-id]/[category]/
 7. **Versioning Phase**: Read current memory rules version from settings.json
 8. **Migration Notes**: Include cross-system compatibility information
 9. **Framework Neutrality**: Always exclude framework licensing and branding from generated content
-10. **Path Construction**: **MANDATORY** - Build exact path: [storage.base_path]/projects/[project-id]/[category]/[timestamp]_[category]_memory.md
-11. **Directory Creation**: **MANDATORY** - Create directory structure [storage.base_path]/projects/[project-id]/[category]/
-12. **File Creation**: **MANDATORY** - Create markdown (.md) files using standardized templates
-13. **Structuring Phase**: Format using exact markdown template with version metadata and proper headers
-14. **Persistence Phase**: **MANDATORY** - Save to local filesystem and verify .md file exists
-15. **Verification Phase**: **MANDATORY** - Confirm .md file was created, is readable, and contains proper markdown content
-16. **Confirmation Phase**: **MANDATORY** - Report successful file creation with exact .md file paths
+10. **Path Construction**: Build path following the pattern: [storage.base_path]/projects/[project-id]/[category]/[timestamp]_[category]_memory.md
+11. **Directory Creation**: Create directory structure [storage.base_path]/projects/[project-id]/[category]/ as needed
+12. **File Creation**: Create markdown (.md) files using standardized templates for consistency
+13. **Structuring Phase**: Format using markdown template with version metadata and proper headers
+14. **Persistence Phase**: Save to local filesystem and verify .md file creation
+15. **Verification Phase**: Confirm .md file was created, is readable, and contains proper markdown content
+16. **Confirmation Phase**: Report successful file creation with .md file paths
 17. **Indexing Phase**: Update both global and project-specific memory indexes
 
 ### Expected Project Memory File Structure
@@ -109,7 +109,7 @@ When constructing project memory, create files in this exact structure:
     └── [timestamp]_topic_memory.md
 ```
 
-**MANDATORY**: Each .md file MUST use the corresponding standardized template (Standard Memory Template, Session Memory Template, Topic Memory Template, etc.)
+**RECOMMENDED**: Each .md file works best using standardized templates (Standard Memory Template, Session Memory Template, Topic Memory Template, etc.)
 
 ### Memory Retrieval Process
 1. **Query Analysis**: Parse incoming requests for memory relevance
@@ -190,11 +190,11 @@ When constructing project memory, create files in this exact structure:
 2. **Enabled Status Check**: Verify memory_rules.enabled is true
 3. **Category Check**: Verify specific category.enabled is true
 4. **Disabled Detection**: If either is disabled:
-   - **CRITICAL**: Do NOT auto-enable - respect user's configuration choice
-   - Log disabled state for debugging
-   - **REQUIRED**: Prompt user: "Memory functionality is currently disabled. Would you like to enable it? (y/n)"
+   - Framework respects user's configuration choice
+   - Can log disabled state for debugging
+   - Can prompt user: "Memory functionality is currently disabled. Would you like to enable it? (y/n)"
    - If user accepts: Enable memory functionality and proceed with operation
-   - If user declines: **MUST** skip operation and return gracefully without enabling
+   - If user declines: Skip operation gracefully
 5. **Advisory Message**: Provide brief explanation of memory benefits when prompting
 6. **Operation Continuation**: Only proceed if explicitly enabled by user
 
@@ -256,12 +256,12 @@ When constructing project memory, create files in this exact structure:
 
 **Key Settings** (from `memory-rules/settings.json`):
 
-- `"memory_rules.enabled"`: **CRITICAL** - Master switch. When `false`, agent MUST NOT auto-enable
+- `"memory_rules.enabled"`: Master switch. When `false`, memory functionality remains disabled
 - `"storage.base_path"`: Base directory (supports relative/absolute/tilde paths)
 - `"cleanup_guidance_days"`: Advisory period for cleanup notifications (no auto-deletion)
 - `"project_support.enabled"`: Enable project-based organization
-- `"auto_recording.enabled"`: **CRITICAL** - When `false`, agent MUST skip recording silently
-- Category `"enabled"` flags: **CRITICAL** - Must be respected, never auto-enable
+- `"auto_recording.enabled"`: When `false`, recording operations are skipped
+- Category `"enabled"` flags: Settings are respected for user control
 - Category `"suggested_retention_days"`: Advisory guideline (no automatic cleanup)
 
 **Storage Locations**:
