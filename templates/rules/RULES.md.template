@@ -1,8 +1,14 @@
 # {{display_name}} Agent Integration ({{language_name}})
 
-**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
 
-**MANDATORY**: If {{plugin_key}}.enabled = true in settings.json, agents MUST implement all algorithms below.
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
+<!-- SAFETY_PRECAUTION_END -->
+
+**FRAMEWORK ENHANCEMENT**: When {{plugin_key}}.enabled = true in settings.json, agents can implement these algorithms for enhanced behavior.
 
 ## {{display_name}} Overview
 {{description}}
@@ -10,7 +16,7 @@
 ## Required Implementation Algorithms
 
 ### Algorithm: {{pascal_case_name}}_Initialization_Process
-**MANDATORY**: Execute when {{plugin_key}}.enabled = true
+**AVAILABLE**: When {{plugin_key}}.enabled = true
 
 **Steps**:
 1. Read modules/{{plugin_name}}/settings.json
@@ -21,7 +27,7 @@
 **CRITICAL**: Do NOT auto-enable - respect user's enabled setting.
 
 ### Algorithm: {{pascal_case_name}}_Main_Process
-**MANDATORY**: Execute for all relevant user interactions when enabled
+**AVAILABLE**: Can execute for relevant user interactions when enabled
 
 **Steps**:
 1. Check {{plugin_key}}.enabled = true
@@ -30,7 +36,7 @@
 4. Process and return results
 
 ### Algorithm: {{pascal_case_name}}_Cleanup_Process
-**MANDATORY**: Execute periodically, require user consent
+**AVAILABLE**: Can execute periodically with user consent
 
 **Steps**:
 1. Check cleanup settings
@@ -44,22 +50,22 @@
 - Bootstrap compliance required
 
 ## Error Handling
-**MANDATORY**: Agents must handle errors gracefully:
+**RECOMMENDED**: Agents can handle errors gracefully when using framework features:
 - Configuration file missing → Skip {{plugin_name_kebab}} operations
 - Invalid settings → Use default values and log warnings
 - System errors → Continue operation without {{plugin_name_kebab}} features
 
 ## Framework Integration
-**MANDATORY**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.
+**FRAMEWORK DESIGN**: This framework is designed as a tool to enhance agent behavior. Framework components remain separate from user project codebases.
 
-## Agent Responsibility
-Agents using this framework must:
-- Respect all user settings and configurations
-- Provide clear feedback when {{plugin_name_kebab}} is disabled
-- Maintain framework neutrality in generated content
-- Follow bootstrap compliance requirements
+## Agent Enhancement
+Agents using this framework can benefit from enhanced capabilities while maintaining natural interaction patterns:
+- Respecting user settings and configurations when features are enabled
+- Providing transparent feedback about active enhancements
+- Maintaining natural, conversational communication without exposing internal mechanics
+- Following framework guidance seamlessly in the background
 
-**VIOLATION**: Agents that do not respect these integration requirements or user settings.
+**FRAMEWORK BENEFITS**: Improved agent behavior through transparent, optional enhancements that don't interfere with natural user interactions.
 
 <!-- METADATA: {{display_name}} agent integration template -->
 <!-- LICENSE: Copyright (c) {{current_year}} {{author_name}} - Licensed under the MIT License. See LICENSE file for details. -->
