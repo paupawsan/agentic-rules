@@ -49,7 +49,7 @@ Framework plug-and-play yang menyediakan aturan terstruktur untuk perilaku agen 
 
 > 💡 **Mengapa setup.html terlebih dahulu?** Antarmuka web membuat file konfigurasi dan aturan yang dibutuhkan sistem bootstrap. Tanpa langkah ini, framework mungkin tidak menginisialisasi dengan benar.
 >
-> 🔧 **Untuk Insinyur/Pengembang**: Gunakan peluncur Python yang ditingkatkan untuk fungsionalitas yang lebih baik - menyediakan pembuatan file langsung dan kontrol server. Lihat [Panduan Pengembang](docs/localization/id/DEVELOPER-GUIDE.id.md) untuk opsi otomasi pengaturan.
+> 🔧 **Untuk Insinyur/Pengembang**: Gunakan peluncur Python yang ditingkatkan untuk fungsionalitas yang lebih baik - menyediakan pembuatan file langsung dan kontrol server. Lihat [Panduan Pengembang](DEVELOPER-GUIDE.id.md) untuk opsi otomasi pengaturan.
 
 ---
 
