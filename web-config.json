@@ -263,6 +263,7 @@
               },
               "recommended": true,
               "settings": {
+                "verification_level": "rigorous",
                 "ground_check.enabled": true,
                 "ground_check.required_confirmations": 2
               }
@@ -312,7 +313,7 @@
       "default_settings": {
         "critical_thinking_rules": {
           "enabled": false,
-          "verification_level": "standard",
+          "verification_level": "basic",
           "error_admission": {
             "enabled": true,
             "immediate_correction": false,

@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "critical_thinking_rules": {
     "enabled": false,
-    "verification_level": "standard",
+    "verification_level": "basic",
     "error_admission": {
       "enabled": true,
       "immediate_correction": false,

@@ -43,6 +43,7 @@
           },
           "recommended": true,
           "settings": {
+            "verification_level": "rigorous",
             "ground_check.enabled": true,
             "ground_check.required_confirmations": 2
           }
