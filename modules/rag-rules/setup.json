@@ -18,7 +18,7 @@
   "optional_config": [
     {
       "name": "context_optimization",
-      "type": "choice",
+      "type": "checkbox",
       "localization": {
         "en": {
           "title": "Context Window Optimization",
@@ -37,9 +37,9 @@
         {
           "name": "standard_optimization",
           "localization": {
-            "en": { "description": "Standard optimization for most AI models" },
-            "ja": { "description": "ほとんどのAIモデルに対する標準最適化" },
-            "id": { "description": "Optimasi standar untuk sebagian besar model AI" }
+            "en": { "description": "Enable standard optimization for most AI models" },
+            "ja": { "description": "ほとんどのAIモデルに対する標準最適化を有効化" },
+            "id": { "description": "Aktifkan optimasi standar untuk sebagian besar model AI" }
           },
           "recommended": true,
           "settings": {
@@ -51,7 +51,7 @@
     },
     {
       "name": "relevance_scoring",
-      "type": "choice",
+      "type": "checkbox",
       "localization": {
         "en": {
           "title": "Relevance Scoring",
@@ -73,6 +73,97 @@
           "settings": {
             "relevance_scoring.min_relevance_score": 0.7,
             "relevance_scoring.recency_weight": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "name": "knowledge_graph",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Runtime Knowledge Graph",
+          "description": "Enable dynamic knowledge graph generation for self-learning"
+        },
+        "ja": {
+          "title": "ランタイム知識グラフ",
+          "description": "自己学習のための動的知識グラフ生成を有効化"
+        },
+        "id": {
+          "title": "Grafik Pengetahuan Runtime",
+          "description": "Aktifkan pembuatan grafik pengetahuan dinamis untuk pembelajaran mandiri"
+        }
+      },
+      "options": [
+        {
+          "name": "enable_knowledge_graph",
+          "localization": {
+            "en": { "description": "Enable runtime knowledge graph generation and querying" },
+            "ja": { "description": "ランタイム知識グラフ生成とクエリを有効化" },
+            "id": { "description": "Aktifkan pembuatan dan query grafik pengetahuan runtime" }
+          },
+          "recommended": false,
+          "settings": {
+            "rag_rules.knowledge_graph.enabled": true,
+            "rag_rules.graph_enhanced_rag.integration_enabled": true
+          }
+        },
+        {
+          "name": "disable_knowledge_graph",
+          "localization": {
+            "en": { "description": "Use traditional RAG without knowledge graph (default)" },
+            "ja": { "description": "知識グラフなしの従来のRAGを使用（デフォルト）" },
+            "id": { "description": "Gunakan RAG tradisional tanpa grafik pengetahuan (default)" }
+          },
+          "recommended": true,
+          "settings": {
+            "rag_rules.knowledge_graph.enabled": false,
+            "rag_rules.graph_enhanced_rag.integration_enabled": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "self_learning",
+      "type": "choice",
+      "localization": {
+        "en": {
+          "title": "Self-Learning Capabilities",
+          "description": "Enable agent self-learning through pattern recognition"
+        },
+        "ja": {
+          "title": "自己学習機能",
+          "description": "パターン認識を通じたエージェント自己学習を有効化"
+        },
+        "id": {
+          "title": "Kemampuan Pembelajaran Mandiri",
+          "description": "Aktifkan pembelajaran mandiri agen melalui pengenalan pola"
+        }
+      },
+      "options": [
+        {
+          "name": "enable_self_learning",
+          "localization": {
+            "en": { "description": "Enable pattern recognition and adaptive learning" },
+            "ja": { "description": "パターン認識と適応学習を有効化" },
+            "id": { "description": "Aktifkan pengenalan pola dan pembelajaran adaptif" }
+          },
+          "recommended": false,
+          "settings": {
+            "rag_rules.self_learning.enabled": true,
+            "rag_rules.adaptive_learning.pattern_recognition": true
+          }
+        },
+        {
+          "name": "disable_self_learning",
+          "localization": {
+            "en": { "description": "Use static behavior patterns (default)" },
+            "ja": { "description": "静的動作パターンを使用（デフォルト）" },
+            "id": { "description": "Gunakan pola perilaku statis (default)" }
+          },
+          "recommended": true,
+          "settings": {
+            "rag_rules.self_learning.enabled": false
           }
         }
       ]
