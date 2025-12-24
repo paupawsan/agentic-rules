@@ -43,8 +43,8 @@
           },
           "recommended": true,
           "settings": {
-            "verification.factual_claim_verification": true,
-            "verification.min_sources_required": 2
+            "ground_check.enabled": true,
+            "ground_check.required_confirmations": 2
           }
         }
       ]
@@ -76,8 +76,8 @@
           },
           "recommended": true,
           "settings": {
-            "error_handling.immediate_error_admission": true,
-            "error_handling.log_corrections": true
+            "error_admission.immediate_correction": true,
+            "error_admission.transparency_logging": true
           }
         }
       ]

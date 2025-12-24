@@ -128,9 +128,9 @@
           },
           "recommended": true,
           "settings": {
-            "git_history_analysis.enabled": true,
-            "git_history_analysis.trigger_on_unknown_context": true,
-            "git_history_analysis.max_commits_to_analyze": 50
+            "project_support.git_history_analysis.enabled": true,
+            "project_support.git_history_analysis.trigger_on_unknown_context": true,
+            "project_support.git_history_analysis.max_commits_to_analyze": 50
           }
         }
       ]
