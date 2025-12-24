@@ -1,8 +1,14 @@
 # Integración de Agente {{display_name}} (Español)
 
-**⚠️ PRECAUCIÓN DE SEGURIDAD**: Este es un archivo TEMPLATE. Los agentes NO DEBEN cargar automáticamente este archivo. Solo cargar cuando se renombre a `AGENTS.md`, `GEMINI.md` o `CLAUDE.md` después de la activación explícita del usuario Y cuando `{{plugin_key}}.enabled = true` en settings.json.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ PROTECCIÓN CRÍTICA DE PLANTILLA**: Este archivo es SOLO una PLANTILLA. Los agentes NO DEBEN cargar automáticamente, leer automáticamente o procesar automáticamente este archivo bajo ninguna circunstancia. Este archivo NUNCA se ejecuta directamente.
 
-**OBLIGATORIO**: Si {{plugin_key}}.enabled = true en settings.json, los agentes DEBEN implementar todos los algoritmos a continuación.
+**USO VÁLIDO**: Solo cargar esta plantilla cuando se renombre explícitamente a uno de: `AGENTS.md`, `GEMINI.md` o `CLAUDE.md` DESPUÉS de la activación explícita del usuario Y cuando `{{plugin_key}}.enabled = true` en settings.json.
+
+**USO INVÁLIDO**: No cargar este archivo automáticamente, no referenciarlo en procesos de inicio, no incluirlo en inicialización automática del framework.
+<!-- SAFETY_PRECAUTION_END -->
+
+**MEJORA DEL FRAMEWORK**: Cuando {{plugin_key}}.enabled = true en settings.json, los agentes pueden implementar estos algoritmos para un comportamiento mejorado.
 
 ## Resumen de {{display_name}}
 {{description}}
@@ -10,7 +16,7 @@
 ## Algoritmos de implementación requeridos
 
 ### Algoritmo: {{pascal_case_name}}_Initialization_Process
-**OBLIGATORIO**: Ejecutar cuando {{plugin_key}}.enabled = true
+**DISPONIBLE**: Cuando {{plugin_key}}.enabled = true
 
 **Pasos**:
 1. Leer modules/{{plugin_name}}/settings.json
@@ -18,10 +24,10 @@
 3. Validar configuraciones de parámetros
 4. Devolver sistema inicializado
 
-**CRÍTICO**: NO activar automáticamente - respetar configuración del usuario.
+El framework respeta la configuración del usuario.
 
 ### Algoritmo: {{pascal_case_name}}_Main_Process
-**OBLIGATORIO**: Ejecutar para todas las interacciones de usuario relevantes cuando esté activado
+**DISPONIBLE**: Puede ejecutarse para interacciones de usuario relevantes cuando esté activado
 
 **Pasos**:
 1. Verificar {{plugin_key}}.enabled = true
@@ -30,7 +36,7 @@
 4. Procesar y devolver resultados
 
 ### Algoritmo: {{pascal_case_name}}_Cleanup_Process
-**OBLIGATORIO**: Ejecutar periódicamente, consentimiento de usuario requerido
+**DISPONIBLE**: Puede ejecutarse periódicamente con consentimiento de usuario
 
 **Pasos**:
 1. Verificar configuraciones de limpieza
@@ -44,22 +50,22 @@
 - Cumplimiento bootstrap requerido
 
 ## Manejo de errores
-**OBLIGATORIO**: Los agentes deben manejar errores correctamente:
+**RECOMENDADO**: Los agentes pueden manejar errores correctamente cuando usan funciones del framework:
 - Archivo de configuración no encontrado → Omitir operaciones {{plugin_name_kebab}}
 - Configuraciones inválidas → Usar valores predeterminados y registrar advertencias
 - Errores del sistema → Continuar sin funciones {{plugin_name_kebab}}
 
 ## Integración del framework
-**OBLIGATORIO**: Este framework permanece como una herramienta y nunca debería incluirse en las bases de código de proyectos de usuario. Todas las integraciones se hacen a través de los archivos de reglas en sus respectivos directorios.
+**DISEÑO DEL FRAMEWORK**: Este framework está diseñado como una herramienta para mejorar el comportamiento del agente. Los componentes del framework permanecen separados de las bases de código de proyectos de usuario.
 
-## Responsabilidad del agente
-Los agentes que usan este framework deben:
-- Respetar todos los parámetros y configuraciones del usuario
-- Proporcionar retroalimentación clara cuando {{plugin_name_kebab}} esté desactivado
-- Mantener neutralidad del framework en contenido generado
-- Cumplir con requisitos de cumplimiento bootstrap
+## Mejora del agente
+Los agentes que usan este framework pueden beneficiarse de capacidades mejoradas mientras mantienen patrones de interacción naturales:
+- Respetar parámetros y configuraciones del usuario cuando las funciones están activadas
+- Proporcionar retroalimentación transparente sobre mejoras activas
+- Mantener comunicación natural y conversacional sin exponer mecanismos internos
+- Seguir la guía del framework sin problemas en segundo plano
 
-**VIOLACIÓN**: Agentes que no respetan estos requisitos de integración o configuraciones de usuario.
+**BENEFICIOS DEL FRAMEWORK**: Comportamiento mejorado del agente a través de mejoras transparentes y opcionales que no interfieren con interacciones naturales del usuario.
 
 <!-- METADATA: Plantilla de integración de agente {{display_name}} -->
 <!-- LICENSE: Copyright (c) {{current_year}} {{author_name}} - Con licencia MIT. Ver archivo LICENSE para detalles. -->

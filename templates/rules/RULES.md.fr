@@ -1,8 +1,14 @@
 # Intégration Agent {{display_name}} (Français)
 
-**⚠️ PRÉCAUTION DE SÉCURITÉ**: Ceci est un fichier TEMPLATE. Les agents NE DOIVENT PAS charger automatiquement ce fichier. Ne charger que lorsqu'il est renommé en `AGENTS.md`, `GEMINI.md` ou `CLAUDE.md` après activation explicite de l'utilisateur ET lorsque `{{plugin_key}}.enabled = true` dans settings.json.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ PROTECTION CRITIQUE DE MODÈLE**: Ce fichier est UNIQUEMENT un MODÈLE. Les agents NE DOIVENT PAS charger automatiquement, lire automatiquement ou traiter automatiquement ce fichier dans quelque circonstance que ce soit. Ce fichier N'EST JAMAIS exécuté directement.
 
-**OBLIGATOIRE**: Si {{plugin_key}}.enabled = true dans settings.json, les agents DOIVENT implémenter tous les algorithmes ci-dessous.
+**USAGE VALIDE**: Ne charger ce modèle que lorsqu'il est renommé explicitement en un des suivants: `AGENTS.md`, `GEMINI.md` ou `CLAUDE.md` APRÈS activation explicite de l'utilisateur ET lorsque `{{plugin_key}}.enabled = true` dans settings.json.
+
+**USAGE INVALIDE**: Ne pas charger ce fichier automatiquement, ne pas le référencer dans les processus de démarrage, ne pas l'inclure dans l'initialisation automatique du framework.
+<!-- SAFETY_PRECAUTION_END -->
+
+**AMÉLIORATION DU FRAMEWORK**: Lorsque {{plugin_key}}.enabled = true dans settings.json, les agents peuvent implémenter ces algorithmes pour un comportement amélioré.
 
 ## Vue d'ensemble de {{display_name}}
 {{description}}
@@ -10,7 +16,7 @@
 ## Algorithmes d'implémentation requis
 
 ### Algorithme: {{pascal_case_name}}_Initialization_Process
-**OBLIGATOIRE**: Exécuter lorsque {{plugin_key}}.enabled = true
+**DISPONIBLE**: Lorsque {{plugin_key}}.enabled = true
 
 **Étapes**:
 1. Lire modules/{{plugin_name}}/settings.json

@@ -1,6 +1,13 @@
 # تكامل وكيل {{display_name}} (العربية)
 
-**⚠️ إجراء أمان**: هذا ملف TEMPLATE. يجب على الوكلاء عدم تحميل هذا الملف تلقائياً. يتم التحميل فقط عند إعادة التسمية إلى `AGENTS.md` أو `GEMINI.md` أو `CLAUDE.md` بعد التنشيط الصريح للمستخدم وعندما `{{plugin_key}}.enabled = true` في settings.json.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
+<!-- SAFETY_PRECAUTION_END -->
+
 
 **إلزامي**: إذا كان {{plugin_key}}.enabled = true في settings.json، يجب على الوكلاء تنفيذ جميع الخوارزميات أدناه.
 

@@ -1,6 +1,13 @@
 # {{display_name}} एजेंट एकीकरण (हिन्दी)
 
-**⚠️ सुरक्षा सावधानी**: यह एक TEMPLATE फ़ाइल है। एजेंटों को यह फ़ाइल स्वचालित रूप से लोड नहीं करनी चाहिए। केवल तभी लोड करें जब इसे `AGENTS.md`, `GEMINI.md` या `CLAUDE.md` में नाम बदलकर स्पष्ट उपयोगकर्ता सक्रियण के बाद और जब settings.json में `{{plugin_key}}.enabled = true` हो।
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
+<!-- SAFETY_PRECAUTION_END -->
+
 
 **अनिवार्य**: यदि settings.json में {{plugin_key}}.enabled = true है, तो एजेंटों को नीचे दिए गए सभी एल्गोरिदम लागू करने होंगे।
 

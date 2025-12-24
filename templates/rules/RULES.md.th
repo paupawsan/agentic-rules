@@ -1,6 +1,13 @@
 # {{display_name}} การรวมตัวแทน (ภาษาไทย)
 
-**⚠️ คำเตือนความปลอดภัย**: นี่คือไฟล์ TEMPLATE ตัวแทนต้องไม่โหลดไฟล์นี้โดยอัตโนมัติ เฉพาะเมื่อเปลี่ยนชื่อเป็น `AGENTS.md`, `GEMINI.md` หรือ `CLAUDE.md` หลังจากการเปิดใช้งานผู้ใช้ที่ชัดเจน และเมื่อ `{{plugin_key}}.enabled = true` ใน settings.json
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
+<!-- SAFETY_PRECAUTION_END -->
+
 
 **บังคับ**: หาก {{plugin_key}}.enabled = true ใน settings.json ตัวแทนต้องใช้ทั้งหมด ข้อกำหนด ด้านล่าง
 

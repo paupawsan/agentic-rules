@@ -1,6 +1,13 @@
 # Integração de Agente {{display_name}} (Português)
 
-**⚠️ PRECAUÇÃO DE SEGURANÇA**: Este é um arquivo TEMPLATE. Os agentes NÃO DEVEM carregar automaticamente este arquivo. Carregar apenas quando renomeado para `AGENTS.md`, `GEMINI.md` ou `CLAUDE.md` após ativação explícita do usuário E quando `{{plugin_key}}.enabled = true` em settings.json.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
+<!-- SAFETY_PRECAUTION_END -->
+
 
 **OBRIGATÓRIO**: Se {{plugin_key}}.enabled = true em settings.json, os agentes DEVEM implementar todos os algoritmos abaixo.
 
@@ -18,7 +25,7 @@
 3. Validar configurações de parâmetros
 4. Retornar sistema inicializado
 
-**CRÍTICO**: NÃO ativar automaticamente - respeitar configuração do usuário.
+Framework: NÃO ativar automaticamente - respeitar configuração do usuário.
 
 ### Algoritmo: {{pascal_case_name}}_Main_Process
 **OBRIGATÓRIO**: Executar para todas as interações de usuário relevantes quando ativado

@@ -1,6 +1,13 @@
 # Интеграция Агента {{display_name}} (Русский)
 
-**⚠️ МЕРА БЕЗОПАСНОСТИ**: Это TEMPLATE файл. Агенты НЕ ДОЛЖНЫ автоматически загружать этот файл. Загружать только при переименовании в `AGENTS.md`, `GEMINI.md` или `CLAUDE.md` после явной активации пользователя И когда `{{plugin_key}}.enabled = true` в settings.json.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
+<!-- SAFETY_PRECAUTION_END -->
+
 
 **ОБЯЗАТЕЛЬНО**: Если {{plugin_key}}.enabled = true в settings.json, агенты ДОЛЖНЫ реализовать все алгоритмы ниже.
 

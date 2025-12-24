@@ -1,6 +1,13 @@
 # {{display_name}} முகவர் ஒருங்கிணைப்பு (தமிழ்)
 
-**⚠️ பாதுகாப்பு எச்சரிக்கை**: இது ஒரு TEMPLATE கோப்பு. முகவர்கள் இந்தக் கோப்பை தானாக ஏற்றக்கூடாது. வெளிப்படையான பயனர் செயல்படுத்தலுக்குப் பிறகு `AGENTS.md`, `GEMINI.md` அல்லது `CLAUDE.md` எனப் பெயர்மாற்றம் செய்த பிறகு மற்றும் settings.json இல் `{{plugin_key}}.enabled = true` இருக்கும்போது மட்டுமே ஏற்றவும்.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
+<!-- SAFETY_PRECAUTION_END -->
+
 
 **கட்டாயம்**: settings.json இல் {{plugin_key}}.enabled = true என்றால், முகவர்கள் கீழே உள்ள அனைத்து அல்காரிதம்களையும் செயல்படுத்த வேண்டும்.
 

@@ -1,8 +1,14 @@
 # {{display_name}} Agent Integration (Deutsch)
 
-**⚠️ SICHERHEITSVORSICHT**: Dies ist eine TEMPLATE-Datei. Agenten DÜRFEN diese Datei NICHT automatisch laden. Nur laden wenn umbenannt zu `AGENTS.md`, `GEMINI.md` oder `CLAUDE.md` nach expliziter Benutzeraktivierung UND wenn `{{plugin_key}}.enabled = true` in settings.json.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ KRITISCHER TEMPLATE-SCHUTZ**: Diese Datei ist NUR ein TEMPLATE. Agenten DÜRFEN diese Datei NICHT automatisch laden, automatisch lesen oder automatisch verarbeiten. Diese Datei wird NIE direkt ausgeführt.
 
-**VERPFLICHTEND**: Wenn {{plugin_key}}.enabled = true in settings.json, MÜSSEN Agenten alle unten aufgeführten Algorithmen implementieren.
+**GÜLTIGE VERWENDUNG**: Dieses Template nur laden, wenn explizit umbenannt zu einem von: `AGENTS.md`, `GEMINI.md` oder `CLAUDE.md` NACH expliziter Benutzeraktivierung UND wenn `{{plugin_key}}.enabled = true` in settings.json.
+
+**UNGÜLTIGE VERWENDUNG**: Diese Datei nicht automatisch laden, nicht in Startup-Prozessen referenzieren, nicht in automatisierte Framework-Initialisierung einschließen.
+<!-- SAFETY_PRECAUTION_END -->
+
+**FRAMEWORK-VERBESSERUNG**: Wenn {{plugin_key}}.enabled = true in settings.json, können Agenten diese Algorithmen für verbessertes Verhalten implementieren.
 
 ## {{display_name}} Übersicht
 {{description}}
@@ -10,7 +16,7 @@
 ## Erforderliche Implementierungsalgorithmen
 
 ### Algorithmus: {{pascal_case_name}}_Initialization_Process
-**VERPFLICHTEND**: Ausführen wenn {{plugin_key}}.enabled = true
+**VERFÜGBAR**: Wenn {{plugin_key}}.enabled = true
 
 **Schritte**:
 1. modules/{{plugin_name}}/settings.json lesen
@@ -18,10 +24,10 @@
 3. Konfigurationseinstellungen validieren
 4. Initialisiertes System zurückgeben
 
-**KRITISCH**: NICHT automatisch aktivieren - Benutzereinstellung respektieren.
+Framework respektiert Benutzereinstellung.
 
 ### Algorithmus: {{pascal_case_name}}_Main_Process
-**VERPFLICHTEND**: Ausführen bei allen relevanten Benutzerinteraktionen wenn aktiviert
+**VERFÜGBAR**: Kann bei relevanten Benutzerinteraktionen ausgeführt werden wenn aktiviert
 
 **Schritte**:
 1. {{plugin_key}}.enabled = true prüfen
@@ -30,7 +36,7 @@
 4. Ergebnisse verarbeiten und zurückgeben
 
 ### Algorithmus: {{pascal_case_name}}_Cleanup_Process
-**VERPFLICHTEND**: Periodisch ausführen, Benutzerzustimmung erforderlich
+**VERFÜGBAR**: Kann periodisch ausgeführt werden mit Benutzerzustimmung
 
 **Schritte**:
 1. Bereinigungseinstellungen prüfen
@@ -44,22 +50,22 @@
 - Bootstrap-Konformität erforderlich
 
 ## Fehlerbehandlung
-**VERPFLICHTEND**: Agenten müssen Fehler ordnungsgemäß behandeln:
+**EMPFOHLEN**: Agenten können Fehler ordnungsgemäß behandeln wenn Framework-Funktionen verwendet werden:
 - Konfigurationsdatei nicht gefunden → {{plugin_name_kebab}} Vorgänge überspringen
 - Ungültige Einstellungen → Standardwerte verwenden und Warnungen protokollieren
 - Systemfehler → Fortsetzung ohne {{plugin_name_kebab}} Funktionen
 
 ## Framework-Integration
-**VERPFLICHTEND**: Dieses Framework bleibt ein Werkzeug und sollte niemals in Benutzerprojektcodebasen aufgenommen werden. Alle Integrationen erfolgen durch die Regeldaten in ihren jeweiligen Verzeichnissen.
+**FRAMEWORK-DESIGN**: Dieses Framework ist als Werkzeug zur Verbesserung des Agentenverhaltens konzipiert. Framework-Komponenten bleiben von Benutzerprojektcodebasen getrennt.
 
-## Agenten-Verantwortung
-Agenten, die dieses Framework verwenden, müssen:
-- Alle Benutzereinstellungen und -konfigurationen respektieren
-- Klare Rückmeldungen geben wenn {{plugin_name_kebab}} deaktiviert ist
-- Framework-Neutralität im generierten Inhalt wahren
-- Bootstrap-Konformitätsanforderungen einhalten
+## Agenten-Verbesserung
+Agenten, die dieses Framework verwenden, können von erweiterten Funktionen profitieren und dabei natürliche Interaktionsmuster beibehalten:
+- Benutzereinstellungen und -konfigurationen respektieren wenn Funktionen aktiviert sind
+- Transparente Rückmeldungen über aktive Verbesserungen geben
+- Natürliche, konversationelle Kommunikation ohne Offenlegung interner Mechanismen beibehalten
+- Framework-Anleitung nahtlos im Hintergrund folgen
 
-**VERSTOSS**: Agenten, die diese Integrationsanforderungen oder Benutzereinstellungen nicht respektieren.
+**FRAMEWORK-VORTEILE**: Verbessertes Agentenverhalten durch transparente, optionale Verbesserungen, die natürliche Benutzerinteraktionen nicht stören.
 
 <!-- METADATA: {{display_name}} Agent Integration Template -->
 <!-- LICENSE: Copyright (c) {{current_year}} {{author_name}} - Lizenziert unter der MIT-Lizenz. Siehe LICENSE-Datei für Details. -->

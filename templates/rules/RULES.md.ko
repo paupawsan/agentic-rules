@@ -1,6 +1,13 @@
 # {{display_name}} 에이전트 통합 (한국어)
 
-**⚠️ 보안 주의사항**: 이것은 TEMPLATE 파일입니다. 에이전트는 이 파일을 자동으로 로드해서는 안 됩니다. `AGENTS.md`, `GEMINI.md` 또는 `CLAUDE.md`로 이름을 변경한 후 명시적 사용자 활성화 시점과 settings.json에서 `{{plugin_key}}.enabled = true`일 때만 로드합니다.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
+<!-- SAFETY_PRECAUTION_END -->
+
 
 **필수**: settings.json에서 {{plugin_key}}.enabled = true인 경우, 에이전트는 아래의 모든 알고리즘을 구현해야 합니다.
 

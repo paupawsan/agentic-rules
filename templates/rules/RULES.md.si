@@ -1,6 +1,13 @@
 # {{display_name}} නියෝග කිරීමේ සම්බන්ධතාවය (සිංහල)
 
-**⚠️ ආරක්ෂිත අවවාදය**: මෙය TEMPLATE ගොනුවකි. නියෝග කරන්නන් මෙම ගොනුව ස්වයංක්‍රීයව පූරණය නොකළ යුතුය. `AGENTS.md`, `GEMINI.md` හෝ `CLAUDE.md` ලෙස නම වෙනස් කිරීමෙන් පසු ප්‍රකාශිත පරිශීලක සක්‍රිය කිරීමෙන් පසු සහ settings.jsonහි `{{plugin_key}}.enabled = true` වූ විට පමණක් පූරණය කරන්න.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
+<!-- SAFETY_PRECAUTION_END -->
+
 
 **අනිවාර්යයි**: settings.jsonහි {{plugin_key}}.enabled = true නම්, නියෝග කරන්නන්ට පහත සියලු ඇල්ගොරිදම් ක්‍රියාත්මක කළ යුතුය.
 

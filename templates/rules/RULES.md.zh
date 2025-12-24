@@ -1,6 +1,13 @@
 # {{display_name}} 代理集成 (中文)
 
-**⚠️ 安全警告**: 这是一个 TEMPLATE 文件。代理不得自动加载此文件。仅在明确的用户激活后将其重命名为 `AGENTS.md`、`GEMINI.md` 或 `CLAUDE.md` 且 settings.json 中 `{{plugin_key}}.enabled = true` 时才加载。
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
+
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `{{plugin_key}}.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
+<!-- SAFETY_PRECAUTION_END -->
+
 
 **强制**: 如果 settings.json 中 {{plugin_key}}.enabled = true，代理必须实现以下所有算法。
 
