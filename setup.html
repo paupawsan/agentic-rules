@@ -1283,8 +1283,8 @@
               },
               "recommended": true,
               "settings": {
-                "context_optimization.max_context_window": 128000,
-                "context_optimization.dynamic_adjustment": true
+                "rag_rules.context_window_optimization.max_context_tokens": 128000,
+                "rag_rules.context_window_optimization.dynamic_adjustment": true
               }
             }
           ]
@@ -2005,7 +2005,8 @@
       "lang_option_vi": "🇻🇳 Tiếng Việt"
     }
   }
-};  // ---AUTO GENERATED LOCALIZATION END---
+};
+    // ---AUTO GENERATED LOCALIZATION END---
 
   </script>
 
@@ -2275,12 +2276,49 @@
 
     function saveConfigValue(inputId, value) {
       // Parse input ID to get plugin and config name
-      const parts = inputId.split('-');
-      if (parts.length < 3) return;
+      // inputId formats:
+      // - Radio buttons: "pluginName-configName" (e.g., "modules/rag-rules-knowledge_graph")
+      // - Checkboxes: "pluginName-configName-optionName" (e.g., "modules/rag-rules-context_optimization-context_window_optimization")
+      // - Text inputs: "pluginName-configName-input" (e.g., "modules/memory-rules-retention_policies-input")
 
-      const pluginName = parts[0];
-      const configName = parts[1];
-      const optionName = parts.length > 3 ? parts.slice(2).join('-') : null;
+      // Plugin names are known, so find which one matches the start
+      const knownPlugins = ['modules/agent-interaction-unit-test', 'modules/critical-thinking-rules', 'modules/memory-rules', 'modules/rag-rules'];
+
+      let pluginName = null, remaining = inputId;
+
+      for (const plugin of knownPlugins) {
+        if (inputId.startsWith(plugin + '-')) {
+          pluginName = plugin;
+          remaining = inputId.substring(plugin.length + 1); // +1 for the '-'
+          break;
+        }
+      }
+
+      if (!pluginName) {
+        console.error('Could not find plugin name in inputId:', inputId);
+        return;
+      }
+
+      // Now parse the remaining part
+      const parts = remaining.split('-');
+      if (parts.length < 1) {
+        console.error('Invalid remaining part:', remaining);
+        return;
+      }
+
+      const configName = parts[0];
+      let optionName = null;
+
+      if (parts.length > 1) {
+        const suffix = parts.slice(1).join('-');
+        if (suffix === 'input') {
+          // Text input, no option name
+          optionName = null;
+        } else {
+          // Checkbox with option name
+          optionName = suffix;
+        }
+      }
 
       // Store in selectedRules structure
       if (!selectedRules[pluginName]) {
@@ -3069,7 +3107,8 @@
           }
 
           // Set enabled status based on selection
-          const isEnabled = selectedRules[pluginName] || false;
+          // selectedRules[pluginName] might be an object with config selections, not just a boolean
+          const isEnabled = selectedRules[pluginName] && typeof selectedRules[pluginName] === 'object' ? true : (selectedRules[pluginName] || false);
           config.settings[settingsKey].enabled = isEnabled;
 
           if (isEnabled) {
@@ -3086,20 +3125,48 @@
 
           // Handle optional configs
           for (const optionalConfig of pluginData.optional_config || []) {
-            // Check which options are selected
-            for (const option of optionalConfig.options || []) {
-              const checkbox = document.getElementById(`${pluginName}-${optionalConfig.name}-${option.name}`);
-              if (checkbox && checkbox.checked) {
-                // Apply the settings from the selected option
-                if (option.settings) {
-                  config.settings[settingsKey] = {
-                    ...config.settings[settingsKey],
-                    ...option.settings
-                  };
+            if (optionalConfig.type === 'choice') {
+              // For choice type (radio buttons), only one option can be selected
+              const selectedOption = selectedRules[pluginName] && selectedRules[pluginName][optionalConfig.name];
+
+              if (selectedOption) {
+                const option = optionalConfig.options.find(opt => opt.name === selectedOption);
+                if (option && option.settings) {
+                  for (const [settingKey, settingValue] of Object.entries(option.settings)) {
+                    // Remove the plugin prefix from setting key since we're already in the plugin's settings object
+                    const relativeSettingKey = settingKey.replace(`${settingsKey}.`, '');
+                    setNestedValue(config.settings[settingsKey], relativeSettingKey, settingValue);
+                  }
                 }
               }
+            } else if (optionalConfig.type === 'checkbox') {
+              // For checkbox type, multiple options can be selected
+              for (const option of optionalConfig.options || []) {
+                let isSelected = false;
+
+                // Check stored values first
+                if (selectedRules[pluginName] && selectedRules[pluginName][optionalConfig.name] &&
+                    selectedRules[pluginName][optionalConfig.name][option.name]) {
+                  isSelected = selectedRules[pluginName][optionalConfig.name][option.name];
+                } else {
+                  // Fallback to DOM checkbox
+                  const checkbox = document.getElementById(`${pluginName}-${optionalConfig.name}-${option.name}`);
+                  isSelected = checkbox && checkbox.checked;
+                }
+
+                if (isSelected) {
+                  // Apply the settings from the selected option
+                  if (option.settings) {
+                    for (const [settingKey, settingValue] of Object.entries(option.settings)) {
+                      // Remove the plugin prefix from setting key since we're already in the plugin's settings object
+                      const relativeSettingKey = settingKey.replace(`${settingsKey}.`, '');
+                      setNestedValue(config.settings[settingsKey], relativeSettingKey, settingValue);
+                    }
+                  }
+                }
               }
             }
+          }
           } else {
             // For disabled plugins, use default settings
             if (pluginData.default_settings) {
@@ -3112,6 +3179,7 @@
         }
 
         progressFill.style.width = '50%';
+
 
         // Generate the files
         await generateFiles(config);
