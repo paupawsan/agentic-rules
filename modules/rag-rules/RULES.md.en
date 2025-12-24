@@ -81,7 +81,9 @@ Algorithm: Incremental_Graph_Builder
 1. Add new entities as nodes with type and attribute metadata
 2. Add relationships as directed/undirected edges with confidence metadata
 3. Apply graph consistency checks and optimization
-4. Persist graph state with timestamp metadata
+4. Persist graph state with timestamp metadata:
+   - If memory_rules.enabled = true: Store in persistent memory system
+   - If memory_rules.enabled = false: Store in session-only context
 ```
 
 ### Algorithm: Knowledge_Graph_Query_Enhancement
@@ -109,7 +111,10 @@ Algorithm: Adaptive_Graph_Maintenance
 1. Analyze usage patterns and apply aging/pruning rules
 2. Perform graph restructuring and optimization
 3. Optimize for query performance with updated indices
-4. Generate maintenance report with statistics
+4. Persist optimized graph state:
+   - If memory_rules.enabled = true: Update stored graph data in persistent memory
+   - If memory_rules.enabled = false: Maintain graph in session context only
+5. Generate maintenance report with statistics
 ```
 
 ### Algorithm: Self_Learning_Pattern_Recognition

@@ -82,7 +82,9 @@ Algoritma: Incremental_Graph_Builder
 1. Tambahkan entitas baru sebagai node dengan metadata tipe dan atribut
 2. Tambahkan hubungan sebagai edge terarah/tidak terarah dengan metadata kepercayaan
 3. Terapkan pemeriksaan konsistensi grafik dan pengoptimalan
-4. Persistensi status grafik dengan metadata timestamp
+4. Persistensi status grafik dengan metadata timestamp:
+   - Jika memory_rules.enabled = true: Simpan di sistem memori persisten
+   - Jika memory_rules.enabled = false: Simpan di konteks khusus sesi
 ```
 
 ### Algoritma: Knowledge_Graph_Query_Enhancement
@@ -110,7 +112,10 @@ Algoritma: Adaptive_Graph_Maintenance
 1. Analisis pola penggunaan dan terapkan aturan aging/pruning
 2. Lakukan restrukturisasi grafik dan pengoptimalan
 3. Optimalkan untuk performa query dengan indeks yang diperbarui
-4. Hasilkan laporan pemeliharaan dengan statistik
+4. Persistensi status grafik yang dioptimalkan:
+   - Jika memory_rules.enabled = true: Perbarui data grafik tersimpan di memori persisten
+   - Jika memory_rules.enabled = false: Pertahankan grafik di konteks sesi saja
+5. Hasilkan laporan pemeliharaan dengan statistik
 ```
 
 ### Algoritma: Self_Learning_Pattern_Recognition

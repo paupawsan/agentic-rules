@@ -27,6 +27,14 @@ RAG rules influence all agent operations by:
 - **Providing pattern analysis** for decision-making
 - **Reducing processing overhead** through intelligent filtering
 
+### Memory Integration
+Knowledge Graph algorithms integrate with memory rules for persistence:
+- **Graph Persistence**: When memory_rules.enabled = true, constructed knowledge graphs are stored in persistent memory system
+- **Memory Categories**: Knowledge graphs stored in appropriate memory categories (knowledge_graph or technical)
+- **Retention Policies**: Long-term retention for valuable knowledge relationships
+- **Coordination**: Memory cleanup processes respect knowledge graph dependencies
+- **Fallback**: When memory disabled, graphs maintained in session context only
+
 ## Core Algorithms
 
 ### Context Window Optimization Algorithm
@@ -218,7 +226,7 @@ Output: List of entity relationships
 ### Knowledge Graph Construction Algorithm
 ```
 Algorithm: Incremental_Graph_Builder
-Input: entities, relationships, existing_graph
+Input: entities, relationships, existing_graph, memory_system_enabled
 Output: Updated knowledge graph
 
 1. Initialize graph with existing nodes and edges
@@ -236,7 +244,15 @@ Output: Updated knowledge graph
    - Remove isolated nodes below threshold
    - Simplify redundant paths
    - Update graph indices for efficient querying
-6. Persist graph state with timestamp metadata
+6. Persist graph state with timestamp metadata:
+   - If memory_rules.enabled = true:
+     - Store graph data in persistent memory system
+     - Use appropriate memory category (knowledge_graph or technical)
+     - Include metadata for graph reconstruction
+     - Set retention policy for long-term knowledge preservation
+   - If memory_rules.enabled = false:
+     - Store graph in session-only context
+     - Graph will be lost when context is summarized/reset
 ```
 
 ### Graph Query Algorithm
@@ -266,7 +282,7 @@ Output: Ranked list of relevant information
 ### Graph Maintenance Algorithm
 ```
 Algorithm: Adaptive_Graph_Maintenance
-Input: knowledge_graph, usage_patterns, time_window
+Input: knowledge_graph, usage_patterns, time_window, memory_system_enabled
 Output: Optimized knowledge graph
 
 1. Analyze usage patterns over time window:
@@ -285,7 +301,16 @@ Output: Optimized knowledge graph
    - Rebuild indices based on access patterns
    - Pre-compute frequently accessed subgraphs
    - Update caching strategies
-5. Generate maintenance report with statistics
+5. Persist optimized graph state:
+   - If memory_rules.enabled = true:
+     - Update stored graph data in persistent memory
+     - Respect memory retention policies for knowledge preservation
+     - Maintain graph evolution history for debugging
+     - Coordinate with memory cleanup processes
+   - If memory_rules.enabled = false:
+     - Maintain graph in session context only
+     - Graph optimizations lost when context resets
+6. Generate maintenance report with statistics
 ```
 
 ## Quality Assurance
