@@ -85,6 +85,7 @@ def load_json_file(filepath):
         print(f"Error loading {filepath}: {e}")
         return None
 
+
 def generate_web_config():
     """Generate web-config.json from plugins.json and setup.json files."""
 
@@ -155,9 +156,11 @@ def generate_web_config():
             default_settings_data = load_json_file(settings_file)
             if default_settings_data:
                 # Extract the plugin-specific settings (remove metadata and version)
-                plugin_key = plugin_name.replace('-', '_')  # Convert kebab-case to snake_case
+                plugin_key = plugin_name.replace('modules/', '').replace('-', '_')  # Convert kebab-case to snake_case
                 if plugin_key in default_settings_data:
-                    default_settings = default_settings_data[plugin_key]
+                    plugin_settings = default_settings_data[plugin_key]
+                    default_settings = plugin_settings.copy()
+
                 # Also include any root-level settings that might be relevant
                 for key, value in default_settings_data.items():
                     if key not in ['_metadata', 'version', plugin_key]:
@@ -184,6 +187,9 @@ def generate_web_config():
                 display_name = native_local.get('plugin_name', plugin_name)
                 description = native_local.get('description', '')
 
+        # Use explicit config from setup.json (no auto-generation)
+        explicit_config = setup_data.get('optional_config', [])
+
         # Build plugin config for web interface (input_type will be determined in HTML)
         plugin_config = {
             "name": plugin_name,
@@ -191,7 +197,7 @@ def generate_web_config():
             "description": description,
             "localization": localization,
             "mandatory_config": setup_data.get('mandatory_config', []),
-            "optional_config": setup_data.get('optional_config', []),
+            "optional_config": explicit_config,
             "default_settings": default_settings,
             "templates": template_content
         }

@@ -61,6 +61,31 @@
 6. Prune outdated or weakly connected nodes to maintain graph efficiency
 7. Store graph state for persistence across sessions
 
+**Implementation**:
+```
+Algorithm: Structured_Entity_Extraction
+1. Tokenize input text into sentences and words
+2. Apply part-of-speech tagging to identify noun phrases
+3. Use named entity recognition patterns for Person/Organization/Location/Concept
+4. Apply rule-based filtering and confidence scoring
+5. Return entities sorted by confidence and frequency
+
+Algorithm: Pattern_Based_Relation_Extraction
+1. Identify sentence structures containing multiple entities
+2. Apply syntactic pattern matching for subject-verb-object triples
+3. Use lexical pattern recognition for verb-based and compound relationships
+4. Apply domain-specific relation templates
+5. Validate relationships against consistency rules
+
+Algorithm: Incremental_Graph_Builder
+1. Add new entities as nodes with type and attribute metadata
+2. Add relationships as directed/undirected edges with confidence metadata
+3. Apply graph consistency checks and optimization
+4. Persist graph state with timestamp metadata:
+   - If memory_rules.enabled = true: Store in persistent memory system
+   - If memory_rules.enabled = false: Store in session-only context
+```
+
 ### Algorithm: Knowledge_Graph_Query_Enhancement
 **AVAILABLE**: Can execute during information retrieval to leverage learned relationships
 
@@ -72,6 +97,25 @@
 5. Retrieve contextually related information beyond direct keyword matches
 6. Rank results using graph centrality and relationship strength
 7. Integrate graph-enhanced results with traditional RAG retrieval
+
+**Implementation**:
+```
+Algorithm: Semantic_Graph_Query
+1. Parse query for entities and intent using Structured_Entity_Extraction
+2. Identify relevant nodes through direct matching and graph traversal
+3. Apply semantic similarity matching with synonym expansion
+4. Rank results using multi-factor scoring (match confidence + centrality + similarity)
+5. Return top-ranked results with explanation metadata
+
+Algorithm: Adaptive_Graph_Maintenance
+1. Analyze usage patterns and apply aging/pruning rules
+2. Perform graph restructuring and optimization
+3. Optimize for query performance with updated indices
+4. Persist optimized graph state:
+   - If memory_rules.enabled = true: Update stored graph data in persistent memory
+   - If memory_rules.enabled = false: Maintain graph in session context only
+5. Generate maintenance report with statistics
+```
 
 ### Algorithm: Self_Learning_Pattern_Recognition
 **AVAILABLE**: Can execute periodically to identify and learn recurring patterns

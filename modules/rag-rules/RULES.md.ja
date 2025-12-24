@@ -62,6 +62,31 @@
 6. グラフ効率を維持するために古くなった弱い接続ノードをプルーニング / Prune outdated or weakly connected nodes to maintain graph efficiency
 7. 永続性のためにグラフ状態を保存 / Store graph state for persistence across sessions
 
+**実装 / Implementation**:
+```
+アルゴリズム: Structured_Entity_Extraction / Algorithm: Structured_Entity_Extraction
+1. 入力を文と単語にトークン化 / Tokenize input text into sentences and words
+2. 名詞句を識別するための品詞タグ付けを適用 / Apply part-of-speech tagging to identify noun phrases
+3. Person/Organization/Location/Conceptの名前付きエンティティ認識パターンを使用 / Use named entity recognition patterns for Person/Organization/Location/Concept
+4. ルールベースのフィルタリングと信頼度スコアリングを適用 / Apply rule-based filtering and confidence scoring
+5. 信頼度と頻度でソートされたエンティティを返す / Return entities sorted by confidence and frequency
+
+アルゴリズム: Pattern_Based_Relation_Extraction / Algorithm: Pattern_Based_Relation_Extraction
+1. 複数のエンティティを含む文構造を識別 / Identify sentence structures containing multiple entities
+2. 主語-動詞-目的語のトリプルに対する構文パターン マッチングを適用 / Apply syntactic pattern matching for subject-verb-object triples
+3. 動詞ベースと複合関係に対する語彙パターン認識を使用 / Use lexical pattern recognition for verb-based and compound relationships
+4. ドメイン固有の関係テンプレートを適用 / Apply domain-specific relation templates
+5. 一貫性ルールに対して関係を検証 / Validate relationships against consistency rules
+
+アルゴリズム: Incremental_Graph_Builder / Algorithm: Incremental_Graph_Builder
+1. タイプと属性メタデータを持つノードとして新しいエンティティを追加 / Add new entities as nodes with type and attribute metadata
+2. 信頼度メタデータを持つ有向/無向エッジとして関係を追加 / Add relationships as directed/undirected edges with confidence metadata
+3. グラフの一貫性チェックと最適化を適用 / Apply graph consistency checks and optimization
+4. タイムスタンプメタデータでグラフ状態を永続化 / Persist graph state with timestamp metadata:
+   - memory_rules.enabled = trueの場合: 永続的なメモリシステムに保存 / If memory_rules.enabled = true: Store in persistent memory system
+   - memory_rules.enabled = falseの場合: セッション専用コンテキストに保存 / If memory_rules.enabled = false: Store in session-only context
+```
+
 ### アルゴリズム: Knowledge_Graph_Query_Enhancement / Algorithm: Knowledge_Graph_Query_Enhancement
 **利用可能 / AVAILABLE**: 情報検索中に実行して学習した関係性を活用 / Execute during information retrieval to leverage learned relationships
 
@@ -73,6 +98,25 @@
 5. 直接一致を超えた文脈的に関連情報を取得 / Retrieve contextually related information beyond direct keyword matches
 6. グラフ中心性と関係強度を使用して結果をランク付け / Rank results using graph centrality and relationship strength
 7. クエリ処理中に発見された新しい関係性で知識グラフを更新 / Update knowledge graph with new relationships discovered during query processing
+
+**実装 / Implementation**:
+```
+アルゴリズム: Semantic_Graph_Query / Algorithm: Semantic_Graph_Query
+1. Structured_Entity_Extractionを使用してエンティティと意図のクエリを解析 / Parse query for entities and intent using Structured_Entity_Extraction
+2. 直接マッチングとグラフ走査を通じて関連ノードを識別 / Identify relevant nodes through direct matching and graph traversal
+3. 同義語拡張による意味的類似性マッチングを適用 / Apply semantic similarity matching with synonym expansion
+4. マルチファクター スコアリングを使用して結果をランク付け / Rank results using multi-factor scoring (match confidence + centrality + similarity)
+5. 説明メタデータ付きのトップランク結果を返す / Return top-ranked results with explanation metadata
+
+アルゴリズム: Adaptive_Graph_Maintenance / Algorithm: Adaptive_Graph_Maintenance
+1. 使用パターンを分析し、エイジング/プルーニングルールを適用 / Analyze usage patterns and apply aging/pruning rules
+2. グラフ再構築と最適化を実行 / Perform graph restructuring and optimization
+3. 更新されたインデックスでクエリパフォーマンスを最適化 / Optimize for query performance with updated indices
+4. 最適化されたグラフ状態を永続化 / Persist optimized graph state:
+   - memory_rules.enabled = trueの場合: 永続的なメモリに保存されたグラフデータを更新 / If memory_rules.enabled = true: Update stored graph data in persistent memory
+   - memory_rules.enabled = falseの場合: セッションコンテキストのみでグラフを維持 / If memory_rules.enabled = false: Maintain graph in session context only
+5. 統計を含むメンテナンスレポートを生成 / Generate maintenance report with statistics
+```
 
 ### アルゴリズム: Self_Learning_Pattern_Recognition / Algorithm: Self_Learning_Pattern_Recognition
 **利用可能 / AVAILABLE**: 定期的に実行して繰り返しパターンを特定して学習 / Execute periodically to identify and learn recurring patterns

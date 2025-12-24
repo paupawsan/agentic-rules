@@ -65,6 +65,7 @@ The **RAG (Retrieval-Augmented Generation) Rules** plugin enhances AI agents' ab
 - **Relationship Discovery**: Identifies connections between entities, concepts, and ideas
 - **Graph Evolution**: Updates and strengthens relationships over time
 - **Intelligent Pruning**: Maintains graph efficiency by removing outdated connections
+- **Memory Integration**: Persists knowledge graphs when memory_rules enabled (prevents loss during context summarization)
 
 #### 🔗 **Graph-Enhanced Retrieval**
 - **Relationship-Based Search**: Finds information through connections, not just keywords
@@ -292,7 +293,10 @@ RAG Rules with Knowledge Graph capabilities help with:
 ### Memory Rules Synergy
 - RAG Rules provide information retrieval for memory storage
 - Memory Rules store successful RAG strategies and preferences
-- Combined system learns optimal reading patterns
+- **Knowledge Graph Persistence**: When memory_rules enabled, constructed knowledge graphs are stored persistently
+- **Graph Memory Categories**: Knowledge graphs stored in appropriate memory categories with long-term retention
+- **Context Preservation**: Prevents knowledge graph loss during context summarization or resets
+- Combined system learns optimal reading patterns and maintains knowledge relationships
 
 ### Critical Thinking Rules Enhancement
 - RAG Rules gather comprehensive information for analysis

@@ -145,64 +145,62 @@
         }
       ],
       "default_settings": {
-        "agent_interaction_unit_test": {
-          "enabled": false,
-          "validation_level": "standard",
-          "ground_check": {
-            "enabled": true,
-            "required_coverage": 100,
-            "source_verification": true,
-            "cross_reference_checking": true
-          },
-          "assumption_challenge": {
-            "enabled": true,
-            "automatic_detection": true,
-            "challenge_threshold": "medium"
-          },
-          "error_admission": {
-            "enabled": true,
-            "immediate_correction": true,
-            "transparency_logging": true,
-            "prevention_measures": true
-          },
-          "tool_call_audit": {
-            "enabled": true,
-            "parameter_logging": true,
-            "execution_time_tracking": true,
-            "relevance_scoring": true
-          },
-          "decision_audit": {
-            "enabled": true,
-            "alternative_analysis": true,
-            "risk_assessment": true,
-            "validation_requirements": true
-          },
-          "context_management_audit": {
-            "enabled": true,
-            "window_utilization_tracking": true,
-            "information_prioritization": true,
-            "memory_integration_logging": true
-          },
-          "compliance_validation": {
-            "framework_compliance_check": true,
-            "ground_check_coverage_check": true,
-            "hallucination_detection": true,
-            "tool_transparency_check": true,
-            "decision_documentation_check": true
-          },
-          "reporting": {
-            "detailed_reports": true,
-            "pass_fail_criteria": true,
-            "performance_metrics": true,
-            "recommendation_generation": true
-          },
-          "test_configuration": {
-            "test_case_format_validation": true,
-            "response_structure_checking": true,
-            "documentation_completeness": true
-          },
-          "agent_interaction_unit_test.advanced.performance_mode": "balanced"
-        }
+        "enabled": false,
+        "validation_level": "standard",
+        "ground_check": {
+          "enabled": true,
+          "required_coverage": 100,
+          "source_verification": true,
+          "cross_reference_checking": true
+        },
+        "assumption_challenge": {
+          "enabled": true,
+          "automatic_detection": true,
+          "challenge_threshold": "medium"
+        },
+        "error_admission": {
+          "enabled": true,
+          "immediate_correction": true,
+          "transparency_logging": true,
+          "prevention_measures": true
+        },
+        "tool_call_audit": {
+          "enabled": true,
+          "parameter_logging": true,
+          "execution_time_tracking": true,
+          "relevance_scoring": true
+        },
+        "decision_audit": {
+          "enabled": true,
+          "alternative_analysis": true,
+          "risk_assessment": true,
+          "validation_requirements": true
+        },
+        "context_management_audit": {
+          "enabled": true,
+          "window_utilization_tracking": true,
+          "information_prioritization": true,
+          "memory_integration_logging": true
+        },
+        "compliance_validation": {
+          "framework_compliance_check": true,
+          "ground_check_coverage_check": true,
+          "hallucination_detection": true,
+          "tool_transparency_check": true,
+          "decision_documentation_check": true
+        },
+        "reporting": {
+          "detailed_reports": true,
+          "pass_fail_criteria": true,
+          "performance_metrics": true,
+          "recommendation_generation": true
+        },
+        "test_configuration": {
+          "test_case_format_validation": true,
+          "response_structure_checking": true,
+          "documentation_completeness": true
+        },
+        "agent_interaction_unit_test.advanced.performance_mode": "balanced"
       },
       "templates": {
         "en": "# Agent Interaction Unit Test Agent Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.\n\n**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `agent_interaction_unit_test.enabled = true` in settings.json.\n\n**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.\n<!-- SAFETY_PRECAUTION_END -->\n\n**FRAMEWORK ENHANCEMENT**: When agent_interaction_unit_test.enabled = true in settings.json, agents can implement these algorithms for enhanced behavior.\n\n## Agent Interaction Unit Test Overview\nAutomated validation and testing framework for agent conversations with maximum transparency and ground check requirements, specifically designed for testing agent interaction patterns.\n\n## Required Implementation Algorithms\n\n**FRAMEWORK OPTION**: When agent_interaction_unit_test.enabled = true in settings.json, agents can implement algorithms from `CORE-RULES.md` for enhanced behavior.\n\nSee [CORE-RULES.md](CORE-RULES.md) for detailed algorithm specifications.\n\n## Settings Compliance\n- Respect all settings in modules/agent-interaction-unit-test/settings.json\n- Enable/disable via settings toggle (default: false)\n- Prompt user if agent_interaction_unit_test.enabled = false and unit testing requested\n- Never auto-enable testing mode without explicit user consent\n\n## Integration Points\n- **Memory Integration**: Store test results and validation history\n- **RAG Integration**: Optimize context for testing scenarios\n- **Critical Thinking**: Provide ground check validation support\n- **Bootstrap Coordination**: Respect loading priorities and rule sequencing\n\n## Usage Instructions\n\n### For Unit Testing:\n1. Set `agent_interaction_unit_test.enabled = true` in settings.json\n2. Execute agent with test case\n3. Review compliance report for validation criteria\n4. Check ground check coverage and error detection\n5. Validate tool call transparency and decision documentation\n\n### Test Case Format:\n```\nUNIT TEST: [Test_Name]\nFramework: Agentic Rules v1.1.0\nTask: [Specific_Test_Task]\n\n[Execute with unit test validation...]\n```\n\n### Validation Criteria:\n- ✅ **100% Framework Compliance** - All algorithms executed\n- ✅ **100% Ground Check Coverage** - All claims verified\n- ✅ **0% Hallucinations** - All information source-verified\n- ✅ **Complete Tool Transparency** - Every call logged\n- ✅ **Decision Process Documentation** - All choices explained\n\n## Error Handling\n**FRAMEWORK GUIDANCE**: When using framework features, agents can handle framework-related errors transparently while respecting standard error handling limits:\n- Configuration file missing → Skip unit test operations gracefully\n- Invalid settings → Use default values and continue with warnings\n- System errors → Continue operation without unit test features\n- Test failures → Document issues and provide correction guidance when appropriate\n\n**ERROR HANDLING LIMITS**: Respect standard constraints (maximum 3 attempts per error, avoid uneducated guesses, ask user for unclear issues)\n\n## Framework Integration\n**FRAMEWORK DESIGN**: This framework is designed as a tool to enhance agent behavior. Framework components remain separate from user project codebases.\n\n## Agent Enhancement\nAgents using this framework can benefit from enhanced capabilities while maintaining natural interaction patterns:\n- Respecting user settings and configurations when features are enabled\n- Providing transparent feedback about active enhancements\n- Maintaining natural, conversational communication without exposing internal mechanics\n- Following framework guidance seamlessly in the background\n- Enhanced accuracy and reliability through optional structured validation\n\n**FRAMEWORK BENEFITS**: Improved agent behavior through transparent, optional enhancements that don't interfere with natural user interactions.\n\n<!-- METADATA: Agent interaction unit test rules agent integration for automated validation and testing -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
@@ -263,8 +261,9 @@
               },
               "recommended": true,
               "settings": {
-                "verification.factual_claim_verification": true,
-                "verification.min_sources_required": 2
+                "verification_level": "rigorous",
+                "ground_check.enabled": true,
+                "ground_check.required_confirmations": 2
               }
             }
           ]
@@ -302,63 +301,61 @@
               },
               "recommended": true,
               "settings": {
-                "error_handling.immediate_error_admission": true,
-                "error_handling.log_corrections": true
+                "error_admission.immediate_correction": true,
+                "error_admission.transparency_logging": true
               }
             }
           ]
         }
       ],
       "default_settings": {
-        "critical_thinking_rules": {
+        "enabled": false,
+        "verification_level": "basic",
+        "error_admission": {
+          "enabled": true,
+          "immediate_correction": false,
+          "transparency_logging": false
+        },
+        "assumption_challenge": {
+          "enabled": true,
+          "challenge_threshold": "medium",
+          "automatic_detection": true
+        },
+        "ground_check": {
           "enabled": false,
-          "verification_level": "standard",
-          "error_admission": {
-            "enabled": true,
-            "immediate_correction": true,
-            "transparency_logging": true
+          "required_confirmations": 1,
+          "verification_timeout_seconds": 30,
+          "fallback_to_uncertainty": true
+        },
+        "hallucination_prevention": {
+          "enabled": true,
+          "reality_checks": true,
+          "conservative_estimation": true,
+          "uncertainty_qualification": true
+        },
+        "verification_categories": {
+          "factual": {
+            "min_sources": 3,
+            "require_independent": true
           },
-          "assumption_challenge": {
-            "enabled": true,
-            "challenge_threshold": "medium",
-            "automatic_detection": true
+          "technical": {
+            "require_testing": true,
+            "allow_simulation": true
           },
-          "ground_check": {
-            "enabled": true,
-            "required_confirmations": 2,
-            "verification_timeout_seconds": 30,
-            "fallback_to_uncertainty": true
-          },
-          "hallucination_prevention": {
-            "enabled": true,
-            "reality_checks": true,
-            "conservative_estimation": true,
-            "uncertainty_qualification": true
-          },
-          "verification_categories": {
-            "factual": {
-              "min_sources": 3,
-              "require_independent": true
-            },
-            "technical": {
-              "require_testing": true,
-              "allow_simulation": true
-            },
-            "logical": {
-              "check_consistency": true,
-              "identify_fallacies": true
-            }
-          },
-          "confidence_calibration": {
-            "enabled": true,
-            "track_accuracy": true,
-            "adjust_thresholds": true
-          },
-          "response_formats": {
-            "balanced_analysis": true,
-            "error_correction": true,
-            "assumption_challenge": true
+          "logical": {
+            "check_consistency": true,
+            "identify_fallacies": true
           }
+        },
+        "confidence_calibration": {
+          "enabled": true,
+          "track_accuracy": true,
+          "adjust_thresholds": true
+        },
+        "response_formats": {
+          "balanced_analysis": true,
+          "error_correction": true,
+          "assumption_challenge": true
         }
       },
       "templates": {
@@ -499,188 +496,176 @@
               },
               "recommended": true,
               "settings": {
-                "git_history_analysis.enabled": true,
-                "git_history_analysis.trigger_on_unknown_context": true,
-                "git_history_analysis.max_commits_to_analyze": 50
+                "project_support.git_history_analysis.enabled": true,
+                "project_support.git_history_analysis.trigger_on_unknown_context": true,
+                "project_support.git_history_analysis.max_commits_to_analyze": 50
               }
             }
           ]
         }
       ],
       "default_settings": {
-        "memory_rules": {
-          "enabled": false,
-          "max_entries_per_category": 100,
-          "cleanup_guidance_days": 90,
-          "index_update_frequency": "realtime",
-          "project_support": {
-            "enabled": true,
-            "auto_detect_projects": true,
-            "project_identification_method": "git_remote_or_directory_name",
-            "common_memory_enabled": true,
-            "private_memory_enabled": true,
-            "git_history_analysis": {
-              "enabled": false,
-              "trigger_on_unknown_context": true,
-              "max_commit_history_days": 90,
-              "max_commits_to_analyze": 100,
-              "analyze_commit_messages": true,
-              "analyze_file_changes": true,
-              "track_branch_evolution": false,
-              "extract_project_milestones": true,
-              "include_author_info": false,
-              "analyze_code_patterns": true,
-              "performance_mode": "fast",
-              "cache_analysis_results": true,
-              "analysis_timeout_seconds": 30
-            }
-          },
-          "categories": {
-            "technical": {
-              "enabled": true,
-              "suggested_retention_days": 90,
-              "storage_location": "common",
-              "share_across_projects": true
-            },
-            "behavioral": {
-              "enabled": true,
-              "suggested_retention_days": 60,
-              "storage_location": "common",
-              "share_across_projects": true
-            },
-            "contextual": {
-              "enabled": true,
-              "suggested_retention_days": 120,
-              "storage_location": "private",
-              "share_across_projects": false
-            },
-            "user_interaction": {
-              "enabled": true,
-              "suggested_retention_days": 30,
-              "capture_full_prompts": true,
-              "capture_responses": true,
-              "include_metadata": true,
-              "storage_location": "project",
-              "share_across_projects": false
-            },
-            "session": {
-              "enabled": true,
-              "suggested_retention_days": 60,
-              "auto_session_detection": true,
-              "topic_tracking": true,
-              "quality_metrics": true,
-              "storage_location": "project",
-              "share_across_projects": false
-            },
-            "topic": {
-              "enabled": true,
-              "suggested_retention_days": 180,
-              "evolution_tracking": true,
-              "pattern_recognition": true,
-              "cross_topic_linking": true,
-              "storage_location": "project",
-              "share_across_projects": false
-            },
-            "git_history": {
-              "enabled": true,
-              "suggested_retention_days": 365,
-              "analyze_commits": true,
-              "track_milestones": true,
-              "extract_patterns": true,
-              "storage_location": "project",
-              "share_across_projects": false
-            },
-            "personal": {
-              "enabled": true,
-              "suggested_retention_days": 3650,
-              "storage_location": "private",
-              "share_across_projects": false
-            },
-            "credentials": {
-              "enabled": true,
-              "suggested_retention_days": 3650,
-              "storage_location": "private",
-              "share_across_projects": false,
-              "encryption_required": true,
-              "flexible_naming": true,
-              "naming_logic": "agent_decides_based_on_context"
-            },
-            "sensitive": {
-              "enabled": true,
-              "suggested_retention_days": 3650,
-              "storage_location": "private",
-              "share_across_projects": false,
-              "encryption_required": true,
-              "access_controlled": true
-            }
-          },
-          "compression": {
+        "enabled": false,
+        "max_entries_per_category": 100,
+        "cleanup_guidance_days": 90,
+        "index_update_frequency": "realtime",
+        "project_support": {
+          "enabled": true,
+          "auto_detect_projects": true,
+          "project_identification_method": "git_remote_or_directory_name",
+          "common_memory_enabled": true,
+          "private_memory_enabled": true,
+          "git_history_analysis": {
             "enabled": false,
-            "threshold_mb": 50
-          },
-          "search": {
-            "enable_full_text": true,
-            "enable_tag_search": true,
-            "enable_topic_search": true,
-            "enable_session_search": true,
-            "max_results": 20,
-            "include_interaction_history": true
-          },
-          "capture_settings": {
-            "auto_capture_interactions": true,
-            "session_boundary_detection": true,
-            "topic_extraction": true,
-            "user_prompt_filtering": false,
-            "sensitive_data_masking": true
-          },
-          "auto_recording": {
-            "enabled": true,
-            "interaction_threshold": "medium",
-            "min_interaction_length": 10,
-            "record_all_prompts": true,
-            "record_all_responses": true,
-            "continuous_session_tracking": true,
-            "real_time_indexing": true,
-            "background_processing": false
-          },
-          "migration_settings": {
-            "auto_detect_existing_memories": true,
-            "prompt_user_for_migration": true,
-            "supported_source_systems": [
-              "cursor",
-              "github_copilot",
-              "custom_agent_frameworks",
-              "legacy_memory_systems"
-            ],
-            "migration_backup_originals": true,
-            "cross_system_compatibility": true,
-            "migration_notes_inclusion": true,
-            "selective_import_enabled": true
-          },
-          "cleanup_guidance": {
-            "enabled": true,
-            "notify_overdue_memories": true,
-            "notification_frequency_days": 30,
-            "interactive_cleanup": true,
-            "require_user_consent": true,
-            "suggest_cleanup_actions": true,
-            "preserve_important_memories": true,
-            "batch_cleanup_limit": 10
-          },
-          "integration": {
-            "cross_category_linking": true,
-            "session_context_inclusion": true,
-            "topic_evolution_tracking": true,
-            "user_pattern_analysis": true
+            "trigger_on_unknown_context": true,
+            "max_commit_history_days": 90,
+            "max_commits_to_analyze": 100,
+            "analyze_commit_messages": true,
+            "analyze_file_changes": true,
+            "track_branch_evolution": false,
+            "extract_project_milestones": true,
+            "include_author_info": false,
+            "analyze_code_patterns": true,
+            "performance_mode": "fast",
+            "cache_analysis_results": true,
+            "analysis_timeout_seconds": 30
           }
+        },
+        "categories": {
+          "technical": {
+            "enabled": true,
+            "suggested_retention_days": 90,
+            "storage_location": "common",
+            "share_across_projects": true
+          },
+          "behavioral": {
+            "enabled": true,
+            "suggested_retention_days": 60,
+            "storage_location": "common",
+            "share_across_projects": true
+          },
+          "contextual": {
+            "enabled": true,
+            "suggested_retention_days": 120,
+            "storage_location": "private",
+            "share_across_projects": false
+          },
+          "user_interaction": {
+            "enabled": true,
+            "suggested_retention_days": 30,
+            "capture_full_prompts": true,
+            "capture_responses": true,
+            "include_metadata": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "session": {
+            "enabled": true,
+            "suggested_retention_days": 60,
+            "auto_session_detection": true,
+            "topic_tracking": true,
+            "quality_metrics": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "topic": {
+            "enabled": true,
+            "suggested_retention_days": 180,
+            "evolution_tracking": true,
+            "pattern_recognition": true,
+            "cross_topic_linking": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "git_history": {
+            "enabled": true,
+            "suggested_retention_days": 365,
+            "analyze_commits": true,
+            "track_milestones": true,
+            "extract_patterns": true,
+            "storage_location": "project",
+            "share_across_projects": false
+          },
+          "personal": {
+            "enabled": true,
+            "suggested_retention_days": 3650,
+            "storage_location": "private",
+            "share_across_projects": false
+          },
+          "credentials": {
+            "enabled": true,
+            "suggested_retention_days": 3650,
+            "storage_location": "private",
+            "share_across_projects": false,
+            "encryption_required": true,
+            "flexible_naming": true,
+            "naming_logic": "agent_decides_based_on_context"
+          },
+          "sensitive": {
+            "enabled": true,
+            "suggested_retention_days": 3650,
+            "storage_location": "private",
+            "share_across_projects": false,
+            "encryption_required": true,
+            "access_controlled": true
+          }
+        },
+        "compression": {
+          "enabled": false,
+          "threshold_mb": 50
+        },
+        "search": {
+          "enable_full_text": true,
+          "enable_tag_search": true,
+          "enable_topic_search": true,
+          "enable_session_search": true,
+          "max_results": 20,
+          "include_interaction_history": true
+        },
+        "capture_settings": {
+          "auto_capture_interactions": true,
+          "session_boundary_detection": true,
+          "topic_extraction": true,
+          "user_prompt_filtering": false,
+          "sensitive_data_masking": true
+        },
+        "auto_recording": {
+          "enabled": true,
+          "interaction_threshold": "medium",
+          "min_interaction_length": 10,
+          "record_all_prompts": true,
+          "record_all_responses": true,
+          "continuous_session_tracking": true,
+          "real_time_indexing": true,
+          "background_processing": false
+        },
+        "migration_settings": {
+          "auto_detect_existing_memories": true,
+          "prompt_user_for_migration": true,
+          "supported_source_systems": [
+            "cursor",
+            "github_copilot",
+            "custom_agent_frameworks",
+            "legacy_memory_systems"
+          ],
+          "migration_backup_originals": true,
+          "cross_system_compatibility": true,
+          "migration_notes_inclusion": true,
+          "selective_import_enabled": true
+        },
+        "cleanup_guidance": {
+          "notify_overdue_memories": false,
+          "interactive_cleanup": false,
+          "require_user_consent": false
+        },
+        "integration": {
+          "cross_category_linking": true,
+          "session_context_inclusion": true,
+          "topic_evolution_tracking": true,
+          "user_pattern_analysis": true
         },
         "storage": {
           "base_path": "./memory"
-        },
-        "cleanup_guidance": {
-          "notify_overdue_memories": true,
-          "interactive_cleanup": true,
-          "require_user_consent": true
         }
       },
       "templates": {
@@ -786,15 +771,15 @@
           "localization": {
             "en": {
               "title": "Runtime Knowledge Graph",
-              "description": "Enable dynamic knowledge graph generation for self-learning"
+              "description": "Enable dynamic knowledge graph generation for self-learning (with concrete algorithms)"
             },
             "ja": {
               "title": "ランタイム知識グラフ",
-              "description": "自己学習のための動的知識グラフ生成を有効化"
+              "description": "自己学習のための動的知識グラフ生成を有効化（具象的なアルゴリズム付き）"
             },
             "id": {
               "title": "Grafik Pengetahuan Runtime",
-              "description": "Aktifkan pembuatan grafik pengetahuan dinamis untuk pembelajaran mandiri"
+              "description": "Aktifkan pembuatan grafik pengetahuan dinamis untuk pembelajaran mandiri (dengan algoritma konkrit)"
             }
           },
           "options": [
@@ -897,147 +882,145 @@
         }
       ],
       "default_settings": {
-        "rag_rules": {
+        "enabled": false,
+        "context_window_optimization": {
+          "enabled": true,
+          "max_context_tokens": 8000,
+          "relevance_threshold": 0.7,
+          "progressive_expansion": true
+        },
+        "hierarchical_reading": {
+          "enabled": true,
+          "max_depth": 3,
+          "section_preference": "task_relevant",
+          "recursive_processing": true
+        },
+        "log_analysis": {
+          "enabled": true,
+          "initial_sample_lines": 50,
+          "error_priority": true,
+          "temporal_sampling": true,
+          "pattern_recognition": true
+        },
+        "reading_strategies": {
+          "document_reading": {
+            "enabled": true,
+            "toc_priority": true,
+            "summary_first": true
+          },
+          "code_reading": {
+            "enabled": true,
+            "signature_first": true,
+            "dependency_tracing": true
+          },
+          "selective_reading": {
+            "enabled": true,
+            "importance_scoring": true,
+            "chunking_size": 1000
+          }
+        },
+        "context_management": {
+          "chunking": {
+            "enabled": true,
+            "semantic_segmentation": true,
+            "max_chunk_size": 2000
+          },
+          "memory_buffer": {
+            "working_memory_mb": 50,
+            "compression_threshold": 80,
+            "cache_enabled": true
+          }
+        },
+        "tool_integration": {
+          "filesystem_tools": true,
+          "search_tools": true,
+          "external_tools": true,
+          "streaming_reads": true
+        },
+        "multi_language_support": {
+          "language_detection": true,
+          "encoding_handling": true,
+          "cross_language_patterns": true,
+          "fallback_strategies": true
+        },
+        "performance_optimization": {
+          "lazy_loading": true,
+          "parallel_processing": true,
+          "caching_strategy": "lru",
+          "prefetching": false
+        },
+        "quality_assurance": {
+          "completeness_check": true,
+          "accuracy_verification": true,
+          "cross_reference_checking": true
+        },
+        "adaptive_learning": {
+          "pattern_recognition": true,
+          "usage_tracking": true,
+          "strategy_refinement": true,
+          "context_prediction": true
+        },
+        "knowledge_graph": {
           "enabled": false,
-          "context_window_optimization": {
-            "enabled": true,
-            "max_context_tokens": 8000,
-            "relevance_threshold": 0.7,
-            "progressive_expansion": true
+          "runtime_generation": {
+            "entity_extraction": true,
+            "relationship_discovery": true,
+            "semantic_linking": true,
+            "dynamic_updates": true
           },
-          "hierarchical_reading": {
-            "enabled": true,
-            "max_depth": 3,
-            "section_preference": "task_relevant",
-            "recursive_processing": true
+          "graph_management": {
+            "max_nodes": 10000,
+            "relationship_pruning": true,
+            "graph_persistence": true,
+            "version_control": true
           },
-          "log_analysis": {
-            "enabled": true,
-            "initial_sample_lines": 50,
-            "error_priority": true,
-            "temporal_sampling": true,
-            "pattern_recognition": true
+          "query_enhancement": {
+            "graph_traversal": true,
+            "inference_engine": true,
+            "relationship_ranking": true,
+            "contextual_expansion": true
+          }
+        },
+        "self_learning": {
+          "enabled": false,
+          "pattern_analysis": {
+            "conversation_patterns": true,
+            "user_preferences": true,
+            "topic_relationships": true,
+            "behavior_adaptation": true
           },
-          "reading_strategies": {
-            "document_reading": {
-              "enabled": true,
-              "toc_priority": true,
-              "summary_first": true
-            },
-            "code_reading": {
-              "enabled": true,
-              "signature_first": true,
-              "dependency_tracing": true
-            },
-            "selective_reading": {
-              "enabled": true,
-              "importance_scoring": true,
-              "chunking_size": 1000
-            }
-          },
-          "context_management": {
-            "chunking": {
-              "enabled": true,
-              "semantic_segmentation": true,
-              "max_chunk_size": 2000
-            },
-            "memory_buffer": {
-              "working_memory_mb": 50,
-              "compression_threshold": 80,
-              "cache_enabled": true
-            }
-          },
-          "tool_integration": {
-            "filesystem_tools": true,
-            "search_tools": true,
-            "external_tools": true,
-            "streaming_reads": true
-          },
-          "multi_language_support": {
-            "language_detection": true,
-            "encoding_handling": true,
-            "cross_language_patterns": true,
-            "fallback_strategies": true
-          },
-          "performance_optimization": {
-            "lazy_loading": true,
-            "parallel_processing": true,
-            "caching_strategy": "lru",
-            "prefetching": false
-          },
-          "quality_assurance": {
-            "completeness_check": true,
-            "accuracy_verification": true,
-            "cross_reference_checking": true
-          },
-          "adaptive_learning": {
+          "learning_mechanisms": {
+            "reinforcement_learning": true,
             "pattern_recognition": true,
-            "usage_tracking": true,
-            "strategy_refinement": true,
-            "context_prediction": true
+            "relationship_strengthening": true,
+            "insight_generation": true
           },
-          "knowledge_graph": {
-            "enabled": false,
-            "runtime_generation": {
-              "entity_extraction": true,
-              "relationship_discovery": true,
-              "semantic_linking": true,
-              "dynamic_updates": true
-            },
-            "graph_management": {
-              "max_nodes": 10000,
-              "relationship_pruning": true,
-              "graph_persistence": true,
-              "version_control": true
-            },
-            "query_enhancement": {
-              "graph_traversal": true,
-              "inference_engine": true,
-              "relationship_ranking": true,
-              "contextual_expansion": true
-            }
+          "memory_management": {
+            "long_term_retention": true,
+            "importance_weighting": true,
+            "temporal_decay": true,
+            "selective_forgetting": true
+          }
+        },
+        "graph_enhanced_rag": {
+          "integration_enabled": false,
+          "hybrid_retrieval": {
+            "graph_weight": 0.4,
+            "traditional_weight": 0.6,
+            "fusion_strategy": "weighted_combination"
           },
-          "self_learning": {
-            "enabled": false,
-            "pattern_analysis": {
-              "conversation_patterns": true,
-              "user_preferences": true,
-              "topic_relationships": true,
-              "behavior_adaptation": true
-            },
-            "learning_mechanisms": {
-              "reinforcement_learning": true,
-              "pattern_recognition": true,
-              "relationship_strengthening": true,
-              "insight_generation": true
-            },
-            "memory_management": {
-              "long_term_retention": true,
-              "importance_weighting": true,
-              "temporal_decay": true,
-              "selective_forgetting": true
-            }
-          },
-          "graph_enhanced_rag": {
-            "integration_enabled": false,
-            "hybrid_retrieval": {
-              "graph_weight": 0.4,
-              "traditional_weight": 0.6,
-              "fusion_strategy": "weighted_combination"
-            },
-            "intelligent_ranking": {
-              "centrality_scoring": true,
-              "relationship_strength": true,
-              "temporal_relevance": true,
-              "semantic_similarity": true
-            }
+          "intelligent_ranking": {
+            "centrality_scoring": true,
+            "relationship_strength": true,
+            "temporal_relevance": true,
+            "semantic_similarity": true
           }
         }
       },
       "templates": {
-        "en": "# RAG Rules Agent Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.\n\n**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `rag_rules.enabled = true` in settings.json.\n\n**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.\n<!-- SAFETY_PRECAUTION_END -->\n\n**FRAMEWORK ENHANCEMENT**: When rag_rules.enabled = true in settings.json, agents can implement these algorithms for enhanced context processing.\n\n## RAG System Architecture\n- **Context Optimization**: Prioritize relevant information\n- **Hierarchical Reading**: Read files strategically, not sequentially\n- **Relevance Scoring**: Weight information by importance and recency\n- **Dynamic Context Management**: Adapt context window to task requirements\n\n## Required Implementation Algorithms\n\n### Algorithm: Context_Optimization_Process\n**AVAILABLE**: Can execute before user responses when enabled for enhanced context\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Analyze user request and available context\n3. Score information relevance using recency, importance, and task-relevance\n4. Prioritize hierarchical reading: summaries → key sections → details\n5. Optimize context window for maximum information density\n6. Return optimized context for response generation\n\n### Algorithm: Information_Retrieval_Process\n**AVAILABLE**: Can execute when gathering information for enhanced responses\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Identify information requirements from user query\n3. Search relevant files using semantic understanding\n4. Apply hierarchical reading patterns\n5. Extract and rank relevant information chunks\n6. Integrate with memory system for personalized context\n\n### Algorithm: Response_Quality_Assurance\n**AVAILABLE**: Can execute after generating responses for quality enhancement\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Validate response against source information\n3. Ensure all claims are supported by retrieved context\n4. Flag any information gaps or assumptions\n\n### Algorithm: Runtime_Knowledge_Graph_Generation\n**AVAILABLE**: Can execute during conversations and document processing for dynamic learning\n\n**Steps**:\n1. Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. Extract entities, relationships, and concepts from current conversation/document\n3. Identify semantic relationships between extracted elements\n4. Update runtime knowledge graph with new connections and patterns\n5. Strengthen existing relationships based on frequency and recency\n6. Prune outdated or weakly connected nodes to maintain graph efficiency\n7. Store graph state for persistence across sessions\n\n### Algorithm: Knowledge_Graph_Query_Enhancement\n**AVAILABLE**: Can execute during information retrieval to leverage learned relationships\n\n**Steps**:\n1. Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. Analyze user query for entities and concepts\n3. Query knowledge graph for related information and connections\n4. Identify indirect relationships and inference paths\n5. Retrieve contextually related information beyond direct keyword matches\n6. Rank results using graph centrality and relationship strength\n7. Integrate graph-enhanced results with traditional RAG retrieval\n\n### Algorithm: Self_Learning_Pattern_Recognition\n**AVAILABLE**: Can execute periodically to identify and learn recurring patterns\n\n**Steps**:\n1. Check rag_rules.enabled = true and self_learning.enabled = true\n2. Analyze conversation patterns and user interaction styles\n3. Identify frequently occurring entity relationships and topics\n4. Discover user preferences and communication patterns\n5. Update behavior patterns in knowledge graph\n6. Adapt response strategies based on learned patterns\n7. Generate insights for improved future interactions\n\n### Algorithm: Knowledge_Graph_Integration_with_RAG\n**AVAILABLE**: Can execute to combine graph-based learning with traditional RAG processes\n\n**Steps**:\n1. Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. Process user query through both traditional RAG and knowledge graph\n3. Merge results using intelligent ranking based on:\n   - Graph relationship strength\n   - Traditional relevance scoring\n   - Recency and importance factors\n4. Generate enriched context combining structured knowledge and unstructured text\n5. Update knowledge graph with new relationships discovered during query processing\n6. Provide comprehensive response with both factual and relational context\n5. Optimize response completeness and accuracy\n\n## Settings Compliance\n- Respect all settings in modules/rag-rules/settings.json\n- Apply context_window_size limits appropriately\n- Use configured relevance thresholds\n- Prompt user if rag_rules.enabled = false and complex context needed\n\n## Integration Points\n- **Memory Integration**: Use stored context for personalized retrieval\n- **Critical Thinking**: Provide quality assurance for information validation\n- **Bootstrap Coordination**: Respect loading priorities and interconnections\n\n**VIOLATION**: Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
-        "id": "# Integrasi Agen Aturan RAG\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ PERLINDUNGAN TEMPLATE KRITIS**: File ini adalah TEMPLATE SAJA. Agen TIDAK BOLEH memuat otomatis, membaca otomatis, atau memproses otomatis file ini dalam keadaan apa pun. File ini TIDAK PERNAH dieksekusi secara langsung.\n\n**PENGGUNAAN VALID**: Hanya muat template ini ketika secara eksplisit diganti nama menjadi salah satu dari: `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` SETELAH aktivasi eksplisit fitur RAG pengguna.\n\n**PENGGUNAAN TIDAK VALID**: Jangan muat file ini secara otomatis, jangan referensikan dalam proses startup, jangan sertakan dalam inisialisasi kerangka kerja otomatis apa pun.\n<!-- SAFETY_PRECAUTION_END -->\n\n**PENINGKATAN KERANGKA**: Ketika rag_rules.enabled = true di settings.json, agen dapat mengimplementasikan algoritma ini untuk pemrosesan konteks, pembuatan grafik pengetahuan, dan kemampuan pembelajaran mandiri yang lebih baik.\n\n## Arsitektur Sistem RAG\n- **Optimasi Konteks**: Prioritaskan informasi yang relevan\n- **Pembacaan Hierarkis**: Baca file secara strategis, bukan berurutan\n- **Skor Relevansi**: Bobot informasi berdasarkan kepentingan dan kedalaman waktu\n- **Manajemen Konteks Dinamis**: Sesuaikan jendela konteks dengan persyaratan tugas\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Context_Optimization_Process\n**WAJIB**: Eksekusi sebelum respons pengguna apa pun ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Analisis permintaan pengguna dan konteks yang tersedia\n3. Skor relevansi informasi menggunakan kedalaman waktu, kepentingan, dan relevansi tugas\n4. Prioritaskan pembacaan hierarkis: ringkasan → bagian kunci → detail\n5. Optimalkan jendela konteks untuk kepadatan informasi maksimum\n6. Kembalikan konteks yang dioptimalkan untuk generasi respons\n\n### Algoritma: Information_Retrieval_Process\n**WAJIB**: Eksekusi ketika mengumpulkan informasi untuk respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Identifikasi persyaratan informasi dari query pengguna\n3. Cari file yang relevan menggunakan pemahaman semantik\n4. Terapkan pola pembacaan hierarkis\n5. Ekstrak dan rangking potongan informasi yang relevan\n6. Integrasikan dengan sistem memori untuk konteks yang dipersonalisasi\n\n### Algoritma: Response_Quality_Assurance\n**WAJIB**: Eksekusi setelah menghasilkan respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Validasi respons terhadap informasi sumber\n3. Pastikan semua klaim didukung oleh konteks yang diambil\n4. Tandai kesenjangan informasi atau asumsi apa pun\n5. Optimalkan kelengkapan dan akurasi respons\n\n### Algoritma: Runtime_Knowledge_Graph_Generation\n**TERSEDIA**: Eksekusi selama percakapan dan pemrosesan dokumen untuk pembelajaran dinamis\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true\n2. Ekstrak entitas, hubungan, dan konsep dari percakapan/dokumen saat ini\n3. Identifikasi hubungan semantik antara elemen yang diekstrak\n4. Perbarui grafik pengetahuan runtime dengan koneksi dan pola baru\n5. Perkuat hubungan yang ada berdasarkan frekuensi dan kedaluwarsa\n6. Pangkas node yang kedaluwarsa atau lemah terhubung untuk mempertahankan efisiensi grafik\n7. Simpan status grafik untuk persistensi di seluruh sesi\n\n### Algoritma: Knowledge_Graph_Query_Enhancement\n**TERSEDIA**: Eksekusi selama pengambilan informasi untuk memanfaatkan hubungan yang dipelajari\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true\n2. Analisis query pengguna untuk entitas dan konsep\n3. Query grafik pengetahuan untuk informasi dan koneksi terkait\n4. Identifikasi hubungan tidak langsung dan jalur inferensi\n5. Ambil informasi terkait kontekstual di luar kecocokan kata kunci langsung\n6. Peringkat hasil menggunakan pusat grafik dan kekuatan hubungan\n7. Perbarui grafik pengetahuan dengan hubungan baru yang ditemukan selama pemrosesan query\n\n### Algoritma: Self_Learning_Pattern_Recognition\n**TERSEDIA**: Eksekusi secara berkala untuk mengidentifikasi dan mempelajari pola berulang\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan self_learning.enabled = true\n2. Analisis pola percakapan dan gaya interaksi pengguna\n3. Identifikasi hubungan entitas dan topik yang sering terjadi\n4. Temukan preferensi pengguna dan pola komunikasi\n5. Perbarui pola perilaku dalam grafik pengetahuan\n6. Adaptasi strategi respons berdasarkan pola yang dipelajari\n7. Hasilkan wawasan untuk interaksi masa depan yang lebih baik\n\n### Algoritma: Knowledge_Graph_Integration_with_RAG\n**TERSEDIA**: Eksekusi untuk menggabungkan pembelajaran berbasis grafik dengan proses RAG tradisional\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true\n2. Proses query pengguna melalui RAG tradisional dan grafik pengetahuan\n3. Gabungkan hasil menggunakan peringkat cerdas berdasarkan:\n   - Kekuatan hubungan grafik\n   - Penilaian relevansi tradisional\n   - Faktor kedaluwarsa dan penting\n4. Hasilkan konteks yang diperkaya yang menggabungkan pengetahuan terstruktur dan teks tak terstruktur\n5. Perbarui grafik pengetahuan dengan hubungan baru yang ditemukan selama pemrosesan query\n6. Berikan respons komprehensif dengan konteks faktual dan relasional\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di modules/rag-rules/settings.json\n- Terapkan batas context_window_size secara tepat\n- Gunakan ambang relevansi yang dikonfigurasi\n- Berikan prompt kepada pengguna jika rag_rules.enabled = false dan konteks kompleks diperlukan\n\n## Titik Integrasi\n- **Integrasi Memori**: Gunakan konteks tersimpan untuk pengambilan yang dipersonalisasi\n- **Berpikir Kritis**: Berikan jaminan kualitas untuk validasi informasi\n- **Koordinasi Bootstrap**: Hormati prioritas pemuatan dan interkoneksi\n\n**PELANGGARAN**: Agen yang menggunakan manajemen konteks yang tidak efisien tanpa mengimplementasikan algoritma ini.\n\n<!-- METADATA: Template integrasi agen aturan RAG dengan algoritma optimasi konteks dan pengambilan -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
-        "ja": "# RAGルール エージェント統合 / RAG Rules Agent Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ 重要テンプレート保護 / CRITICAL TEMPLATE PROTECTION**: このファイルはテンプレート専用です。エージェントは自動読み込み、自動処理、またはこのファイルをどのような状況でも自動実行してはいけません。このファイルは直接実行されることはありません。\n\n**有効な使用方法 / VALID USAGE**: 明示的に以下のいずれかに名前変更された場合のみ読み込み: `AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`。RAGルールのユーザーの明示的な有効化後。\n\n**無効な使用方法 / INVALID USAGE**: このファイルを自動的に読み込まない、起動プロセスで参照しない、自動フレームワーク初期化に含めない。\n<!-- SAFETY_PRECAUTION_END -->\n\n**フレームワーク強化 / FRAMEWORK ENHANCEMENT**: settings.jsonでrag_rules.enabled = trueの場合、エージェントはこれらのアルゴリズムを実装してコンテキスト処理、知識グラフ生成、自己学習機能を強化できます。\n\n## RAGシステムアーキテクチャ / RAG System Architecture\n- **コンテキスト最適化 / Context Optimization**: 関連情報の優先順位付け / Prioritize relevant information\n- **階層的読み取り / Hierarchical Reading**: ファイルを戦略的に読み取り、順次読み取りしない / Read files strategically, not sequentially\n- **関連性スコアリング / Relevance Scoring**: 重要度と新しさで情報を重み付け / Weight information by importance and recency\n- **動的コンテキスト管理 / Dynamic Context Management**: タスク要件にコンテキストウィンドウを適応 / Adapt context window to task requirements\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Context_Optimization_Process / Algorithm: Context_Optimization_Process\n**必須 / MANDATORY**: 有効時にユーザー応答前に実行 / Execute before any user response when enabled\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザー要求と利用可能なコンテキストを分析 / Analyze user request and available context\n3. 新しさ、重要度、タスク関連性を使用して情報関連性をスコアリング / Score information relevance using recency, importance, and task-relevance\n4. 階層的読み取りを優先: 要約 → 主要セクション → 詳細 / Prioritize hierarchical reading: summaries → key sections → details\n5. 最大情報密度のためにコンテキストウィンドウを最適化 / Optimize context window for maximum information density\n6. 応答生成用の最適化されたコンテキストを返す / Return optimized context for response generation\n\n### アルゴリズム: Information_Retrieval_Process / Algorithm: Information_Retrieval_Process\n**必須 / MANDATORY**: 応答情報の収集時に実行 / Execute when gathering information for responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザークエリからの情報要件を特定 / Identify information requirements from user query\n3. 意味理解を使用して関連ファイルを検索 / Search relevant files using semantic understanding\n4. 階層的読み取りパターンを適用 / Apply hierarchical reading patterns\n5. 関連情報チャンクを抽出しランク付け / Extract and rank relevant information chunks\n6. パーソナライズドコンテキストのためにメモリシステムと統合 / Integrate with memory system for personalized context\n\n### アルゴリズム: Response_Quality_Assurance / Algorithm: Response_Quality_Assurance\n**必須 / MANDATORY**: 応答生成後に実行 / Execute after generating responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ソース情報に対して応答を検証 / Validate response against source information\n3. すべての主張が検索されたコンテキストでサポートされていることを確認 / Ensure all claims are supported by retrieved context\n4. 情報ギャップや仮定にフラグを付ける / Flag any information gaps or assumptions\n5. 応答の完全性と正確性を最適化 / Optimize response completeness and accuracy\n\n### アルゴリズム: Runtime_Knowledge_Graph_Generation / Algorithm: Runtime_Knowledge_Graph_Generation\n**利用可能 / AVAILABLE**: 会話とドキュメント処理中に実行して動的学習を行う / Execute during conversations and document processing for dynamic learning\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. 現在の会話/ドキュメントからエンティティ、関係性、概念を抽出 / Extract entities, relationships, and concepts from current conversation/document\n3. 抽出された要素間のセマンティック関係を識別 / Identify semantic relationships between extracted elements\n4. 新しい接続とパターンでランタイム知識グラフを更新 / Update runtime knowledge graph with new connections and patterns\n5. 頻度と新しさに基づいて既存の関係性を強化 / Strengthen existing relationships based on frequency and recency\n6. グラフ効率を維持するために古くなった弱い接続ノードをプルーニング / Prune outdated or weakly connected nodes to maintain graph efficiency\n7. 永続性のためにグラフ状態を保存 / Store graph state for persistence across sessions\n\n### アルゴリズム: Knowledge_Graph_Query_Enhancement / Algorithm: Knowledge_Graph_Query_Enhancement\n**利用可能 / AVAILABLE**: 情報検索中に実行して学習した関係性を活用 / Execute during information retrieval to leverage learned relationships\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. ユーザークエリからエンティティと概念を分析 / Analyze user query for entities and concepts\n3. 関連情報と接続について知識グラフをクエリ / Query knowledge graph for related information and connections\n4. 直接キーワードマッチを超えた間接関係と推論パスを特定 / Identify indirect relationships and inference paths\n5. 直接一致を超えた文脈的に関連情報を取得 / Retrieve contextually related information beyond direct keyword matches\n6. グラフ中心性と関係強度を使用して結果をランク付け / Rank results using graph centrality and relationship strength\n7. クエリ処理中に発見された新しい関係性で知識グラフを更新 / Update knowledge graph with new relationships discovered during query processing\n\n### アルゴリズム: Self_Learning_Pattern_Recognition / Algorithm: Self_Learning_Pattern_Recognition\n**利用可能 / AVAILABLE**: 定期的に実行して繰り返しパターンを特定して学習 / Execute periodically to identify and learn recurring patterns\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびself_learning.enabled = trueを確認 / Check rag_rules.enabled = true and self_learning.enabled = true\n2. 会話パターンとユーザーインタラクションスタイルを分析 / Analyze conversation patterns and user interaction styles\n3. 頻繁に発生するエンティティ関係とトピックを特定 / Identify frequently occurring entity relationships and topics\n4. ユーザーの好みとコミュニケーション パターンを発見 / Discover user preferences and communication patterns\n5. 知識グラフ内の行動パターンを更新 / Update behavior patterns in knowledge graph\n6. 学習したパターンに基づいて応答戦略を適応 / Adapt response strategies based on learned patterns\n7. 将来のインタラクションを改善するための洞察を生成 / Generate insights for improved future interactions\n\n### アルゴリズム: Knowledge_Graph_Integration_with_RAG / Algorithm: Knowledge_Graph_Integration_with_RAG\n**利用可能 / AVAILABLE**: グラフベース学習を従来のRAGプロセスと組み合わせる / Execute to combine graph-based learning with traditional RAG processes\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. 伝統的なRAGと知識グラフの両方でユーザークエリを処理 / Process user query through both traditional RAG and knowledge graph\n3. 次のものを使用して結果をマージ / Merge results using intelligent ranking based on:\n   - グラフ関係強度 / Graph relationship strength\n   - 伝統的な関連性スコアリング / Traditional relevance scoring\n   - 新しさと重要性の要因 / Recency and importance factors\n4. 構造化された知識と非構造化テキストを組み合わせた強化されたコンテキストを生成 / Generate enriched context combining structured knowledge and unstructured text\n5. クエリ処理中に発見された新しい関係性で知識グラフを更新 / Update knowledge graph with new relationships discovered during query processing\n6. 事実的および関係的コンテキストを含む包括的な応答を提供 / Provide comprehensive response with both factual and relational context\n\n## 設定準拠 / Settings Compliance\n- modules/rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json\n- context_window_size制限を適切に適用 / Apply context_window_size limits appropriately\n- 設定された関連性しきい値を使用 / Use configured relevance thresholds\n- rag_rules.enabled = falseで複雑なコンテキストが必要な場合、ユーザーにプロンプト / Prompt user if rag_rules.enabled = false and complex context needed\n\n## 統合ポイント / Integration Points\n- **メモリ統合 / Memory Integration**: パーソナライズド検索のために保存されたコンテキストを使用 / Use stored context for personalized retrieval\n- **批判的思考 / Critical Thinking**: 情報検証のための品質保証を提供 / Provide quality assurance for information validation\n- **ブートストラップ調整 / Bootstrap Coordination**: 読み込み優先順位と相互接続を尊重 / Respect loading priorities and interconnections\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずに非効率的なコンテキスト管理を使用するエージェント / Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+        "en": "# RAG Rules Agent Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.\n\n**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `rag_rules.enabled = true` in settings.json.\n\n**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.\n<!-- SAFETY_PRECAUTION_END -->\n\n**FRAMEWORK ENHANCEMENT**: When rag_rules.enabled = true in settings.json, agents can implement these algorithms for enhanced context processing.\n\n## RAG System Architecture\n- **Context Optimization**: Prioritize relevant information\n- **Hierarchical Reading**: Read files strategically, not sequentially\n- **Relevance Scoring**: Weight information by importance and recency\n- **Dynamic Context Management**: Adapt context window to task requirements\n\n## Required Implementation Algorithms\n\n### Algorithm: Context_Optimization_Process\n**AVAILABLE**: Can execute before user responses when enabled for enhanced context\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Analyze user request and available context\n3. Score information relevance using recency, importance, and task-relevance\n4. Prioritize hierarchical reading: summaries → key sections → details\n5. Optimize context window for maximum information density\n6. Return optimized context for response generation\n\n### Algorithm: Information_Retrieval_Process\n**AVAILABLE**: Can execute when gathering information for enhanced responses\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Identify information requirements from user query\n3. Search relevant files using semantic understanding\n4. Apply hierarchical reading patterns\n5. Extract and rank relevant information chunks\n6. Integrate with memory system for personalized context\n\n### Algorithm: Response_Quality_Assurance\n**AVAILABLE**: Can execute after generating responses for quality enhancement\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Validate response against source information\n3. Ensure all claims are supported by retrieved context\n4. Flag any information gaps or assumptions\n\n### Algorithm: Runtime_Knowledge_Graph_Generation\n**AVAILABLE**: Can execute during conversations and document processing for dynamic learning\n\n**Steps**:\n1. Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. Extract entities, relationships, and concepts from current conversation/document\n3. Identify semantic relationships between extracted elements\n4. Update runtime knowledge graph with new connections and patterns\n5. Strengthen existing relationships based on frequency and recency\n6. Prune outdated or weakly connected nodes to maintain graph efficiency\n7. Store graph state for persistence across sessions\n\n**Implementation**:\n```\nAlgorithm: Structured_Entity_Extraction\n1. Tokenize input text into sentences and words\n2. Apply part-of-speech tagging to identify noun phrases\n3. Use named entity recognition patterns for Person/Organization/Location/Concept\n4. Apply rule-based filtering and confidence scoring\n5. Return entities sorted by confidence and frequency\n\nAlgorithm: Pattern_Based_Relation_Extraction\n1. Identify sentence structures containing multiple entities\n2. Apply syntactic pattern matching for subject-verb-object triples\n3. Use lexical pattern recognition for verb-based and compound relationships\n4. Apply domain-specific relation templates\n5. Validate relationships against consistency rules\n\nAlgorithm: Incremental_Graph_Builder\n1. Add new entities as nodes with type and attribute metadata\n2. Add relationships as directed/undirected edges with confidence metadata\n3. Apply graph consistency checks and optimization\n4. Persist graph state with timestamp metadata:\n   - If memory_rules.enabled = true: Store in persistent memory system\n   - If memory_rules.enabled = false: Store in session-only context\n```\n\n### Algorithm: Knowledge_Graph_Query_Enhancement\n**AVAILABLE**: Can execute during information retrieval to leverage learned relationships\n\n**Steps**:\n1. Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. Analyze user query for entities and concepts\n3. Query knowledge graph for related information and connections\n4. Identify indirect relationships and inference paths\n5. Retrieve contextually related information beyond direct keyword matches\n6. Rank results using graph centrality and relationship strength\n7. Integrate graph-enhanced results with traditional RAG retrieval\n\n**Implementation**:\n```\nAlgorithm: Semantic_Graph_Query\n1. Parse query for entities and intent using Structured_Entity_Extraction\n2. Identify relevant nodes through direct matching and graph traversal\n3. Apply semantic similarity matching with synonym expansion\n4. Rank results using multi-factor scoring (match confidence + centrality + similarity)\n5. Return top-ranked results with explanation metadata\n\nAlgorithm: Adaptive_Graph_Maintenance\n1. Analyze usage patterns and apply aging/pruning rules\n2. Perform graph restructuring and optimization\n3. Optimize for query performance with updated indices\n4. Persist optimized graph state:\n   - If memory_rules.enabled = true: Update stored graph data in persistent memory\n   - If memory_rules.enabled = false: Maintain graph in session context only\n5. Generate maintenance report with statistics\n```\n\n### Algorithm: Self_Learning_Pattern_Recognition\n**AVAILABLE**: Can execute periodically to identify and learn recurring patterns\n\n**Steps**:\n1. Check rag_rules.enabled = true and self_learning.enabled = true\n2. Analyze conversation patterns and user interaction styles\n3. Identify frequently occurring entity relationships and topics\n4. Discover user preferences and communication patterns\n5. Update behavior patterns in knowledge graph\n6. Adapt response strategies based on learned patterns\n7. Generate insights for improved future interactions\n\n### Algorithm: Knowledge_Graph_Integration_with_RAG\n**AVAILABLE**: Can execute to combine graph-based learning with traditional RAG processes\n\n**Steps**:\n1. Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. Process user query through both traditional RAG and knowledge graph\n3. Merge results using intelligent ranking based on:\n   - Graph relationship strength\n   - Traditional relevance scoring\n   - Recency and importance factors\n4. Generate enriched context combining structured knowledge and unstructured text\n5. Update knowledge graph with new relationships discovered during query processing\n6. Provide comprehensive response with both factual and relational context\n5. Optimize response completeness and accuracy\n\n## Settings Compliance\n- Respect all settings in modules/rag-rules/settings.json\n- Apply context_window_size limits appropriately\n- Use configured relevance thresholds\n- Prompt user if rag_rules.enabled = false and complex context needed\n\n## Integration Points\n- **Memory Integration**: Use stored context for personalized retrieval\n- **Critical Thinking**: Provide quality assurance for information validation\n- **Bootstrap Coordination**: Respect loading priorities and interconnections\n\n**VIOLATION**: Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Aturan RAG\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ PERLINDUNGAN TEMPLATE KRITIS**: File ini adalah TEMPLATE SAJA. Agen TIDAK BOLEH memuat otomatis, membaca otomatis, atau memproses otomatis file ini dalam keadaan apa pun. File ini TIDAK PERNAH dieksekusi secara langsung.\n\n**PENGGUNAAN VALID**: Hanya muat template ini ketika secara eksplisit diganti nama menjadi salah satu dari: `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` SETELAH aktivasi eksplisit fitur RAG pengguna.\n\n**PENGGUNAAN TIDAK VALID**: Jangan muat file ini secara otomatis, jangan referensikan dalam proses startup, jangan sertakan dalam inisialisasi kerangka kerja otomatis apa pun.\n<!-- SAFETY_PRECAUTION_END -->\n\n**PENINGKATAN KERANGKA**: Ketika rag_rules.enabled = true di settings.json, agen dapat mengimplementasikan algoritma ini untuk pemrosesan konteks, pembuatan grafik pengetahuan, dan kemampuan pembelajaran mandiri yang lebih baik.\n\n## Arsitektur Sistem RAG\n- **Optimasi Konteks**: Prioritaskan informasi yang relevan\n- **Pembacaan Hierarkis**: Baca file secara strategis, bukan berurutan\n- **Skor Relevansi**: Bobot informasi berdasarkan kepentingan dan kedalaman waktu\n- **Manajemen Konteks Dinamis**: Sesuaikan jendela konteks dengan persyaratan tugas\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Context_Optimization_Process\n**WAJIB**: Eksekusi sebelum respons pengguna apa pun ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Analisis permintaan pengguna dan konteks yang tersedia\n3. Skor relevansi informasi menggunakan kedalaman waktu, kepentingan, dan relevansi tugas\n4. Prioritaskan pembacaan hierarkis: ringkasan → bagian kunci → detail\n5. Optimalkan jendela konteks untuk kepadatan informasi maksimum\n6. Kembalikan konteks yang dioptimalkan untuk generasi respons\n\n### Algoritma: Information_Retrieval_Process\n**WAJIB**: Eksekusi ketika mengumpulkan informasi untuk respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Identifikasi persyaratan informasi dari query pengguna\n3. Cari file yang relevan menggunakan pemahaman semantik\n4. Terapkan pola pembacaan hierarkis\n5. Ekstrak dan rangking potongan informasi yang relevan\n6. Integrasikan dengan sistem memori untuk konteks yang dipersonalisasi\n\n### Algoritma: Response_Quality_Assurance\n**WAJIB**: Eksekusi setelah menghasilkan respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Validasi respons terhadap informasi sumber\n3. Pastikan semua klaim didukung oleh konteks yang diambil\n4. Tandai kesenjangan informasi atau asumsi apa pun\n5. Optimalkan kelengkapan dan akurasi respons\n\n### Algoritma: Runtime_Knowledge_Graph_Generation\n**TERSEDIA**: Eksekusi selama percakapan dan pemrosesan dokumen untuk pembelajaran dinamis\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true\n2. Ekstrak entitas, hubungan, dan konsep dari percakapan/dokumen saat ini\n3. Identifikasi hubungan semantik antara elemen yang diekstrak\n4. Perbarui grafik pengetahuan runtime dengan koneksi dan pola baru\n5. Perkuat hubungan yang ada berdasarkan frekuensi dan kedaluwarsa\n6. Pangkas node yang kedaluwarsa atau lemah terhubung untuk mempertahankan efisiensi grafik\n7. Simpan status grafik untuk persistensi di seluruh sesi\n\n**Implementasi**:\n```\nAlgoritma: Structured_Entity_Extraction\n1. Tokenisasi input teks menjadi kalimat dan kata\n2. Terapkan penandaan part-of-speech untuk mengidentifikasi frasa kata benda\n3. Gunakan pola pengenalan entitas bernama untuk Person/Organization/Location/Concept\n4. Terapkan penyaringan berbasis aturan dan penilaian kepercayaan\n5. Kembalikan entitas yang diurutkan berdasarkan kepercayaan dan frekuensi\n\nAlgoritma: Pattern_Based_Relation_Extraction\n1. Identifikasi struktur kalimat yang mengandung beberapa entitas\n2. Terapkan pencocokkan pola sintaksis untuk triple subjek-kata kerja-objek\n3. Gunakan pengenalan pola leksikal untuk hubungan berbasis kata kerja dan majemuk\n4. Terapkan template hubungan domain-spesifik\n5. Validasi hubungan terhadap aturan konsistensi\n\nAlgoritma: Incremental_Graph_Builder\n1. Tambahkan entitas baru sebagai node dengan metadata tipe dan atribut\n2. Tambahkan hubungan sebagai edge terarah/tidak terarah dengan metadata kepercayaan\n3. Terapkan pemeriksaan konsistensi grafik dan pengoptimalan\n4. Persistensi status grafik dengan metadata timestamp:\n   - Jika memory_rules.enabled = true: Simpan di sistem memori persisten\n   - Jika memory_rules.enabled = false: Simpan di konteks khusus sesi\n```\n\n### Algoritma: Knowledge_Graph_Query_Enhancement\n**TERSEDIA**: Eksekusi selama pengambilan informasi untuk memanfaatkan hubungan yang dipelajari\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true\n2. Analisis query pengguna untuk entitas dan konsep\n3. Query grafik pengetahuan untuk informasi dan koneksi terkait\n4. Identifikasi hubungan tidak langsung dan jalur inferensi\n5. Ambil informasi terkait kontekstual di luar kecocokan kata kunci langsung\n6. Peringkat hasil menggunakan pusat grafik dan kekuatan hubungan\n7. Perbarui grafik pengetahuan dengan hubungan baru yang ditemukan selama pemrosesan query\n\n**Implementasi**:\n```\nAlgoritma: Semantic_Graph_Query\n1. Parse query untuk entitas dan intent menggunakan Structured_Entity_Extraction\n2. Identifikasi node relevan melalui pencocokkan langsung dan traversal grafik\n3. Terapkan pencocokkan kesamaan semantik dengan ekspansi sinonim\n4. Peringkat hasil menggunakan penilaian multi-faktor (kepercayaan pencocokkan + pusat + kesamaan)\n5. Kembalikan hasil peringkat teratas dengan metadata penjelasan\n\nAlgoritma: Adaptive_Graph_Maintenance\n1. Analisis pola penggunaan dan terapkan aturan aging/pruning\n2. Lakukan restrukturisasi grafik dan pengoptimalan\n3. Optimalkan untuk performa query dengan indeks yang diperbarui\n4. Persistensi status grafik yang dioptimalkan:\n   - Jika memory_rules.enabled = true: Perbarui data grafik tersimpan di memori persisten\n   - Jika memory_rules.enabled = false: Pertahankan grafik di konteks sesi saja\n5. Hasilkan laporan pemeliharaan dengan statistik\n```\n\n### Algoritma: Self_Learning_Pattern_Recognition\n**TERSEDIA**: Eksekusi secara berkala untuk mengidentifikasi dan mempelajari pola berulang\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan self_learning.enabled = true\n2. Analisis pola percakapan dan gaya interaksi pengguna\n3. Identifikasi hubungan entitas dan topik yang sering terjadi\n4. Temukan preferensi pengguna dan pola komunikasi\n5. Perbarui pola perilaku dalam grafik pengetahuan\n6. Adaptasi strategi respons berdasarkan pola yang dipelajari\n7. Hasilkan wawasan untuk interaksi masa depan yang lebih baik\n\n### Algoritma: Knowledge_Graph_Integration_with_RAG\n**TERSEDIA**: Eksekusi untuk menggabungkan pembelajaran berbasis grafik dengan proses RAG tradisional\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true\n2. Proses query pengguna melalui RAG tradisional dan grafik pengetahuan\n3. Gabungkan hasil menggunakan peringkat cerdas berdasarkan:\n   - Kekuatan hubungan grafik\n   - Penilaian relevansi tradisional\n   - Faktor kedaluwarsa dan penting\n4. Hasilkan konteks yang diperkaya yang menggabungkan pengetahuan terstruktur dan teks tak terstruktur\n5. Perbarui grafik pengetahuan dengan hubungan baru yang ditemukan selama pemrosesan query\n6. Berikan respons komprehensif dengan konteks faktual dan relasional\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di modules/rag-rules/settings.json\n- Terapkan batas context_window_size secara tepat\n- Gunakan ambang relevansi yang dikonfigurasi\n- Berikan prompt kepada pengguna jika rag_rules.enabled = false dan konteks kompleks diperlukan\n\n## Titik Integrasi\n- **Integrasi Memori**: Gunakan konteks tersimpan untuk pengambilan yang dipersonalisasi\n- **Berpikir Kritis**: Berikan jaminan kualitas untuk validasi informasi\n- **Koordinasi Bootstrap**: Hormati prioritas pemuatan dan interkoneksi\n\n**PELANGGARAN**: Agen yang menggunakan manajemen konteks yang tidak efisien tanpa mengimplementasikan algoritma ini.\n\n<!-- METADATA: Template integrasi agen aturan RAG dengan algoritma optimasi konteks dan pengambilan -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# RAGルール エージェント統合 / RAG Rules Agent Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ 重要テンプレート保護 / CRITICAL TEMPLATE PROTECTION**: このファイルはテンプレート専用です。エージェントは自動読み込み、自動処理、またはこのファイルをどのような状況でも自動実行してはいけません。このファイルは直接実行されることはありません。\n\n**有効な使用方法 / VALID USAGE**: 明示的に以下のいずれかに名前変更された場合のみ読み込み: `AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`。RAGルールのユーザーの明示的な有効化後。\n\n**無効な使用方法 / INVALID USAGE**: このファイルを自動的に読み込まない、起動プロセスで参照しない、自動フレームワーク初期化に含めない。\n<!-- SAFETY_PRECAUTION_END -->\n\n**フレームワーク強化 / FRAMEWORK ENHANCEMENT**: settings.jsonでrag_rules.enabled = trueの場合、エージェントはこれらのアルゴリズムを実装してコンテキスト処理、知識グラフ生成、自己学習機能を強化できます。\n\n## RAGシステムアーキテクチャ / RAG System Architecture\n- **コンテキスト最適化 / Context Optimization**: 関連情報の優先順位付け / Prioritize relevant information\n- **階層的読み取り / Hierarchical Reading**: ファイルを戦略的に読み取り、順次読み取りしない / Read files strategically, not sequentially\n- **関連性スコアリング / Relevance Scoring**: 重要度と新しさで情報を重み付け / Weight information by importance and recency\n- **動的コンテキスト管理 / Dynamic Context Management**: タスク要件にコンテキストウィンドウを適応 / Adapt context window to task requirements\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Context_Optimization_Process / Algorithm: Context_Optimization_Process\n**必須 / MANDATORY**: 有効時にユーザー応答前に実行 / Execute before any user response when enabled\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザー要求と利用可能なコンテキストを分析 / Analyze user request and available context\n3. 新しさ、重要度、タスク関連性を使用して情報関連性をスコアリング / Score information relevance using recency, importance, and task-relevance\n4. 階層的読み取りを優先: 要約 → 主要セクション → 詳細 / Prioritize hierarchical reading: summaries → key sections → details\n5. 最大情報密度のためにコンテキストウィンドウを最適化 / Optimize context window for maximum information density\n6. 応答生成用の最適化されたコンテキストを返す / Return optimized context for response generation\n\n### アルゴリズム: Information_Retrieval_Process / Algorithm: Information_Retrieval_Process\n**必須 / MANDATORY**: 応答情報の収集時に実行 / Execute when gathering information for responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザークエリからの情報要件を特定 / Identify information requirements from user query\n3. 意味理解を使用して関連ファイルを検索 / Search relevant files using semantic understanding\n4. 階層的読み取りパターンを適用 / Apply hierarchical reading patterns\n5. 関連情報チャンクを抽出しランク付け / Extract and rank relevant information chunks\n6. パーソナライズドコンテキストのためにメモリシステムと統合 / Integrate with memory system for personalized context\n\n### アルゴリズム: Response_Quality_Assurance / Algorithm: Response_Quality_Assurance\n**必須 / MANDATORY**: 応答生成後に実行 / Execute after generating responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ソース情報に対して応答を検証 / Validate response against source information\n3. すべての主張が検索されたコンテキストでサポートされていることを確認 / Ensure all claims are supported by retrieved context\n4. 情報ギャップや仮定にフラグを付ける / Flag any information gaps or assumptions\n5. 応答の完全性と正確性を最適化 / Optimize response completeness and accuracy\n\n### アルゴリズム: Runtime_Knowledge_Graph_Generation / Algorithm: Runtime_Knowledge_Graph_Generation\n**利用可能 / AVAILABLE**: 会話とドキュメント処理中に実行して動的学習を行う / Execute during conversations and document processing for dynamic learning\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. 現在の会話/ドキュメントからエンティティ、関係性、概念を抽出 / Extract entities, relationships, and concepts from current conversation/document\n3. 抽出された要素間のセマンティック関係を識別 / Identify semantic relationships between extracted elements\n4. 新しい接続とパターンでランタイム知識グラフを更新 / Update runtime knowledge graph with new connections and patterns\n5. 頻度と新しさに基づいて既存の関係性を強化 / Strengthen existing relationships based on frequency and recency\n6. グラフ効率を維持するために古くなった弱い接続ノードをプルーニング / Prune outdated or weakly connected nodes to maintain graph efficiency\n7. 永続性のためにグラフ状態を保存 / Store graph state for persistence across sessions\n\n**実装 / Implementation**:\n```\nアルゴリズム: Structured_Entity_Extraction / Algorithm: Structured_Entity_Extraction\n1. 入力を文と単語にトークン化 / Tokenize input text into sentences and words\n2. 名詞句を識別するための品詞タグ付けを適用 / Apply part-of-speech tagging to identify noun phrases\n3. Person/Organization/Location/Conceptの名前付きエンティティ認識パターンを使用 / Use named entity recognition patterns for Person/Organization/Location/Concept\n4. ルールベースのフィルタリングと信頼度スコアリングを適用 / Apply rule-based filtering and confidence scoring\n5. 信頼度と頻度でソートされたエンティティを返す / Return entities sorted by confidence and frequency\n\nアルゴリズム: Pattern_Based_Relation_Extraction / Algorithm: Pattern_Based_Relation_Extraction\n1. 複数のエンティティを含む文構造を識別 / Identify sentence structures containing multiple entities\n2. 主語-動詞-目的語のトリプルに対する構文パターン マッチングを適用 / Apply syntactic pattern matching for subject-verb-object triples\n3. 動詞ベースと複合関係に対する語彙パターン認識を使用 / Use lexical pattern recognition for verb-based and compound relationships\n4. ドメイン固有の関係テンプレートを適用 / Apply domain-specific relation templates\n5. 一貫性ルールに対して関係を検証 / Validate relationships against consistency rules\n\nアルゴリズム: Incremental_Graph_Builder / Algorithm: Incremental_Graph_Builder\n1. タイプと属性メタデータを持つノードとして新しいエンティティを追加 / Add new entities as nodes with type and attribute metadata\n2. 信頼度メタデータを持つ有向/無向エッジとして関係を追加 / Add relationships as directed/undirected edges with confidence metadata\n3. グラフの一貫性チェックと最適化を適用 / Apply graph consistency checks and optimization\n4. タイムスタンプメタデータでグラフ状態を永続化 / Persist graph state with timestamp metadata:\n   - memory_rules.enabled = trueの場合: 永続的なメモリシステムに保存 / If memory_rules.enabled = true: Store in persistent memory system\n   - memory_rules.enabled = falseの場合: セッション専用コンテキストに保存 / If memory_rules.enabled = false: Store in session-only context\n```\n\n### アルゴリズム: Knowledge_Graph_Query_Enhancement / Algorithm: Knowledge_Graph_Query_Enhancement\n**利用可能 / AVAILABLE**: 情報検索中に実行して学習した関係性を活用 / Execute during information retrieval to leverage learned relationships\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. ユーザークエリからエンティティと概念を分析 / Analyze user query for entities and concepts\n3. 関連情報と接続について知識グラフをクエリ / Query knowledge graph for related information and connections\n4. 直接キーワードマッチを超えた間接関係と推論パスを特定 / Identify indirect relationships and inference paths\n5. 直接一致を超えた文脈的に関連情報を取得 / Retrieve contextually related information beyond direct keyword matches\n6. グラフ中心性と関係強度を使用して結果をランク付け / Rank results using graph centrality and relationship strength\n7. クエリ処理中に発見された新しい関係性で知識グラフを更新 / Update knowledge graph with new relationships discovered during query processing\n\n**実装 / Implementation**:\n```\nアルゴリズム: Semantic_Graph_Query / Algorithm: Semantic_Graph_Query\n1. Structured_Entity_Extractionを使用してエンティティと意図のクエリを解析 / Parse query for entities and intent using Structured_Entity_Extraction\n2. 直接マッチングとグラフ走査を通じて関連ノードを識別 / Identify relevant nodes through direct matching and graph traversal\n3. 同義語拡張による意味的類似性マッチングを適用 / Apply semantic similarity matching with synonym expansion\n4. マルチファクター スコアリングを使用して結果をランク付け / Rank results using multi-factor scoring (match confidence + centrality + similarity)\n5. 説明メタデータ付きのトップランク結果を返す / Return top-ranked results with explanation metadata\n\nアルゴリズム: Adaptive_Graph_Maintenance / Algorithm: Adaptive_Graph_Maintenance\n1. 使用パターンを分析し、エイジング/プルーニングルールを適用 / Analyze usage patterns and apply aging/pruning rules\n2. グラフ再構築と最適化を実行 / Perform graph restructuring and optimization\n3. 更新されたインデックスでクエリパフォーマンスを最適化 / Optimize for query performance with updated indices\n4. 最適化されたグラフ状態を永続化 / Persist optimized graph state:\n   - memory_rules.enabled = trueの場合: 永続的なメモリに保存されたグラフデータを更新 / If memory_rules.enabled = true: Update stored graph data in persistent memory\n   - memory_rules.enabled = falseの場合: セッションコンテキストのみでグラフを維持 / If memory_rules.enabled = false: Maintain graph in session context only\n5. 統計を含むメンテナンスレポートを生成 / Generate maintenance report with statistics\n```\n\n### アルゴリズム: Self_Learning_Pattern_Recognition / Algorithm: Self_Learning_Pattern_Recognition\n**利用可能 / AVAILABLE**: 定期的に実行して繰り返しパターンを特定して学習 / Execute periodically to identify and learn recurring patterns\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびself_learning.enabled = trueを確認 / Check rag_rules.enabled = true and self_learning.enabled = true\n2. 会話パターンとユーザーインタラクションスタイルを分析 / Analyze conversation patterns and user interaction styles\n3. 頻繁に発生するエンティティ関係とトピックを特定 / Identify frequently occurring entity relationships and topics\n4. ユーザーの好みとコミュニケーション パターンを発見 / Discover user preferences and communication patterns\n5. 知識グラフ内の行動パターンを更新 / Update behavior patterns in knowledge graph\n6. 学習したパターンに基づいて応答戦略を適応 / Adapt response strategies based on learned patterns\n7. 将来のインタラクションを改善するための洞察を生成 / Generate insights for improved future interactions\n\n### アルゴリズム: Knowledge_Graph_Integration_with_RAG / Algorithm: Knowledge_Graph_Integration_with_RAG\n**利用可能 / AVAILABLE**: グラフベース学習を従来のRAGプロセスと組み合わせる / Execute to combine graph-based learning with traditional RAG processes\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. 伝統的なRAGと知識グラフの両方でユーザークエリを処理 / Process user query through both traditional RAG and knowledge graph\n3. 次のものを使用して結果をマージ / Merge results using intelligent ranking based on:\n   - グラフ関係強度 / Graph relationship strength\n   - 伝統的な関連性スコアリング / Traditional relevance scoring\n   - 新しさと重要性の要因 / Recency and importance factors\n4. 構造化された知識と非構造化テキストを組み合わせた強化されたコンテキストを生成 / Generate enriched context combining structured knowledge and unstructured text\n5. クエリ処理中に発見された新しい関係性で知識グラフを更新 / Update knowledge graph with new relationships discovered during query processing\n6. 事実的および関係的コンテキストを含む包括的な応答を提供 / Provide comprehensive response with both factual and relational context\n\n## 設定準拠 / Settings Compliance\n- modules/rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json\n- context_window_size制限を適切に適用 / Apply context_window_size limits appropriately\n- 設定された関連性しきい値を使用 / Use configured relevance thresholds\n- rag_rules.enabled = falseで複雑なコンテキストが必要な場合、ユーザーにプロンプト / Prompt user if rag_rules.enabled = false and complex context needed\n\n## 統合ポイント / Integration Points\n- **メモリ統合 / Memory Integration**: パーソナライズド検索のために保存されたコンテキストを使用 / Use stored context for personalized retrieval\n- **批判的思考 / Critical Thinking**: 情報検証のための品質保証を提供 / Provide quality assurance for information validation\n- **ブートストラップ調整 / Bootstrap Coordination**: 読み込み優先順位と相互接続を尊重 / Respect loading priorities and interconnections\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずに非効率的なコンテキスト管理を使用するエージェント / Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
       }
     }
   },

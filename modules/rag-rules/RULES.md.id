@@ -62,6 +62,31 @@
 6. Pangkas node yang kedaluwarsa atau lemah terhubung untuk mempertahankan efisiensi grafik
 7. Simpan status grafik untuk persistensi di seluruh sesi
 
+**Implementasi**:
+```
+Algoritma: Structured_Entity_Extraction
+1. Tokenisasi input teks menjadi kalimat dan kata
+2. Terapkan penandaan part-of-speech untuk mengidentifikasi frasa kata benda
+3. Gunakan pola pengenalan entitas bernama untuk Person/Organization/Location/Concept
+4. Terapkan penyaringan berbasis aturan dan penilaian kepercayaan
+5. Kembalikan entitas yang diurutkan berdasarkan kepercayaan dan frekuensi
+
+Algoritma: Pattern_Based_Relation_Extraction
+1. Identifikasi struktur kalimat yang mengandung beberapa entitas
+2. Terapkan pencocokkan pola sintaksis untuk triple subjek-kata kerja-objek
+3. Gunakan pengenalan pola leksikal untuk hubungan berbasis kata kerja dan majemuk
+4. Terapkan template hubungan domain-spesifik
+5. Validasi hubungan terhadap aturan konsistensi
+
+Algoritma: Incremental_Graph_Builder
+1. Tambahkan entitas baru sebagai node dengan metadata tipe dan atribut
+2. Tambahkan hubungan sebagai edge terarah/tidak terarah dengan metadata kepercayaan
+3. Terapkan pemeriksaan konsistensi grafik dan pengoptimalan
+4. Persistensi status grafik dengan metadata timestamp:
+   - Jika memory_rules.enabled = true: Simpan di sistem memori persisten
+   - Jika memory_rules.enabled = false: Simpan di konteks khusus sesi
+```
+
 ### Algoritma: Knowledge_Graph_Query_Enhancement
 **TERSEDIA**: Eksekusi selama pengambilan informasi untuk memanfaatkan hubungan yang dipelajari
 
@@ -73,6 +98,25 @@
 5. Ambil informasi terkait kontekstual di luar kecocokan kata kunci langsung
 6. Peringkat hasil menggunakan pusat grafik dan kekuatan hubungan
 7. Perbarui grafik pengetahuan dengan hubungan baru yang ditemukan selama pemrosesan query
+
+**Implementasi**:
+```
+Algoritma: Semantic_Graph_Query
+1. Parse query untuk entitas dan intent menggunakan Structured_Entity_Extraction
+2. Identifikasi node relevan melalui pencocokkan langsung dan traversal grafik
+3. Terapkan pencocokkan kesamaan semantik dengan ekspansi sinonim
+4. Peringkat hasil menggunakan penilaian multi-faktor (kepercayaan pencocokkan + pusat + kesamaan)
+5. Kembalikan hasil peringkat teratas dengan metadata penjelasan
+
+Algoritma: Adaptive_Graph_Maintenance
+1. Analisis pola penggunaan dan terapkan aturan aging/pruning
+2. Lakukan restrukturisasi grafik dan pengoptimalan
+3. Optimalkan untuk performa query dengan indeks yang diperbarui
+4. Persistensi status grafik yang dioptimalkan:
+   - Jika memory_rules.enabled = true: Perbarui data grafik tersimpan di memori persisten
+   - Jika memory_rules.enabled = false: Pertahankan grafik di konteks sesi saja
+5. Hasilkan laporan pemeliharaan dengan statistik
+```
 
 ### Algoritma: Self_Learning_Pattern_Recognition
 **TERSEDIA**: Eksekusi secara berkala untuk mengidentifikasi dan mempelajari pola berulang
