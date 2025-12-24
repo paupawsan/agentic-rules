@@ -10926,22 +10926,20 @@ ${enabledRules.map(rule => `- \`${rule}/AGENTS.md\` - ${getRuleDescription(rule,
       const pluginData = pluginConfig.plugins[pluginName];
       let settings = {};
 
-      // Start with default settings if available
-      if (pluginData && pluginData.default_settings) {
-        settings = JSON.parse(JSON.stringify(pluginData.default_settings)); // Deep copy
-      }
-
       // Convert plugin name to settings key for user settings lookup
       const settingsKey = pluginName.replace('modules/', '').replace(/-/g, '_');
 
+      // Start with default settings if available
+      if (pluginData && pluginData.default_settings) {
+        settings[settingsKey] = JSON.parse(JSON.stringify(pluginData.default_settings)); // Deep copy
+      } else {
+        settings[settingsKey] = {};
+      }
+
       // Merge with user-configured settings
       if (config.settings && config.settings[settingsKey]) {
-        // Deep merge user settings into the plugin-specific part of defaults
-        if (settings[settingsKey]) {
-          deepMerge(settings[settingsKey], config.settings[settingsKey]);
-        } else {
-          settings[settingsKey] = config.settings[settingsKey];
-        }
+        // Deep merge user settings into the plugin-specific settings
+        deepMerge(settings[settingsKey], config.settings[settingsKey]);
       }
 
       return JSON.stringify(settings, null, 2);
