@@ -4,6 +4,51 @@
 
 This guide covers advanced usage, automation, and technical implementation details.
 
+## 🔧 Bootstrap Initialization (Required After Setup)
+
+### **Complete Setup Order for Developers**
+
+1. **First**: Run `setup.html` to generate configuration and rule files
+2. **Then**: Initialize bootstrap system through AI agent
+
+### **Framework Bootstrap Process**
+After `setup.html` creates the necessary files, the bootstrap initialization is handled by your AI agent:
+
+```bash
+# Tell your AI agent to initialize the framework
+"Initialize agentic rules system"
+# or
+"Setup agentic rules bootstrap"
+```
+
+**The bootstrap initialization is an interactive process managed by the AI agent, not a programmatic script.**
+
+### **Bootstrap Configuration**
+The bootstrap system manages:
+- **Framework loading sequence** - Proper initialization order
+- **Rule interconnections** - Data flow between components
+- **Platform adaptations** - Environment-specific configurations
+- **User consent management** - Permission handling
+
+### **Programmatic Integration**
+```python
+from agentic_bootstrap import BootstrapManager
+
+# Initialize bootstrap context
+bootstrap = BootstrapManager()
+bootstrap.initialize()
+
+# Check framework status
+if bootstrap.is_initialized():
+    print("Framework ready for use")
+
+# Load specific rules
+bootstrap.load_rule('memory-rules')
+bootstrap.load_rule('rag-rules')
+```
+
+---
+
 ## 🚀 Advanced Setup Options
 
 ### Option A: Enhanced Server Mode (Recommended)

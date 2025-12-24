@@ -4,6 +4,58 @@
 
 **Tidak perlu pengetahuan teknis sama sekali!** Panduan ini akan memandu Anda mengatur aturan agen AI dengan klik ganda sederhana.
 
+## 🚀 Pengaturan Pertama Kali - Proses Lengkap
+
+### ⚠️ **PENTING: Ikuti Urutan Ini!**
+
+**Selesaikan setup.html TERLEBIH DAHULU, lalu inisialisasi bootstrap. Antarmuka web membuat file yang dibutuhkan bootstrap.**
+
+---
+
+### **Fase 1: Konfigurasi Web (WAJIB PERTAMA)**
+
+#### **Langkah 1: Unduh dan Luncurkan Pengaturan**
+1. **Unduh** file framework `agentic-rules` dari GitHub
+2. **Ekstrak** file ke folder mana saja di komputer Anda
+3. **Klik ganda** `setup.html` untuk membuka antarmuka web
+
+#### **Langkah 2: Konfigurasi Aturan Anda**
+1. **Pilih Bahasa** dari opsi yang didukung
+2. **Pilih Aturan** yang ingin diaktifkan:
+   - 🧠 **Aturan Memori**: AI mengingat konteks di seluruh percakapan
+   - 📚 **Aturan RAG**: AI mencari dan menggunakan informasi yang relevan lebih baik
+   - 🤔 **Aturan Berpikir Kritis**: AI lebih hati-hati dan akurat
+3. **Klik "Hasilkan File Konfigurasi"**
+
+> 💡 **Ini membuat file aturan dan konfigurasi yang dibutuhkan bootstrap!**
+
+---
+
+### **Fase 2: Inisialisasi Bootstrap (SETELAH setup.html)**
+
+#### **Langkah 3: Inisialisasi Framework**
+Beritahu agen AI Anda: **`Initialize agentic rules system`** atau **`Setup agentic rules bootstrap`**
+
+#### **Langkah 4: Berikan Izin Bootstrap**
+Ketika diminta: *"Bootstrap configuration not found. Initialize Agentic Rules Framework? (y/n)"*
+- Ketik: `y` dan tekan Enter
+
+#### **Langkah 5: Konfirmasi Persetujuan Pengguna**
+Ketika diminta: *"The Agentic Rules Framework enhances AI behavior... Do you want to enable this framework? (y/n)"*
+- Ketik: `y` dan tekan Enter
+
+#### **Langkah 6: Tinjau Pengaturan Framework**
+Tinjau pengaturan untuk aturan yang Anda pilih. Ini harus cocok dengan pilihan setup.html Anda.
+
+#### **Langkah 7: Framework Aktif!**
+✅ **Pengaturan lengkap** - konfigurasi web dan inisialisasi bootstrap selesai
+✅ **Aturan dikonfigurasi** - fitur yang dipilih aktif
+✅ **Siap digunakan** - kemampuan AI yang ditingkatkan tersedia secara otomatis
+
+---
+
+## 🚀 Menggunakan Fitur Framework
+
 ## 🚀 Mulai Cepat (Metode Klik Ganda)
 
 ### Langkah 1: Unduh Framework
