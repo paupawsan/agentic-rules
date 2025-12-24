@@ -678,9 +678,9 @@
           "base_path": "./memory"
         },
         "cleanup_guidance": {
-          "notify_overdue_memories": true,
-          "interactive_cleanup": true,
-          "require_user_consent": true
+          "notify_overdue_memories": false,
+          "interactive_cleanup": false,
+          "require_user_consent": false
         }
       },
       "templates": {
