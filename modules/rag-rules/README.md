@@ -11,6 +11,8 @@ The **RAG (Retrieval-Augmented Generation) Rules** plugin enhances AI agents' ab
 - **Smart Reading**: Agents read files strategically, not sequentially
 - **Context Optimization**: Automatically determines what information is most relevant
 - **Information Synthesis**: Combines multiple sources for comprehensive understanding
+- **Knowledge Graph Learning**: Dynamically builds and learns from knowledge relationships
+- **Self-Learning Patterns**: Adapts behavior based on user interactions and preferences
 - **Token Efficiency**: Maximizes useful information within token limits
 
 ## ✨ Key Capabilities
@@ -56,6 +58,32 @@ The **RAG (Retrieval-Augmented Generation) Rules** plugin enhances AI agents' ab
 - **Consistency Checking**: Ensures information coherence
 - **Gap Identification**: Flags missing or contradictory information
 
+### 🚀 **Advanced Intelligence Features**
+
+#### 🧠 **Runtime Knowledge Graph Generation**
+- **Dynamic Learning**: Automatically builds knowledge graphs from conversations and documents
+- **Relationship Discovery**: Identifies connections between entities, concepts, and ideas
+- **Graph Evolution**: Updates and strengthens relationships over time
+- **Intelligent Pruning**: Maintains graph efficiency by removing outdated connections
+
+#### 🔗 **Graph-Enhanced Retrieval**
+- **Relationship-Based Search**: Finds information through connections, not just keywords
+- **Inference Engine**: Discovers indirect relationships and hidden connections
+- **Contextual Expansion**: Retrieves related information beyond direct matches
+- **Hybrid Ranking**: Combines traditional relevance with graph centrality
+
+#### 🎯 **Self-Learning Pattern Recognition**
+- **User Behavior Analysis**: Learns communication patterns and preferences
+- **Adaptive Responses**: Adjusts interaction style based on learned patterns
+- **Conversation Memory**: Remembers context across multiple interactions
+- **Personalization**: Tailors responses to individual user styles
+
+#### ⚡ **Intelligent Context Fusion**
+- **Multi-Source Integration**: Combines traditional RAG with knowledge graph insights
+- **Dynamic Weighting**: Balances factual retrieval with relational understanding
+- **Comprehensive Synthesis**: Provides richer, more contextual responses
+- **Real-time Adaptation**: Learns and improves with each interaction
+
 ## 🚫 Limitations & Constraints
 
 ### Information Boundaries
@@ -66,7 +94,8 @@ The **RAG (Retrieval-Augmented Generation) Rules** plugin enhances AI agents' ab
 
 ### Algorithm Limitations
 - **Semantic Understanding**: Relies on available AI capabilities for comprehension
-- **Pattern Recognition**: May miss subtle or novel patterns
+- **Pattern Recognition**: May miss subtle or novel patterns (though self-learning improves this)
+- **Graph Complexity**: Large knowledge graphs may require significant memory
 - **Real-time Updates**: Cannot monitor live file changes
 - **Cross-System Integration**: Limited to agent's accessible resources
 
@@ -127,6 +156,17 @@ RAG Rules enhance content creation by:
 - Maintaining consistency across related documents
 ```
 
+### Intelligent Relationship Mapping
+```
+Use Case: Knowledge Discovery and Relationship Analysis
+RAG Rules with Knowledge Graph capabilities help with:
+- Understanding complex system architectures and dependencies
+- Discovering hidden relationships between concepts and entities
+- Building comprehensive knowledge bases from scattered information
+- Providing contextual insights beyond direct queries
+- Learning user-specific terminology and domain knowledge
+```
+
 ## 📝 Sample Prompts & Usage
 
 ### Codebase Analysis
@@ -152,6 +192,18 @@ RAG Rules enhance content creation by:
 "I'm learning TypeScript. Explain the difference between interface and type."
 ```
 → RAG Rules will reference official documentation, examples, and best practice guides
+
+### Knowledge Graph Exploration
+```
+"How do authentication, authorization, and JWT tokens relate in this system?"
+```
+→ Knowledge Graph will trace relationships between security concepts, identify dependencies, and provide comprehensive understanding
+
+### Pattern-Based Assistance
+```
+"I've been working on this codebase for weeks. What patterns should I look for?"
+```
+→ Self-learning analyzes interaction history, identifies user focus areas, and suggests relevant patterns and relationships
 
 ## ⚙️ Configuration Options
 
@@ -181,6 +233,45 @@ RAG Rules enhance content creation by:
     "max_context_window": 128000,
     "dynamic_adjustment": true,
     "relevance_threshold": 0.7
+  }
+}
+```
+
+### Knowledge Graph Configuration
+```json
+{
+  "rag_rules": {
+    "knowledge_graph": {
+      "enabled": true,
+      "runtime_generation": {
+        "entity_extraction": true,
+        "relationship_discovery": true,
+        "dynamic_updates": true
+      },
+      "graph_management": {
+        "max_nodes": 10000,
+        "relationship_pruning": true
+      }
+    }
+  }
+}
+```
+
+### Self-Learning Configuration
+```json
+{
+  "rag_rules": {
+    "self_learning": {
+      "enabled": true,
+      "pattern_analysis": {
+        "conversation_patterns": true,
+        "user_preferences": true
+      },
+      "learning_mechanisms": {
+        "reinforcement_learning": true,
+        "pattern_recognition": true
+      }
+    }
   }
 }
 ```
@@ -267,15 +358,23 @@ For technical implementation details, see:
 - Cross-references multiple sources for validation
 - Identifies conflicts and resolves inconsistencies
 
-### Adaptive Learning
-- Learns from successful retrieval patterns
-- Adjusts strategies based on user feedback
-- Optimizes performance over time
+### Runtime Knowledge Graph
+- Dynamically builds relationship networks from interactions
+- Discovers hidden connections between concepts and entities
+- Evolves understanding through continuous learning
+- Provides relational context beyond keyword matching
 
-### Context Preservation
-- Maintains conversation context across information retrieval
-- Links related information across sessions
-- Builds knowledge graphs for complex topics
+### Self-Learning Intelligence
+- Analyzes user behavior patterns and preferences
+- Adapts response strategies based on interaction history
+- Learns domain-specific terminology and concepts
+- Personalizes assistance based on individual user styles
+
+### Hybrid Intelligence
+- Combines traditional retrieval with graph-based reasoning
+- Integrates factual knowledge with relational understanding
+- Provides comprehensive context through multi-layered analysis
+- Continuously improves through feedback and learning cycles
 
 ## 🤝 Contributing
 

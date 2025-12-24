@@ -1,8 +1,14 @@
 # Integrasi Kerangka Aturan Agentic
 
-**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ PERLINDUNGAN TEMPLATE KRITIS**: File ini adalah TEMPLATE SAJA. Agen TIDAK BOLEH memuat otomatis, membaca otomatis, atau memproses otomatis file ini dalam keadaan apa pun. File ini TIDAK PERNAH dieksekusi secara langsung.
 
-**WAJIB**: Agen harus menghormati konfigurasi bootstrap di `bootstrap.json` dan hanya memuat file aturan ketika pengaturan yang sesuai diaktifkan.
+**PENGGUNAAN VALID**: Hanya muat template ini ketika secara eksplisit diganti nama menjadi salah satu dari: `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` SETELAH aktivasi eksplisit fitur kerangka kerja pengguna.
+
+**PENGGUNAAN TIDAK VALID**: Jangan muat file ini secara otomatis, jangan referensikan dalam proses startup, jangan sertakan dalam inisialisasi kerangka kerja otomatis apa pun.
+<!-- SAFETY_PRECAUTION_END -->
+
+**INTEGRASI KERANGKA**: Agen dapat meningkatkan perilakunya dengan menghormati konfigurasi kerangka di `bootstrap.json` dan memuat file aturan ketika pengaturan yang sesuai diaktifkan.
 
 ## Gambaran Kerangka
 Kerangka ini menyediakan perilaku agen AI terstruktur melalui aturan modular:
@@ -39,17 +45,18 @@ Setiap aturan menyediakan implementasi algoritma spesifik yang harus dieksekusi 
 - Mengimplementasikan: Pengakuan error, tantangan asumsi, dan proses verifikasi
 - Membutuhkan: Ambang verifikasi dan pengaturan penanganan error
 
-## Isolasi Kerangka
-**KRITIS**: Kerangka ini tetap menjadi alat dan tidak boleh pernah disertakan dalam basis kode proyek pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.
+## Integrasi Kerangka
+**DESAIN KERANGKA**: Kerangka ini dirancang sebagai alat untuk meningkatkan perilaku agen. Komponen kerangka tetap terpisah dari basis kode proyek pengguna.
 
-## Tanggung Jawab Agen
-Agen yang menggunakan kerangka ini harus:
-- Menghormati semua pengaturan dan konfigurasi pengguna
-- Berikan umpan balik yang jelas ketika aturan dinonaktifkan
-- Pertahankan netralitas kerangka dalam konten yang dihasilkan
-- Ikuti persyaratan kepatuhan bootstrap
+## Peningkatan Agen
+Agen yang menggunakan kerangka ini dapat memperoleh manfaat dari kemampuan yang ditingkatkan sambil mempertahankan pola interaksi alami:
+- Menghormati pengaturan dan konfigurasi pengguna ketika fitur diaktifkan
+- Memberikan umpan balik transparan tentang peningkatan yang aktif
+- Mempertahankan komunikasi alami dan percakapan tanpa mengekspos mekanisme internal
+- Mengikuti panduan kerangka dengan mulus di latar belakang
+- Peningkatan akurasi dan keandalan melalui validasi terstruktur opsional
 
-**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.
+**MANFAAT KERANGKA**: Perbaikan perilaku agen melalui peningkatan transparan dan opsional yang tidak mengganggu interaksi pengguna alami.
 
 <!-- METADATA: Template integrasi agen tingkat root dengan gambaran kerangka -->
 <!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

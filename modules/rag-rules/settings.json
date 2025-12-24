@@ -83,6 +83,62 @@
       "usage_tracking": true,
       "strategy_refinement": true,
       "context_prediction": true
+    },
+    "knowledge_graph": {
+      "enabled": false,
+      "runtime_generation": {
+        "entity_extraction": true,
+        "relationship_discovery": true,
+        "semantic_linking": true,
+        "dynamic_updates": true
+      },
+      "graph_management": {
+        "max_nodes": 10000,
+        "relationship_pruning": true,
+        "graph_persistence": true,
+        "version_control": true
+      },
+      "query_enhancement": {
+        "graph_traversal": true,
+        "inference_engine": true,
+        "relationship_ranking": true,
+        "contextual_expansion": true
+      }
+    },
+    "self_learning": {
+      "enabled": false,
+      "pattern_analysis": {
+        "conversation_patterns": true,
+        "user_preferences": true,
+        "topic_relationships": true,
+        "behavior_adaptation": true
+      },
+      "learning_mechanisms": {
+        "reinforcement_learning": true,
+        "pattern_recognition": true,
+        "relationship_strengthening": true,
+        "insight_generation": true
+      },
+      "memory_management": {
+        "long_term_retention": true,
+        "importance_weighting": true,
+        "temporal_decay": true,
+        "selective_forgetting": true
+      }
+    },
+    "graph_enhanced_rag": {
+      "integration_enabled": false,
+      "hybrid_retrieval": {
+        "graph_weight": 0.4,
+        "traditional_weight": 0.6,
+        "fusion_strategy": "weighted_combination"
+      },
+      "intelligent_ranking": {
+        "centrality_scoring": true,
+        "relationship_strength": true,
+        "temporal_relevance": true,
+        "semantic_similarity": true
+      }
     }
   }
 }

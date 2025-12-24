@@ -57,7 +57,7 @@
   "optional_config": [
     {
       "name": "retention_policies",
-      "type": "choice",
+      "type": "checkbox",
       "localization": {
         "en": {
           "title": "Retention Policies",
@@ -97,7 +97,7 @@
     },
     {
       "name": "git_analysis",
-      "type": "choice",
+      "type": "checkbox",
       "localization": {
         "en": {
           "title": "Git Analysis Settings",

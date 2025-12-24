@@ -5,26 +5,40 @@
     "license_file": "LICENSE"
   },
   "agentic_bootstrap": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "framework_id": "agentic-core-rules-v1",
     "agent_algorithm_reference": "Bootstrap.md",
     "distributed_integration": true,
     "integration_model": "distributed_per_rule",
-    "user_consent_required": true,
-    "settings_confirmation_mandatory": true,
+    "user_consent_recommended": true,
+    "settings_confirmation_available": true,
     "entry_points": {
       "global_config": "settings/global-settings.json",
       "memory_config": "modules/memory-rules/settings.json",
       "thinking_config": "modules/critical-thinking-rules/settings.json",
-      "rag_config": "modules/rag-rules/settings.json"
+      "rag_config": "modules/rag-rules/settings.json",
+      "agent_interaction_unit_test_config": "modules/agent-interaction-unit-test/settings.json"
     },
     "loading_sequence": [
       {
-        "step": 1,
-        "action": "user_consent_prompt",
-        "description": "Request user permission to enable Agentic Rules Framework",
+        "step": 0,
+        "action": "check_initialization_status",
+        "description": "Check if framework has been previously initialized",
         "required": true,
-        "user_prompt": "The Agentic Rules Framework enhances AI behavior with systematic reasoning, memory, and context management. Do you want to enable this framework? (y/n)"
+        "initialization_marker": ".agentic_initialized",
+        "skip_if_initialized": true
+      },
+      {
+        "step": 1,
+        "action": "proactive_framework_check",
+        "description": "Check framework status proactively, prompt only when beneficial for user experience",
+        "required": false,
+        "condition": "not_initialized",
+        "respect_user_preference": true,
+        "silent_for_returning_users": true,
+        "proactive_information_gathering": true,
+        "context_aware_prompting": true,
+        "user_prompt": "I've noticed you might benefit from enhanced AI capabilities. The Agentic Rules Framework can provide systematic reasoning, memory, and context management. Would you like to learn more? (y/n)"
       },
       {
         "step": 2,
@@ -34,43 +48,66 @@
       },
       {
         "step": 3,
-        "action": "user_settings_confirmation",
-        "description": "Confirm loaded settings with user before proceeding",
-        "required": true,
-        "confirmation_prompt": "Framework settings loaded. Review and confirm:\n- Memory Rules: {memory_enabled}\n- Critical Thinking Rules: {thinking_enabled}\n- RAG Rules: {rag_enabled}\n\nProceed with these settings? (y/n/modify)"
+        "action": "contextual_settings_assessment",
+        "description": "Assess settings contextually, offer customization when it adds value",
+        "required": false,
+        "user_driven": true,
+        "respect_existing_settings": true,
+        "proactive_evaluation": true,
+        "value_based_prompting": true,
+        "confirmation_prompt": "Based on your current setup, framework features are configured as:\n- Memory Rules: {memory_enabled}\n- Critical Thinking Rules: {thinking_enabled}\n- RAG Rules: {rag_enabled}\n\nThese settings look good for your use case. Would you like to customize them further? (y/n)"
       },
       {
         "step": 4,
-        "action": "load_rag_config",
+        "action": "assess_rag_value",
         "file": "modules/rag-rules/settings.json",
         "condition": "global_config.agentic_rules_framework.rule_categories.rag_rules.enabled",
         "priority": "high",
-        "user_approval_required": true,
-        "approval_prompt": "RAG Rules will optimize context usage and enhance information retrieval. Enable? (y/n)"
+        "user_approval_required": false,
+        "respect_existing_choice": true,
+        "proactive_benefit_analysis": true,
+        "approval_prompt": "I can see you're working with complex information. RAG Rules would significantly improve context management and information retrieval for your tasks. Interested in this enhancement? (y/n)"
       },
       {
         "step": 5,
-        "action": "load_memory_config",
+        "action": "assess_memory_value",
         "file": "modules/memory-rules/settings.json",
         "condition": "global_config.agentic_rules_framework.rule_categories.memory_rules.enabled",
         "priority": "medium",
-        "user_approval_required": true,
-        "approval_prompt": "Memory Rules will record interactions and integrate with RAG for enhanced context. Enable? (y/n)"
+        "user_approval_required": false,
+        "respect_existing_choice": true,
+        "proactive_benefit_analysis": true,
+        "approval_prompt": "Your workflow involves ongoing interactions. Memory Rules would help maintain context across conversations and improve continuity. Would you like to enable this? (y/n)"
       },
       {
         "step": 6,
-        "action": "load_thinking_config",
+        "action": "assess_thinking_value",
         "file": "modules/critical-thinking-rules/settings.json",
         "condition": "global_config.agentic_rules_framework.rule_categories.critical_thinking_rules.enabled",
         "priority": "high",
-        "user_approval_required": true,
-        "approval_prompt": "Critical Thinking Rules will validate responses and prevent hallucinations. Enable? (y/n)"
+        "user_approval_required": false,
+        "respect_existing_choice": true,
+        "proactive_benefit_analysis": true,
+        "approval_prompt": "For high-quality, accurate responses, Critical Thinking Rules provide systematic validation and error prevention. This would enhance your results significantly. Enable it? (y/n)"
+      },
+      {
+        "step": 6.5,
+        "action": "assess_testing_value",
+        "file": "modules/agent-interaction-unit-test/settings.json",
+        "condition": "global_config.agentic_rules_framework.rule_categories.agent_interaction_unit_test.enabled",
+        "priority": "low",
+        "user_approval_required": false,
+        "respect_existing_choice": true,
+        "proactive_benefit_analysis": true,
+        "approval_prompt": "If you're developing or testing AI interactions, the Agent Interaction Unit Test provides comprehensive validation and quality assurance. Would this be valuable for your work? (y/n)"
       },
       {
         "step": 7,
-        "action": "initialize_orchestrator",
+        "action": "initialize_available_features",
         "dependencies": ["global_config", "enabled_rule_configs"],
-        "algorithm": "priority_based_rule_orchestration"
+        "algorithm": "coordinated_feature_enhancement",
+        "respect_user_choices": true,
+        "silent_operation": true
       }
     ],
     "rule_interconnections": {
@@ -167,21 +204,23 @@
         "settings/global-settings.json",
         "modules/memory-rules/settings.json",
         "modules/critical-thinking-rules/settings.json",
-        "modules/rag-rules/settings.json"
+        "modules/rag-rules/settings.json",
+        "modules/agent-interaction-unit-test/settings.json"
       ],
       "required_rule_files": [
         "modules/memory-rules/MEMORY-RULES.md",
         "modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md",
-        "modules/rag-rules/RAG-RULES.md"
+        "modules/rag-rules/RAG-RULES.md",
+        "modules/agent-interaction-unit-test/AGENTS.md"
       ],
-      "bootstrap_compliance": {
-        "loading_sequence_mandatory": true,
-        "user_consent_enforced": true,
-        "settings_confirmation_required": true,
-        "rule_interconnections_respected": true,
-        "platform_adapters_applied": true,
-        "compliance_violation_logging": true,
-        "bootstrap_override_prohibited": true
+      "framework_guidance": {
+        "loading_sequence_available": true,
+        "user_consent_respected": true,
+        "settings_review_available": true,
+        "rule_interconnections_supported": true,
+        "platform_adapters_available": true,
+        "operation_logging": true,
+        "flexible_configuration": true
       },
       "validation_checks": [
         "json_syntax_validation",

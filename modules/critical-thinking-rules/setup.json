@@ -18,7 +18,7 @@
   "optional_config": [
     {
       "name": "verification_levels",
-      "type": "choice",
+      "type": "checkbox",
       "localization": {
         "en": {
           "title": "Verification Levels",
@@ -51,7 +51,7 @@
     },
     {
       "name": "error_handling",
-      "type": "choice",
+      "type": "checkbox",
       "localization": {
         "en": {
           "title": "Error Handling",

@@ -41,17 +41,17 @@ def update_setup_html_localization():
     # Get available languages (excluding metadata)
     available_langs = [lang for lang in loc_data.keys() if lang != '_comment']
 
-    # Convert to JavaScript format with JSON.parse()
+    # Convert to JavaScript object format (not JSON.parse)
     json_str = json.dumps(loc_data, ensure_ascii=False, indent=2, separators=(',', ': '))
-    js_content = '    // ---AUTO GENERATED LOCALIZATION START---\n    const localization = JSON.parse(`' + json_str + '`);\n    // ---AUTO GENERATED LOCALIZATION END---'
+    js_content = '    // ---AUTO GENERATED LOCALIZATION START---\n    const localization = ' + json_str + ';\n    // ---AUTO GENERATED LOCALIZATION END---'
 
     # Read setup.html
     with open('setup.html', 'r') as f:
         html_content = f.read()
 
     # Replace the localization section (between markers)
-    start_marker = '  // ---AUTO GENERATED LOCALIZATION START---'
-    end_marker = '  // ---AUTO GENERATED LOCALIZATION END---'
+    start_marker = '    // ---AUTO GENERATED LOCALIZATION START---'
+    end_marker = '}`);  // ---AUTO GENERATED LOCALIZATION END---'
 
     start_pos = html_content.find(start_marker)
     if start_pos == -1:
@@ -73,22 +73,34 @@ def update_setup_html_localization():
     # Replace localization section
     new_html = html_content[:start_replace_pos] + localization_only + html_content[end_replace_pos:]
 
-    # Generate dynamic language options
+    # Generate dynamic language options with flags and native names
     ui_lang_options = []
     agent_lang_options = []
 
-    # Map languages to their option numbers
-    lang_option_map = {
-        'en': 'lang_option_1',
-        'ja': 'lang_option_2',
-        'id': 'lang_option_3'
+    # Language table with flags and native names (same as generate_simple_setup.py)
+    lang_table = {
+        'en': '🇺🇸 English',
+        'ja': '🇯🇵 日本語',
+        'id': '🇮🇩 Bahasa Indonesia',
+        'zh': '🇨🇳 中文',
+        'ar': '🇸🇦 العربية',
+        'de': '🇩🇪 Deutsch',
+        'fr': '🇫🇷 Français',
+        'es': '🇪🇸 Español',
+        'ko': '🇰🇷 한국어',
+        'hi': '🇮🇳 हिन्दी',
+        'pt': '🇵🇹 Português',
+        'ru': '🇷🇺 Русский',
+        'si': '🇱🇰 සිංහල',
+        'ta': '🇮🇳 தமிழ்',
+        'th': '🇹🇭 ไทย',
+        'tr': '🇹🇷 Türkçe',
+        'vi': '🇻🇳 Tiếng Việt'
     }
 
     for lang in available_langs:
-        # Get language display name from localization CLI section
-        cli_data = loc_data.get(lang, {}).get('cli', {})
-        option_key = lang_option_map.get(lang, f'lang_option_{available_langs.index(lang) + 1}')
-        display_name = cli_data.get(option_key, f"{lang.upper()} ({lang})")
+        # Use flag + native name format
+        display_name = lang_table.get(lang, f"{lang.upper()} ({lang})")
 
         ui_lang_options.append(f'<option value="{lang}">{display_name}</option>')
         agent_lang_options.append(f'<option value="{lang}">{display_name}</option>')
@@ -105,14 +117,8 @@ def update_setup_html_localization():
     ui_section_updated = re.sub(ui_pattern, ui_replacement, ui_section, flags=re.DOTALL)
     new_html = new_html[:ui_select_start] + ui_section_updated + new_html[ui_select_end:]
 
-    # Update agent language select - replace content between existing markers
-    agent_select_start = new_html.find('<select id="agent-language"')
-    agent_select_end = new_html.find('</select>', agent_select_start) + len('</select>')
-    agent_section = new_html[agent_select_start:agent_select_end]
-    agent_pattern = r'(<!-- AUTO GENERATED CONTENT START -->).*?(<!-- AUTO GENERATED CONTENT END -->)'
-    agent_replacement = rf'\1\n{agent_options_html}\n\2'
-    agent_section_updated = re.sub(agent_pattern, agent_replacement, agent_section, flags=re.DOTALL)
-    new_html = new_html[:agent_select_start] + agent_section_updated + new_html[agent_select_end:]
+    # Skip agent language select update - handled by generate_simple_setup.py
+    print("ℹ️  Skipping agent language options update (handled by generate_simple_setup.py)")
 
     # Write back
     with open('setup.html', 'w') as f:
@@ -152,14 +158,8 @@ def factory_reset_localization():
     ui_section_updated = re.sub(ui_pattern, ui_replacement, ui_section, flags=re.DOTALL)
     new_html = new_html[:ui_select_start] + ui_section_updated + new_html[ui_select_end:]
 
-    # Reset agent language select - replace content between existing markers
-    agent_select_start = new_html.find('<select id="agent-language"')
-    agent_select_end = new_html.find('</select>', agent_select_start) + len('</select>')
-    agent_section = new_html[agent_select_start:agent_select_end]
-    agent_pattern = r'(<!-- AUTO GENERATED CONTENT START -->).*?(<!-- AUTO GENERATED CONTENT END -->)'
-    agent_replacement = r'\1\n<option value="en">🇺🇸 English</option>\n\2'
-    agent_section_updated = re.sub(agent_pattern, agent_replacement, agent_section, flags=re.DOTALL)
-    new_html = new_html[:agent_select_start] + agent_section_updated + new_html[agent_select_end:]
+    # Skip agent language select reset - handled by generate_simple_setup.py
+    print("ℹ️  Skipping agent language options reset (handled by generate_simple_setup.py)")
 
     # Write back
     with open('setup.html', 'w') as f:

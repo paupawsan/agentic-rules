@@ -1,8 +1,14 @@
 # Memory Rules Agent Integration
 
-**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `memory_rules.enabled = true` in settings.json.
+<!-- SAFETY_PRECAUTION_START -->
+**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.
 
-**MANDATORY**: If memory_rules.enabled = true in settings.json, agents MUST implement all algorithms below.
+**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `memory_rules.enabled = true` in settings.json.
+
+**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
+<!-- SAFETY_PRECAUTION_END -->
+
+**FRAMEWORK ENHANCEMENT**: When memory_rules.enabled = true in settings.json, agents can implement these algorithms for enhanced memory capabilities.
 
 ## Memory System Architecture
 - **common/**: Shared knowledge across projects

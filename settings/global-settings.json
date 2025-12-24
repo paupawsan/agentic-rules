@@ -27,6 +27,12 @@
         "enabled": true,
         "priority": "high",
         "description": "Efficient information processing and context management"
+      },
+      "agent_interaction_unit_test": {
+        "path": "../agent-interaction-unit-test",
+        "enabled": false,
+        "priority": "low",
+        "description": "Automated validation and testing framework for agent conversations"
       }
     },
     "global_settings": {
@@ -64,7 +70,7 @@
       "user_data_control": "user_managed"
     },
     "scaffold_config": {
-      "template_version": "1.0.0",
+      "template_version": "1.1.0",
       "template_tag_format": "Template_{version}",
       "github_repo": "https://github.com/paupawsan/agentic-rules",
       "prefer_local_templates": true,

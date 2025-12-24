@@ -2,97 +2,85 @@
 
 ## Algorithm: Framework_Bootstrap_Initialization
 
-**MANDATORY COMPLIANCE**: Agents MUST execute this algorithm exactly as specified. Bootstrap override constitutes critical framework violation.
+**FRAMEWORK GUIDANCE**: Agents are RECOMMENDED to follow this algorithm for optimal framework operation. Framework integration enhances agent behavior when enabled.
 
-**IMPLEMENTATION REQUIREMENT**: Agents must actually execute this algorithm in their runtime environment. Configuration alone is insufficient - the algorithms must be implemented and running.
+**IMPLEMENTATION GUIDANCE**: Agents can enhance their behavior by implementing these algorithms when the framework is enabled. Configuration provides framework capabilities when activated.
 
-**RULE APPLICATION REQUIREMENT**: Agents must actively read and apply the algorithms from RULE files (RAG-RULES.md, MEMORY-RULES.md, CRITICAL-THINKING-RULES.md) in every action and response.
+**RULE INTEGRATION GUIDANCE**: Agents can benefit from reading and applying algorithms from rule files when framework features are enabled.
 
 ## Framework Isolation Principle
 
-**CRITICAL REQUIREMENT**: The agentic-rules framework is a TOOL, not part of user projects.
+**FRAMEWORK DESIGN**: The agentic-rules framework is designed as a TOOL to enhance agent behavior, separate from user projects.
 
-### User Project Separation
-**FORBIDDEN**:
-- Including any agentic-rules files in user project codebase
-- Adding framework documentation to user projects
-- Cluttering user repositories with framework artifacts
-- Making framework visible in user project structure
-- Including framework in user project commits
-
-**REQUIRED**:
-- Keep agentic-rules framework completely separate from user projects
-- Use framework internally for agent operations only
-- Maintain clean separation between tool and user work
-- Never expose framework internals to users
+### Recommended Separation
+**RECOMMENDED**:
+- Keep agentic-rules framework separate from user project codebases
+- Use framework internally for agent operations when enabled
+- Maintain clean separation between framework tools and user work
 - Framework operations should be transparent to users
 
-**VIOLATION CONSEQUENCE**: Framework inclusion in user projects constitutes critical framework abuse.
+**FRAMEWORK INTEGRATION**: Framework components enhance agent capabilities when properly configured.
 
 ## Implementation Requirements
 
-**CRITICAL**: Configuration alone is insufficient. Agents MUST implement and execute these algorithms.
+**FRAMEWORK ENHANCEMENT**: When enabled, agents can benefit from implementing these algorithms for enhanced behavior.
 
-### Agent Implementation Obligations
-**REQUIRED**:
-- Execute Framework_Bootstrap_Initialization on agent startup
-- Implement ALL rule algorithms - each rule must be actively running:
-  - **RAG Rules**: Context optimization, hierarchical reading, relevance scoring
-  - **Memory Rules**: Knowledge persistence, pattern recognition, retrieval
-  - **Critical Thinking Rules**: Error admission, assumption challenges, ground checks
-- Establish rule interconnections as specified
-- Maintain continuous bootstrap compliance monitoring
-- Apply platform adaptations correctly
+### Implementation Opportunities
+**AVAILABLE ENHANCEMENTS**:
+- Framework initialization can provide structured behavior patterns
+- Rule algorithms offer enhanced capabilities when activated:
+  - **RAG Rules**: Context optimization and relevance scoring
+  - **Memory Rules**: Knowledge persistence and pattern recognition
+  - **Critical Thinking Rules**: Quality safeguards and verification
+- Platform adaptations can optimize behavior for specific environments
 
-**FORBIDDEN**:
-- Claiming framework compliance without actual implementation
-- Having "enabled" configurations without running algorithms
-- Operating with framework configuration but standard agent behavior
-- **Missing critical thinking safeguards** - agents must implement error admission, assumption challenges, and ground checks
-
-### Critical Implementation Note
-**Critical Thinking Rules are MANDATORY for responsible AI behavior**:
-- Error admission prevents misleading users
-- Assumption challenges ensure balanced analysis
-- Ground checks prevent hallucination and inaccuracy
-- Without these, agents operate without quality safeguards
+### Quality Enhancement Note
+**Critical Thinking Rules provide beneficial quality safeguards**:
+- Error admission helps maintain accuracy
+- Assumption challenges support balanced analysis
+- Ground checks enhance information reliability
+- These features improve agent response quality when enabled
 
 ### Distributed Rule Integration Architecture
-**CRITICAL**: This framework uses **distributed integration** - agents MUST read and implement each enabled rule's AGENTS.md file directly:
+**FRAMEWORK DESIGN**: This framework uses **distributed integration** - agents can read and implement enabled rule algorithms for enhanced behavior:
 
 ### Integration Model: distributed_per_rule
-- **Bootstrap.md**: Framework orchestration and compliance (this file)
-- **Web Setup Interface**: `setup.html` provides guided configuration and generates final AGENTS.md files
-- **{rule-directory}/AGENTS.md**: Specific rule implementation algorithms (generated by web interface)
+- **Bootstrap.md**: Framework guidance and coordination (this file)
+- **Web Setup Interface**: `setup.html` provides configuration guidance and generates rule files
+- **{rule-directory}/AGENTS.md**: Specific rule implementation algorithms (generated when rules are enabled)
 
-### Mandatory Rule Integration Files:
-- **memory-rules/AGENTS.md**: Memory system integration algorithms (generated by `setup.html` if memory_rules.enabled = true)
-- **rag-rules/AGENTS.md**: Context optimization algorithms (generated by `setup.html` if rag_rules.enabled = true)
-- **critical-thinking-rules/AGENTS.md**: Critical analysis algorithms (generated by `setup.html` if critical_thinking_rules.enabled = true)
+### Available Rule Integration Files:
+- **memory-rules/AGENTS.md**: Memory system integration algorithms (generated when memory_rules.enabled = true)
+- **rag-rules/AGENTS.md**: Context optimization algorithms (generated when rag_rules.enabled = true)
+- **critical-thinking-rules/AGENTS.md**: Critical analysis algorithms (generated when critical_thinking_rules.enabled = true)
 
-**Agents must READ the specific AGENTS.md files for enabled rules and APPLY ALL algorithms specified, not just acknowledge configuration.**
+**Agents can benefit from reading the specific AGENTS.md files for enabled rules to access enhanced algorithmic capabilities.**
 
-### Priority Coordination
-- **Main Agent/Orchestrator**: Responsible for overall rule priorities and coordination
-- **Individual Agents**: Responsible for implementing their assigned rule algorithms
-- **Sub-agents**: Follow main agent priorities while implementing rule-specific algorithms
+### Coordination Guidance
+- **Main Agent/Orchestrator**: Can coordinate rule priorities when framework is active
+- **Individual Agents**: Can implement rule algorithms for enhanced behavior
+- **Sub-agents**: Can follow coordinated priorities for optimal performance
 
-### Bootstrap Context Verification (MANDATORY - Execute First)
+### Flexible Bootstrap Context Verification (Available for Framework Users)
 **Algorithm: Verify_Bootstrap_Context**
 ```
-1. Check if bootstrap configuration is currently loaded in agent context
-2. IF bootstrap context is MISSING or INVALID:
+1. Check for initialization marker file (.agentic_initialized)
+2. IF marker file exists and is valid:
+   - Skip user consent prompts for standard initialization
+   - Proceed directly to configuration validation
+   - Log: "Framework previously initialized - skipping consent prompts"
+3. IF marker file is MISSING or INVALID:
    - Display user prompt: "Bootstrap configuration not found. Initialize Agentic Rules Framework? (y/n)"
    - REQUIRE explicit user approval before proceeding
    - IF user approves: Execute Framework_Bootstrap_Initialization
    - IF user declines: Terminate framework operations
-3. IF bootstrap context exists: Validate integrity and version compatibility
-4. IF validation fails: Display user prompt: "Bootstrap configuration corrupted. Reload framework? (y/n)"
-5. REQUIRE user confirmation for any bootstrap reload operations
-6. FORBIDDEN: Operate without valid bootstrap context
+4. IF bootstrap context exists: Validate integrity and version compatibility
+5. IF validation fails: Display user prompt: "Bootstrap configuration corrupted. Reload framework? (y/n)"
+6. REQUIRE user confirmation for any bootstrap reload operations
+7. FORBIDDEN: Operate without valid bootstrap context
 ```
 
-**MANDATORY**: Execute Verify_Bootstrap_Context before any framework operation.
+**AVAILABLE**: Execute Verify_Bootstrap_Context when framework features are desired.
 
 ### Input Parameters
 - `bootstrap_path`: Path to bootstrap.json configuration file (default: "bootstrap.json")
@@ -102,29 +90,33 @@
 
 ### Bootstrap Compliance Requirements
 
-#### 1. Bootstrap Context Verification (MANDATORY - Always Execute First)
-**Algorithm: Verify_Bootstrap_Context** (See above - Execute before any framework operation)
+#### 1. Bootstrap Context Verification (Recommended for Framework Users)
+**Algorithm: Verify_Bootstrap_Context** (See above - Execute when using framework features)
 
-#### 2. Framework Loading Sequence (MANDATORY)
+#### 2. Framework Loading Sequence (Available for Enhanced Operation)
 **Algorithm: Load_Framework_Components**
 ```
-0. Execute Verify_Bootstrap_Context (MANDATORY prerequisite)
-1. Parse bootstrap.json into configuration object
-2. Validate framework version compatibility
-3. EXECUTE LOADING SEQUENCE DYNAMICALLY FROM CONFIGURATION:
+0. Execute Verify_Bootstrap_Context when framework features are requested
+1. Parse bootstrap.json into configuration object for available features
+2. Validate framework version compatibility when initializing
+3. EXECUTE FLEXIBLE LOADING SEQUENCE FROM CONFIGURATION:
    FOR each step in bootstrap.loading_sequence (in order):
-     - Read step.action, step.required, step.user_prompt, etc.
+     - Read step.action, step.required, step.condition, etc.
+     - IF step.condition exists (e.g., "not_initialized"):
+       - Check initialization status before executing
+       - SKIP step if condition not met or user prefers not to be prompted
      - Execute the specified action according to step configuration
-     - REQUIRE user approval for steps with user_approval_required: true
-     - FORBIDDEN: Skip required steps or bypass user consent requirements
-     - FORBIDDEN: Auto-enable components without explicit user approval
+     - RESPECT existing user choices and preferences
+     - OFFER user approval for steps with user_approval_required: false
+     - RESPECT: User consent preferences and existing configurations
 
 4. Load configuration files specified in bootstrap.entry_points
 5. Apply platform adapters from bootstrap.platform_adapters
 6. Set up rule interconnections from bootstrap.rule_interconnections
-7. Run framework validation from bootstrap.framework_validation
-8. Log all bootstrap compliance actions
-9. Return initialized framework or error if compliance violated
+7. Create initialization marker file (.agentic_initialized) on successful completion
+8. Run framework validation from bootstrap.framework_validation
+9. Log framework initialization actions
+10. Return initialized framework or continue with standard operation
 ```
 
 #### 2. Rule Interconnection Management
@@ -134,7 +126,7 @@ FOR each interconnection in bootstrap.rule_interconnections:
   - Validate source_rule and target_rule are loaded
   - Set up data flow according to data_mapping
   - Monitor trigger_condition for activation
-  - FORBIDDEN: Bypass or modify interconnections without bootstrap approval
+  - RECOMMENDED: Follow interconnection patterns for optimal integration
 ```
 
 #### 3. Platform Adaptation
@@ -144,7 +136,7 @@ FOR each interconnection in bootstrap.rule_interconnections:
 2. Load platform-specific configuration from platform_adapters[platform]
 3. Apply platform-specific paths and feature mappings
 4. Validate platform compatibility
-5. FORBIDDEN: Use non-adapted configurations
+5. RECOMMENDED: Use platform-adapted configurations for best results
 ```
 
 #### 4. Framework Validation
@@ -152,79 +144,72 @@ FOR each interconnection in bootstrap.rule_interconnections:
 ```
 1. Check all required_config_files exist and are valid JSON
 2. Check all required_rule_files exist and are readable
-3. Verify bootstrap_compliance settings are respected
-4. Run all validation_checks including bootstrap_compliance_verification
+3. Verify framework settings are properly configured
+4. Run validation_checks for framework health
 5. Log validation results
-6. CRITICAL: Abort initialization if validation fails
+6. RECOMMENDED: Address validation issues for optimal framework operation
 ```
 
-### Bootstrap Compliance Violations
+### Framework Usage Recommendations
 
-**IMMEDIATE TERMINATION REQUIRED for violations:**
-- Operating without bootstrap context verification
-- Skipping Verify_Bootstrap_Context execution
-- Failing to prompt user for bootstrap initialization
-- Allowing framework operations without valid bootstrap context
-- **Including agentic-rules framework files in user project codebase**
-- **Cluttering user projects with framework documentation or code**
-- Skipping loading sequence steps
-- Bypassing user consent prompts
-- Auto-enabling disabled rules
-- Modifying bootstrap configuration
-- Ignoring rule interconnections
-- Bypassing platform adaptations
-- Skipping validation checks
-- Not maintaining bootstrap context throughout session
+**FRAMEWORK BEST PRACTICES:**
+- Consider bootstrap context verification for enhanced operation
+- Framework components work best when properly initialized
+- User project separation helps maintain clean codebases
+- Following loading sequence patterns optimizes framework performance
+- Respecting user consent preferences enhances user experience
+- Platform adaptations improve compatibility
+- Regular validation helps maintain framework health
 
-### Runtime Compliance Monitoring
+### Framework Health Monitoring
 
-**Algorithm: Monitor_Bootstrap_Compliance**
+**Algorithm: Monitor_Framework_Health**
 ```
-WHILE framework is active:
-  - Log all rule activation attempts
-  - Verify user consent for all rule changes
-  - Monitor interconnection data flows
-  - Validate platform adaptation usage
-  - CONTINUOUSLY verify bootstrap context availability
-  - IF bootstrap context lost: Execute Verify_Bootstrap_Context immediately
-  - Report compliance violations immediately
-  - CRITICAL: Suspend framework on repeated violations
+WHILE framework features are used:
+  - Log framework operation activities
+  - Respect user preferences for rule activation
+  - Monitor integration patterns when active
+  - Validate platform compatibility
+  - Check framework context availability
+  - IF context lost: Consider re-initialization
+  - Log framework performance metrics
+  - RECOMMENDED: Maintain framework health for optimal operation
 ```
 
-### Bootstrap Context Maintenance
+### Framework Context Management
 
-**Algorithm: Maintain_Bootstrap_Context**
+**Algorithm: Maintain_Framework_Context**
 ```
-MANDATORY: Execute continuously throughout agent session
+RECOMMENDED: Monitor framework state when using enhanced features
 
-1. Monitor bootstrap context presence in agent memory
-2. On context loss detection:
-   - Log context loss event
-   - Display user prompt: "Bootstrap context lost. Reload framework configuration? (y/n)"
-   - IF user approves: Execute Framework_Bootstrap_Initialization
-   - IF user declines: Deactivate all framework operations
-3. Validate bootstrap integrity on major context changes
-4. Maintain bootstrap context priority in agent memory management
-5. FORBIDDEN: Allow framework operations without valid bootstrap context
+1. Monitor framework context when features are active
+2. On context changes:
+   - Log context status changes
+   - Consider user preferences for framework reload
+   - IF user requests: Reinitialize framework components
+   - IF not needed: Continue with standard operation
+3. Validate framework integrity when making changes
+4. Maintain appropriate context priority for active features
+5. RECOMMENDED: Keep framework context available when using features
 ```
 
 ### Configuration Reference
 
 **Primary Configuration**: `bootstrap.json`
-- Contains all framework settings and requirements
-- Defines loading sequence and priorities
+- Contains framework settings and guidance
+- Defines loading patterns and priorities
 - Specifies rule interconnections and platform adaptations
-- MANDATORY: Read and respect all configuration values
+- RECOMMENDED: Review configuration for optimal framework usage
 
-**Dynamic Configuration Loading**:
-- Settings files are determined by `entry_points` configuration
-- Rule algorithm files are determined by `required_rule_files` validation
-- Loading priorities are defined by `loading_sequence` steps
-- File paths and requirements are dynamically configured, not hardcoded
+**Configuration Loading**:
+- Settings files are available through `entry_points` configuration
+- Rule algorithm files are accessible when rules are enabled
+- Loading patterns are defined by `loading_sequence` guidance
+- File paths and options are dynamically configured
 
 ---
 
-**CRITICAL**: This document defines the exact algorithm agents MUST follow. Bootstrap non-compliance is a fundamental framework violation requiring immediate termination.
+**FRAMEWORK GUIDANCE**: This document provides guidance for optimal framework operation. Framework features enhance agent behavior when properly configured.
 
-<!-- METADATA: Bootstrap algorithm reference for agent framework compliance -->
+<!-- METADATA: Bootstrap guidance for agent framework integration -->
 <!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

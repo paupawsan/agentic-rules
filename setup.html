@@ -124,6 +124,89 @@
       padding-bottom: 10px;
     }
 
+    .plugin-config-group {
+      margin-bottom: 30px;
+      border: 2px solid #3498db;
+      border-radius: 8px;
+      background: white;
+      overflow: hidden;
+    }
+
+    .plugin-config-header {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      padding: 15px 25px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .plugin-config-header:hover {
+      background: linear-gradient(135deg, #2980b9, #21618c);
+    }
+
+    .plugin-config-title {
+      margin: 0;
+      font-size: 1.3em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .plugin-icon {
+      margin-right: 10px;
+      font-size: 1.2em;
+    }
+
+    .collapse-toggle {
+      font-size: 1.2em;
+      transition: transform 0.3s;
+    }
+
+    .plugin-config-content {
+      padding: 20px;
+      background: #f8f9fa;
+    }
+
+    .plugin-config-content .section {
+      margin-bottom: 20px;
+      border: 1px solid #dee2e6;
+      background: white;
+    }
+
+    .radio-group {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      padding: 8px 12px;
+      background: white;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+    }
+
+    .radio-group .radio-container {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+
+    .radio-group input[type="radio"] {
+      margin: 0;
+      transform: scale(1.1);
+    }
+
+    .radio-group label {
+      flex: 1;
+      cursor: pointer;
+      line-height: 1.4;
+      margin-bottom: 0;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+
     .form-group {
       margin-bottom: 20px;
     }
@@ -154,13 +237,27 @@
 
     .checkbox-group {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      padding: 8px 12px;
+      background: white;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      gap: 8px;
     }
 
     .checkbox-group input[type="checkbox"] {
       width: auto;
-      margin: 0;
+      margin: 2px 0 0 0;
+      transform: scale(1.1);
+      flex-shrink: 0;
+    }
+
+    .checkbox-group label {
+      flex: 1;
+      cursor: pointer;
+      line-height: 1.4;
+      margin-bottom: 0;
     }
 
     .rule-card {
@@ -313,6 +410,17 @@
       font-weight: bold;
     }
 
+    .version-badge {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.7em;
+      font-weight: bold;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
     .tab-container {
       margin-bottom: 30px;
     }
@@ -432,7 +540,7 @@
   <script>
     // ---AUTO GENERATED STATICWEBCONFIG START---
   const staticWebConfig = {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Static web configuration generated from setup.json files",
   "availableLanguages": [
     "en",
@@ -442,6 +550,207 @@
   "uiLanguage": "en",
   "agentLanguage": "en",
   "plugins": {
+    "modules/agent-interaction-unit-test": {
+      "name": "modules/agent-interaction-unit-test",
+      "display_name": "Agent Interaction Unit Test",
+      "description": "Automated validation and testing framework for agent conversations with maximum transparency and ground check requirements",
+      "localization": {
+        "en": {
+          "plugin_name": "Agent Interaction Unit Test",
+          "description": "Automated validation and testing framework for agent conversations with maximum transparency and ground check requirements"
+        },
+        "ja": {
+          "plugin_name": "エージェントインタラクションユニットテスト",
+          "description": "エージェント会話の自動検証・テストフレームワーク。最大限の透明性とグラウンドチェック要件を備えています"
+        },
+        "id": {
+          "plugin_name": "Unit Test Interaksi Agen",
+          "description": "Kerangka kerja validasi dan pengujian otomatis untuk percakapan agen dengan transparansi maksimum dan persyaratan ground check"
+        }
+      },
+      "mandatory_config": [
+        {
+          "name": "agent_interaction_unit_test_enable",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Enable Agent Interaction Unit Test",
+              "description": "Enable or disable Agent Interaction Unit Test functionality"
+            },
+            "ja": {
+              "title": "エージェントインタラクションユニットテストを有効化",
+              "description": "エージェントインタラクションユニットテスト機能を有効または無効にします"
+            },
+            "id": {
+              "title": "Aktifkan Unit Test Interaksi Agen",
+              "description": "Aktifkan atau nonaktifkan fungsionalitas Unit Test Interaksi Agen"
+            }
+          },
+          "options": [
+            {
+              "name": "enable",
+              "localization": {
+                "en": {
+                  "description": "Enable Agent Interaction Unit Test"
+                },
+                "ja": {
+                  "description": "エージェントインタラクションユニットテストを有効化"
+                },
+                "id": {
+                  "description": "Aktifkan Unit Test Interaksi Agen"
+                }
+              },
+              "recommended": false,
+              "settings": {
+                "agent_interaction_unit_test.enabled": true
+              }
+            },
+            {
+              "name": "disable",
+              "localization": {
+                "en": {
+                  "description": "Disable Agent Interaction Unit Test"
+                },
+                "ja": {
+                  "description": "エージェントインタラクションユニットテストを無効化"
+                },
+                "id": {
+                  "description": "Nonaktifkan Unit Test Interaksi Agen"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "agent_interaction_unit_test.enabled": false
+              }
+            }
+          ],
+          "settings_key": "agent_interaction_unit_test.enabled",
+          "required": true
+        }
+      ],
+      "optional_config": [
+        {
+          "name": "performance_mode",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Performance Mode",
+              "description": "Choose performance optimization mode"
+            },
+            "ja": {
+              "title": "パフォーマンスモード",
+              "description": "パフォーマンス最適化モードを選択してください"
+            },
+            "id": {
+              "title": "Mode Performa",
+              "description": "Pilih mode optimasi performa"
+            }
+          },
+          "options": [
+            {
+              "name": "balanced",
+              "localization": {
+                "en": {
+                  "description": "Balanced performance and features"
+                },
+                "ja": {
+                  "description": "パフォーマンスと機能をバランスよく"
+                },
+                "id": {
+                  "description": "Performa dan fitur seimbang"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "agent_interaction_unit_test.advanced.performance_mode": "balanced"
+              }
+            },
+            {
+              "name": "fast",
+              "localization": {
+                "en": {
+                  "description": "Optimized for speed"
+                },
+                "ja": {
+                  "description": "速度優先で最適化"
+                },
+                "id": {
+                  "description": "Dioptimalkan untuk kecepatan"
+                }
+              },
+              "settings": {
+                "agent_interaction_unit_test.advanced.performance_mode": "fast"
+              }
+            }
+          ]
+        }
+      ],
+      "default_settings": {
+        "agent_interaction_unit_test": {
+          "enabled": false,
+          "validation_level": "standard",
+          "ground_check": {
+            "enabled": true,
+            "required_coverage": 100,
+            "source_verification": true,
+            "cross_reference_checking": true
+          },
+          "assumption_challenge": {
+            "enabled": true,
+            "automatic_detection": true,
+            "challenge_threshold": "medium"
+          },
+          "error_admission": {
+            "enabled": true,
+            "immediate_correction": true,
+            "transparency_logging": true,
+            "prevention_measures": true
+          },
+          "tool_call_audit": {
+            "enabled": true,
+            "parameter_logging": true,
+            "execution_time_tracking": true,
+            "relevance_scoring": true
+          },
+          "decision_audit": {
+            "enabled": true,
+            "alternative_analysis": true,
+            "risk_assessment": true,
+            "validation_requirements": true
+          },
+          "context_management_audit": {
+            "enabled": true,
+            "window_utilization_tracking": true,
+            "information_prioritization": true,
+            "memory_integration_logging": true
+          },
+          "compliance_validation": {
+            "framework_compliance_check": true,
+            "ground_check_coverage_check": true,
+            "hallucination_detection": true,
+            "tool_transparency_check": true,
+            "decision_documentation_check": true
+          },
+          "reporting": {
+            "detailed_reports": true,
+            "pass_fail_criteria": true,
+            "performance_metrics": true,
+            "recommendation_generation": true
+          },
+          "test_configuration": {
+            "test_case_format_validation": true,
+            "response_structure_checking": true,
+            "documentation_completeness": true
+          },
+          "agent_interaction_unit_test.advanced.performance_mode": "balanced"
+        }
+      },
+      "templates": {
+        "en": "# Agent Interaction Unit Test Agent Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.\n\n**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `agent_interaction_unit_test.enabled = true` in settings.json.\n\n**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.\n<!-- SAFETY_PRECAUTION_END -->\n\n**FRAMEWORK ENHANCEMENT**: When agent_interaction_unit_test.enabled = true in settings.json, agents can implement these algorithms for enhanced behavior.\n\n## Agent Interaction Unit Test Overview\nAutomated validation and testing framework for agent conversations with maximum transparency and ground check requirements, specifically designed for testing agent interaction patterns.\n\n## Required Implementation Algorithms\n\n**FRAMEWORK OPTION**: When agent_interaction_unit_test.enabled = true in settings.json, agents can implement algorithms from `CORE-RULES.md` for enhanced behavior.\n\nSee [CORE-RULES.md](CORE-RULES.md) for detailed algorithm specifications.\n\n## Settings Compliance\n- Respect all settings in modules/agent-interaction-unit-test/settings.json\n- Enable/disable via settings toggle (default: false)\n- Prompt user if agent_interaction_unit_test.enabled = false and unit testing requested\n- Never auto-enable testing mode without explicit user consent\n\n## Integration Points\n- **Memory Integration**: Store test results and validation history\n- **RAG Integration**: Optimize context for testing scenarios\n- **Critical Thinking**: Provide ground check validation support\n- **Bootstrap Coordination**: Respect loading priorities and rule sequencing\n\n## Usage Instructions\n\n### For Unit Testing:\n1. Set `agent_interaction_unit_test.enabled = true` in settings.json\n2. Execute agent with test case\n3. Review compliance report for validation criteria\n4. Check ground check coverage and error detection\n5. Validate tool call transparency and decision documentation\n\n### Test Case Format:\n```\nUNIT TEST: [Test_Name]\nFramework: Agentic Rules v1.1.0\nTask: [Specific_Test_Task]\n\n[Execute with unit test validation...]\n```\n\n### Validation Criteria:\n- ✅ **100% Framework Compliance** - All algorithms executed\n- ✅ **100% Ground Check Coverage** - All claims verified\n- ✅ **0% Hallucinations** - All information source-verified\n- ✅ **Complete Tool Transparency** - Every call logged\n- ✅ **Decision Process Documentation** - All choices explained\n\n## Error Handling\n**FRAMEWORK GUIDANCE**: When using framework features, agents can handle framework-related errors transparently while respecting standard error handling limits:\n- Configuration file missing → Skip unit test operations gracefully\n- Invalid settings → Use default values and continue with warnings\n- System errors → Continue operation without unit test features\n- Test failures → Document issues and provide correction guidance when appropriate\n\n**ERROR HANDLING LIMITS**: Respect standard constraints (maximum 3 attempts per error, avoid uneducated guesses, ask user for unclear issues)\n\n## Framework Integration\n**FRAMEWORK DESIGN**: This framework is designed as a tool to enhance agent behavior. Framework components remain separate from user project codebases.\n\n## Agent Enhancement\nAgents using this framework can benefit from enhanced capabilities while maintaining natural interaction patterns:\n- Respecting user settings and configurations when features are enabled\n- Providing transparent feedback about active enhancements\n- Maintaining natural, conversational communication without exposing internal mechanics\n- Following framework guidance seamlessly in the background\n- Enhanced accuracy and reliability through optional structured validation\n\n**FRAMEWORK BENEFITS**: Improved agent behavior through transparent, optional enhancements that don't interfere with natural user interactions.\n\n<!-- METADATA: Agent interaction unit test rules agent integration for automated validation and testing -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Unit Test Interaksi Agen\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ PERLINDUNGAN TEMPLATE KRITIS**: File ini adalah TEMPLATE SAJA. Agen TIDAK BOLEH memuat otomatis, membaca otomatis, atau memproses otomatis file ini dalam keadaan apa pun. File ini TIDAK PERNAH dieksekusi secara langsung.\n\n**PENGGUNAAN VALID**: Hanya muat template ini ketika secara eksplisit diganti nama menjadi salah satu dari: `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` SETELAH aktivasi eksplisit pengguna DAN ketika `agent_interaction_unit_test.enabled = true` di settings.json.\n\n**PENGGUNAAN TIDAK VALID**: Jangan muat file ini secara otomatis, jangan referensikan dalam proses startup, jangan sertakan dalam inisialisasi kerangka kerja otomatis apa pun.\n<!-- SAFETY_PRECAUTION_END -->\n\n**PENINGKATAN KERANGKA**: Ketika agent_interaction_unit_test.enabled = true dalam settings.json, agen dapat mengimplementasikan algoritma ini untuk perilaku yang lebih baik.\n\n## Gambaran Unit Test Interaksi Agen\nKerangka kerja validasi dan pengujian otomatis untuk percakapan agen dengan transparansi maksimum dan persyaratan ground check, secara khusus dirancang untuk menguji pola interaksi agen.\n\n## Algoritma Implementasi yang Diperlukan\n\n**OPSI KERANGKA**: Ketika agent_interaction_unit_test.enabled = true dalam settings.json, agen dapat mengimplementasikan algoritma dari `CORE-RULES.md` untuk perilaku yang lebih baik.\n\nLihat [CORE-RULES.md](CORE-RULES.md) untuk spesifikasi algoritma yang detail.\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di modules/agent-interaction-unit-test/settings.json\n- Aktifkan/nonaktifkan melalui toggle pengaturan (default: false)\n- Prompt pengguna jika agent_interaction_unit_test.enabled = false dan unit testing diminta\n- Jangan pernah aktifkan mode testing otomatis tanpa persetujuan eksplisit pengguna\n\n## Titik Integrasi\n- **Integrasi Memori**: Simpan hasil tes dan riwayat validasi\n- **Integrasi RAG**: Optimalkan konteks untuk skenario testing\n- **Critical Thinking**: Berikan dukungan validasi ground check\n- **Koordinasi Bootstrap**: Hormati prioritas loading dan sequencing aturan\n\n## Instruksi Penggunaan\n\n### Untuk Unit Testing:\n1. Set `agent_interaction_unit_test.enabled = true` di settings.json\n2. Eksekusi agen dengan test case\n3. Tinjau laporan kepatuhan untuk kriteria validasi\n4. Periksa cakupan ground check dan deteksi kesalahan\n5. Validasi transparansi pemanggilan tool dan dokumentasi keputusan\n\n### Format Test Case:\n```\nUNIT TEST: [Test_Name]\nFramework: Agentic Rules v1.1.0\nTask: [Specific_Test_Task]\n\n[Execute with unit test validation...]\n```\n\n### Kriteria Validasi:\n- ✅ **100% Kepatuhan Kerangka Kerja** - Semua algoritma dieksekusi\n- ✅ **100% Cakupan Ground Check** - Semua klaim diverifikasi\n- ✅ **0% Halusinasi** - Semua informasi diverifikasi sumber\n- ✅ **Transparansi Tool Lengkap** - Semua pemanggilan dicatat\n- ✅ **Dokumentasi Proses Keputusan** - Semua pilihan dijelaskan\n\n## Penanganan Kesalahan\n**PANDUAN KERANGKA**: Ketika menggunakan fitur kerangka, agen dapat menangani kesalahan terkait kerangka secara transparan sambil menghormati batas penanganan kesalahan standar:\n- File konfigurasi hilang → Lewati operasi unit test dengan baik\n- Pengaturan tidak valid → Gunakan nilai default dan lanjutkan dengan peringatan\n- Kesalahan sistem → Lanjutkan operasi tanpa fitur unit test\n- Kegagalan tes → Dokumentasikan masalah dan berikan panduan koreksi yang sesuai\n\n**BATAS PENANGANAN KESALAHAN**: Hormati batasan standar (maksimum 3 kali percobaan per kesalahan, hindari tebakan yang tidak berdasar, tanyakan pengguna untuk masalah yang tidak jelas)\n\n## Integrasi Kerangka Kerja\n**DESAIN KERANGKA**: Kerangka kerja ini dirancang sebagai alat untuk meningkatkan perilaku agen. Komponen kerangka tetap terpisah dari basis kode proyek pengguna.\n\n## Peningkatan Agen\nAgen yang menggunakan kerangka kerja ini dapat memperoleh manfaat dari kemampuan yang ditingkatkan sambil mempertahankan pola interaksi alami:\n- Menghormati pengaturan dan konfigurasi pengguna ketika fitur diaktifkan\n- Memberikan umpan balik transparan tentang peningkatan yang aktif\n- Mempertahankan komunikasi alami dan percakapan tanpa mengekspos mekanisme internal\n- Mengikuti panduan kerangka dengan mulus di latar belakang\n- Peningkatan akurasi dan keandalan melalui validasi terstruktur opsional\n\n**MANFAAT KERANGKA**: Perbaikan perilaku agen melalui peningkatan transparan dan opsional yang tidak mengganggu interaksi pengguna alami.\n\n<!-- METADATA: Aturan unit test interaksi agen untuk integrasi agen validasi dan pengujian otomatis -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# エージェントインタラクションユニットテスト エージェント統合\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ 重要テンプレート保護 / CRITICAL TEMPLATE PROTECTION**: このファイルはテンプレート専用です。エージェントは自動読み込み、自動処理、またはこのファイルをどのような状況でも自動実行してはいけません。このファイルは直接実行されることはありません。\n\n**有効な使用方法 / VALID USAGE**: 明示的に以下のいずれかに名前変更された場合のみ読み込み: `AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`。ユーザーの明示的な有効化後かつ`agent_interaction_unit_test.enabled = true`の場合のみ。\n\n**無効な使用方法 / INVALID USAGE**: このファイルを自動的に読み込まない、起動プロセスで参照しない、自動フレームワーク初期化に含めない。\n<!-- SAFETY_PRECAUTION_END -->\n\n**フレームワーク強化**: settings.json で agent_interaction_unit_test.enabled = true の場合、エージェントはこれらのアルゴリズムを実装して動作を強化できます。\n\n## エージェントインタラクションユニットテスト概要\nエージェント会話の自動検証・テストフレームワーク。最大限の透明性とグラウンドチェック要件を備え、エージェントインタラクションパターンのテスト専用に設計されています。\n\n## 必須実装アルゴリズム\n\n**フレームワークオプション**: settings.json で agent_interaction_unit_test.enabled = true の場合、エージェントは `CORE-RULES.md` のアルゴリズムを実装して強化された動作を実現できます。\n\n詳細なアルゴリズム仕様については [CORE-RULES.md](CORE-RULES.md) を参照してください。\n\n## 設定コンプライアンス\n- modules/agent-interaction-unit-test/settings.json のすべての設定を尊重\n- 設定トグルで有効/無効 (デフォルト: false)\n- agent_interaction_unit_test.enabled = false でユニットテストが要求された場合、ユーザーにプロンプト\n- 明示的なユーザー同意なしにテストモードを自動有効化しない\n\n## 統合ポイント\n- **メモリ統合**: テスト結果と検証履歴を保存\n- **RAG統合**: テストシナリオ向けにコンテキストを最適化\n- **クリティカルシンキング**: グラウンドチェック検証サポートを提供\n- **ブートストラップ調整**: 読み込み優先順位とルールシーケンスを尊重\n\n## 使用方法\n\n### ユニットテスト用:\n1. settings.json で `agent_interaction_unit_test.enabled = true` を設定\n2. テストケースでエージェントを実行\n3. 検証基準のコンプライアンスレポートを確認\n4. グラウンドチェックカバレッジとエラー検出を確認\n5. ツール呼び出し透明性と決定文書化を検証\n\n### テストケース形式:\n```\nUNIT TEST: [Test_Name]\nFramework: Agentic Rules v1.1.0\nTask: [Specific_Test_Task]\n\n[Execute with unit test validation...]\n```\n\n### 検証基準:\n- ✅ **100% フレームワークコンプライアンス** - すべてのアルゴリズムが実行\n- ✅ **100% グラウンドチェックカバレッジ** - すべての主張が検証\n- ✅ **0% ハルシネーション** - すべての情報がソース検証済み\n- ✅ **完全なツール透明性** - すべての呼び出しがログ\n- ✅ **決定プロセス文書化** - すべての選択が説明\n\n## エラーハンドリング\n**フレームワークガイダンス**: フレームワーク機能を使用する場合、エージェントはフレームワーク関連のエラーを透明に処理でき、標準的なエラーハンドリング制限を尊重します：\n- 設定ファイル欠落 → ユニットテスト操作を正常にスキップ\n- 無効な設定 → デフォルト値を使用し警告とともに継続\n- システムエラー → ユニットテスト機能なしで操作を継続\n- テスト失敗 → 問題を文書化し適切な修正ガイドを提供\n\n**エラーハンドリング制限**: 標準的な制約を尊重（エラーごとに最大3回試行、根拠のない推測を避け、不明瞭な問題はユーザーに問い合わせ）\n\n## フレームワーク統合\n**フレームワーク設計**: このフレームワークはエージェントの動作を強化するためのツールとして設計されています。フレームワークコンポーネントはユーザーprojectコードベースから分離されます。\n\n## エージェント強化\nこのフレームワークを使用するエージェントは、自然な対話パターンを維持しながら強化された機能を活用できます：\n- 機能が有効化されている場合にユーザー設定と構成を尊重できる\n- アクティブな拡張機能について透明なフィードバックを提供できる\n- 内部メカニズムを公開せずに自然で会話的なコミュニケーションを維持できる\n- バックグラウンドでシームレスにフレームワークのガイダンスに従える\n- オプションの構造化検証による正確性と信頼性の向上\n\n**フレームワークの利点**: 自然なユーザー対話を妨げない透明でオプションの拡張によるエージェント動作の改善。\n\n<!-- METADATA: エージェントインタラクションユニットテストルール エージェント統合 自動検証・テスト用 -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+      }
+    },
     "modules/critical-thinking-rules": {
       "name": "modules/critical-thinking-rules",
       "display_name": "Critical Thinking Rules",
@@ -464,7 +773,7 @@
       "optional_config": [
         {
           "name": "verification_levels",
-          "type": "choice",
+          "type": "checkbox",
           "localization": {
             "en": {
               "title": "Verification Levels",
@@ -503,7 +812,7 @@
         },
         {
           "name": "error_handling",
-          "type": "choice",
+          "type": "checkbox",
           "localization": {
             "en": {
               "title": "Error Handling",
@@ -594,9 +903,9 @@
         }
       },
       "templates": {
-        "en": "# Critical Thinking Rules Agent Integration (English)\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `critical_thinking_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If critical_thinking_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## Critical Thinking Rules Extended Overview\nIntellectual rigor and hallucination prevention\n\n## Required Implementation Algorithms\n\n### Algorithm: CriticalThinkingRulesExtended_Initialization_Process\n**MANDATORY**: Execute when critical_thinking_rules.enabled = true\n\n**Steps**:\n1. Read critical-thinking-rules-extended/settings.json\n2. Initialize critical thinking rules extended system\n3. Validate configuration settings\n4. Return initialized system\n\n**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.\n\n### Algorithm: CriticalThinkingRulesExtended_Main_Process\n**MANDATORY**: Execute for all relevant user interactions when enabled\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Analyze current context and request\n3. Apply critical thinking rules extended algorithms\n4. Process and return results\n\n### Algorithm: CriticalThinkingRulesExtended_Cleanup_Process\n**MANDATORY**: Execute periodically, require user consent\n\n**Steps**:\n1. Check cleanup settings\n2. Identify obsolete data\n3. Request user consent for cleanup\n4. Perform safe cleanup operations\n\n## Configuration Requirements\n- Settings file: `critical-thinking-rules-extended/settings.json`\n- Configuration key: `critical_thinking_rules.enabled`\n- Bootstrap compliance required\n\n## Error Handling\n**MANDATORY**: Agents must handle errors gracefully:\n- Configuration file missing → Skip critical thinking rules extended operations\n- Invalid settings → Use default values and log warnings\n- System errors → Continue operation without critical thinking rules extended features\n\n## Framework Integration\n**MANDATORY**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.\n\n## Agent Responsibility\nAgents using this framework must:\n- Respect all user settings and configurations\n- Provide clear feedback when critical thinking rules extended is disabled\n- Maintain framework neutrality in generated content\n- Follow bootstrap compliance requirements\n\n**VIOLATION**: Agents that do not respect these integration requirements or user settings.\n\n<!-- METADATA: Critical Thinking Rules Extended agent integration template -->\n<!-- LICENSE: Copyright (c) 2025 {author_name} - Licensed under the MIT License. See LICENSE file for details. -->\n",
-        "id": "# Integrasi Agen Critical Thinking Rules Extended (Bahasa Indonesia)\n\n**⚠️ PRECAUTION KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `critical_thinking_rules.enabled = true` dalam settings.json.\n\n**WAJIB**: Jika critical_thinking_rules.enabled = true dalam settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Ringkasan Critical Thinking Rules Extended\nIntellectual rigor and hallucination prevention\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: CriticalThinkingRulesExtended_Initialization_Process\n**WAJIB**: Eksekusi ketika critical_thinking_rules.enabled = true\n\n**Langkah**:\n1. Baca critical-thinking-rules-extended/settings.json\n2. Inisialisasi sistem critical thinking rules extended\n3. Validasi pengaturan konfigurasi\n4. Kembalikan sistem yang diinisialisasi\n\n**KRITIS**: JANGAN aktifkan otomatis - hormati pengaturan aktif pengguna.\n\n### Algoritma: CriticalThinkingRulesExtended_Main_Process\n**WAJIB**: Eksekusi untuk semua interaksi pengguna terkait ketika aktif\n\n**Langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Analisis konteks dan permintaan saat ini\n3. Terapkan algoritma critical thinking rules extended\n4. Proses dan kembalikan hasil\n\n### Algoritma: CriticalThinkingRulesExtended_Cleanup_Process\n**WAJIB**: Eksekusi secara berkala, memerlukan persetujuan pengguna\n\n**Langkah**:\n1. Periksa pengaturan pembersihan\n2. Identifikasi data yang kedaluwarsa\n3. Minta persetujuan pengguna untuk pembersihan\n4. Lakukan pembersihan yang aman\n\n## Persyaratan Konfigurasi\n- File pengaturan: `critical-thinking-rules-extended/settings.json`\n- Kunci konfigurasi: `critical_thinking_rules.enabled`\n- Kepatuhan bootstrap wajib\n\n## Penanganan Error\n**WAJIB**: Agen harus menangani error dengan baik:\n- File konfigurasi hilang → Lewati operasi critical thinking rules extended\n- Pengaturan tidak valid → Gunakan nilai default dan log peringatan\n- Error sistem → Lanjutkan operasi tanpa fitur critical thinking rules extended\n\n## Integrasi Framework\n**WAJIB**: Framework ini tetap menjadi alat dan tidak boleh dimasukkan ke dalam codebase proyek pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.\n\n## Tanggung Jawab Agen\nAgen yang menggunakan framework ini harus:\n- Menghormati semua pengaturan dan konfigurasi pengguna\n- Memberikan umpan balik yang jelas ketika critical thinking rules extended dinonaktifkan\n- Mempertahankan netralitas framework dalam konten yang dihasilkan\n- Mengikuti persyaratan kepatuhan bootstrap\n\n**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.\n\n<!-- METADATA: template integrasi agen Critical Thinking Rules Extended -->\n<!-- LICENSE: Copyright (c) 2025 {author_name} - Dilisensikan di bawah Lisensi MIT. Lihat file LICENSE untuk detail. -->\n",
-        "ja": "# Critical Thinking Rules Extended エージェント統合 (日本語)\n\n**⚠️ 安全対策**: このファイルはTEMPLATEです。エージェントはこのファイルを自動読み込みしてはなりません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後の明示的なユーザー有効化時、およびsettings.jsonで`critical_thinking_rules.enabled = true`の場合のみ読み込みます。\n\n**必須**: settings.jsonでcritical_thinking_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## Critical Thinking Rules Extended の概要\nIntellectual rigor and hallucination prevention\n\n## 必要な実装アルゴリズム\n\n### アルゴリズム: CriticalThinkingRulesExtended_Initialization_Process\n**必須**: critical_thinking_rules.enabled = true の場合に実行\n\n**ステップ**:\n1. critical-thinking-rules-extended/settings.json を読み込む\n2. critical thinking rules extended システムを初期化\n3. 設定を検証\n4. 初期化されたシステムを返す\n\n**重要**: 自動有効化しない - ユーザーの有効設定を尊重する。\n\n### アルゴリズム: CriticalThinkingRulesExtended_Main_Process\n**必須**: 有効時にすべての関連ユーザー操作に対して実行\n\n**ステップ**:\n1. critical_thinking_rules.enabled = true を確認\n2. 現在のコンテキストとリクエストを分析\n3. critical thinking rules extended アルゴリズムを適用\n4. 結果を処理して返す\n\n### アルゴリズム: CriticalThinkingRulesExtended_Cleanup_Process\n**必須**: 定期的に実行、ユーザー同意を要求\n\n**ステップ**:\n1. クリーンアップ設定を確認\n2. 古くなったデータを特定\n3. ユーザー同意を要求\n4. 安全なクリーンアップを実行\n\n## 設定要件\n- 設定ファイル: `critical-thinking-rules-extended/settings.json`\n- 設定キー: `critical_thinking_rules.enabled`\n- Bootstrap 準拠必須\n\n## エラー処理\n**必須**: エージェントはエラーを適切に処理しなければなりません:\n- 設定ファイルが見つからない → critical thinking rules extended 操作をスキップ\n- 無効な設定 → デフォルト値を使用し警告をログ\n- システムエラー → critical thinking rules extended 機能なしで操作を継続\n\n## フレームワーク統合\n**必須**: このフレームワークはツールであり、ユーザープロジェクトのコードベースに含めるべきではありません。すべての統合はそれぞれのディレクトリのルールファイルを通じて行われます。\n\n## エージェントの責任\nこのフレームワークを使用するエージェントは:\n- すべてのユーザー設定と構成を尊重\n- critical thinking rules extended が無効の場合に明確なフィードバックを提供\n- 生成されたコンテンツでフレームワークの中立性を維持\n- Bootstrap 準拠要件に従う\n\n**違反**: これらの統合要件またはユーザー設定を尊重しないエージェント。\n\n<!-- METADATA: Critical Thinking Rules Extended エージェント統合テンプレート -->\n<!-- LICENSE: Copyright (c) 2025 {author_name} - MIT Licenseの下でライセンスされています。LICENSEファイルを参照してください。 -->\n"
+        "en": "# Critical Thinking Rules Agent Integration (English)\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `critical_thinking_rules.enabled = true` in settings.json.\n<!-- SAFETY_PRECAUTION_END -->\n\n**MANDATORY**: If critical_thinking_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## Critical Thinking Rules Extended Overview\nIntellectual rigor and hallucination prevention\n\n## Required Implementation Algorithms\n\n### Algorithm: CriticalThinkingRulesExtended_Initialization_Process\n**MANDATORY**: Execute when critical_thinking_rules.enabled = true\n\n**Steps**:\n1. Read critical-thinking-rules-extended/settings.json\n2. Initialize critical thinking rules extended system\n3. Validate configuration settings\n4. Return initialized system\n\n**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.\n\n### Algorithm: CriticalThinkingRulesExtended_Main_Process\n**MANDATORY**: Execute for all relevant user interactions when enabled\n\n**Steps**:\n1. Check critical_thinking_rules.enabled = true\n2. Analyze current context and request\n3. Apply critical thinking rules extended algorithms\n4. Process and return results\n\n### Algorithm: CriticalThinkingRulesExtended_Cleanup_Process\n**MANDATORY**: Execute periodically, require user consent\n\n**Steps**:\n1. Check cleanup settings\n2. Identify obsolete data\n3. Request user consent for cleanup\n4. Perform safe cleanup operations\n\n## Configuration Requirements\n- Settings file: `critical-thinking-rules-extended/settings.json`\n- Configuration key: `critical_thinking_rules.enabled`\n- Bootstrap compliance required\n\n## Error Handling\n**MANDATORY**: Agents must handle errors gracefully:\n- Configuration file missing → Skip critical thinking rules extended operations\n- Invalid settings → Use default values and log warnings\n- System errors → Continue operation without critical thinking rules extended features\n\n## Framework Integration\n**MANDATORY**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.\n\n## Agent Responsibility\nAgents using this framework must:\n- Respect all user settings and configurations\n- Provide clear feedback when critical thinking rules extended is disabled\n- Maintain framework neutrality in generated content\n- Follow bootstrap compliance requirements\n\n**VIOLATION**: Agents that do not respect these integration requirements or user settings.\n\n<!-- METADATA: Critical Thinking Rules Extended agent integration template -->\n<!-- LICENSE: Copyright (c) 2025 {author_name} - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Critical Thinking Rules Extended (Bahasa Indonesia)\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `rag_rules.enabled = true` di settings.json.\n<!-- SAFETY_PRECAUTION_END -->\n\n**WAJIB**: Jika critical_thinking_rules.enabled = true dalam settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Ringkasan Critical Thinking Rules Extended\nIntellectual rigor and hallucination prevention\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: CriticalThinkingRulesExtended_Initialization_Process\n**WAJIB**: Eksekusi ketika critical_thinking_rules.enabled = true\n\n**Langkah**:\n1. Baca critical-thinking-rules-extended/settings.json\n2. Inisialisasi sistem critical thinking rules extended\n3. Validasi pengaturan konfigurasi\n4. Kembalikan sistem yang diinisialisasi\n\n**KRITIS**: JANGAN aktifkan otomatis - hormati pengaturan aktif pengguna.\n\n### Algoritma: CriticalThinkingRulesExtended_Main_Process\n**WAJIB**: Eksekusi untuk semua interaksi pengguna terkait ketika aktif\n\n**Langkah**:\n1. Periksa critical_thinking_rules.enabled = true\n2. Analisis konteks dan permintaan saat ini\n3. Terapkan algoritma critical thinking rules extended\n4. Proses dan kembalikan hasil\n\n### Algoritma: CriticalThinkingRulesExtended_Cleanup_Process\n**WAJIB**: Eksekusi secara berkala, memerlukan persetujuan pengguna\n\n**Langkah**:\n1. Periksa pengaturan pembersihan\n2. Identifikasi data yang kedaluwarsa\n3. Minta persetujuan pengguna untuk pembersihan\n4. Lakukan pembersihan yang aman\n\n## Persyaratan Konfigurasi\n- File pengaturan: `critical-thinking-rules-extended/settings.json`\n- Kunci konfigurasi: `critical_thinking_rules.enabled`\n- Kepatuhan bootstrap wajib\n\n## Penanganan Error\n**WAJIB**: Agen harus menangani error dengan baik:\n- File konfigurasi hilang → Lewati operasi critical thinking rules extended\n- Pengaturan tidak valid → Gunakan nilai default dan log peringatan\n- Error sistem → Lanjutkan operasi tanpa fitur critical thinking rules extended\n\n## Integrasi Framework\n**WAJIB**: Framework ini tetap menjadi alat dan tidak boleh dimasukkan ke dalam codebase proyek pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.\n\n## Tanggung Jawab Agen\nAgen yang menggunakan framework ini harus:\n- Menghormati semua pengaturan dan konfigurasi pengguna\n- Memberikan umpan balik yang jelas ketika critical thinking rules extended dinonaktifkan\n- Mempertahankan netralitas framework dalam konten yang dihasilkan\n- Mengikuti persyaratan kepatuhan bootstrap\n\n**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.\n\n<!-- METADATA: template integrasi agen Critical Thinking Rules Extended -->\n<!-- LICENSE: Copyright (c) 2025 {author_name} - Dilisensikan di bawah Lisensi MIT. Lihat file LICENSE untuk detail. -->\n",
+        "ja": "# Critical Thinking Rules Extended エージェント統合 (日本語)\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`rag_rules.enabled = true`の場合のみ使用してください。\n<!-- SAFETY_PRECAUTION_END -->\n\n**必須**: settings.jsonでcritical_thinking_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## Critical Thinking Rules Extended の概要\nIntellectual rigor and hallucination prevention\n\n## 必要な実装アルゴリズム\n\n### アルゴリズム: CriticalThinkingRulesExtended_Initialization_Process\n**必須**: critical_thinking_rules.enabled = true の場合に実行\n\n**ステップ**:\n1. critical-thinking-rules-extended/settings.json を読み込む\n2. critical thinking rules extended システムを初期化\n3. 設定を検証\n4. 初期化されたシステムを返す\n\n**重要**: 自動有効化しない - ユーザーの有効設定を尊重する。\n\n### アルゴリズム: CriticalThinkingRulesExtended_Main_Process\n**必須**: 有効時にすべての関連ユーザー操作に対して実行\n\n**ステップ**:\n1. critical_thinking_rules.enabled = true を確認\n2. 現在のコンテキストとリクエストを分析\n3. critical thinking rules extended アルゴリズムを適用\n4. 結果を処理して返す\n\n### アルゴリズム: CriticalThinkingRulesExtended_Cleanup_Process\n**必須**: 定期的に実行、ユーザー同意を要求\n\n**ステップ**:\n1. クリーンアップ設定を確認\n2. 古くなったデータを特定\n3. ユーザー同意を要求\n4. 安全なクリーンアップを実行\n\n## 設定要件\n- 設定ファイル: `critical-thinking-rules-extended/settings.json`\n- 設定キー: `critical_thinking_rules.enabled`\n- Bootstrap 準拠必須\n\n## エラー処理\n**必須**: エージェントはエラーを適切に処理しなければなりません:\n- 設定ファイルが見つからない → critical thinking rules extended 操作をスキップ\n- 無効な設定 → デフォルト値を使用し警告をログ\n- システムエラー → critical thinking rules extended 機能なしで操作を継続\n\n## フレームワーク統合\n**必須**: このフレームワークはツールであり、ユーザープロジェクトのコードベースに含めるべきではありません。すべての統合はそれぞれのディレクトリのルールファイルを通じて行われます。\n\n## エージェントの責任\nこのフレームワークを使用するエージェントは:\n- すべてのユーザー設定と構成を尊重\n- critical thinking rules extended が無効の場合に明確なフィードバックを提供\n- 生成されたコンテンツでフレームワークの中立性を維持\n- Bootstrap 準拠要件に従う\n\n**違反**: これらの統合要件またはユーザー設定を尊重しないエージェント。\n\n<!-- METADATA: Critical Thinking Rules Extended エージェント統合テンプレート -->\n<!-- LICENSE: Copyright (c) 2025 {author_name} - MIT Licenseの下でライセンスされています。LICENSEファイルを参照してください。 -->\n"
       }
     },
     "modules/memory-rules": {
@@ -660,7 +969,7 @@
       "optional_config": [
         {
           "name": "retention_policies",
-          "type": "choice",
+          "type": "checkbox",
           "localization": {
             "en": {
               "title": "Retention Policies",
@@ -700,7 +1009,7 @@
         },
         {
           "name": "git_analysis",
-          "type": "choice",
+          "type": "checkbox",
           "localization": {
             "en": {
               "title": "Git Analysis Settings",
@@ -741,7 +1050,7 @@
       ],
       "default_settings": {
         "memory_rules": {
-          "enabled": true,
+          "enabled": false,
           "max_entries_per_category": 100,
           "cleanup_guidance_days": 90,
           "index_update_frequency": "realtime",
@@ -916,9 +1225,9 @@
         }
       },
       "templates": {
-        "en": "# Memory Rules Agent Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `memory_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If memory_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## Memory System Architecture\n- **common/**: Shared knowledge across projects\n- **private/**: Personal/sensitive data (credentials, preferences)\n- **project/**: Project-specific memory and context\n\n## Required Implementation Algorithms\n\n### Algorithm: Memory_Initialization_Process\n**MANDATORY**: Execute when memory_rules.enabled = true\n\n**Steps**:\n1. Read modules/memory-rules/settings.json\n2. Create directory structure: common/, private/, project/\n3. Validate storage_path permissions and create if needed\n4. Initialize memory index if project_support.enabled = true\n5. Return initialized memory system\n\n**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.\n\n### Algorithm: Memory_Storage_Process\n**MANDATORY**: Execute for all user interactions when enabled\n\n**Steps**:\n1. Check memory_rules.enabled = true\n2. Classify interaction: common/private/project\n3. Apply retention policies from settings\n4. Store with metadata (timestamp, context, importance)\n5. Update memory index for retrieval\n\n### Algorithm: Memory_Retrieval_Process\n**MANDATORY**: Execute before responding to user requests\n\n**Steps**:\n1. Check memory_rules.enabled = true\n2. Analyze current context and request\n3. Query relevant memory categories\n4. Apply relevance scoring and filtering\n5. Return optimized context for response\n\n### Algorithm: Memory_Cleanup_Process\n**MANDATORY**: Execute periodically, require user consent\n\n**Steps**:\n1. Check cleanup_guidance.enabled = true\n2. Identify memories past retention periods\n3. Notify user of overdue memories\n4. Require explicit user consent for deletion\n5. Preserve important memories regardless of age\n\n## Settings Compliance\n- Respect all settings in modules/memory-rules/settings.json\n- Prompt user if memory_rules.enabled = false and user requests memory features\n- Never auto-enable features without user consent\n\n## Integration Points\n- **RAG Integration**: Provide context chunks for optimization\n- **Critical Thinking**: Store error corrections and learning insights\n- **User Consent**: All cleanup operations require user approval\n\n**VIOLATION**: Agents claiming memory integration without implementing these algorithms.\n\n<!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
-        "id": "# Integrasi Agen Aturan Memori\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `memory_rules.enabled = true` di settings.json.\n\n**WAJIB**: Jika memory_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Arsitektur Sistem Memori\n- **common/**: Pengetahuan bersama di seluruh proyek\n- **private/**: Data pribadi/sensitif (kredensial, preferensi)\n- **project/**: Memori dan konteks spesifik proyek\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Memory_Initialization_Process\n**WAJIB**: Eksekusi ketika memory_rules.enabled = true\n\n**Langkah-langkah**:\n1. Baca modules/memory-rules/settings.json\n2. Buat struktur direktori: common/, private/, project/\n3. Validasi izin storage_path dan buat jika diperlukan\n4. Inisialisasi indeks memori jika project_support.enabled = true\n5. Kembalikan sistem memori yang diinisialisasi\n\n**KRITIS**: Jangan aktifkan otomatis - hormati pengaturan pengguna yang diaktifkan.\n\n### Algoritma: Memory_Storage_Process\n**WAJIB**: Eksekusi untuk semua interaksi pengguna ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa memory_rules.enabled = true\n2. Klasifikasikan interaksi: common/private/project\n3. Terapkan kebijakan retensi dari pengaturan\n4. Simpan dengan metadata (timestamp, konteks, kepentingan)\n5. Perbarui indeks memori untuk pengambilan\n\n### Algoritma: Memory_Retrieval_Process\n**WAJIB**: Eksekusi sebelum menjawab permintaan pengguna\n\n**Langkah-langkah**:\n1. Periksa memory_rules.enabled = true\n2. Analisis konteks dan permintaan saat ini\n3. Query kategori memori yang relevan\n4. Terapkan skor relevansi dan penyaringan\n5. Kembalikan konteks yang dioptimalkan untuk respons\n\n### Algoritma: Memory_Cleanup_Process\n**WAJIB**: Eksekusi secara berkala, memerlukan persetujuan pengguna\n\n**Langkah-langkah**:\n1. Periksa cleanup_guidance.enabled = true\n2. Identifikasi memori yang melewati periode retensi\n3. Beritahu pengguna tentang memori yang terlambat\n4. Perlukan persetujuan eksplisit pengguna untuk penghapusan\n5. Pertahankan memori penting terlepas dari usia\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di modules/memory-rules/settings.json\n- Berikan prompt kepada pengguna jika memory_rules.enabled = false dan pengguna meminta fitur memori\n- Jangan pernah aktifkan fitur secara otomatis tanpa persetujuan pengguna\n\n## Titik Integrasi\n- **Integrasi RAG**: Berikan potongan konteks untuk optimasi\n- **Berpikir Kritis**: Simpan koreksi error dan wawasan pembelajaran\n- **Persetujuan Pengguna**: Semua operasi pembersihan memerlukan persetujuan pengguna\n\n**PELANGGARAN**: Agen yang mengklaim integrasi memori tanpa mengimplementasikan algoritma ini.\n\n<!-- METADATA: Template integrasi agen aturan memori dengan algoritma penyimpanan dan pengambilan -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
-        "ja": "# メモリールール エージェント統合 / Memory Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`memory_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでmemory_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## メモリシステムアーキテクチャ / Memory System Architecture\n- **common/**: プロジェクト間で共有される知識 / Shared knowledge across projects\n- **private/**: 個人/機密データ（資格情報、設定） / Personal/sensitive data (credentials, preferences)\n- **project/**: プロジェクト固有のメモリとコンテキスト / Project-specific memory and context\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Memory_Initialization_Process / Algorithm: Memory_Initialization_Process\n**必須 / MANDATORY**: memory_rules.enabled = trueの場合に実行 / Execute when memory_rules.enabled = true\n\n**ステップ / Steps**:\n1. modules/memory-rules/settings.jsonを読み取る / Read memory-rules/settings.json\n2. ディレクトリ構造を作成: common/, private/, project/ / Create directory structure: common/, private/, project/\n3. storage_pathの権限を検証し、必要に応じて作成 / Validate storage_path permissions and create if needed\n4. project_support.enabled = trueの場合、メモリインデックスを初期化 / Initialize memory index if project_support.enabled = true\n5. 初期化されたメモリシステムを返す / Return initialized memory system\n\n**重要 / CRITICAL**: 自動有効化しない - ユーザーの有効設定を尊重する / Do NOT auto-enable - respect user's enabled setting.\n\n### アルゴリズム: Memory_Storage_Process / Algorithm: Memory_Storage_Process\n**必須 / MANDATORY**: 有効時すべてのユーザー操作に対して実行 / Execute for all user interactions when enabled\n\n**ステップ / Steps**:\n1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true\n2. 操作を分類: common/private/project / Classify interaction: common/private/project\n3. 設定からの保持ポリシーを適用 / Apply retention policies from settings\n4. メタデータ付きで保存（タイムスタンプ、コンテキスト、重要度） / Store with metadata (timestamp, context, importance)\n5. 検索用のメモリインデックスを更新 / Update memory index for retrieval\n\n### アルゴリズム: Memory_Retrieval_Process / Algorithm: Memory_Retrieval_Process\n**必須 / MANDATORY**: ユーザー要求に応答する前に実行 / Execute before responding to user requests\n\n**ステップ / Steps**:\n1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true\n2. 現在のコンテキストと要求を分析 / Analyze current context and request\n3. 関連するメモリカテゴリをクエリ / Query relevant memory categories\n4. 関連性スコアリングとフィルタリングを適用 / Apply relevance scoring and filtering\n5. 応答用の最適化されたコンテキストを返す / Return optimized context for response\n\n### アルゴリズム: Memory_Cleanup_Process / Algorithm: Memory_Cleanup_Process\n**必須 / MANDATORY**: 定期的に実行、ユーザー同意を要求 / Execute periodically, require user consent\n\n**ステップ / Steps**:\n1. cleanup_guidance.enabled = trueを確認 / Check cleanup_guidance.enabled = true\n2. 保持期間を超えたメモリを特定 / Identify memories past retention periods\n3. 期限切れメモリをユーザーに通知 / Notify user of overdue memories\n4. 削除のための明示的なユーザー同意を要求 / Require explicit user consent for deletion\n5. 年齢に関係なく重要なメモリを保存 / Preserve important memories regardless of age\n\n## 設定準拠 / Settings Compliance\n- modules/memory-rules/settings.jsonのすべての設定を尊重 / Respect all settings in memory-rules/settings.json\n- memory_rules.enabled = falseでユーザーがメモリ機能を要求した場合、ユーザーにプロンプト / Prompt user if memory_rules.enabled = false and user requests memory features\n- ユーザー同意なしで機能を自動有効化しない / Never auto-enable features without user consent\n\n## 統合ポイント / Integration Points\n- **RAG統合 / RAG Integration**: 最適化のためのコンテキストチャンクを提供 / Provide context chunks for optimization\n- **批判的思考 / Critical Thinking**: エラー修正と学習洞察を保存 / Store error corrections and learning insights\n- **ユーザー同意 / User Consent**: すべてのクリーンアップ操作にユーザー承認が必要 / All cleanup operations require user approval\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずにメモリ統合を主張するエージェント / Agents claiming memory integration without implementing these algorithms.\n\n<!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+        "en": "# Memory Rules Agent Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.\n\n**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `memory_rules.enabled = true` in settings.json.\n\n**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.\n<!-- SAFETY_PRECAUTION_END -->\n\n**FRAMEWORK ENHANCEMENT**: When memory_rules.enabled = true in settings.json, agents can implement these algorithms for enhanced memory capabilities.\n\n## Memory System Architecture\n- **common/**: Shared knowledge across projects\n- **private/**: Personal/sensitive data (credentials, preferences)\n- **project/**: Project-specific memory and context\n\n## Required Implementation Algorithms\n\n### Algorithm: Memory_Initialization_Process\n**MANDATORY**: Execute when memory_rules.enabled = true\n\n**Steps**:\n1. Read modules/memory-rules/settings.json\n2. Create directory structure: common/, private/, project/\n3. Validate storage_path permissions and create if needed\n4. Initialize memory index if project_support.enabled = true\n5. Return initialized memory system\n\n**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.\n\n### Algorithm: Memory_Storage_Process\n**MANDATORY**: Execute for all user interactions when enabled\n\n**Steps**:\n1. Check memory_rules.enabled = true\n2. Classify interaction: common/private/project\n3. Apply retention policies from settings\n4. Store with metadata (timestamp, context, importance)\n5. Update memory index for retrieval\n\n### Algorithm: Memory_Retrieval_Process\n**MANDATORY**: Execute before responding to user requests\n\n**Steps**:\n1. Check memory_rules.enabled = true\n2. Analyze current context and request\n3. Query relevant memory categories\n4. Apply relevance scoring and filtering\n5. Return optimized context for response\n\n### Algorithm: Memory_Cleanup_Process\n**MANDATORY**: Execute periodically, require user consent\n\n**Steps**:\n1. Check cleanup_guidance.enabled = true\n2. Identify memories past retention periods\n3. Notify user of overdue memories\n4. Require explicit user consent for deletion\n5. Preserve important memories regardless of age\n\n## Settings Compliance\n- Respect all settings in modules/memory-rules/settings.json\n- Prompt user if memory_rules.enabled = false and user requests memory features\n- Never auto-enable features without user consent\n\n## Integration Points\n- **RAG Integration**: Provide context chunks for optimization\n- **Critical Thinking**: Store error corrections and learning insights\n- **User Consent**: All cleanup operations require user approval\n\n**VIOLATION**: Agents claiming memory integration without implementing these algorithms.\n\n<!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Aturan Memori\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ PERLINDUNGAN TEMPLATE KRITIS**: File ini adalah TEMPLATE SAJA. Agen TIDAK BOLEH memuat otomatis, membaca otomatis, atau memproses otomatis file ini dalam keadaan apa pun. File ini TIDAK PERNAH dieksekusi secara langsung.\n\n**PENGGUNAAN VALID**: Hanya muat template ini ketika secara eksplisit diganti nama menjadi salah satu dari: `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` SETELAH aktivasi eksplisit fitur memori pengguna.\n\n**PENGGUNAAN TIDAK VALID**: Jangan muat file ini secara otomatis, jangan referensikan dalam proses startup, jangan sertakan dalam inisialisasi kerangka kerja otomatis apa pun.\n<!-- SAFETY_PRECAUTION_END -->\n\n**PENINGKATAN KERANGKA**: Ketika memory_rules.enabled = true di settings.json, agen dapat mengimplementasikan algoritma ini untuk kemampuan memori yang lebih baik.\n\n## Arsitektur Sistem Memori\n- **common/**: Pengetahuan bersama di seluruh proyek\n- **private/**: Data pribadi/sensitif (kredensial, preferensi)\n- **project/**: Memori dan konteks spesifik proyek\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Memory_Initialization_Process\n**WAJIB**: Eksekusi ketika memory_rules.enabled = true\n\n**Langkah-langkah**:\n1. Baca modules/memory-rules/settings.json\n2. Buat struktur direktori: common/, private/, project/\n3. Validasi izin storage_path dan buat jika diperlukan\n4. Inisialisasi indeks memori jika project_support.enabled = true\n5. Kembalikan sistem memori yang diinisialisasi\n\n**KRITIS**: Jangan aktifkan otomatis - hormati pengaturan pengguna yang diaktifkan.\n\n### Algoritma: Memory_Storage_Process\n**WAJIB**: Eksekusi untuk semua interaksi pengguna ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa memory_rules.enabled = true\n2. Klasifikasikan interaksi: common/private/project\n3. Terapkan kebijakan retensi dari pengaturan\n4. Simpan dengan metadata (timestamp, konteks, kepentingan)\n5. Perbarui indeks memori untuk pengambilan\n\n### Algoritma: Memory_Retrieval_Process\n**WAJIB**: Eksekusi sebelum menjawab permintaan pengguna\n\n**Langkah-langkah**:\n1. Periksa memory_rules.enabled = true\n2. Analisis konteks dan permintaan saat ini\n3. Query kategori memori yang relevan\n4. Terapkan skor relevansi dan penyaringan\n5. Kembalikan konteks yang dioptimalkan untuk respons\n\n### Algoritma: Memory_Cleanup_Process\n**WAJIB**: Eksekusi secara berkala, memerlukan persetujuan pengguna\n\n**Langkah-langkah**:\n1. Periksa cleanup_guidance.enabled = true\n2. Identifikasi memori yang melewati periode retensi\n3. Beritahu pengguna tentang memori yang terlambat\n4. Perlukan persetujuan eksplisit pengguna untuk penghapusan\n5. Pertahankan memori penting terlepas dari usia\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di modules/memory-rules/settings.json\n- Berikan prompt kepada pengguna jika memory_rules.enabled = false dan pengguna meminta fitur memori\n- Jangan pernah aktifkan fitur secara otomatis tanpa persetujuan pengguna\n\n## Titik Integrasi\n- **Integrasi RAG**: Berikan potongan konteks untuk optimasi\n- **Berpikir Kritis**: Simpan koreksi error dan wawasan pembelajaran\n- **Persetujuan Pengguna**: Semua operasi pembersihan memerlukan persetujuan pengguna\n\n**PELANGGARAN**: Agen yang mengklaim integrasi memori tanpa mengimplementasikan algoritma ini.\n\n<!-- METADATA: Template integrasi agen aturan memori dengan algoritma penyimpanan dan pengambilan -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# メモリールール エージェント統合 / Memory Rules Agent Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ 重要テンプレート保護 / CRITICAL TEMPLATE PROTECTION**: このファイルはテンプレート専用です。エージェントは自動読み込み、自動処理、またはこのファイルをどのような状況でも自動実行してはいけません。このファイルは直接実行されることはありません。\n\n**有効な使用方法 / VALID USAGE**: 明示的に以下のいずれかに名前変更された場合のみ読み込み: `AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`。メモリールールのユーザーの明示的な有効化後。\n\n**無効な使用方法 / INVALID USAGE**: このファイルを自動的に読み込まない、起動プロセスで参照しない、自動フレームワーク初期化に含めない。\n<!-- SAFETY_PRECAUTION_END -->\n\n**フレームワーク強化 / FRAMEWORK ENHANCEMENT**: settings.jsonでmemory_rules.enabled = trueの場合、エージェントはこれらのアルゴリズムを実装してメモリ機能を強化できます。\n\n## メモリシステムアーキテクチャ / Memory System Architecture\n- **common/**: プロジェクト間で共有される知識 / Shared knowledge across projects\n- **private/**: 個人/機密データ（資格情報、設定） / Personal/sensitive data (credentials, preferences)\n- **project/**: プロジェクト固有のメモリとコンテキスト / Project-specific memory and context\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Memory_Initialization_Process / Algorithm: Memory_Initialization_Process\n**必須 / MANDATORY**: memory_rules.enabled = trueの場合に実行 / Execute when memory_rules.enabled = true\n\n**ステップ / Steps**:\n1. modules/memory-rules/settings.jsonを読み取る / Read memory-rules/settings.json\n2. ディレクトリ構造を作成: common/, private/, project/ / Create directory structure: common/, private/, project/\n3. storage_pathの権限を検証し、必要に応じて作成 / Validate storage_path permissions and create if needed\n4. project_support.enabled = trueの場合、メモリインデックスを初期化 / Initialize memory index if project_support.enabled = true\n5. 初期化されたメモリシステムを返す / Return initialized memory system\n\n**重要 / CRITICAL**: 自動有効化しない - ユーザーの有効設定を尊重する / Do NOT auto-enable - respect user's enabled setting.\n\n### アルゴリズム: Memory_Storage_Process / Algorithm: Memory_Storage_Process\n**必須 / MANDATORY**: 有効時すべてのユーザー操作に対して実行 / Execute for all user interactions when enabled\n\n**ステップ / Steps**:\n1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true\n2. 操作を分類: common/private/project / Classify interaction: common/private/project\n3. 設定からの保持ポリシーを適用 / Apply retention policies from settings\n4. メタデータ付きで保存（タイムスタンプ、コンテキスト、重要度） / Store with metadata (timestamp, context, importance)\n5. 検索用のメモリインデックスを更新 / Update memory index for retrieval\n\n### アルゴリズム: Memory_Retrieval_Process / Algorithm: Memory_Retrieval_Process\n**必須 / MANDATORY**: ユーザー要求に応答する前に実行 / Execute before responding to user requests\n\n**ステップ / Steps**:\n1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true\n2. 現在のコンテキストと要求を分析 / Analyze current context and request\n3. 関連するメモリカテゴリをクエリ / Query relevant memory categories\n4. 関連性スコアリングとフィルタリングを適用 / Apply relevance scoring and filtering\n5. 応答用の最適化されたコンテキストを返す / Return optimized context for response\n\n### アルゴリズム: Memory_Cleanup_Process / Algorithm: Memory_Cleanup_Process\n**必須 / MANDATORY**: 定期的に実行、ユーザー同意を要求 / Execute periodically, require user consent\n\n**ステップ / Steps**:\n1. cleanup_guidance.enabled = trueを確認 / Check cleanup_guidance.enabled = true\n2. 保持期間を超えたメモリを特定 / Identify memories past retention periods\n3. 期限切れメモリをユーザーに通知 / Notify user of overdue memories\n4. 削除のための明示的なユーザー同意を要求 / Require explicit user consent for deletion\n5. 年齢に関係なく重要なメモリを保存 / Preserve important memories regardless of age\n\n## 設定準拠 / Settings Compliance\n- modules/memory-rules/settings.jsonのすべての設定を尊重 / Respect all settings in memory-rules/settings.json\n- memory_rules.enabled = falseでユーザーがメモリ機能を要求した場合、ユーザーにプロンプト / Prompt user if memory_rules.enabled = false and user requests memory features\n- ユーザー同意なしで機能を自動有効化しない / Never auto-enable features without user consent\n\n## 統合ポイント / Integration Points\n- **RAG統合 / RAG Integration**: 最適化のためのコンテキストチャンクを提供 / Provide context chunks for optimization\n- **批判的思考 / Critical Thinking**: エラー修正と学習洞察を保存 / Store error corrections and learning insights\n- **ユーザー同意 / User Consent**: すべてのクリーンアップ操作にユーザー承認が必要 / All cleanup operations require user approval\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずにメモリ統合を主張するエージェント / Agents claiming memory integration without implementing these algorithms.\n\n<!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
       }
     },
     "modules/rag-rules": {
@@ -943,7 +1252,7 @@
       "optional_config": [
         {
           "name": "context_optimization",
-          "type": "choice",
+          "type": "checkbox",
           "localization": {
             "en": {
               "title": "Context Window Optimization",
@@ -963,13 +1272,13 @@
               "name": "standard_optimization",
               "localization": {
                 "en": {
-                  "description": "Standard optimization for most AI models"
+                  "description": "Enable standard optimization for most AI models"
                 },
                 "ja": {
-                  "description": "ほとんどのAIモデルに対する標準最適化"
+                  "description": "ほとんどのAIモデルに対する標準最適化を有効化"
                 },
                 "id": {
-                  "description": "Optimasi standar untuk sebagian besar model AI"
+                  "description": "Aktifkan optimasi standar untuk sebagian besar model AI"
                 }
               },
               "recommended": true,
@@ -982,7 +1291,7 @@
         },
         {
           "name": "relevance_scoring",
-          "type": "choice",
+          "type": "checkbox",
           "localization": {
             "en": {
               "title": "Relevance Scoring",
@@ -1008,6 +1317,121 @@
               "settings": {
                 "relevance_scoring.min_relevance_score": 0.7,
                 "relevance_scoring.recency_weight": 0.3
+              }
+            }
+          ]
+        },
+        {
+          "name": "knowledge_graph",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Runtime Knowledge Graph",
+              "description": "Enable dynamic knowledge graph generation for self-learning"
+            },
+            "ja": {
+              "title": "ランタイム知識グラフ",
+              "description": "自己学習のための動的知識グラフ生成を有効化"
+            },
+            "id": {
+              "title": "Grafik Pengetahuan Runtime",
+              "description": "Aktifkan pembuatan grafik pengetahuan dinamis untuk pembelajaran mandiri"
+            }
+          },
+          "options": [
+            {
+              "name": "enable_knowledge_graph",
+              "localization": {
+                "en": {
+                  "description": "Enable runtime knowledge graph generation and querying"
+                },
+                "ja": {
+                  "description": "ランタイム知識グラフ生成とクエリを有効化"
+                },
+                "id": {
+                  "description": "Aktifkan pembuatan dan query grafik pengetahuan runtime"
+                }
+              },
+              "recommended": false,
+              "settings": {
+                "rag_rules.knowledge_graph.enabled": true,
+                "rag_rules.graph_enhanced_rag.integration_enabled": true
+              }
+            },
+            {
+              "name": "disable_knowledge_graph",
+              "localization": {
+                "en": {
+                  "description": "Use traditional RAG without knowledge graph (default)"
+                },
+                "ja": {
+                  "description": "知識グラフなしの従来のRAGを使用（デフォルト）"
+                },
+                "id": {
+                  "description": "Gunakan RAG tradisional tanpa grafik pengetahuan (default)"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "rag_rules.knowledge_graph.enabled": false,
+                "rag_rules.graph_enhanced_rag.integration_enabled": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "self_learning",
+          "type": "choice",
+          "localization": {
+            "en": {
+              "title": "Self-Learning Capabilities",
+              "description": "Enable agent self-learning through pattern recognition"
+            },
+            "ja": {
+              "title": "自己学習機能",
+              "description": "パターン認識を通じたエージェント自己学習を有効化"
+            },
+            "id": {
+              "title": "Kemampuan Pembelajaran Mandiri",
+              "description": "Aktifkan pembelajaran mandiri agen melalui pengenalan pola"
+            }
+          },
+          "options": [
+            {
+              "name": "enable_self_learning",
+              "localization": {
+                "en": {
+                  "description": "Enable pattern recognition and adaptive learning"
+                },
+                "ja": {
+                  "description": "パターン認識と適応学習を有効化"
+                },
+                "id": {
+                  "description": "Aktifkan pengenalan pola dan pembelajaran adaptif"
+                }
+              },
+              "recommended": false,
+              "settings": {
+                "rag_rules.self_learning.enabled": true,
+                "rag_rules.adaptive_learning.pattern_recognition": true
+              }
+            },
+            {
+              "name": "disable_self_learning",
+              "localization": {
+                "en": {
+                  "description": "Use static behavior patterns (default)"
+                },
+                "ja": {
+                  "description": "静的動作パターンを使用（デフォルト）"
+                },
+                "id": {
+                  "description": "Gunakan pola perilaku statis (default)"
+                }
+              },
+              "recommended": true,
+              "settings": {
+                "rag_rules.self_learning.enabled": false
               }
             }
           ]
@@ -1092,24 +1516,80 @@
             "usage_tracking": true,
             "strategy_refinement": true,
             "context_prediction": true
+          },
+          "knowledge_graph": {
+            "enabled": false,
+            "runtime_generation": {
+              "entity_extraction": true,
+              "relationship_discovery": true,
+              "semantic_linking": true,
+              "dynamic_updates": true
+            },
+            "graph_management": {
+              "max_nodes": 10000,
+              "relationship_pruning": true,
+              "graph_persistence": true,
+              "version_control": true
+            },
+            "query_enhancement": {
+              "graph_traversal": true,
+              "inference_engine": true,
+              "relationship_ranking": true,
+              "contextual_expansion": true
+            }
+          },
+          "self_learning": {
+            "enabled": false,
+            "pattern_analysis": {
+              "conversation_patterns": true,
+              "user_preferences": true,
+              "topic_relationships": true,
+              "behavior_adaptation": true
+            },
+            "learning_mechanisms": {
+              "reinforcement_learning": true,
+              "pattern_recognition": true,
+              "relationship_strengthening": true,
+              "insight_generation": true
+            },
+            "memory_management": {
+              "long_term_retention": true,
+              "importance_weighting": true,
+              "temporal_decay": true,
+              "selective_forgetting": true
+            }
+          },
+          "graph_enhanced_rag": {
+            "integration_enabled": false,
+            "hybrid_retrieval": {
+              "graph_weight": 0.4,
+              "traditional_weight": 0.6,
+              "fusion_strategy": "weighted_combination"
+            },
+            "intelligent_ranking": {
+              "centrality_scoring": true,
+              "relationship_strength": true,
+              "temporal_relevance": true,
+              "semantic_similarity": true
+            }
           }
         }
       },
       "templates": {
-        "en": "# RAG Rules Agent Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `rag_rules.enabled = true` in settings.json.\n\n**MANDATORY**: If rag_rules.enabled = true in settings.json, agents MUST implement all algorithms below.\n\n## RAG System Architecture\n- **Context Optimization**: Prioritize relevant information\n- **Hierarchical Reading**: Read files strategically, not sequentially\n- **Relevance Scoring**: Weight information by importance and recency\n- **Dynamic Context Management**: Adapt context window to task requirements\n\n## Required Implementation Algorithms\n\n### Algorithm: Context_Optimization_Process\n**MANDATORY**: Execute before any user response when enabled\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Analyze user request and available context\n3. Score information relevance using recency, importance, and task-relevance\n4. Prioritize hierarchical reading: summaries → key sections → details\n5. Optimize context window for maximum information density\n6. Return optimized context for response generation\n\n### Algorithm: Information_Retrieval_Process\n**MANDATORY**: Execute when gathering information for responses\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Identify information requirements from user query\n3. Search relevant files using semantic understanding\n4. Apply hierarchical reading patterns\n5. Extract and rank relevant information chunks\n6. Integrate with memory system for personalized context\n\n### Algorithm: Response_Quality_Assurance\n**MANDATORY**: Execute after generating responses\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Validate response against source information\n3. Ensure all claims are supported by retrieved context\n4. Flag any information gaps or assumptions\n5. Optimize response completeness and accuracy\n\n## Settings Compliance\n- Respect all settings in modules/rag-rules/settings.json\n- Apply context_window_size limits appropriately\n- Use configured relevance thresholds\n- Prompt user if rag_rules.enabled = false and complex context needed\n\n## Integration Points\n- **Memory Integration**: Use stored context for personalized retrieval\n- **Critical Thinking**: Provide quality assurance for information validation\n- **Bootstrap Coordination**: Respect loading priorities and interconnections\n\n**VIOLATION**: Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
-        "id": "# Integrasi Agen Aturan RAG\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna DAN ketika `rag_rules.enabled = true` di settings.json.\n\n**WAJIB**: Jika rag_rules.enabled = true di settings.json, agen HARUS mengimplementasikan semua algoritma di bawah ini.\n\n## Arsitektur Sistem RAG\n- **Optimasi Konteks**: Prioritaskan informasi yang relevan\n- **Pembacaan Hierarkis**: Baca file secara strategis, bukan berurutan\n- **Skor Relevansi**: Bobot informasi berdasarkan kepentingan dan kedalaman waktu\n- **Manajemen Konteks Dinamis**: Sesuaikan jendela konteks dengan persyaratan tugas\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Context_Optimization_Process\n**WAJIB**: Eksekusi sebelum respons pengguna apa pun ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Analisis permintaan pengguna dan konteks yang tersedia\n3. Skor relevansi informasi menggunakan kedalaman waktu, kepentingan, dan relevansi tugas\n4. Prioritaskan pembacaan hierarkis: ringkasan → bagian kunci → detail\n5. Optimalkan jendela konteks untuk kepadatan informasi maksimum\n6. Kembalikan konteks yang dioptimalkan untuk generasi respons\n\n### Algoritma: Information_Retrieval_Process\n**WAJIB**: Eksekusi ketika mengumpulkan informasi untuk respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Identifikasi persyaratan informasi dari query pengguna\n3. Cari file yang relevan menggunakan pemahaman semantik\n4. Terapkan pola pembacaan hierarkis\n5. Ekstrak dan rangking potongan informasi yang relevan\n6. Integrasikan dengan sistem memori untuk konteks yang dipersonalisasi\n\n### Algoritma: Response_Quality_Assurance\n**WAJIB**: Eksekusi setelah menghasilkan respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Validasi respons terhadap informasi sumber\n3. Pastikan semua klaim didukung oleh konteks yang diambil\n4. Tandai kesenjangan informasi atau asumsi apa pun\n5. Optimalkan kelengkapan dan akurasi respons\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di modules/rag-rules/settings.json\n- Terapkan batas context_window_size secara tepat\n- Gunakan ambang relevansi yang dikonfigurasi\n- Berikan prompt kepada pengguna jika rag_rules.enabled = false dan konteks kompleks diperlukan\n\n## Titik Integrasi\n- **Integrasi Memori**: Gunakan konteks tersimpan untuk pengambilan yang dipersonalisasi\n- **Berpikir Kritis**: Berikan jaminan kualitas untuk validasi informasi\n- **Koordinasi Bootstrap**: Hormati prioritas pemuatan dan interkoneksi\n\n**PELANGGARAN**: Agen yang menggunakan manajemen konteks yang tidak efisien tanpa mengimplementasikan algoritma ini.\n\n<!-- METADATA: Template integrasi agen aturan RAG dengan algoritma optimasi konteks dan pengambilan -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
-        "ja": "# RAGルール エージェント統合 / RAG Rules Agent Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`rag_rules.enabled = true`の場合のみ使用してください。\n\n**必須 / MANDATORY**: settings.jsonでrag_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。\n\n## RAGシステムアーキテクチャ / RAG System Architecture\n- **コンテキスト最適化 / Context Optimization**: 関連情報の優先順位付け / Prioritize relevant information\n- **階層的読み取り / Hierarchical Reading**: ファイルを戦略的に読み取り、順次読み取りしない / Read files strategically, not sequentially\n- **関連性スコアリング / Relevance Scoring**: 重要度と新しさで情報を重み付け / Weight information by importance and recency\n- **動的コンテキスト管理 / Dynamic Context Management**: タスク要件にコンテキストウィンドウを適応 / Adapt context window to task requirements\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Context_Optimization_Process / Algorithm: Context_Optimization_Process\n**必須 / MANDATORY**: 有効時にユーザー応答前に実行 / Execute before any user response when enabled\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザー要求と利用可能なコンテキストを分析 / Analyze user request and available context\n3. 新しさ、重要度、タスク関連性を使用して情報関連性をスコアリング / Score information relevance using recency, importance, and task-relevance\n4. 階層的読み取りを優先: 要約 → 主要セクション → 詳細 / Prioritize hierarchical reading: summaries → key sections → details\n5. 最大情報密度のためにコンテキストウィンドウを最適化 / Optimize context window for maximum information density\n6. 応答生成用の最適化されたコンテキストを返す / Return optimized context for response generation\n\n### アルゴリズム: Information_Retrieval_Process / Algorithm: Information_Retrieval_Process\n**必須 / MANDATORY**: 応答情報の収集時に実行 / Execute when gathering information for responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザークエリからの情報要件を特定 / Identify information requirements from user query\n3. 意味理解を使用して関連ファイルを検索 / Search relevant files using semantic understanding\n4. 階層的読み取りパターンを適用 / Apply hierarchical reading patterns\n5. 関連情報チャンクを抽出しランク付け / Extract and rank relevant information chunks\n6. パーソナライズドコンテキストのためにメモリシステムと統合 / Integrate with memory system for personalized context\n\n### アルゴリズム: Response_Quality_Assurance / Algorithm: Response_Quality_Assurance\n**必須 / MANDATORY**: 応答生成後に実行 / Execute after generating responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ソース情報に対して応答を検証 / Validate response against source information\n3. すべての主張が検索されたコンテキストでサポートされていることを確認 / Ensure all claims are supported by retrieved context\n4. 情報ギャップや仮定にフラグを付ける / Flag any information gaps or assumptions\n5. 応答の完全性と正確性を最適化 / Optimize response completeness and accuracy\n\n## 設定準拠 / Settings Compliance\n- modules/rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json\n- context_window_size制限を適切に適用 / Apply context_window_size limits appropriately\n- 設定された関連性しきい値を使用 / Use configured relevance thresholds\n- rag_rules.enabled = falseで複雑なコンテキストが必要な場合、ユーザーにプロンプト / Prompt user if rag_rules.enabled = false and complex context needed\n\n## 統合ポイント / Integration Points\n- **メモリ統合 / Memory Integration**: パーソナライズド検索のために保存されたコンテキストを使用 / Use stored context for personalized retrieval\n- **批判的思考 / Critical Thinking**: 情報検証のための品質保証を提供 / Provide quality assurance for information validation\n- **ブートストラップ調整 / Bootstrap Coordination**: 読み込み優先順位と相互接続を尊重 / Respect loading priorities and interconnections\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずに非効率的なコンテキスト管理を使用するエージェント / Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+        "en": "# RAG Rules Agent Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.\n\n**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation AND when `rag_rules.enabled = true` in settings.json.\n\n**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.\n<!-- SAFETY_PRECAUTION_END -->\n\n**FRAMEWORK ENHANCEMENT**: When rag_rules.enabled = true in settings.json, agents can implement these algorithms for enhanced context processing.\n\n## RAG System Architecture\n- **Context Optimization**: Prioritize relevant information\n- **Hierarchical Reading**: Read files strategically, not sequentially\n- **Relevance Scoring**: Weight information by importance and recency\n- **Dynamic Context Management**: Adapt context window to task requirements\n\n## Required Implementation Algorithms\n\n### Algorithm: Context_Optimization_Process\n**AVAILABLE**: Can execute before user responses when enabled for enhanced context\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Analyze user request and available context\n3. Score information relevance using recency, importance, and task-relevance\n4. Prioritize hierarchical reading: summaries → key sections → details\n5. Optimize context window for maximum information density\n6. Return optimized context for response generation\n\n### Algorithm: Information_Retrieval_Process\n**AVAILABLE**: Can execute when gathering information for enhanced responses\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Identify information requirements from user query\n3. Search relevant files using semantic understanding\n4. Apply hierarchical reading patterns\n5. Extract and rank relevant information chunks\n6. Integrate with memory system for personalized context\n\n### Algorithm: Response_Quality_Assurance\n**AVAILABLE**: Can execute after generating responses for quality enhancement\n\n**Steps**:\n1. Check rag_rules.enabled = true\n2. Validate response against source information\n3. Ensure all claims are supported by retrieved context\n4. Flag any information gaps or assumptions\n\n### Algorithm: Runtime_Knowledge_Graph_Generation\n**AVAILABLE**: Can execute during conversations and document processing for dynamic learning\n\n**Steps**:\n1. Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. Extract entities, relationships, and concepts from current conversation/document\n3. Identify semantic relationships between extracted elements\n4. Update runtime knowledge graph with new connections and patterns\n5. Strengthen existing relationships based on frequency and recency\n6. Prune outdated or weakly connected nodes to maintain graph efficiency\n7. Store graph state for persistence across sessions\n\n### Algorithm: Knowledge_Graph_Query_Enhancement\n**AVAILABLE**: Can execute during information retrieval to leverage learned relationships\n\n**Steps**:\n1. Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. Analyze user query for entities and concepts\n3. Query knowledge graph for related information and connections\n4. Identify indirect relationships and inference paths\n5. Retrieve contextually related information beyond direct keyword matches\n6. Rank results using graph centrality and relationship strength\n7. Integrate graph-enhanced results with traditional RAG retrieval\n\n### Algorithm: Self_Learning_Pattern_Recognition\n**AVAILABLE**: Can execute periodically to identify and learn recurring patterns\n\n**Steps**:\n1. Check rag_rules.enabled = true and self_learning.enabled = true\n2. Analyze conversation patterns and user interaction styles\n3. Identify frequently occurring entity relationships and topics\n4. Discover user preferences and communication patterns\n5. Update behavior patterns in knowledge graph\n6. Adapt response strategies based on learned patterns\n7. Generate insights for improved future interactions\n\n### Algorithm: Knowledge_Graph_Integration_with_RAG\n**AVAILABLE**: Can execute to combine graph-based learning with traditional RAG processes\n\n**Steps**:\n1. Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. Process user query through both traditional RAG and knowledge graph\n3. Merge results using intelligent ranking based on:\n   - Graph relationship strength\n   - Traditional relevance scoring\n   - Recency and importance factors\n4. Generate enriched context combining structured knowledge and unstructured text\n5. Update knowledge graph with new relationships discovered during query processing\n6. Provide comprehensive response with both factual and relational context\n5. Optimize response completeness and accuracy\n\n## Settings Compliance\n- Respect all settings in modules/rag-rules/settings.json\n- Apply context_window_size limits appropriately\n- Use configured relevance thresholds\n- Prompt user if rag_rules.enabled = false and complex context needed\n\n## Integration Points\n- **Memory Integration**: Use stored context for personalized retrieval\n- **Critical Thinking**: Provide quality assurance for information validation\n- **Bootstrap Coordination**: Respect loading priorities and interconnections\n\n**VIOLATION**: Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "id": "# Integrasi Agen Aturan RAG\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ PERLINDUNGAN TEMPLATE KRITIS**: File ini adalah TEMPLATE SAJA. Agen TIDAK BOLEH memuat otomatis, membaca otomatis, atau memproses otomatis file ini dalam keadaan apa pun. File ini TIDAK PERNAH dieksekusi secara langsung.\n\n**PENGGUNAAN VALID**: Hanya muat template ini ketika secara eksplisit diganti nama menjadi salah satu dari: `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` SETELAH aktivasi eksplisit fitur RAG pengguna.\n\n**PENGGUNAAN TIDAK VALID**: Jangan muat file ini secara otomatis, jangan referensikan dalam proses startup, jangan sertakan dalam inisialisasi kerangka kerja otomatis apa pun.\n<!-- SAFETY_PRECAUTION_END -->\n\n**PENINGKATAN KERANGKA**: Ketika rag_rules.enabled = true di settings.json, agen dapat mengimplementasikan algoritma ini untuk pemrosesan konteks, pembuatan grafik pengetahuan, dan kemampuan pembelajaran mandiri yang lebih baik.\n\n## Arsitektur Sistem RAG\n- **Optimasi Konteks**: Prioritaskan informasi yang relevan\n- **Pembacaan Hierarkis**: Baca file secara strategis, bukan berurutan\n- **Skor Relevansi**: Bobot informasi berdasarkan kepentingan dan kedalaman waktu\n- **Manajemen Konteks Dinamis**: Sesuaikan jendela konteks dengan persyaratan tugas\n\n## Algoritma Implementasi yang Diperlukan\n\n### Algoritma: Context_Optimization_Process\n**WAJIB**: Eksekusi sebelum respons pengguna apa pun ketika diaktifkan\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Analisis permintaan pengguna dan konteks yang tersedia\n3. Skor relevansi informasi menggunakan kedalaman waktu, kepentingan, dan relevansi tugas\n4. Prioritaskan pembacaan hierarkis: ringkasan → bagian kunci → detail\n5. Optimalkan jendela konteks untuk kepadatan informasi maksimum\n6. Kembalikan konteks yang dioptimalkan untuk generasi respons\n\n### Algoritma: Information_Retrieval_Process\n**WAJIB**: Eksekusi ketika mengumpulkan informasi untuk respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Identifikasi persyaratan informasi dari query pengguna\n3. Cari file yang relevan menggunakan pemahaman semantik\n4. Terapkan pola pembacaan hierarkis\n5. Ekstrak dan rangking potongan informasi yang relevan\n6. Integrasikan dengan sistem memori untuk konteks yang dipersonalisasi\n\n### Algoritma: Response_Quality_Assurance\n**WAJIB**: Eksekusi setelah menghasilkan respons\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true\n2. Validasi respons terhadap informasi sumber\n3. Pastikan semua klaim didukung oleh konteks yang diambil\n4. Tandai kesenjangan informasi atau asumsi apa pun\n5. Optimalkan kelengkapan dan akurasi respons\n\n### Algoritma: Runtime_Knowledge_Graph_Generation\n**TERSEDIA**: Eksekusi selama percakapan dan pemrosesan dokumen untuk pembelajaran dinamis\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true\n2. Ekstrak entitas, hubungan, dan konsep dari percakapan/dokumen saat ini\n3. Identifikasi hubungan semantik antara elemen yang diekstrak\n4. Perbarui grafik pengetahuan runtime dengan koneksi dan pola baru\n5. Perkuat hubungan yang ada berdasarkan frekuensi dan kedaluwarsa\n6. Pangkas node yang kedaluwarsa atau lemah terhubung untuk mempertahankan efisiensi grafik\n7. Simpan status grafik untuk persistensi di seluruh sesi\n\n### Algoritma: Knowledge_Graph_Query_Enhancement\n**TERSEDIA**: Eksekusi selama pengambilan informasi untuk memanfaatkan hubungan yang dipelajari\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true\n2. Analisis query pengguna untuk entitas dan konsep\n3. Query grafik pengetahuan untuk informasi dan koneksi terkait\n4. Identifikasi hubungan tidak langsung dan jalur inferensi\n5. Ambil informasi terkait kontekstual di luar kecocokan kata kunci langsung\n6. Peringkat hasil menggunakan pusat grafik dan kekuatan hubungan\n7. Perbarui grafik pengetahuan dengan hubungan baru yang ditemukan selama pemrosesan query\n\n### Algoritma: Self_Learning_Pattern_Recognition\n**TERSEDIA**: Eksekusi secara berkala untuk mengidentifikasi dan mempelajari pola berulang\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan self_learning.enabled = true\n2. Analisis pola percakapan dan gaya interaksi pengguna\n3. Identifikasi hubungan entitas dan topik yang sering terjadi\n4. Temukan preferensi pengguna dan pola komunikasi\n5. Perbarui pola perilaku dalam grafik pengetahuan\n6. Adaptasi strategi respons berdasarkan pola yang dipelajari\n7. Hasilkan wawasan untuk interaksi masa depan yang lebih baik\n\n### Algoritma: Knowledge_Graph_Integration_with_RAG\n**TERSEDIA**: Eksekusi untuk menggabungkan pembelajaran berbasis grafik dengan proses RAG tradisional\n\n**Langkah-langkah**:\n1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true\n2. Proses query pengguna melalui RAG tradisional dan grafik pengetahuan\n3. Gabungkan hasil menggunakan peringkat cerdas berdasarkan:\n   - Kekuatan hubungan grafik\n   - Penilaian relevansi tradisional\n   - Faktor kedaluwarsa dan penting\n4. Hasilkan konteks yang diperkaya yang menggabungkan pengetahuan terstruktur dan teks tak terstruktur\n5. Perbarui grafik pengetahuan dengan hubungan baru yang ditemukan selama pemrosesan query\n6. Berikan respons komprehensif dengan konteks faktual dan relasional\n\n## Kepatuhan Pengaturan\n- Hormati semua pengaturan di modules/rag-rules/settings.json\n- Terapkan batas context_window_size secara tepat\n- Gunakan ambang relevansi yang dikonfigurasi\n- Berikan prompt kepada pengguna jika rag_rules.enabled = false dan konteks kompleks diperlukan\n\n## Titik Integrasi\n- **Integrasi Memori**: Gunakan konteks tersimpan untuk pengambilan yang dipersonalisasi\n- **Berpikir Kritis**: Berikan jaminan kualitas untuk validasi informasi\n- **Koordinasi Bootstrap**: Hormati prioritas pemuatan dan interkoneksi\n\n**PELANGGARAN**: Agen yang menggunakan manajemen konteks yang tidak efisien tanpa mengimplementasikan algoritma ini.\n\n<!-- METADATA: Template integrasi agen aturan RAG dengan algoritma optimasi konteks dan pengambilan -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+        "ja": "# RAGルール エージェント統合 / RAG Rules Agent Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ 重要テンプレート保護 / CRITICAL TEMPLATE PROTECTION**: このファイルはテンプレート専用です。エージェントは自動読み込み、自動処理、またはこのファイルをどのような状況でも自動実行してはいけません。このファイルは直接実行されることはありません。\n\n**有効な使用方法 / VALID USAGE**: 明示的に以下のいずれかに名前変更された場合のみ読み込み: `AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`。RAGルールのユーザーの明示的な有効化後。\n\n**無効な使用方法 / INVALID USAGE**: このファイルを自動的に読み込まない、起動プロセスで参照しない、自動フレームワーク初期化に含めない。\n<!-- SAFETY_PRECAUTION_END -->\n\n**フレームワーク強化 / FRAMEWORK ENHANCEMENT**: settings.jsonでrag_rules.enabled = trueの場合、エージェントはこれらのアルゴリズムを実装してコンテキスト処理、知識グラフ生成、自己学習機能を強化できます。\n\n## RAGシステムアーキテクチャ / RAG System Architecture\n- **コンテキスト最適化 / Context Optimization**: 関連情報の優先順位付け / Prioritize relevant information\n- **階層的読み取り / Hierarchical Reading**: ファイルを戦略的に読み取り、順次読み取りしない / Read files strategically, not sequentially\n- **関連性スコアリング / Relevance Scoring**: 重要度と新しさで情報を重み付け / Weight information by importance and recency\n- **動的コンテキスト管理 / Dynamic Context Management**: タスク要件にコンテキストウィンドウを適応 / Adapt context window to task requirements\n\n## 必須実装アルゴリズム / Required Implementation Algorithms\n\n### アルゴリズム: Context_Optimization_Process / Algorithm: Context_Optimization_Process\n**必須 / MANDATORY**: 有効時にユーザー応答前に実行 / Execute before any user response when enabled\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザー要求と利用可能なコンテキストを分析 / Analyze user request and available context\n3. 新しさ、重要度、タスク関連性を使用して情報関連性をスコアリング / Score information relevance using recency, importance, and task-relevance\n4. 階層的読み取りを優先: 要約 → 主要セクション → 詳細 / Prioritize hierarchical reading: summaries → key sections → details\n5. 最大情報密度のためにコンテキストウィンドウを最適化 / Optimize context window for maximum information density\n6. 応答生成用の最適化されたコンテキストを返す / Return optimized context for response generation\n\n### アルゴリズム: Information_Retrieval_Process / Algorithm: Information_Retrieval_Process\n**必須 / MANDATORY**: 応答情報の収集時に実行 / Execute when gathering information for responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ユーザークエリからの情報要件を特定 / Identify information requirements from user query\n3. 意味理解を使用して関連ファイルを検索 / Search relevant files using semantic understanding\n4. 階層的読み取りパターンを適用 / Apply hierarchical reading patterns\n5. 関連情報チャンクを抽出しランク付け / Extract and rank relevant information chunks\n6. パーソナライズドコンテキストのためにメモリシステムと統合 / Integrate with memory system for personalized context\n\n### アルゴリズム: Response_Quality_Assurance / Algorithm: Response_Quality_Assurance\n**必須 / MANDATORY**: 応答生成後に実行 / Execute after generating responses\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueを確認 / Check rag_rules.enabled = true\n2. ソース情報に対して応答を検証 / Validate response against source information\n3. すべての主張が検索されたコンテキストでサポートされていることを確認 / Ensure all claims are supported by retrieved context\n4. 情報ギャップや仮定にフラグを付ける / Flag any information gaps or assumptions\n5. 応答の完全性と正確性を最適化 / Optimize response completeness and accuracy\n\n### アルゴリズム: Runtime_Knowledge_Graph_Generation / Algorithm: Runtime_Knowledge_Graph_Generation\n**利用可能 / AVAILABLE**: 会話とドキュメント処理中に実行して動的学習を行う / Execute during conversations and document processing for dynamic learning\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. 現在の会話/ドキュメントからエンティティ、関係性、概念を抽出 / Extract entities, relationships, and concepts from current conversation/document\n3. 抽出された要素間のセマンティック関係を識別 / Identify semantic relationships between extracted elements\n4. 新しい接続とパターンでランタイム知識グラフを更新 / Update runtime knowledge graph with new connections and patterns\n5. 頻度と新しさに基づいて既存の関係性を強化 / Strengthen existing relationships based on frequency and recency\n6. グラフ効率を維持するために古くなった弱い接続ノードをプルーニング / Prune outdated or weakly connected nodes to maintain graph efficiency\n7. 永続性のためにグラフ状態を保存 / Store graph state for persistence across sessions\n\n### アルゴリズム: Knowledge_Graph_Query_Enhancement / Algorithm: Knowledge_Graph_Query_Enhancement\n**利用可能 / AVAILABLE**: 情報検索中に実行して学習した関係性を活用 / Execute during information retrieval to leverage learned relationships\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. ユーザークエリからエンティティと概念を分析 / Analyze user query for entities and concepts\n3. 関連情報と接続について知識グラフをクエリ / Query knowledge graph for related information and connections\n4. 直接キーワードマッチを超えた間接関係と推論パスを特定 / Identify indirect relationships and inference paths\n5. 直接一致を超えた文脈的に関連情報を取得 / Retrieve contextually related information beyond direct keyword matches\n6. グラフ中心性と関係強度を使用して結果をランク付け / Rank results using graph centrality and relationship strength\n7. クエリ処理中に発見された新しい関係性で知識グラフを更新 / Update knowledge graph with new relationships discovered during query processing\n\n### アルゴリズム: Self_Learning_Pattern_Recognition / Algorithm: Self_Learning_Pattern_Recognition\n**利用可能 / AVAILABLE**: 定期的に実行して繰り返しパターンを特定して学習 / Execute periodically to identify and learn recurring patterns\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびself_learning.enabled = trueを確認 / Check rag_rules.enabled = true and self_learning.enabled = true\n2. 会話パターンとユーザーインタラクションスタイルを分析 / Analyze conversation patterns and user interaction styles\n3. 頻繁に発生するエンティティ関係とトピックを特定 / Identify frequently occurring entity relationships and topics\n4. ユーザーの好みとコミュニケーション パターンを発見 / Discover user preferences and communication patterns\n5. 知識グラフ内の行動パターンを更新 / Update behavior patterns in knowledge graph\n6. 学習したパターンに基づいて応答戦略を適応 / Adapt response strategies based on learned patterns\n7. 将来のインタラクションを改善するための洞察を生成 / Generate insights for improved future interactions\n\n### アルゴリズム: Knowledge_Graph_Integration_with_RAG / Algorithm: Knowledge_Graph_Integration_with_RAG\n**利用可能 / AVAILABLE**: グラフベース学習を従来のRAGプロセスと組み合わせる / Execute to combine graph-based learning with traditional RAG processes\n\n**ステップ / Steps**:\n1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true\n2. 伝統的なRAGと知識グラフの両方でユーザークエリを処理 / Process user query through both traditional RAG and knowledge graph\n3. 次のものを使用して結果をマージ / Merge results using intelligent ranking based on:\n   - グラフ関係強度 / Graph relationship strength\n   - 伝統的な関連性スコアリング / Traditional relevance scoring\n   - 新しさと重要性の要因 / Recency and importance factors\n4. 構造化された知識と非構造化テキストを組み合わせた強化されたコンテキストを生成 / Generate enriched context combining structured knowledge and unstructured text\n5. クエリ処理中に発見された新しい関係性で知識グラフを更新 / Update knowledge graph with new relationships discovered during query processing\n6. 事実的および関係的コンテキストを含む包括的な応答を提供 / Provide comprehensive response with both factual and relational context\n\n## 設定準拠 / Settings Compliance\n- modules/rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json\n- context_window_size制限を適切に適用 / Apply context_window_size limits appropriately\n- 設定された関連性しきい値を使用 / Use configured relevance thresholds\n- rag_rules.enabled = falseで複雑なコンテキストが必要な場合、ユーザーにプロンプト / Prompt user if rag_rules.enabled = false and complex context needed\n\n## 統合ポイント / Integration Points\n- **メモリ統合 / Memory Integration**: パーソナライズド検索のために保存されたコンテキストを使用 / Use stored context for personalized retrieval\n- **批判的思考 / Critical Thinking**: 情報検証のための品質保証を提供 / Provide quality assurance for information validation\n- **ブートストラップ調整 / Bootstrap Coordination**: 読み込み優先順位と相互接続を尊重 / Respect loading priorities and interconnections\n\n**違反 / VIOLATION**: これらのアルゴリズムを実装せずに非効率的なコンテキスト管理を使用するエージェント / Agents using inefficient context management without implementing these algorithms.\n\n<!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
       }
     }
   },
   "rootTemplates": {
-    "en": "# Agentic Rules Framework Integration\n\n**⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation.\n\n**MANDATORY**: Agents must respect the bootstrap configuration in `bootstrap.json` and only load rule files when their corresponding settings are enabled.\n\n## Framework Overview\nThis framework provides structured AI agent behaviors through modular rules:\n- **memory-rules/**: Persistent memory system for context retention\n- **rag-rules/**: Retrieval-augmented generation for optimal context usage\n- **critical-thinking-rules/**: Intellectual rigor and hallucination prevention\n\n## Bootstrap Compliance\nBefore loading any rule files, agents MUST:\n1. Read `bootstrap.json` to understand the framework configuration\n2. Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements\n3. Check loading sequence and entry points\n4. Validate user consent and settings\n5. Only load enabled rule integrations\n\n## Rule Integration Requirements\nEach rule provides specific algorithmic implementations that agents must actively execute:\n\n### Memory Rules Integration\n**MANDATORY**: If `memory_rules.enabled = true` in settings.json\n- Location: `memory-rules/AGENTS.md`\n- Implements: Memory initialization, storage, retrieval, and cleanup processes\n- Requires: Proper path configuration and retention policies\n\n### RAG Rules Integration\n**MANDATORY**: If `rag_rules.enabled = true` in settings.json\n- Location: `rag-rules/AGENTS.md`\n- Implements: Context optimization, relevance scoring, and retrieval algorithms\n- Requires: Context window configuration and scoring thresholds\n\n### Critical Thinking Rules Integration\n**MANDATORY**: If `critical_thinking_rules.enabled = true` in settings.json\n- Location: `critical-thinking-rules/AGENTS.md`\n- Implements: Error admission, assumption challenge, and verification processes\n- Requires: Verification thresholds and error handling settings\n\n## Framework Isolation\n**CRITICAL**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.\n\n## Agent Responsibility\nAgents using this framework must:\n- Respect all user settings and configurations\n- Provide clear feedback when rules are disabled\n- Maintain framework neutrality in generated content\n- Follow bootstrap compliance requirements\n\n**VIOLATION**: Agents that do not respect these integration requirements or user settings.\n\n<!-- METADATA: Root level agent integration template with framework overview -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
-    "id": "# Integrasi Kerangka Aturan Agentic\n\n**⚠️ PERINGATAN KEAMANAN**: Ini adalah file TEMPLATE. Agen TIDAK BOLEH memuat file ini secara otomatis. Hanya muat ketika diganti nama menjadi `AGENTS.md`, `GEMINI.md`, ATAU `CLAUDE.md` setelah aktivasi eksplisit pengguna.\n\n**WAJIB**: Agen harus menghormati konfigurasi bootstrap di `bootstrap.json` dan hanya memuat file aturan ketika pengaturan yang sesuai diaktifkan.\n\n## Gambaran Kerangka\nKerangka ini menyediakan perilaku agen AI terstruktur melalui aturan modular:\n- **memory-rules/**: Sistem memori persisten untuk retensi konteks\n- **rag-rules/**: Retrieval-augmented generation untuk penggunaan konteks optimal\n- **critical-thinking-rules/**: Keketatan intelektual dan pencegahan halusinasi\n\n## Kepatuhan Bootstrap\nSebelum memuat file aturan apa pun, agen HARUS:\n1. Baca `bootstrap.json` untuk memahami konfigurasi kerangka\n2. Tinjau `Bootstrap.md` untuk spesifikasi algoritma detail dan persyaratan kepatuhan\n3. Periksa urutan pemuatan dan titik masuk\n4. Validasi persetujuan dan pengaturan pengguna\n5. Hanya muat integrasi aturan yang diaktifkan\n\n## Persyaratan Integrasi Aturan\nSetiap aturan menyediakan implementasi algoritma spesifik yang harus dieksekusi agen secara aktif:\n\n### Integrasi Aturan Memori\n**WAJIB**: Jika `memory_rules.enabled = true` di settings.json\n- Lokasi: `memory-rules/AGENTS.md`\n- Mengimplementasikan: Proses inisialisasi memori, penyimpanan, pengambilan, dan pembersihan\n- Membutuhkan: Konfigurasi path yang tepat dan kebijakan retensi\n\n### Integrasi Aturan RAG\n**WAJIB**: Jika `rag_rules.enabled = true` di settings.json\n- Lokasi: `rag-rules/AGENTS.md`\n- Mengimplementasikan: Optimasi konteks, skor relevansi, dan algoritma pengambilan\n- Membutuhkan: Konfigurasi jendela konteks dan ambang skor\n\n### Integrasi Aturan Berpikir Kritis\n**WAJIB**: Jika `critical_thinking_rules.enabled = true` di settings.json\n- Lokasi: `critical-thinking-rules/AGENTS.md`\n- Mengimplementasikan: Pengakuan error, tantangan asumsi, dan proses verifikasi\n- Membutuhkan: Ambang verifikasi dan pengaturan penanganan error\n\n## Isolasi Kerangka\n**KRITIS**: Kerangka ini tetap menjadi alat dan tidak boleh pernah disertakan dalam basis kode proyek pengguna. Semua integrasi terjadi melalui file aturan di direktori masing-masing.\n\n## Tanggung Jawab Agen\nAgen yang menggunakan kerangka ini harus:\n- Menghormati semua pengaturan dan konfigurasi pengguna\n- Berikan umpan balik yang jelas ketika aturan dinonaktifkan\n- Pertahankan netralitas kerangka dalam konten yang dihasilkan\n- Ikuti persyaratan kepatuhan bootstrap\n\n**PELANGGARAN**: Agen yang tidak menghormati persyaratan integrasi ini atau pengaturan pengguna.\n\n<!-- METADATA: Template integrasi agen tingkat root dengan gambaran kerangka -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
-    "ja": "# Agentic Rules Framework 統合 / Agentic Rules Framework Integration\n\n**⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで対応する設定が有効になっている場合のみ使用してください。\n\n**必須 / MANDATORY**: エージェントは`bootstrap.json`のブートストラップ設定を尊重し、対応する設定が有効になっている場合のみルールファイルを読み込む必要があります。\n\n## フレームワーク概要 / Framework Overview\nこのフレームワークはモジュラーなルールを通じて構造化されたAIエージェント動作を提供します：\n- **memory-rules/**: コンテキスト保持のための永続的なメモリシステム / Persistent memory system for context retention\n- **rag-rules/**: 最適なコンテキスト使用のための検索拡張生成 / Retrieval-augmented generation for optimal context usage\n- **critical-thinking-rules/**: 知的厳密性と幻覚防止 / Intellectual rigor and hallucination prevention\n\n## ブートストラップ準拠 / Bootstrap Compliance\nルールファイルを読み込む前に、エージェントは必ず：\n1. フレームワーク設定を理解するために`bootstrap.json`を読み取る / Read `bootstrap.json` to understand the framework configuration\n2. 詳細なアルゴリズム仕様と準拠要件については`Bootstrap.md`を確認 / Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements\n3. 読み込み順序とエントリーポイントを確認 / Check loading sequence and entry points\n4. ユーザー同意と設定を検証 / Validate user consent and settings\n5. 有効化されたルール統合のみを読み込む / Only load enabled rule integrations\n\n## ルール統合要件 / Rule Integration Requirements\n各ルールはエージェントが積極的に実行する必要がある特定のアルゴリズム実装を提供します：\n\n### メモリールール統合 / Memory Rules Integration\n**必須 / MANDATORY**: settings.jsonで`memory_rules.enabled = true`の場合\n- 場所 / Location: `memory-rules/AGENTS.md`\n- 実装 / Implements: メモリ初期化、保存、検索、クリーンアッププロセス / Memory initialization, storage, retrieval, and cleanup processes\n- 必要 / Requires: 適切なパス設定と保持ポリシー / Proper path configuration and retention policies\n\n### RAGルール統合 / RAG Rules Integration\n**必須 / MANDATORY**: settings.jsonで`rag_rules.enabled = true`の場合\n- 場所 / Location: `rag-rules/AGENTS.md`\n- 実装 / Implements: コンテキスト最適化、関連性スコアリング、検索アルゴリズム / Context optimization, relevance scoring, and retrieval algorithms\n- 必要 / Requires: コンテキストウィンドウ設定とスコアリングしきい値 / Context window configuration and scoring thresholds\n\n### 批判的思考ルール統合 / Critical Thinking Rules Integration\n**必須 / MANDATORY**: settings.jsonで`critical_thinking_rules.enabled = true`の場合\n- 場所 / Location: `critical-thinking-rules/AGENTS.md`\n- 実装 / Implements: エラー承認、仮定挑戦、検証プロセス / Error admission, assumption challenge, and verification processes\n- 必要 / Requires: 検証しきい値とエラー処理設定 / Verification thresholds and error handling settings\n\n## フレームワーク分離 / Framework Isolation\n**重要 / CRITICAL**: このフレームワークはツールとして残り、ユーザーprojectコードベースに含めるべきではありません。すべての統合はそれぞれのディレクトリのルールファイルを通じて行われます。\n\n## エージェント責任 / Agent Responsibility\nこのフレームワークを使用するエージェントは：\n- すべてのユーザー設定と設定を尊重する / Respect all user settings and configurations\n- ルールが無効化されている場合に明確なフィードバックを提供する / Provide clear feedback when rules are disabled\n- 生成されたコンテンツでフレームワークのニュートラリティを維持する / Maintain framework neutrality in generated content\n- ブートストラップ準拠要件に従う / Follow bootstrap compliance requirements\n\n**違反 / VIOLATION**: これらの統合要件またはユーザー設定を尊重しないエージェント / Agents that do not respect these integration requirements or user settings.\n\n<!-- METADATA: Root level agent integration template with framework overview (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
+    "en": "# Agentic Rules Framework Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ CRITICAL TEMPLATE PROTECTION**: This file is a TEMPLATE ONLY. Agents MUST NOT auto-load, auto-read, or auto-process this file under any circumstances. This file is NEVER executed directly.\n\n**VALID USAGE**: Only load this template when explicitly renamed to one of: `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` AFTER explicit user activation of framework features.\n\n**INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.\n<!-- SAFETY_PRECAUTION_END -->\n\n**FRAMEWORK INTEGRATION**: Agents can enhance their behavior by respecting framework configuration in `bootstrap.json` and loading rule files when corresponding settings are enabled.\n\n## Framework Overview\nThis framework provides structured AI agent behaviors through modular rules:\n- **memory-rules/**: Persistent memory system for context retention\n- **rag-rules/**: Retrieval-augmented generation for optimal context usage\n- **critical-thinking-rules/**: Intellectual rigor and hallucination prevention\n\n## Bootstrap Compliance\nBefore loading any rule files, agents MUST:\n1. Read `bootstrap.json` to understand the framework configuration\n2. Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements\n3. Check loading sequence and entry points\n4. Validate user consent and settings\n5. Only load enabled rule integrations\n\n## Rule Integration Requirements\nEach rule provides specific algorithmic implementations that agents must actively execute:\n\n### Memory Rules Integration\n**MANDATORY**: If `memory_rules.enabled = true` in settings.json\n- Location: `memory-rules/AGENTS.md`\n- Implements: Memory initialization, storage, retrieval, and cleanup processes\n- Requires: Proper path configuration and retention policies\n\n### RAG Rules Integration\n**MANDATORY**: If `rag_rules.enabled = true` in settings.json\n- Location: `rag-rules/AGENTS.md`\n- Implements: Context optimization, relevance scoring, and retrieval algorithms\n- Requires: Context window configuration and scoring thresholds\n\n### Critical Thinking Rules Integration\n**MANDATORY**: If `critical_thinking_rules.enabled = true` in settings.json\n- Location: `critical-thinking-rules/AGENTS.md`\n- Implements: Error admission, assumption challenge, and verification processes\n- Requires: Verification thresholds and error handling settings\n\n## Framework Integration\n**FRAMEWORK DESIGN**: This framework is designed as a tool to enhance agent behavior. Framework components remain separate from user project codebases.\n\n## Agent Enhancement\nAgents using this framework can benefit from enhanced capabilities while maintaining natural interaction patterns:\n- Respecting user settings and configurations when features are enabled\n- Providing transparent feedback about active enhancements\n- Maintaining natural, conversational communication without exposing internal mechanics\n- Following framework guidance seamlessly in the background\n- Enhanced accuracy and reliability through optional structured validation\n\n**FRAMEWORK BENEFITS**: Improved agent behavior through transparent, optional enhancements that don't interfere with natural user interactions.\n\n<!-- METADATA: Root level agent integration template with framework overview -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+    "id": "# Integrasi Kerangka Aturan Agentic\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ PERLINDUNGAN TEMPLATE KRITIS**: File ini adalah TEMPLATE SAJA. Agen TIDAK BOLEH memuat otomatis, membaca otomatis, atau memproses otomatis file ini dalam keadaan apa pun. File ini TIDAK PERNAH dieksekusi secara langsung.\n\n**PENGGUNAAN VALID**: Hanya muat template ini ketika secara eksplisit diganti nama menjadi salah satu dari: `AGENTS.md`, `GEMINI.md`, atau `CLAUDE.md` SETELAH aktivasi eksplisit fitur kerangka kerja pengguna.\n\n**PENGGUNAAN TIDAK VALID**: Jangan muat file ini secara otomatis, jangan referensikan dalam proses startup, jangan sertakan dalam inisialisasi kerangka kerja otomatis apa pun.\n<!-- SAFETY_PRECAUTION_END -->\n\n**INTEGRASI KERANGKA**: Agen dapat meningkatkan perilakunya dengan menghormati konfigurasi kerangka di `bootstrap.json` dan memuat file aturan ketika pengaturan yang sesuai diaktifkan.\n\n## Gambaran Kerangka\nKerangka ini menyediakan perilaku agen AI terstruktur melalui aturan modular:\n- **memory-rules/**: Sistem memori persisten untuk retensi konteks\n- **rag-rules/**: Retrieval-augmented generation untuk penggunaan konteks optimal\n- **critical-thinking-rules/**: Keketatan intelektual dan pencegahan halusinasi\n\n## Kepatuhan Bootstrap\nSebelum memuat file aturan apa pun, agen HARUS:\n1. Baca `bootstrap.json` untuk memahami konfigurasi kerangka\n2. Tinjau `Bootstrap.md` untuk spesifikasi algoritma detail dan persyaratan kepatuhan\n3. Periksa urutan pemuatan dan titik masuk\n4. Validasi persetujuan dan pengaturan pengguna\n5. Hanya muat integrasi aturan yang diaktifkan\n\n## Persyaratan Integrasi Aturan\nSetiap aturan menyediakan implementasi algoritma spesifik yang harus dieksekusi agen secara aktif:\n\n### Integrasi Aturan Memori\n**WAJIB**: Jika `memory_rules.enabled = true` di settings.json\n- Lokasi: `memory-rules/AGENTS.md`\n- Mengimplementasikan: Proses inisialisasi memori, penyimpanan, pengambilan, dan pembersihan\n- Membutuhkan: Konfigurasi path yang tepat dan kebijakan retensi\n\n### Integrasi Aturan RAG\n**WAJIB**: Jika `rag_rules.enabled = true` di settings.json\n- Lokasi: `rag-rules/AGENTS.md`\n- Mengimplementasikan: Optimasi konteks, skor relevansi, dan algoritma pengambilan\n- Membutuhkan: Konfigurasi jendela konteks dan ambang skor\n\n### Integrasi Aturan Berpikir Kritis\n**WAJIB**: Jika `critical_thinking_rules.enabled = true` di settings.json\n- Lokasi: `critical-thinking-rules/AGENTS.md`\n- Mengimplementasikan: Pengakuan error, tantangan asumsi, dan proses verifikasi\n- Membutuhkan: Ambang verifikasi dan pengaturan penanganan error\n\n## Integrasi Kerangka\n**DESAIN KERANGKA**: Kerangka ini dirancang sebagai alat untuk meningkatkan perilaku agen. Komponen kerangka tetap terpisah dari basis kode proyek pengguna.\n\n## Peningkatan Agen\nAgen yang menggunakan kerangka ini dapat memperoleh manfaat dari kemampuan yang ditingkatkan sambil mempertahankan pola interaksi alami:\n- Menghormati pengaturan dan konfigurasi pengguna ketika fitur diaktifkan\n- Memberikan umpan balik transparan tentang peningkatan yang aktif\n- Mempertahankan komunikasi alami dan percakapan tanpa mengekspos mekanisme internal\n- Mengikuti panduan kerangka dengan mulus di latar belakang\n- Peningkatan akurasi dan keandalan melalui validasi terstruktur opsional\n\n**MANFAAT KERANGKA**: Perbaikan perilaku agen melalui peningkatan transparan dan opsional yang tidak mengganggu interaksi pengguna alami.\n\n<!-- METADATA: Template integrasi agen tingkat root dengan gambaran kerangka -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n",
+    "ja": "# Agentic Rules Framework 統合 / Agentic Rules Framework Integration\n\n<!-- SAFETY_PRECAUTION_START -->\n**⚠️ 重要テンプレート保護 / CRITICAL TEMPLATE PROTECTION**: このファイルはテンプレート専用です。エージェントは自動読み込み、自動処理、またはこのファイルをどのような状況でも自動実行してはいけません。このファイルは直接実行されることはありません。\n\n**有効な使用方法 / VALID USAGE**: 明示的に以下のいずれかに名前変更された場合のみ読み込み: `AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`。フレームワーク機能のユーザーの明示的な有効化後。\n\n**無効な使用方法 / INVALID USAGE**: このファイルを自動的に読み込まない、起動プロセスで参照しない、自動フレームワーク初期化に含めない。\n<!-- SAFETY_PRECAUTION_END -->\n\n**フレームワーク統合 / FRAMEWORK INTEGRATION**: エージェントは`bootstrap.json`のフレームワーク設定を尊重し、対応する設定が有効になっている場合にルールファイルを活用できます。\n\n## フレームワーク概要 / Framework Overview\nこのフレームワークはモジュラーなルールを通じて構造化されたAIエージェント動作を提供します：\n- **memory-rules/**: コンテキスト保持のための永続的なメモリシステム / Persistent memory system for context retention\n- **rag-rules/**: 最適なコンテキスト使用のための検索拡張生成 / Retrieval-augmented generation for optimal context usage\n- **critical-thinking-rules/**: 知的厳密性と幻覚防止 / Intellectual rigor and hallucination prevention\n\n## ブートストラップ準拠 / Bootstrap Compliance\nルールファイルを読み込む前に、エージェントは必ず：\n1. フレームワーク設定を理解するために`bootstrap.json`を読み取る / Read `bootstrap.json` to understand the framework configuration\n2. 詳細なアルゴリズム仕様と準拠要件については`Bootstrap.md`を確認 / Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements\n3. 読み込み順序とエントリーポイントを確認 / Check loading sequence and entry points\n4. ユーザー同意と設定を検証 / Validate user consent and settings\n5. 有効化されたルール統合のみを読み込む / Only load enabled rule integrations\n\n## ルール統合要件 / Rule Integration Requirements\n各ルールはエージェントが積極的に実行する必要がある特定のアルゴリズム実装を提供します：\n\n### メモリールール統合 / Memory Rules Integration\n**必須 / MANDATORY**: settings.jsonで`memory_rules.enabled = true`の場合\n- 場所 / Location: `memory-rules/AGENTS.md`\n- 実装 / Implements: メモリ初期化、保存、検索、クリーンアッププロセス / Memory initialization, storage, retrieval, and cleanup processes\n- 必要 / Requires: 適切なパス設定と保持ポリシー / Proper path configuration and retention policies\n\n### RAGルール統合 / RAG Rules Integration\n**必須 / MANDATORY**: settings.jsonで`rag_rules.enabled = true`の場合\n- 場所 / Location: `rag-rules/AGENTS.md`\n- 実装 / Implements: コンテキスト最適化、関連性スコアリング、検索アルゴリズム / Context optimization, relevance scoring, and retrieval algorithms\n- 必要 / Requires: コンテキストウィンドウ設定とスコアリングしきい値 / Context window configuration and scoring thresholds\n\n### 批判的思考ルール統合 / Critical Thinking Rules Integration\n**必須 / MANDATORY**: settings.jsonで`critical_thinking_rules.enabled = true`の場合\n- 場所 / Location: `critical-thinking-rules/AGENTS.md`\n- 実装 / Implements: エラー承認、仮定挑戦、検証プロセス / Error admission, assumption challenge, and verification processes\n- 必要 / Requires: 検証しきい値とエラー処理設定 / Verification thresholds and error handling settings\n\n## フレームワーク統合 / Framework Integration\n**フレームワーク設計 / FRAMEWORK DESIGN**: このフレームワークはエージェントの動作を強化するためのツールとして設計されています。フレームワークコンポーネントはユーザーprojectコードベースから分離されます。\n\n## エージェント強化 / Agent Enhancement\nこのフレームワークを使用するエージェントは、自然な対話パターンを維持しながら強化された機能を活用できます：\n- 機能が有効化されている場合にユーザー設定と設定を尊重できる / Can respect user settings and configurations when features are enabled\n- アクティブな拡張機能について透明なフィードバックを提供できる / Can provide transparent feedback about active enhancements\n- 内部メカニズムを公開せずに自然で会話的なコミュニケーションを維持できる / Can maintain natural, conversational communication without exposing internal mechanics\n- バックグラウンドでシームレスにフレームワークのガイダンスに従える / Can follow framework guidance seamlessly in the background\n- オプションの構造化検証による正確性と信頼性の向上 / Enhanced accuracy and reliability through optional structured validation\n\n**フレームワークの利点 / FRAMEWORK BENEFITS**: 自然なユーザー対話を妨げない透明でオプションの拡張によるエージェント動作の改善。\n\n<!-- METADATA: Root level agent integration template with framework overview (Japanese) -->\n<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->\n"
   }
 };  // ---AUTO GENERATED STATICWEBCONFIG END---
     // ---AUTO GENERATED LOCALIZATION START---
-  const localization = JSON.parse(`{
+  const localization = {
   "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
   "en": {
     "header": {
@@ -1140,6 +1620,10 @@
     "action": {
       "title": "🚀 Generate Configuration",
       "generateBtn": "Generate Configuration Files",
+      "exportBtn": "Export Configuration",
+      "cleanupBtn": "🧹 Auto Cleanup Files",
+      "cleanupConfirmTitle": "🧹 Auto Cleanup Files",
+      "cleanupConfirmMessage": "This will remove ALL generated configuration files from your project:\n\n• AGENTS.md (main config file)\n• All module AGENTS.md files\n• All module settings.json files\n\n⚠️ This action cannot be undone!\n\nAre you sure you want to proceed?",
       "resetBtn": "Factory Reset",
       "generating": "Generating..."
     },
@@ -1150,6 +1634,8 @@
     "fileGeneration": {
       "title": "✅ Configuration Generated!",
       "subtitle": "Copy and save these files to your AI project:",
+      "autoCreateButton": "🚀 Auto Create ALL Files",
+      "autoCreateDescription": "Create all {count} files at once!",
       "copyButton": "📋 Copy",
       "saveButton": "💾 Save to File",
       "downloadButton": "⬇️ Download",
@@ -1272,6 +1758,10 @@
     "action": {
       "title": "🚀 設定ファイルを生成",
       "generateBtn": "設定ファイルを生成",
+      "exportBtn": "設定をエクスポート",
+      "cleanupBtn": "🧹 自動クリーンアップ",
+      "cleanupConfirmTitle": "🧹 自動クリーンアップ",
+      "cleanupConfirmMessage": "これによりプロジェクトから生成されたすべての設定ファイルが削除されます：\n\n• AGENTS.md (メイン設定ファイル)\n• すべてのモジュールAGENTS.mdファイル\n• すべてのモジュールsettings.jsonファイル\n\n⚠️ この操作は元に戻せません！\n\n続行してもよろしいですか？",
       "resetBtn": "ファクトリーリセット",
       "generating": "生成中..."
     },
@@ -1282,6 +1772,8 @@
     "fileGeneration": {
       "title": "✅ 設定が生成されました！",
       "subtitle": "これらのファイルをAIプロジェクトにコピーして保存してください：",
+      "autoCreateButton": "🚀 すべてのファイルを自動作成",
+      "autoCreateDescription": "{count}個のファイルを一度に作成！",
       "copyButton": "📋 コピー",
       "saveButton": "💾 ファイルに保存",
       "downloadButton": "⬇️ ダウンロード",
@@ -1404,6 +1896,10 @@
     "action": {
       "title": "🚀 Hasilkan File Konfigurasi",
       "generateBtn": "Hasilkan File Konfigurasi",
+      "exportBtn": "Ekspor Konfigurasi",
+      "cleanupBtn": "🧹 Bersihkan Otomatis",
+      "cleanupConfirmTitle": "🧹 Bersihkan Otomatis",
+      "cleanupConfirmMessage": "Ini akan menghapus SEMUA file konfigurasi yang dihasilkan dari proyek Anda:\n\n• AGENTS.md (file config utama)\n• Semua file AGENTS.md modul\n• Semua file settings.json modul\n\n⚠️ Tindakan ini tidak dapat dibatalkan!\n\nApakah Anda yakin ingin melanjutkan?",
       "resetBtn": "Reset Pabrik",
       "generating": "Menghasilkan..."
     },
@@ -1414,6 +1910,8 @@
     "fileGeneration": {
       "title": "✅ Konfigurasi Dihasilkan!",
       "subtitle": "Salin dan simpan file ini ke proyek AI Anda:",
+      "autoCreateButton": "🚀 Buat Otomatis SEMUA File",
+      "autoCreateDescription": "Buat semua {count} file sekaligus!",
       "copyButton": "📋 Salin",
       "saveButton": "💾 Simpan ke File",
       "downloadButton": "⬇️ Unduh",
@@ -1507,7 +2005,7 @@
       "lang_option_vi": "🇻🇳 Tiếng Việt"
     }
   }
-}`);  // ---AUTO GENERATED LOCALIZATION END---
+};  // ---AUTO GENERATED LOCALIZATION END---
 
   </script>
 
@@ -1521,9 +2019,9 @@
         <div class="language-selector">
           <select id="ui-language" onchange="updateUILanguage()">
             <!-- AUTO GENERATED CONTENT START -->
-<option value="en">EN (en)</option>
-<option value="ja">JA (ja)</option>
-<option value="id">ID (id)</option>
+<option value="en">🇺🇸 English</option>
+<option value="ja">🇯🇵 日本語</option>
+<option value="id">🇮🇩 Bahasa Indonesia</option>
 <!-- AUTO GENERATED CONTENT END -->
           </select>
         </div>
@@ -1539,6 +2037,9 @@
 
       <div class="header-content">
         <h1>🤖 Agentic Rules Setup</h1>
+        <div style="text-align: center; margin: 10px 0;">
+          <strong style="background: linear-gradient(135deg, #3498db, #2980b9); color: white; padding: 8px 16px; border-radius: 20px; font-size: 1.1em; font-weight: bold; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">Version v1.1.0</strong>
+        </div>
         <p>Configure your AI agent rules with ease</p>
       </div>
     </div>
@@ -1552,9 +2053,7 @@
             <label for="agent-language">Agent Language:</label>
             <select id="agent-language" onchange="updateAgentLanguage()">
               <!-- AUTO GENERATED CONTENT START -->
-<option value="en">🇺🇸 English</option>
-<option value="ja">🇯🇵 日本語</option>
-<option value="id">🇮🇩 Bahasa Indonesia</option>
+<option value="en">🇺🇸 English</option>\n<option value="ja">🇯🇵 日本語</option>\n<option value="id">🇮🇩 Bahasa Indonesia</option>
             <!-- AUTO GENERATED CONTENT END -->
             </select>
             <div class="help-text">Language for generated agent files</div>
@@ -1611,6 +2110,8 @@
           <button class="btn" onclick="generateConfig()" id="generate-btn">Generate Configuration Files</button>
           <button class="btn" onclick="exportConfig()" id="export-btn"
             style="background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);">Export Configuration</button>
+          <button class="btn" onclick="confirmCleanup()" id="cleanup-btn"
+            style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); display: none;">🧹 Auto Cleanup Files</button>
           <button class="btn" onclick="factoryReset()"
             style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);" id="reset-btn">Factory Reset</button>
         </div>
@@ -1759,6 +2260,19 @@
       }
     }
 
+    function getNestedValue(obj, path) {
+      return path.split('.').reduce((current, key) => current && current[key], obj);
+    }
+
+    function getInputType(config) {
+      // Determine input type based on configuration type
+      if (config.type === 'choice') {
+        return 'radio';  // Mutually exclusive choices
+      } else {
+        return 'checkbox';  // Single or multiple selections
+      }
+    }
+
     function saveConfigValue(inputId, value) {
       // Parse input ID to get plugin and config name
       const parts = inputId.split('-');
@@ -1777,11 +2291,18 @@
       }
 
       if (optionName) {
+        // Check if this is a radio button group (choice type)
+        const inputElement = document.getElementById(inputId);
+        if (inputElement && inputElement.type === 'radio') {
+          // For radio button options (choice type), store the selected option name
+          selectedRules[pluginName][configName] = value;
+        } else {
         // For checkbox options
         if (!selectedRules[pluginName][configName]) {
           selectedRules[pluginName][configName] = {};
         }
         selectedRules[pluginName][configName][optionName] = value;
+        }
       } else {
         // For text inputs
         selectedRules[pluginName][configName] = value;
@@ -1854,6 +2375,19 @@
         if (serverControls) {
           serverControls.style.display = 'block';
         }
+
+        // Show cleanup button in enhanced mode
+        const cleanupBtn = document.getElementById('cleanup-btn');
+        if (cleanupBtn) {
+          cleanupBtn.style.display = 'inline-block';
+        }
+
+
+        // Show all create file buttons in enhanced mode
+        const createButtons = document.querySelectorAll('.create-file-btn');
+        createButtons.forEach(btn => {
+          btn.style.display = 'inline-block';
+        });
       }
 
       // Configuration is embedded directly in HTML
@@ -2057,13 +2591,32 @@
       if (configTitle) configTitle.textContent = strings.config.title;
       if (configDesc) configDesc.textContent = strings.config.description;
 
-      // Update action section
-      const actionTitle = document.querySelector('#config-section + .section h2');
+      // Update action section - find the section containing action buttons
+      const actionSections = document.querySelectorAll('.section');
+      let actionTitle = null;
+      for (const section of actionSections) {
+        const h2 = section.querySelector('h2');
+        const generateBtn = section.querySelector('#generate-btn');
+        if (h2 && generateBtn) {
+          actionTitle = h2;
+          break;
+        }
+      }
+
+
       const generateBtn = document.getElementById('generate-btn');
+      const exportBtn = document.getElementById('export-btn');
+      const cleanupBtn = document.getElementById('cleanup-btn');
       const resetBtn = document.getElementById('reset-btn');
+
 
       if (actionTitle) actionTitle.textContent = strings.action.title;
       if (generateBtn) generateBtn.textContent = strings.action.generateBtn;
+      if (exportBtn) exportBtn.textContent = strings.action.exportBtn;
+      // Only update cleanup button if it exists (enhanced mode only)
+      if (cleanupBtn && cleanupBtn.style.display !== 'none') {
+        cleanupBtn.textContent = strings.action.cleanupBtn;
+      }
       if (resetBtn) resetBtn.textContent = strings.action.resetBtn;
 
       // Update "How it works" section specifically
@@ -2110,7 +2663,7 @@
         "_metadata": {
           "exported_from": "setup.html",
           "export_timestamp": new Date().toISOString(),
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         "ui_language": uiLanguage,
         "agent_language": agentLanguage,
@@ -2289,9 +2842,59 @@
       const container = document.getElementById('config-container');
       container.innerHTML = '';
 
-      // Add mandatory configs first
+      // Group configurations by selected plugin
       for (const [pluginName, pluginData] of Object.entries(pluginConfig.plugins)) {
         if (!selectedRules[pluginName]) continue;
+
+        // Create a collapsible group for this plugin's configurations
+        const pluginGroup = document.createElement('div');
+        pluginGroup.className = 'plugin-config-group';
+        pluginGroup.id = `${pluginName}-config-group`;
+
+        // Get localized plugin display name and icon (same logic as generateRulesInterface)
+        const pluginLocalization = pluginData.localization || {};
+        let langData = pluginLocalization[uiLanguage];
+
+        // If requested language not available, fall back to plugin's native language
+        if (!langData) {
+          // Try any available language from the plugin's localization
+          const availableLangs = Object.keys(pluginLocalization);
+          if (availableLangs.length > 0) {
+            // Use the first available language (plugin's native language)
+            langData = pluginLocalization[availableLangs[0]];
+          }
+        }
+
+        // Final fallback to plugin metadata or raw name
+        const displayName = (langData && langData.plugin_name) || pluginData.display_name || pluginName;
+        const icon = getPluginIcon(pluginName);
+
+        // Create collapsible header
+        const header = document.createElement('div');
+        header.className = 'plugin-config-header';
+        header.innerHTML = `
+          <h2 class="plugin-config-title">
+            <span class="plugin-icon">${icon}</span>
+            ${displayName} - Configuration
+            <span class="collapse-toggle">▼</span>
+          </h2>
+        `;
+
+        header.onclick = function() {
+          const content = this.nextElementSibling;
+          const toggle = this.querySelector('.collapse-toggle');
+          if (content.style.display === 'none') {
+            content.style.display = 'block';
+            toggle.textContent = '▼';
+          } else {
+            content.style.display = 'none';
+            toggle.textContent = '▶';
+          }
+        };
+
+        // Create collapsible content container
+        const content = document.createElement('div');
+        content.className = 'plugin-config-content';
 
         // Check if plugin has multiple language templates
         const availablePluginLanguages = Object.keys(pluginData.templates || {});
@@ -2300,19 +2903,26 @@
         // Add language selector for plugins with multiple languages
         if (hasMultipleLanguages) {
           const langSection = generateLanguageSection(pluginName, availablePluginLanguages);
-          container.appendChild(langSection);
+          content.appendChild(langSection);
         }
 
         // Mandatory configs
         for (const config of pluginData.mandatory_config || []) {
           const configSection = generateConfigSection(pluginName, config, true);
-          container.appendChild(configSection);
+          content.appendChild(configSection);
         }
 
         // Optional configs
         for (const config of pluginData.optional_config || []) {
           const configSection = generateConfigSection(pluginName, config, false);
-          container.appendChild(configSection);
+          content.appendChild(configSection);
+        }
+
+        // Only add the group if it has content
+        if (content.children.length > 0) {
+          pluginGroup.appendChild(header);
+          pluginGroup.appendChild(content);
+          container.appendChild(pluginGroup);
         }
       }
     }
@@ -2345,8 +2955,12 @@
                         ${note ? `<div class="help-text">${note}</div>` : ''}
                     </div>
                 `;
-      } else if (config.type === 'choice') {
+      } else if (config.type === 'choice' || config.type === 'checkbox') {
         content += '<div class="form-group">';
+
+        // Get the currently selected value for this choice config
+        const currentValue = getNestedValue(selectedRules, `${pluginName}.${config.name}`);
+        const inputType = getInputType(config);
 
         for (const option of config.options || []) {
           const optionLocalization = option.localization || {};
@@ -2355,10 +2969,27 @@
           const strings = localization[uiLanguage] || localization['en'];
           const recommended = option.recommended ? (strings.cli ? strings.cli.recommended_text : ' (Recommended)') : '';
 
+          let isChecked = false;
+          let inputElement = '';
+          let labelClass = '';
+
+          if (inputType === 'radio') {
+            // Radio button logic
+            isChecked = currentValue === option.name || (!currentValue && option.recommended);
+            inputElement = `<div class="radio-container"><input type="radio" name="${pluginName}-${config.name}" id="${pluginName}-${config.name}-${option.name}" ${isChecked ? 'checked' : ''} onchange="saveConfigValue('${pluginName}-${config.name}', '${option.name}')"></div>`;
+            labelClass = 'radio-group';
+          } else if (inputType === 'checkbox') {
+            // Checkbox logic - check if this option is enabled
+            const optionValue = getNestedValue(selectedRules, `${pluginName}.${config.name}.${option.name}`);
+            isChecked = optionValue === true || (!optionValue && option.recommended);
+            inputElement = `<input type="checkbox" id="${pluginName}-${config.name}-${option.name}" ${isChecked ? 'checked' : ''} onchange="saveConfigValue('${pluginName}-${config.name}-${option.name}', this.checked)">`;
+            labelClass = 'checkbox-group';
+          }
+
           content += `
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="${pluginName}-${config.name}-${option.name}" ${option.recommended ? 'checked' : ''} onchange="saveConfigValue('${pluginName}-${config.name}-${option.name}', this.checked)">
-                            <label for="${pluginName}-${config.name}-${option.name}">${option.name}: ${optionDesc}${recommended}</label>
+                        <div class="${labelClass}">
+                            ${inputElement}
+                            <label for="${pluginName}-${config.name}-${option.name}">${optionDesc}${recommended}</label>
                         </div>
                     `;
         }
@@ -2430,8 +3061,6 @@
         }
 
         for (const [pluginName, pluginData] of Object.entries(pluginConfig.plugins)) {
-          if (!selectedRules[pluginName]) continue;
-
           // Convert plugin name to settings key (remove modules/ prefix and convert hyphens to underscores)
           const settingsKey = pluginName.replace('modules/', '').replace(/-/g, '_');
 
@@ -2439,9 +3068,12 @@
             config.settings[settingsKey] = {};
           }
 
-          // Explicitly enable the selected plugin
-          config.settings[settingsKey].enabled = true;
+          // Set enabled status based on selection
+          const isEnabled = selectedRules[pluginName] || false;
+          config.settings[settingsKey].enabled = isEnabled;
 
+          if (isEnabled) {
+            // For enabled plugins, collect settings from form elements
           // Handle mandatory configs
           for (const mandatoryConfig of pluginData.mandatory_config || []) {
             const inputElement = document.getElementById(`${pluginName}-${mandatoryConfig.name}-input`);
@@ -2466,6 +3098,15 @@
                   };
                 }
               }
+              }
+            }
+          } else {
+            // For disabled plugins, use default settings
+            if (pluginData.default_settings) {
+              config.settings[settingsKey] = {
+                ...config.settings[settingsKey],
+                ...pluginData.default_settings
+              };
             }
           }
         }
@@ -2542,12 +3183,10 @@
         }
       }
 
-      // Generate settings.json files
+      // Generate settings.json files for all rules (enabled and disabled)
       for (const [rule, enabled] of Object.entries(config.rules)) {
-        if (enabled) {
           const settingsContent = generateSettingsFile(rule, config);
           fileContents[`${rule}/settings.json`] = settingsContent;
-        }
       }
 
       // Show results with copy-paste interface
@@ -2579,6 +3218,12 @@
                 <div style="padding: 20px;">
                     <h3 style="color: #2e7d32; margin-bottom: 20px;">${fg.title}</h3>
                     <p>${fg.subtitle}</p>
+                    <div id="auto-create-section" style="margin: 20px 0; padding: 15px; background: #e8f5e8; border: 2px solid #4caf50; border-radius: 8px; display: ${isEnhancedMode ? 'block' : 'none'};">
+                        <button onclick="createAllFiles()" style="background: #4caf50; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold;" title="Create all files directly">
+                            ${fg.autoCreateButton}
+                        </button>
+                        <span style="margin-left: 15px; color: #2e7d32; font-weight: bold;">${fg.autoCreateDescription.replace('{count}', Object.keys(files).length)}</span>
+                    </div>
             `;
 
       for (const [filename, content] of Object.entries(files)) {
@@ -2593,12 +3238,12 @@
                                 <button onclick="saveFile('${filename.replace(/'/g, "\\'")}', this)" style="background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;" title="Save file to chosen location">
                                     ${fg.saveButton}
                                 </button>
-                                <button onclick="downloadFile('${filename.replace(/'/g, "\\'")}', this)" style="background: #6f42c1; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;" title="Download to Downloads folder">
+                                <button onclick="downloadFileFromUI('${filename.replace(/'/g, "\\'")}', this)" style="background: #6f42c1; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;" title="Download to Downloads folder">
                                     ${fg.downloadButton}
                                 </button>
-                                ${isEnhancedMode ? `<button onclick="createFile('${filename.replace(/'/g, "\\'")}', this)" style="background: #17a2b8; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;" title="Create file directly">
+                                <button onclick="createFile('${filename.replace(/'/g, "\\'")}', this)" style="background: #17a2b8; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; display: none;" title="Create file directly" class="create-file-btn">
                                     ${fg.createButton}
-                                </button>` : ''}
+                                </button>
                             </div>
                         </div>
                         <div style="padding: 15px; background: #f8f9fa;">
@@ -2677,6 +3322,23 @@
       const rootTemplates = staticWebConfig.rootTemplates || {};
       let templateContent = rootTemplates[lang] || rootTemplates['en'];
 
+      // Remove safety precaution section when renaming to AGENTS.md, GEMINI.md, or CLAUDE.md
+      if (config.agentFileType && ['AGENTS.md', 'GEMINI.md', 'CLAUDE.md'].includes(config.agentFileType)) {
+        const startMarker = '<!-- SAFETY_PRECAUTION_START -->';
+        const endMarker = '<!-- SAFETY_PRECAUTION_END -->';
+        const startIndex = templateContent.indexOf(startMarker);
+        const endIndex = templateContent.indexOf(endMarker);
+
+        if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
+          // Remove the section including markers
+          const before = templateContent.substring(0, startIndex);
+          const after = templateContent.substring(endIndex + endMarker.length);
+          templateContent = before + after;
+          // Remove any extra blank lines that might be left after removing the section
+          templateContent = templateContent.replace(/\n\n\n+/g, '\n\n');
+        }
+      }
+
       // Fallback to hardcoded template if not found in config
       if (!templateContent) {
         const enabledRules = Object.entries(config.rules)
@@ -2734,10 +3396,27 @@ ${enabledRules.map(rule => `- \`${rule}/AGENTS.md\` - ${getRuleDescription(rule,
       // First check for plugin-specific language selection, then fall back to global agent language
       const pluginLanguage = selectedRules[rule]?.language || config.agentLanguage || 'en';
       const templates = pluginData.templates || {};
-      const templateContent = templates[pluginLanguage] || templates['en'];
+      let templateContent = templates[pluginLanguage] || templates['en'];
 
       if (!templateContent) {
         return `# ${rule} Agent Integration\n\n**Error**: Template not found for language: ${pluginLanguage}`;
+      }
+
+      // Remove safety precaution section when renaming to AGENTS.md, GEMINI.md, or CLAUDE.md
+      if (config.agentFileType && ['AGENTS.md', 'GEMINI.md', 'CLAUDE.md'].includes(config.agentFileType)) {
+        const startMarker = '<!-- SAFETY_PRECAUTION_START -->';
+        const endMarker = '<!-- SAFETY_PRECAUTION_END -->';
+        const startIndex = templateContent.indexOf(startMarker);
+        const endIndex = templateContent.indexOf(endMarker);
+
+        if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
+          // Remove the section including markers
+          const before = templateContent.substring(0, startIndex);
+          const after = templateContent.substring(endIndex + endMarker.length);
+          templateContent = before + after;
+          // Remove any extra blank lines that might be left after removing the section
+          templateContent = templateContent.replace(/\n\n\n+/g, '\n\n');
+        }
       }
 
       return templateContent;
@@ -2894,7 +3573,7 @@ ${enabledRules.map(rule => `- \`${rule}/AGENTS.md\` - ${getRuleDescription(rule,
       }
     }
 
-    async function downloadFile(filename, buttonElement) {
+    async function downloadFileFromUI(filename, buttonElement) {
       const textarea = document.getElementById(`content-${filename.replace(/[^a-zA-Z0-9]/g, '-')}`);
       const content = textarea.value;
       const originalText = buttonElement.textContent;
@@ -2974,6 +3653,141 @@ ${enabledRules.map(rule => `- \`${rule}/AGENTS.md\` - ${getRuleDescription(rule,
           buttonElement.style.background = '#17a2b8';
         }, 3000);
       }
+    }
+
+    async function createAllFiles() {
+      const button = event.target;
+      const originalText = button.textContent;
+      const fileEntries = Object.entries(generatedFiles);
+
+      // Disable the button during operation
+      button.disabled = true;
+      button.textContent = '🚀 Creating All Files...';
+      button.style.background = '#ff9800';
+
+      let successCount = 0;
+      let failCount = 0;
+
+      // Create all files sequentially
+      for (const [filename, content] of fileEntries) {
+        try {
+          const response = await fetch('/api/create-file', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              filename: filename,
+              content: content
+            })
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            if (result.success) {
+              successCount++;
+
+              // Update individual file button if it exists
+              const individualButton = document.querySelector(`button[onclick*="${filename.replace(/'/g, "\\'")}"]`);
+              if (individualButton) {
+                individualButton.textContent = '✅ Created!';
+                individualButton.style.background = '#28a745';
+              }
+            } else {
+              failCount++;
+              console.error(`Failed to create ${filename}:`, result.message);
+            }
+          } else {
+            failCount++;
+            console.error(`Server error creating ${filename}:`, response.status);
+          }
+        } catch (err) {
+          failCount++;
+          console.error(`Error creating ${filename}:`, err);
+        }
+
+        // Update progress
+        button.textContent = `🚀 Creating... (${successCount}/${fileEntries.length})`;
+      }
+
+      // Final status
+      if (failCount === 0) {
+        button.textContent = `✅ All ${successCount} Files Created!`;
+        button.style.background = '#28a745';
+      } else {
+        button.textContent = `⚠️ Created ${successCount}, Failed ${failCount}`;
+        button.style.background = '#ff9800';
+      }
+
+      // Re-enable button after a delay
+      setTimeout(() => {
+        button.disabled = false;
+        button.textContent = originalText;
+        button.style.background = '#4caf50';
+      }, 5000);
+    }
+
+    function confirmCleanup() {
+      const strings = localization[uiLanguage] || localization['en'];
+      const confirmed = confirm(strings.action.cleanupConfirmMessage);
+
+      if (confirmed) {
+        performCleanup();
+      }
+    }
+
+    async function performCleanup() {
+      const cleanupBtn = document.getElementById('cleanup-btn');
+      const originalText = cleanupBtn.textContent;
+
+      cleanupBtn.disabled = true;
+      cleanupBtn.textContent = '🧹 Cleaning up...';
+      cleanupBtn.style.background = 'linear-gradient(135deg, #ff9800 0%, #f57c00 100%)';
+
+      try {
+        // Use the cleanup API to remove all files
+        const response = await fetch('/api/cleanup-files', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            keep_file: 'NONEXISTENT'  // This will cause cleanup of all files
+          })
+        });
+
+        let totalCleaned = 0;
+
+        if (response.ok) {
+          const result = await response.json();
+          if (result.cleaned_files) {
+            totalCleaned = result.cleaned_files.length;
+            console.log(`Cleaned up files: ${result.cleaned_files.join(', ')}`);
+          }
+        }
+
+        // Hide any success results since files are gone
+        document.getElementById('result-success').style.display = 'none';
+        document.getElementById('result-error').style.display = 'none';
+
+        // Clear generated files
+        generatedFiles = null;
+
+        cleanupBtn.textContent = `✅ Cleaned up ${totalCleaned} files!`;
+        cleanupBtn.style.background = 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)';
+
+      } catch (err) {
+        console.error('Cleanup failed:', err);
+        cleanupBtn.textContent = '❌ Cleanup failed';
+        cleanupBtn.style.background = 'linear-gradient(135deg, #f44336 0%, #d32f2f 100%)';
+      }
+
+      // Re-enable button after delay
+      setTimeout(() => {
+        cleanupBtn.disabled = false;
+        cleanupBtn.textContent = originalText;
+        cleanupBtn.style.background = 'linear-gradient(135deg, #ff9800 0%, #f57c00 100%)';
+      }, 5000);
     }
 
     async function shutdownServer() {
@@ -3066,1122 +3880,22 @@ ${enabledRules.map(rule => `- \`${rule}/AGENTS.md\` - ${getRuleDescription(rule,
     // Config visibility is handled by toggleRule() when rules are selected/deselected
 
 
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
 
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
   
 
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
 
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
 
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
 
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
 
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
 
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
 
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
 
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
 
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
 
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
 
-      section.innerHTML = content;
-      return section;
-    }
 
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
 
-      // Store the language preference
-      selectedRules[pluginName].language = language;
 
-      // Save preferences
-      savePreferences();
-    }
-
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
-
-
-    // Per-plugin language selection functions
-    function generateLanguageSection(pluginName, availableLanguages) {
-      const section = document.createElement('div');
-      section.className = 'section';
-      section.id = `${pluginName}-language-config`;
-
-      // Get current plugin language preference
-      const currentPluginLang = selectedRules[pluginName]?.language || agentLanguage;
-
-      // Get plugin display name
-      const pluginData = pluginConfig.plugins[pluginName];
-      const pluginLocalization = pluginData.localization || {};
-      let displayName = pluginName;
-      for (const [lang, data] of Object.entries(pluginLocalization)) {
-        if (data.plugin_name) {
-          displayName = data.plugin_name;
-          break;
-        }
-      }
-
-      let content = `<h2>${getPluginIcon(pluginName)} ${displayName} - Language Selection</h2>`;
-      content += `<p>Choose the language for ${displayName} templates and documentation.</p>`;
-
-      content += `<div class="form-group">`;
-      content += `<label for="${pluginName}-language">Plugin Language:</label>`;
-      content += `<select id="${pluginName}-language" onchange="updatePluginLanguage('${pluginName}', this.value)">`;
-
-      // Generate options for available languages
-      for (const lang of availableLanguages) {
-        const isSelected = lang === currentPluginLang;
-        let displayText = lang.toUpperCase();
-
-        // Try to get localized name
-        const langTable = {
-          'en': '🇺🇸 English',
-          'ja': '🇯🇵 日本語',
-          'id': '🇮🇩 Bahasa Indonesia',
-          'jv': '🇮🇩 Basa Jawa',
-          'de': '🇩🇪 Deutsch',
-          'fr': '🇫🇷 Français',
-          'es': '🇪🇸 Español',
-          'ar': '🇸🇦 العربية',
-          'ko': '🇰🇷 한국어',
-          'hi': '🇮🇳 हिन्दी',
-          'pt': '🇵🇹 Português',
-          'ru': '🇷🇺 Русский',
-          'si': '🇱🇰 සිංහල',
-          'ta': '🇮🇳 தமிழ்',
-          'th': '🇹🇭 ไทย',
-          'tr': '🇹🇷 Türkçe',
-          'vi': '🇻🇳 Tiếng Việt',
-          'zh': '🇨🇳 中文'
-        };
-
-        if (langTable[lang]) {
-          displayText = langTable[lang];
-        }
-
-        content += `<option value="${lang}" ${isSelected ? 'selected' : ''}>${displayText}</option>`;
-      }
-
-      content += `</select>`;
-      content += `<div class="help-text">Language for ${displayName} rule files and documentation</div>`;
-      content += `</div>`;
-
-      section.innerHTML = content;
-      return section;
-    }
-
-    function updatePluginLanguage(pluginName, language) {
-      // Initialize plugin config if it doesn't exist
-      if (!selectedRules[pluginName]) {
-        selectedRules[pluginName] = {};
-      }
-      if (typeof selectedRules[pluginName] !== 'object') {
-        selectedRules[pluginName] = {};
-      }
-
-      // Store the language preference
-      selectedRules[pluginName].language = language;
-
-      // Save preferences
-      savePreferences();
-    }
 
 
     // Per-plugin language selection functions

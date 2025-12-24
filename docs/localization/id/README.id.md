@@ -37,6 +37,34 @@ Framework plug-and-play yang menyediakan aturan terstruktur untuk perilaku agen 
 
 </details>
 
+## 🚀 Mulai Cepat - Pengaturan Pertama Kali
+
+### ⚠️ **Langkah 1: Jalankan Antarmuka Pengaturan (PENTING!)**
+**Jalankan `setup.html` terlebih dahulu untuk mengkonfigurasi aturan dan menghasilkan file yang diperlukan!**
+
+1. **Unduh** file framework `agentic-rules` dari GitHub
+2. **Klik ganda** `setup.html` untuk meluncurkan antarmuka web
+3. **Konfigurasi** aturan yang diinginkan (Memori, RAG, Berpikir Kritis)
+4. **Hasilkan** file konfigurasi
+
+> 💡 **Mengapa setup.html terlebih dahulu?** Antarmuka web membuat file konfigurasi dan aturan yang dibutuhkan sistem bootstrap. Tanpa langkah ini, framework mungkin tidak menginisialisasi dengan benar.
+>
+> 🔧 **Untuk Insinyur/Pengembang**: Gunakan peluncur Python yang ditingkatkan untuk fungsionalitas yang lebih baik - menyediakan pembuatan file langsung dan kontrol server. Lihat [Panduan Pengembang](DEVELOPER-GUIDE.id.md) untuk opsi otomasi pengaturan.
+
+---
+
+### ⚡ **Langkah 2: Inisialisasi Sistem Agentic Rules**
+**Setelah setup.html, selesaikan inisialisasi bootstrap SATU KALI ini!**
+
+1. **Beritahu agen AI Anda**: `Initialize agentic rules system`
+2. **Berikan izin** ketika diminta untuk mengaktifkan framework
+3. **Tinjau pengaturan** untuk aturan Memori, RAG, dan Berpikir Kritis
+4. **Framework aktif** - agen Anda sekarang memiliki kemampuan yang ditingkatkan!
+
+> 💡 **Mengapa langkah ini?** Framework memerlukan konfigurasi bootstrap awal untuk memastikan integrasi yang tepat dengan lingkungan AI Anda. Pengaturan satu kali ini mengaktifkan semua fitur framework.
+
+---
+
 ## 🎯 Ikhtisar Framework
 
 **Agentic Rules Framework** meningkatkan kemampuan agen AI melalui 3 sistem aturan khusus:
