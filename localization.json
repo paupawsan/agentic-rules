@@ -29,6 +29,10 @@
     "action": {
       "title": "🚀 Generate Configuration",
       "generateBtn": "Generate Configuration Files",
+      "exportBtn": "Export Configuration",
+      "cleanupBtn": "🧹 Auto Cleanup Files",
+      "cleanupConfirmTitle": "🧹 Auto Cleanup Files",
+      "cleanupConfirmMessage": "This will remove ALL generated configuration files from your project:\n\n• AGENTS.md (main config file)\n• All module AGENTS.md files\n• All module settings.json files\n\n⚠️ This action cannot be undone!\n\nAre you sure you want to proceed?",
       "resetBtn": "Factory Reset",
       "generating": "Generating..."
     },
@@ -39,6 +43,8 @@
     "fileGeneration": {
       "title": "✅ Configuration Generated!",
       "subtitle": "Copy and save these files to your AI project:",
+      "autoCreateButton": "🚀 Auto Create ALL Files",
+      "autoCreateDescription": "Create all {count} files at once!",
       "copyButton": "📋 Copy",
       "saveButton": "💾 Save to File",
       "downloadButton": "⬇️ Download",
@@ -161,6 +167,10 @@
     "action": {
       "title": "🚀 設定ファイルを生成",
       "generateBtn": "設定ファイルを生成",
+      "exportBtn": "設定をエクスポート",
+      "cleanupBtn": "🧹 自動クリーンアップ",
+      "cleanupConfirmTitle": "🧹 自動クリーンアップ",
+      "cleanupConfirmMessage": "これによりプロジェクトから生成されたすべての設定ファイルが削除されます：\n\n• AGENTS.md (メイン設定ファイル)\n• すべてのモジュールAGENTS.mdファイル\n• すべてのモジュールsettings.jsonファイル\n\n⚠️ この操作は元に戻せません！\n\n続行してもよろしいですか？",
       "resetBtn": "ファクトリーリセット",
       "generating": "生成中..."
     },
@@ -171,6 +181,8 @@
     "fileGeneration": {
       "title": "✅ 設定が生成されました！",
       "subtitle": "これらのファイルをAIプロジェクトにコピーして保存してください：",
+      "autoCreateButton": "🚀 すべてのファイルを自動作成",
+      "autoCreateDescription": "{count}個のファイルを一度に作成！",
       "copyButton": "📋 コピー",
       "saveButton": "💾 ファイルに保存",
       "downloadButton": "⬇️ ダウンロード",
@@ -293,6 +305,10 @@
     "action": {
       "title": "🚀 Hasilkan File Konfigurasi",
       "generateBtn": "Hasilkan File Konfigurasi",
+      "exportBtn": "Ekspor Konfigurasi",
+      "cleanupBtn": "🧹 Bersihkan Otomatis",
+      "cleanupConfirmTitle": "🧹 Bersihkan Otomatis",
+      "cleanupConfirmMessage": "Ini akan menghapus SEMUA file konfigurasi yang dihasilkan dari proyek Anda:\n\n• AGENTS.md (file config utama)\n• Semua file AGENTS.md modul\n• Semua file settings.json modul\n\n⚠️ Tindakan ini tidak dapat dibatalkan!\n\nApakah Anda yakin ingin melanjutkan?",
       "resetBtn": "Reset Pabrik",
       "generating": "Menghasilkan..."
     },
@@ -303,6 +319,8 @@
     "fileGeneration": {
       "title": "✅ Konfigurasi Dihasilkan!",
       "subtitle": "Salin dan simpan file ini ke proyek AI Anda:",
+      "autoCreateButton": "🚀 Buat Otomatis SEMUA File",
+      "autoCreateDescription": "Buat semua {count} file sekaligus!",
       "copyButton": "📋 Salin",
       "saveButton": "💾 Simpan ke File",
       "downloadButton": "⬇️ Unduh",
