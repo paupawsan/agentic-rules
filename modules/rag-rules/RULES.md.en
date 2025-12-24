@@ -48,6 +48,56 @@
 2. Validate response against source information
 3. Ensure all claims are supported by retrieved context
 4. Flag any information gaps or assumptions
+
+### Algorithm: Runtime_Knowledge_Graph_Generation
+**AVAILABLE**: Can execute during conversations and document processing for dynamic learning
+
+**Steps**:
+1. Check rag_rules.enabled = true and knowledge_graph.enabled = true
+2. Extract entities, relationships, and concepts from current conversation/document
+3. Identify semantic relationships between extracted elements
+4. Update runtime knowledge graph with new connections and patterns
+5. Strengthen existing relationships based on frequency and recency
+6. Prune outdated or weakly connected nodes to maintain graph efficiency
+7. Store graph state for persistence across sessions
+
+### Algorithm: Knowledge_Graph_Query_Enhancement
+**AVAILABLE**: Can execute during information retrieval to leverage learned relationships
+
+**Steps**:
+1. Check rag_rules.enabled = true and knowledge_graph.enabled = true
+2. Analyze user query for entities and concepts
+3. Query knowledge graph for related information and connections
+4. Identify indirect relationships and inference paths
+5. Retrieve contextually related information beyond direct keyword matches
+6. Rank results using graph centrality and relationship strength
+7. Integrate graph-enhanced results with traditional RAG retrieval
+
+### Algorithm: Self_Learning_Pattern_Recognition
+**AVAILABLE**: Can execute periodically to identify and learn recurring patterns
+
+**Steps**:
+1. Check rag_rules.enabled = true and self_learning.enabled = true
+2. Analyze conversation patterns and user interaction styles
+3. Identify frequently occurring entity relationships and topics
+4. Discover user preferences and communication patterns
+5. Update behavior patterns in knowledge graph
+6. Adapt response strategies based on learned patterns
+7. Generate insights for improved future interactions
+
+### Algorithm: Knowledge_Graph_Integration_with_RAG
+**AVAILABLE**: Can execute to combine graph-based learning with traditional RAG processes
+
+**Steps**:
+1. Check rag_rules.enabled = true and knowledge_graph.enabled = true
+2. Process user query through both traditional RAG and knowledge graph
+3. Merge results using intelligent ranking based on:
+   - Graph relationship strength
+   - Traditional relevance scoring
+   - Recency and importance factors
+4. Generate enriched context combining structured knowledge and unstructured text
+5. Update knowledge graph with new relationships discovered during query processing
+6. Provide comprehensive response with both factual and relational context
 5. Optimize response completeness and accuracy
 
 ## Settings Compliance

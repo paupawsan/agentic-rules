@@ -11,6 +11,8 @@ Aturan RAG menyediakan sistem bagi agen untuk memproses informasi secara efektif
 - **Pencarian Cerdas**: Mencari dan mengambil informasi terkait secara efisien
 - **Optimasi Konteks**: Memaksimalkan jendela konteks LLM
 - **Integrasi Informasi**: Mengintegrasikan wawasan dari beberapa sumber informasi
+- **Pembelajaran Grafik Pengetahuan**: Membangun dan belajar hubungan pengetahuan secara dinamis
+- **Pola Pembelajaran Mandiri**: Beradaptasi berdasarkan interaksi pengguna
 - **Penilaian Relevansi**: Memprioritaskan informasi yang paling relevan
 
 ## ✨ Kemampuan Utama
@@ -179,6 +181,32 @@ Membangun jawaban komprehensif
 - **Kelengkapan**: Jawaban komprehensif terhadap query
 - **Relevansi**: Kesesuaian jawaban dengan query
 - **Kebaruan**: Penyediaan wawasan baru
+
+## 🚀 Fitur Kecerdasan Lanjutan
+
+### 🧠 **Pembuatan Grafik Pengetahuan Runtime**
+- **Pembelajaran Dinamis**: Secara otomatis membangun grafik pengetahuan dari percakapan dan dokumen
+- **Penemuan Hubungan**: Mengidentifikasi koneksi antara entitas, konsep, dan ide
+- **Evolusi Grafik**: Memperbarui dan memperkuat hubungan seiring waktu
+- **Pemangkasan Cerdas**: Mempertahankan efisiensi grafik dengan menghapus koneksi yang kedaluwarsa
+
+### 🔗 **Pengambilan yang Ditingkatkan Grafik**
+- **Pencarian Berbasis Hubungan**: Menemukan informasi melalui koneksi, bukan hanya kata kunci
+- **Mesin Inferensi**: Menemukan hubungan tidak langsung dan koneksi tersembunyi
+- **Ekspansi Konteks**: Mengambil informasi terkait di luar kecocokan langsung
+- **Peringkat Hibrid**: Menggabungkan relevansi tradisional dengan pusat grafik
+
+### 🎯 **Pengenalan Pola Pembelajaran Mandiri**
+- **Analisis Perilaku Pengguna**: Belajar pola komunikasi dan preferensi
+- **Respons Adaptif**: Menyesuaikan gaya interaksi berdasarkan pola yang dipelajari
+- **Memori Percakapan**: Mengingat konteks di seluruh beberapa interaksi
+- **Personalisasi**: Menyesuaikan respons dengan gaya pengguna individu
+
+### ⚡ **Fusi Konteks Cerdas**
+- **Integrasi Multi-Sumber**: Menggabungkan RAG tradisional dengan wawasan grafik pengetahuan
+- **Pembobotan Dinamis**: Menyeimbangkan pencarian faktual dengan pemahaman relasional
+- **Sintesis Komprehensif**: Memberikan respons yang lebih kaya melalui analisis multi-lapisan
+- **Adaptasi Real-time**: Belajar dan meningkatkan dengan setiap interaksi
 
 ## 🔧 Pemecahan Masalah
 

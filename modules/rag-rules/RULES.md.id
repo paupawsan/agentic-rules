@@ -8,7 +8,7 @@
 **PENGGUNAAN TIDAK VALID**: Jangan muat file ini secara otomatis, jangan referensikan dalam proses startup, jangan sertakan dalam inisialisasi kerangka kerja otomatis apa pun.
 <!-- SAFETY_PRECAUTION_END -->
 
-**PENINGKATAN KERANGKA**: Ketika rag_rules.enabled = true di settings.json, agen dapat mengimplementasikan algoritma ini untuk pemrosesan konteks yang lebih baik.
+**PENINGKATAN KERANGKA**: Ketika rag_rules.enabled = true di settings.json, agen dapat mengimplementasikan algoritma ini untuk pemrosesan konteks, pembuatan grafik pengetahuan, dan kemampuan pembelajaran mandiri yang lebih baik.
 
 ## Arsitektur Sistem RAG
 - **Optimasi Konteks**: Prioritaskan informasi yang relevan
@@ -49,6 +49,56 @@
 3. Pastikan semua klaim didukung oleh konteks yang diambil
 4. Tandai kesenjangan informasi atau asumsi apa pun
 5. Optimalkan kelengkapan dan akurasi respons
+
+### Algoritma: Runtime_Knowledge_Graph_Generation
+**TERSEDIA**: Eksekusi selama percakapan dan pemrosesan dokumen untuk pembelajaran dinamis
+
+**Langkah-langkah**:
+1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true
+2. Ekstrak entitas, hubungan, dan konsep dari percakapan/dokumen saat ini
+3. Identifikasi hubungan semantik antara elemen yang diekstrak
+4. Perbarui grafik pengetahuan runtime dengan koneksi dan pola baru
+5. Perkuat hubungan yang ada berdasarkan frekuensi dan kedaluwarsa
+6. Pangkas node yang kedaluwarsa atau lemah terhubung untuk mempertahankan efisiensi grafik
+7. Simpan status grafik untuk persistensi di seluruh sesi
+
+### Algoritma: Knowledge_Graph_Query_Enhancement
+**TERSEDIA**: Eksekusi selama pengambilan informasi untuk memanfaatkan hubungan yang dipelajari
+
+**Langkah-langkah**:
+1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true
+2. Analisis query pengguna untuk entitas dan konsep
+3. Query grafik pengetahuan untuk informasi dan koneksi terkait
+4. Identifikasi hubungan tidak langsung dan jalur inferensi
+5. Ambil informasi terkait kontekstual di luar kecocokan kata kunci langsung
+6. Peringkat hasil menggunakan pusat grafik dan kekuatan hubungan
+7. Perbarui grafik pengetahuan dengan hubungan baru yang ditemukan selama pemrosesan query
+
+### Algoritma: Self_Learning_Pattern_Recognition
+**TERSEDIA**: Eksekusi secara berkala untuk mengidentifikasi dan mempelajari pola berulang
+
+**Langkah-langkah**:
+1. Periksa rag_rules.enabled = true dan self_learning.enabled = true
+2. Analisis pola percakapan dan gaya interaksi pengguna
+3. Identifikasi hubungan entitas dan topik yang sering terjadi
+4. Temukan preferensi pengguna dan pola komunikasi
+5. Perbarui pola perilaku dalam grafik pengetahuan
+6. Adaptasi strategi respons berdasarkan pola yang dipelajari
+7. Hasilkan wawasan untuk interaksi masa depan yang lebih baik
+
+### Algoritma: Knowledge_Graph_Integration_with_RAG
+**TERSEDIA**: Eksekusi untuk menggabungkan pembelajaran berbasis grafik dengan proses RAG tradisional
+
+**Langkah-langkah**:
+1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true
+2. Proses query pengguna melalui RAG tradisional dan grafik pengetahuan
+3. Gabungkan hasil menggunakan peringkat cerdas berdasarkan:
+   - Kekuatan hubungan grafik
+   - Penilaian relevansi tradisional
+   - Faktor kedaluwarsa dan penting
+4. Hasilkan konteks yang diperkaya yang menggabungkan pengetahuan terstruktur dan teks tak terstruktur
+5. Perbarui grafik pengetahuan dengan hubungan baru yang ditemukan selama pemrosesan query
+6. Berikan respons komprehensif dengan konteks faktual dan relasional
 
 ## Kepatuhan Pengaturan
 - Hormati semua pengaturan di modules/rag-rules/settings.json

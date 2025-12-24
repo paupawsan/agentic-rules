@@ -8,7 +8,7 @@
 **無効な使用方法 / INVALID USAGE**: このファイルを自動的に読み込まない、起動プロセスで参照しない、自動フレームワーク初期化に含めない。
 <!-- SAFETY_PRECAUTION_END -->
 
-**フレームワーク強化 / FRAMEWORK ENHANCEMENT**: settings.jsonでrag_rules.enabled = trueの場合、エージェントはこれらのアルゴリズムを実装してコンテキスト処理を強化できます。
+**フレームワーク強化 / FRAMEWORK ENHANCEMENT**: settings.jsonでrag_rules.enabled = trueの場合、エージェントはこれらのアルゴリズムを実装してコンテキスト処理、知識グラフ生成、自己学習機能を強化できます。
 
 ## RAGシステムアーキテクチャ / RAG System Architecture
 - **コンテキスト最適化 / Context Optimization**: 関連情報の優先順位付け / Prioritize relevant information
@@ -49,6 +49,56 @@
 3. すべての主張が検索されたコンテキストでサポートされていることを確認 / Ensure all claims are supported by retrieved context
 4. 情報ギャップや仮定にフラグを付ける / Flag any information gaps or assumptions
 5. 応答の完全性と正確性を最適化 / Optimize response completeness and accuracy
+
+### アルゴリズム: Runtime_Knowledge_Graph_Generation / Algorithm: Runtime_Knowledge_Graph_Generation
+**利用可能 / AVAILABLE**: 会話とドキュメント処理中に実行して動的学習を行う / Execute during conversations and document processing for dynamic learning
+
+**ステップ / Steps**:
+1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true
+2. 現在の会話/ドキュメントからエンティティ、関係性、概念を抽出 / Extract entities, relationships, and concepts from current conversation/document
+3. 抽出された要素間のセマンティック関係を識別 / Identify semantic relationships between extracted elements
+4. 新しい接続とパターンでランタイム知識グラフを更新 / Update runtime knowledge graph with new connections and patterns
+5. 頻度と新しさに基づいて既存の関係性を強化 / Strengthen existing relationships based on frequency and recency
+6. グラフ効率を維持するために古くなった弱い接続ノードをプルーニング / Prune outdated or weakly connected nodes to maintain graph efficiency
+7. 永続性のためにグラフ状態を保存 / Store graph state for persistence across sessions
+
+### アルゴリズム: Knowledge_Graph_Query_Enhancement / Algorithm: Knowledge_Graph_Query_Enhancement
+**利用可能 / AVAILABLE**: 情報検索中に実行して学習した関係性を活用 / Execute during information retrieval to leverage learned relationships
+
+**ステップ / Steps**:
+1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true
+2. ユーザークエリからエンティティと概念を分析 / Analyze user query for entities and concepts
+3. 関連情報と接続について知識グラフをクエリ / Query knowledge graph for related information and connections
+4. 直接キーワードマッチを超えた間接関係と推論パスを特定 / Identify indirect relationships and inference paths
+5. 直接一致を超えた文脈的に関連情報を取得 / Retrieve contextually related information beyond direct keyword matches
+6. グラフ中心性と関係強度を使用して結果をランク付け / Rank results using graph centrality and relationship strength
+7. クエリ処理中に発見された新しい関係性で知識グラフを更新 / Update knowledge graph with new relationships discovered during query processing
+
+### アルゴリズム: Self_Learning_Pattern_Recognition / Algorithm: Self_Learning_Pattern_Recognition
+**利用可能 / AVAILABLE**: 定期的に実行して繰り返しパターンを特定して学習 / Execute periodically to identify and learn recurring patterns
+
+**ステップ / Steps**:
+1. rag_rules.enabled = trueおよびself_learning.enabled = trueを確認 / Check rag_rules.enabled = true and self_learning.enabled = true
+2. 会話パターンとユーザーインタラクションスタイルを分析 / Analyze conversation patterns and user interaction styles
+3. 頻繁に発生するエンティティ関係とトピックを特定 / Identify frequently occurring entity relationships and topics
+4. ユーザーの好みとコミュニケーション パターンを発見 / Discover user preferences and communication patterns
+5. 知識グラフ内の行動パターンを更新 / Update behavior patterns in knowledge graph
+6. 学習したパターンに基づいて応答戦略を適応 / Adapt response strategies based on learned patterns
+7. 将来のインタラクションを改善するための洞察を生成 / Generate insights for improved future interactions
+
+### アルゴリズム: Knowledge_Graph_Integration_with_RAG / Algorithm: Knowledge_Graph_Integration_with_RAG
+**利用可能 / AVAILABLE**: グラフベース学習を従来のRAGプロセスと組み合わせる / Execute to combine graph-based learning with traditional RAG processes
+
+**ステップ / Steps**:
+1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true
+2. 伝統的なRAGと知識グラフの両方でユーザークエリを処理 / Process user query through both traditional RAG and knowledge graph
+3. 次のものを使用して結果をマージ / Merge results using intelligent ranking based on:
+   - グラフ関係強度 / Graph relationship strength
+   - 伝統的な関連性スコアリング / Traditional relevance scoring
+   - 新しさと重要性の要因 / Recency and importance factors
+4. 構造化された知識と非構造化テキストを組み合わせた強化されたコンテキストを生成 / Generate enriched context combining structured knowledge and unstructured text
+5. クエリ処理中に発見された新しい関係性で知識グラフを更新 / Update knowledge graph with new relationships discovered during query processing
+6. 事実的および関係的コンテキストを含む包括的な応答を提供 / Provide comprehensive response with both factual and relational context
 
 ## 設定準拠 / Settings Compliance
 - modules/rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json
