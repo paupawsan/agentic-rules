@@ -20,7 +20,8 @@
     "descriptions": {
       "memory": "Memory system integration algorithms",
       "rag": "Context optimization and retrieval algorithms",
-      "critical": "Critical analysis and verification algorithms"
+      "critical": "Critical analysis and verification algorithms",
+      "concreteAlgorithms": "(with concrete algorithms)"
     },
     "config": {
       "title": "🔧 Configuration Options",
@@ -158,7 +159,8 @@
     "descriptions": {
       "memory": "メモリシステム統合アルゴリズム",
       "rag": "コンテキスト最適化および検索アルゴリズム",
-      "critical": "批判的分析および検証アルゴリズム"
+      "critical": "批判的分析および検証アルゴリズム",
+      "concreteAlgorithms": "（具象的なアルゴリズム付き）"
     },
     "config": {
       "title": "🔧 設定オプション",
@@ -296,7 +298,8 @@
     "descriptions": {
       "memory": "Algoritma integrasi sistem memori",
       "rag": "Algoritma pengoptimalan konteks dan pengambilan",
-      "critical": "Algoritma analisis kritis dan verifikasi"
+      "critical": "Algoritma analisis kritis dan verifikasi",
+      "concreteAlgorithms": "(dengan algoritma konkrit)"
     },
     "config": {
       "title": "🔧 Opsi Konfigurasi",

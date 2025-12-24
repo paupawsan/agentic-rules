@@ -87,7 +87,7 @@
         },
         "ja": {
           "title": "ランタイム知識グラフ",
-          "description": "自己学習のための動的知識グラフ生成を有効化 (具象的なアルゴリズム付き)"
+          "description": "自己学習のための動的知識グラフ生成を有効化（具象的なアルゴリズム付き）"
         },
         "id": {
           "title": "Grafik Pengetahuan Runtime",
