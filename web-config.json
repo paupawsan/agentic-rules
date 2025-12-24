@@ -742,8 +742,8 @@
               },
               "recommended": true,
               "settings": {
-                "context_optimization.max_context_window": 128000,
-                "context_optimization.dynamic_adjustment": true
+                "rag_rules.context_window_optimization.max_context_tokens": 128000,
+                "rag_rules.context_window_optimization.dynamic_adjustment": true
               }
             }
           ]

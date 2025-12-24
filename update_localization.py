@@ -41,9 +41,9 @@ def update_setup_html_localization():
     # Get available languages (excluding metadata)
     available_langs = [lang for lang in loc_data.keys() if lang != '_comment']
 
-    # Convert to JavaScript object format (not JSON.parse)
+    # Convert to JavaScript object format (direct object, not JSON.parse)
     json_str = json.dumps(loc_data, ensure_ascii=False, indent=2, separators=(',', ': '))
-    js_content = '    // ---AUTO GENERATED LOCALIZATION START---\n    const localization = ' + json_str + ';\n    // ---AUTO GENERATED LOCALIZATION END---'
+    js_content = '    // ---AUTO GENERATED LOCALIZATION START---\n  const localization = ' + json_str + ';\n    // ---AUTO GENERATED LOCALIZATION END---'
 
     # Read setup.html
     with open('setup.html', 'r') as f:
@@ -51,7 +51,7 @@ def update_setup_html_localization():
 
     # Replace the localization section (between markers)
     start_marker = '    // ---AUTO GENERATED LOCALIZATION START---'
-    end_marker = '}`);  // ---AUTO GENERATED LOCALIZATION END---'
+    end_marker = '    // ---AUTO GENERATED LOCALIZATION END---'
 
     start_pos = html_content.find(start_marker)
     if start_pos == -1:
@@ -63,15 +63,20 @@ def update_setup_html_localization():
         print("❌ Could not find localization end marker in setup.html")
         return False
 
-    # Replace only the content between markers (excluding markers)
-    start_replace_pos = start_pos + len(start_marker) + 1  # +1 for newline
-    end_replace_pos = end_pos
+    # Find the content to replace (from start marker to end marker, including the }); line)
+    start_replace_pos = start_pos
+    # Find the }; line before the end marker
+    closing_brace_pos = html_content.rfind('};', start_pos, end_pos)
+    if closing_brace_pos == -1:
+        print("❌ Could not find closing brace in localization section")
+        return False
+    end_replace_pos = end_pos + len(end_marker)
 
-    # Create the replacement content (without markers, just the localization)
-    localization_only = '  const localization = JSON.parse(`' + json_str + '`);'
+    # Create the replacement content (complete section with markers)
+    localization_section = '    // ---AUTO GENERATED LOCALIZATION START---\n  const localization = ' + json_str + ';\n    // ---AUTO GENERATED LOCALIZATION END---'
 
-    # Replace localization section
-    new_html = html_content[:start_replace_pos] + localization_only + html_content[end_replace_pos:]
+    # Replace the entire localization section including markers
+    new_html = html_content[:start_replace_pos] + localization_section + html_content[end_replace_pos:]
 
     # Generate dynamic language options with flags and native names
     ui_lang_options = []
@@ -145,9 +150,17 @@ def factory_reset_localization():
     swc_pattern = r'(  // ---AUTO GENERATED STATICWEBCONFIG START---\n).*?(  // ---AUTO GENERATED STATICWEBCONFIG END---)'
     new_html = re.sub(swc_pattern, r'\1  const staticWebConfig = {};\n\2', new_html, flags=re.DOTALL)
 
-    # Empty localization between JavaScript markers
-    loc_pattern = r'(  // ---AUTO GENERATED LOCALIZATION START---\n).*?(  // ---AUTO GENERATED LOCALIZATION END---)'
-    new_html = re.sub(loc_pattern, r'\1  const localization = JSON.parse(`{}`);\n\2', new_html, flags=re.DOTALL)
+    # Empty localization section with markers
+    loc_start_marker = '    // ---AUTO GENERATED LOCALIZATION START---'
+    loc_end_marker = '    // ---AUTO GENERATED LOCALIZATION END---'
+
+    loc_start_pos = new_html.find(loc_start_marker)
+    if loc_start_pos != -1:
+        loc_end_pos = new_html.find(loc_end_marker, loc_start_pos)
+        if loc_end_pos != -1:
+            loc_end_pos += len(loc_end_marker)
+            empty_loc_section = '    // ---AUTO GENERATED LOCALIZATION START---\n  const localization = {};\n    // ---AUTO GENERATED LOCALIZATION END---'
+            new_html = new_html[:loc_start_pos] + empty_loc_section + new_html[loc_end_pos:]
 
     # Reset UI language select - replace content between existing markers
     ui_select_start = new_html.find('<select id="ui-language"')
