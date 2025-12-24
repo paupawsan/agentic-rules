@@ -189,6 +189,7 @@ Membangun jawaban komprehensif
 - **Penemuan Hubungan**: Mengidentifikasi koneksi antara entitas, konsep, dan ide
 - **Evolusi Grafik**: Memperbarui dan memperkuat hubungan seiring waktu
 - **Pemangkasan Cerdas**: Mempertahankan efisiensi grafik dengan menghapus koneksi yang kedaluwarsa
+- **Integrasi Memori**: Mempertahankan grafik pengetahuan saat memory_rules diaktifkan (mencegah kehilangan saat ringkasan konteks)
 
 ### 🔗 **Pengambilan yang Ditingkatkan Grafik**
 - **Pencarian Berbasis Hubungan**: Menemukan informasi melalui koneksi, bukan hanya kata kunci
