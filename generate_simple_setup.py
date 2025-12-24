@@ -184,7 +184,7 @@ def generate_web_config():
                 display_name = native_local.get('plugin_name', plugin_name)
                 description = native_local.get('description', '')
 
-        # Build plugin config for web interface
+        # Build plugin config for web interface (input_type will be determined in HTML)
         plugin_config = {
             "name": plugin_name,
             "display_name": display_name,
@@ -310,7 +310,7 @@ def embed_config_in_html(web_config):
     # Replace staticWebConfig section
     new_html = html_content[:start_replace_pos] + static_config_only + html_content[end_replace_pos:]
 
-    # Replace Agent language selector with only root languages (en/ja/id)
+    # Replace Agent language selector with root languages using flag + native name format
     # Find the agent-language select element and its auto-generated content
     agent_select_pattern = '<select id="agent-language"'
     agent_select_pos = new_html.find(agent_select_pattern)
@@ -325,10 +325,24 @@ def embed_config_in_html(web_config):
         if agent_start_pos != -1:
             agent_end_pos = new_html.find(agent_end_marker, agent_start_pos)
             if agent_end_pos != -1:
+                # Generate options with flags and native names for root languages
+                agent_options = []
+                lang_table = {
+                    'en': '🇺🇸 English',
+                    'ja': '🇯🇵 日本語',
+                    'id': '🇮🇩 Bahasa Indonesia'
+                }
+                for lang in root_languages:
+                    display_name = lang_table.get(lang, lang.upper())
+                    agent_options.append(f'<option value="{lang}">{display_name}</option>')
+
                 agent_start_replace = agent_start_pos + len(agent_start_marker)
                 agent_end_replace = agent_end_pos
-                new_html = new_html[:agent_start_replace] + f'\n{root_language_options}\n            ' + new_html[agent_end_replace:]
+                new_html = new_html[:agent_start_replace] + f'\n{"\\n".join(agent_options)}\n            ' + new_html[agent_end_replace:]
 
+    # Replace version placeholder with actual version
+    version = web_config.get('version', '1.1.0')
+    new_html = new_html.replace('{version}', version)
 
     # Write back to setup.html
     try:
