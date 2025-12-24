@@ -169,6 +169,125 @@ Input: log_path, issue_description, analysis_type
 3. **Result Aggregation**: Combine parallel results intelligently
 4. **Error Handling**: Manage failures in parallel operations
 
+## Knowledge Graph Algorithms
+
+### Entity Extraction Algorithm
+```
+Algorithm: Structured_Entity_Extraction
+Input: text_content, domain_context
+Output: List of extracted entities with types
+
+1. Tokenize input text into sentences and words
+2. Apply part-of-speech tagging to identify noun phrases
+3. Use named entity recognition patterns:
+   - Person: Capitalized words following titles (Dr., Mr., Ms.)
+   - Organization: Capitalized sequences with corporate indicators
+   - Location: Geographic names and location indicators
+   - Concept: Domain-specific terminology from context
+4. Apply rule-based filtering:
+   - Remove common stop words and pronouns
+   - Validate against known entity dictionaries
+   - Cross-reference with domain context
+5. Assign confidence scores based on pattern matching
+6. Return entities sorted by confidence and frequency
+```
+
+### Relationship Discovery Algorithm
+```
+Algorithm: Pattern_Based_Relation_Extraction
+Input: entity_list, sentence_context
+Output: List of entity relationships
+
+1. Identify sentence structures containing multiple entities
+2. Apply syntactic pattern matching:
+   - Subject-verb-object triples
+   - Prepositional relationships (X works at Y, X located in Y)
+   - Possessive relationships (X's Y, Y of X)
+3. Use lexical pattern recognition:
+   - Verb-based relations (X develops Y, X uses Y)
+   - Noun compound analysis (machine learning model)
+   - Adjective relationships (X is Y, Y-based X)
+4. Apply domain-specific relation templates:
+   - Technical: "X implements Y", "X inherits from Y"
+   - Organizational: "X reports to Y", "X belongs to Y"
+   - Temporal: "X created Y", "Y updated by X"
+5. Validate relationships against consistency rules
+6. Return relationships with confidence scores
+```
+
+### Knowledge Graph Construction Algorithm
+```
+Algorithm: Incremental_Graph_Builder
+Input: entities, relationships, existing_graph
+Output: Updated knowledge graph
+
+1. Initialize graph with existing nodes and edges
+2. Process new entities:
+   - Add as nodes with type and attribute metadata
+   - Merge duplicate entities based on similarity scoring
+3. Process new relationships:
+   - Add as directed or undirected edges between nodes
+   - Include relationship type and confidence metadata
+4. Apply graph consistency checks:
+   - Remove contradictory relationships
+   - Merge redundant connections
+   - Update node centrality measures
+5. Perform graph optimization:
+   - Remove isolated nodes below threshold
+   - Simplify redundant paths
+   - Update graph indices for efficient querying
+6. Persist graph state with timestamp metadata
+```
+
+### Graph Query Algorithm
+```
+Algorithm: Semantic_Graph_Query
+Input: query_text, knowledge_graph
+Output: Ranked list of relevant information
+
+1. Parse query for entities and intent
+2. Identify relevant nodes through direct matching
+3. Expand search using graph traversal:
+   - Find connected nodes within 2-3 degrees
+   - Apply relationship type filtering
+   - Use centrality scoring for importance ranking
+4. Apply semantic similarity matching:
+   - Compare query concepts with node attributes
+   - Use synonym expansion from domain vocabulary
+   - Calculate concept relevance scores
+5. Rank results using multi-factor scoring:
+   - Direct match confidence
+   - Graph centrality weight
+   - Semantic similarity score
+   - Recency and frequency factors
+6. Return top-ranked results with explanation metadata
+```
+
+### Graph Maintenance Algorithm
+```
+Algorithm: Adaptive_Graph_Maintenance
+Input: knowledge_graph, usage_patterns, time_window
+Output: Optimized knowledge graph
+
+1. Analyze usage patterns over time window:
+   - Track query frequency for nodes and edges
+   - Monitor relationship strength changes
+   - Identify emerging vs. decaying connections
+2. Apply aging and pruning rules:
+   - Reduce confidence scores for unused elements
+   - Remove edges below minimum threshold
+   - Consolidate similar but unused nodes
+3. Perform graph restructuring:
+   - Merge highly similar nodes
+   - Simplify redundant relationship paths
+   - Update node clustering for better organization
+4. Optimize for query performance:
+   - Rebuild indices based on access patterns
+   - Pre-compute frequently accessed subgraphs
+   - Update caching strategies
+5. Generate maintenance report with statistics
+```
+
 ## Quality Assurance
 
 ### Reading Completeness Check
