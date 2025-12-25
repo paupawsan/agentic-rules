@@ -144,6 +144,58 @@ Algoritma: Adaptive_Graph_Maintenance
 5. Perbarui grafik pengetahuan dengan hubungan baru yang ditemukan selama pemrosesan query
 6. Berikan respons komprehensif dengan konteks faktual dan relasional
 
+## Algoritma Pemilihan dan Penggunaan Alat
+
+### Algoritma: Select_File_Discovery_Tool
+**Tujuan**: Tentukan strategi penemuan file optimal berdasarkan persyaratan pencarian
+
+**Langkah-langkah**:
+1. Analisis karakteristik target_pencarian untuk pemilihan alat
+2. Tentukan cakupan pencarian dan terapkan filter keamanan
+3. Pilih alat utama dengan opsi fallback
+4. Kembalikan rantai alat komprehensif untuk penemuan file
+
+### Algoritma: Select_Content_Search_Tool
+**Tujuan**: Pilih metode pencarian konten yang sesuai untuk berbagai jenis file dan pola query
+
+**Langkah-langkah**:
+1. Analisis karakteristik query konten dan properti set file
+2. Pilih algoritma pencarian yang dioptimalkan untuk performa
+3. Konfigurasi alat dengan parameter yang sesuai
+4. Kembalikan alat pencarian dengan strategi fallback
+
+### Algoritma: Detect_Hidden_Files_Algorithm
+**Tujuan**: Deteksi file tersembunyi yang komprehensif termasuk dot-file dan file sistem
+
+**Langkah-langkah**:
+1. Inisialisasi penemuan file dengan parameter pemindaian komprehensif
+2. Gunakan alat pemindaian direktori yang sadar platform
+3. Terapkan aturan deteksi file tersembunyi untuk berbagai sistem file
+4. Kembalikan daftar file yang dikategorikan dengan klasifikasi keamanan
+
+### Algoritma: Validate_Tool_Usage_Safety
+**Tujuan**: Pastikan penggunaan alat yang aman dengan pemeriksaan izin dan keamanan yang tepat
+
+**Langkah-langkah**:
+1. Periksa keamanan path dan validasi jenis operasi
+2. Terapkan pembatasan keamanan spesifik platform
+3. Verifikasi batas sumber daya dan batasan operasi
+4. Log operasi untuk jejak audit dan kembalikan izin keamanan
+
+## Implementasi Alat Spesifik
+
+### Alat Sistem File
+- **Directory Scanner**: Penjelajahan lengkap dengan metadata (gunakan untuk file tersembunyi, izin)
+- **Glob Pattern Matcher**: Penemuan berbasis pola (gunakan untuk jenis file tertentu)
+- **Find Command Integration**: Pemfilteran lanjutan (gunakan untuk kriteria kompleks)
+- **Stat Metadata Reader**: Properti file tanpa konten (gunakan untuk akses metadata aman)
+
+### Alat Pencarian dan Analisis
+- **Regex Pattern Search**: Pencocokkan pola teks kompleks (gunakan untuk pencarian terstruktur)
+- **Fuzzy Text Matching**: Pencocokkan string perkiraan (gunakan untuk query fleksibel)
+- **JSON/XML Parsers**: Ekstraksi data terstruktur (gunakan untuk file konfigurasi)
+- **Code Analysis Tools**: Pemahaman kode semantik (gunakan untuk analisis kode sumber)
+
 ## Kepatuhan Pengaturan
 - Hormati semua pengaturan di modules/rag-rules/settings.json
 - Terapkan batas context_window_size secara tepat

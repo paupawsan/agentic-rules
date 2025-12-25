@@ -144,6 +144,58 @@
 5. クエリ処理中に発見された新しい関係性で知識グラフを更新 / Update knowledge graph with new relationships discovered during query processing
 6. 事実的および関係的コンテキストを含む包括的な応答を提供 / Provide comprehensive response with both factual and relational context
 
+## ツール選択および使用アルゴリズム / Tool Selection and Usage Algorithms
+
+### アルゴリズム: Select_File_Discovery_Tool / Algorithm: Select_File_Discovery_Tool
+**目的 / Purpose**: 検索要件に基づいて最適なファイル発見戦略を決定 / Determine optimal file discovery strategy based on search requirements
+
+**ステップ / Steps**:
+1. ツール選択のための検索ターゲット特性を分析 / Analyze search_target characteristics for tool selection
+2. 検索スコープを決定し、安全フィルタを適用 / Determine search scope and apply safety filters
+3. フォールバックオプション付きのプライマリツールを選択 / Select primary tool with fallback options
+4. ファイル発見のための包括的なツールチェーンを返す / Return comprehensive tool chain for file discovery
+
+### アルゴリズム: Select_Content_Search_Tool / Algorithm: Select_Content_Search_Tool
+**目的 / Purpose**: 異なるファイルタイプとクエリパターンに適切なコンテンツ検索方法を選択 / Choose appropriate content search method for different file types and query patterns
+
+**ステップ / Steps**:
+1. コンテンツクエリ特性とファイルセットプロパティを分析 / Analyze content query characteristics and file set properties
+2. パフォーマンス向けに最適化された検索アルゴリズムを選択 / Select search algorithm optimized for performance
+3. 適切なパラメータでツールを設定 / Configure tool with appropriate parameters
+4. フォールバック戦略付きの検索ツールを返す / Return search tool with fallback strategies
+
+### アルゴリズム: Detect_Hidden_Files_Algorithm / Algorithm: Detect_Hidden_Files_Algorithm
+**目的 / Purpose**: ドットファイルやシステムファイルを含む包括的な隠しファイル検出 / Comprehensive hidden file detection including dot-files and system files
+
+**ステップ / Steps**:
+1. 包括的なスキャンパラメータでファイル発見を初期化 / Initialize file discovery with comprehensive scanning parameters
+2. プラットフォーム対応のディレクトリスキャンツールを使用 / Use platform-aware directory scanning tools
+3. 異なるファイルシステムの隠しファイル検出ルールを適用 / Apply hidden file detection rules for different file systems
+4. 安全分類付きのカテゴリ化されたファイルリストを返す / Return categorized file list with safety classifications
+
+### アルゴリズム: Validate_Tool_Usage_Safety / Algorithm: Validate_Tool_Usage_Safety
+**目的 / Purpose**: 適切な権限とセキュリティチェックで安全なツール使用を確保 / Ensure safe tool usage with proper permission and security checks
+
+**ステップ / Steps**:
+1. パス安全性と操作タイプ検証を確認 / Check path safety and operation type validation
+2. プラットフォーム固有のセキュリティ制限を適用 / Apply platform-specific security restrictions
+3. リソース制限と操作制約を確認 / Verify resource limits and operation constraints
+4. 監査トレイルのために操作をログ / Log operations for audit trail and return safety clearance
+
+## 特定のツール実装 / Specific Tool Implementations
+
+### ファイルシステムツール / File System Tools
+- **Directory Scanner**: メタデータ付きの完全なトラバーサル / Complete traversal with metadata (隠しファイル、権限に使用)
+- **Glob Pattern Matcher**: パターンベースの発見 / Pattern-based discovery (特定のファイルタイプに使用)
+- **Find Command Integration**: 高度なフィルタリング / Advanced filtering (複雑な基準に使用)
+- **Stat Metadata Reader**: コンテンツなしのファイルプロパティ / File properties without content (安全なメタデータアクセスに使用)
+
+### 検索および分析ツール / Search and Analysis Tools
+- **Regex Pattern Search**: 複雑なテキストパターン マッチング / Complex text pattern matching (構造化検索に使用)
+- **Fuzzy Text Matching**: 近似文字列マッチング / Approximate string matching (柔軟なクエリに使用)
+- **JSON/XML Parsers**: 構造化データ抽出 / Structured data extraction (設定ファイルに使用)
+- **Code Analysis Tools**: セマンティックコード理解 / Semantic code understanding (ソースコード分析に使用)
+
 ## 設定準拠 / Settings Compliance
 - modules/rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json
 - context_window_size制限を適切に適用 / Apply context_window_size limits appropriately

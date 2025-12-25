@@ -127,25 +127,199 @@ Input: log_path, issue_description, analysis_type
 4. **Compression Techniques**: Summarize less critical information
 5. **Cache Management**: Maintain frequently accessed information
 
-## Tool Integration
+## Tool Selection and Usage Algorithms
+
+### File Discovery Tool Selection Algorithm
+```
+Algorithm: Select_File_Discovery_Tool
+Input: search_target, search_context, file_types_needed
+Output: recommended_tool_chain
+
+1. Analyze search_target characteristics:
+   - If hidden_files_needed OR starts_with_dot: Use comprehensive_directory_scan
+   - If specific_extensions: Use filtered_glob_patterns
+   - If recursive_search: Use recursive_directory_traversal
+   - If metadata_only: Use filesystem_metadata_scanner
+
+2. Determine search scope:
+   - project_root: Use relative_path_resolution
+   - system_wide: Use absolute_path_resolution with permissions_check
+   - network_shares: Use network_mount_detection
+
+3. Select primary tool based on target:
+   - Standard files: Use os.listdir() + glob.glob()
+   - Hidden files: Use os.scandir() with include_hidden=True
+   - Large directories: Use pathlib.Path.rglob() with iterator
+   - Network paths: Use os.path.exists() + permission checks
+
+4. Apply safety filters:
+   - Exclude system directories (/proc, /sys, /dev on Unix)
+   - Skip unauthorized directories based on permissions
+   - Respect .gitignore patterns when applicable
+   - Limit recursion depth to prevent infinite loops
+
+5. Return tool_chain with fallback options:
+   - Primary: scandir_recursive_with_hidden
+   - Fallback: glob_with_hidden_pattern
+   - Emergency: manual_path_construction
+```
+
+### Content Search Tool Selection Algorithm
+```
+Algorithm: Select_Content_Search_Tool
+Input: content_query, file_set, search_constraints
+Output: optimal_search_strategy
+
+1. Analyze content_query characteristics:
+   - If exact_match: Use string.find() or regex exact match
+   - If pattern_match: Use re.search() with compiled patterns
+   - If fuzzy_match: Use difflib or specialized fuzzy libraries
+   - If semantic_search: Use embedding-based similarity
+
+2. Evaluate file_set properties:
+   - If small_files (< 1MB): Use memory-mapped search
+   - If large_files (> 100MB): Use streaming line-by-line search
+   - If binary_files: Use specialized binary search tools
+   - If encoded_files: Apply appropriate decoding before search
+
+3. Select search algorithm:
+   - Text files: Use grep-like line-by-line scanning
+   - Structured files: Use format-specific parsers (JSON, XML, CSV)
+   - Code files: Use AST parsing for semantic understanding
+   - Binary files: Use hex pattern matching with context
+
+4. Optimize for performance:
+   - Pre-compile regex patterns for reuse
+   - Use memory mapping for large files
+   - Implement parallel processing for multiple files
+   - Cache frequently accessed file metadata
+
+5. Return search_tool with configuration:
+   - Tool: streaming_grep_with_context
+   - Configuration: {buffer_size: 8192, context_lines: 3}
+   - Fallback: memory_mapped_search
+```
+
+### Hidden File Detection Algorithm
+```
+Algorithm: Detect_Hidden_Files_Algorithm
+Input: directory_path, include_system_files, recursion_depth
+Output: comprehensive_file_list
+
+1. Initialize file discovery parameters:
+   - base_path = resolve_absolute_path(directory_path)
+   - max_depth = min(recursion_depth, 10)  # Safety limit
+   - include_hidden = True  # Always include hidden files for completeness
+   - exclude_patterns = ['.git', '__pycache__', 'node_modules']
+
+2. Use comprehensive directory scanning:
+   - Tool: os.scandir() or pathlib.Path.iterdir()
+   - Flags: Include hidden files (names starting with '.')
+   - Filter: Apply permission checks and safety exclusions
+
+3. Apply hidden file detection rules:
+   - Dot-prefix files: .* (Unix/Linux hidden files)
+   - System attributes: Check platform-specific hidden flags
+   - Configuration files: .env, .gitignore, .eslintrc, etc.
+   - Temporary files: .tmp, .cache, .log variants
+
+4. Process special file types:
+   - Symbolic links: Resolve and check target if accessible
+   - Special files: Skip device files, sockets, named pipes
+   - Large files: Use stat() for size checking before processing
+   - Binary files: Flag for specialized processing
+
+5. Return categorized file list:
+   - visible_files: Regular user-visible files
+   - hidden_files: Configuration and system files
+   - special_files: Links, devices (with warnings)
+   - inaccessible_files: Permission denied files (logged)
+```
+
+### Safe Tool Usage Conditions
+```
+Algorithm: Validate_Tool_Usage_Safety
+Input: tool_name, target_path, operation_type
+Output: safety_clearance_boolean
+
+1. Check path safety:
+   - Is path within allowed directories?
+   - Does path contain suspicious patterns (.. , symbolic links)?
+   - Is path accessible with current permissions?
+
+2. Validate operation type:
+   - read_operations: Generally safe if path is accessible
+   - write_operations: Require explicit user consent
+   - execute_operations: Highly restricted, require validation
+   - network_operations: Check firewall and security settings
+
+3. Apply platform-specific restrictions:
+   - Windows: Avoid system directories (C:\\Windows, C:\\System32)
+   - Unix/Linux: Avoid /proc, /sys, /dev directories
+   - macOS: Respect application sandbox restrictions
+
+4. Check resource limits:
+   - File size limits for reading operations
+   - Time limits for long-running operations
+   - Memory limits for large file processing
+
+5. Log operation for audit trail:
+   - Record tool used, path accessed, operation result
+   - Flag suspicious activities for review
+   - Maintain usage statistics for optimization
+
+6. Return safety clearance with confidence level
+```
+
+## Specific Tool Implementations
 
 ### File System Tools
-- Use directory listing to understand project structure
-- Apply glob patterns for targeted file discovery
-- Read file metadata before content analysis
-- Implement streaming reads for large files
+```
+Available Tools:
+1. Directory Scanner (os.scandir, pathlib.Path)
+   - Purpose: Complete directory traversal with metadata
+   - Use When: Need comprehensive file listing, hidden files, permissions
+   - Safety: Apply path validation and recursion limits
 
-### Search and Filter Tools
-- Apply text search with context expansion
-- Use regex patterns for structured data extraction
-- Implement fuzzy matching for flexible queries
-- Support multi-file search operations
+2. Glob Pattern Matcher (glob.glob, pathlib.Path.glob)
+   - Purpose: Pattern-based file discovery
+   - Use When: Searching for specific file types or naming patterns
+   - Safety: Validate patterns prevent directory traversal attacks
 
-### External Tool Integration
-- Leverage code execution for dynamic analysis
-- Use external commands for file processing
-- Integrate with version control for change tracking
-- Connect to databases for structured data retrieval
+3. Find Command Integration (subprocess with find)
+   - Purpose: Advanced file searching with complex criteria
+   - Use When: Need size, date, or content-based filtering
+   - Safety: Sanitize command arguments, limit execution time
+
+4. Stat Metadata Reader (os.stat, pathlib.Path.stat)
+   - Purpose: File metadata without content reading
+   - Use When: Checking file properties, sizes, permissions
+   - Safety: Safe for all accessible files
+```
+
+### Search and Analysis Tools
+```
+Available Tools:
+1. Regex Pattern Search (re module)
+   - Purpose: Complex pattern matching in text
+   - Use When: Structured text search, validation patterns
+   - Safety: Pre-compile patterns, limit input size
+
+2. Fuzzy Text Matching (difflib, fuzzywuzzy)
+   - Purpose: Approximate string matching
+   - Use When: Handling typos, variations in search terms
+   - Safety: Set similarity thresholds to prevent false matches
+
+3. JSON/XML Parsers (json, xml.etree)
+   - Purpose: Structured data extraction
+   - Use When: Processing configuration files, data formats
+   - Safety: Validate input format before parsing
+
+4. Code Analysis Tools (ast, tokenize)
+   - Purpose: Semantic code understanding
+   - Use When: Analyzing source code structure and dependencies
+   - Safety: Handle syntax errors gracefully
+```
 
 ## Multi-language Support
 

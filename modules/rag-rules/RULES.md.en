@@ -144,6 +144,58 @@ Algorithm: Adaptive_Graph_Maintenance
 6. Provide comprehensive response with both factual and relational context
 5. Optimize response completeness and accuracy
 
+## Tool Selection and Usage Algorithms
+
+### Algorithm: Select_File_Discovery_Tool
+**Purpose**: Determine optimal file discovery strategy based on search requirements
+
+**Steps**:
+1. Analyze search_target characteristics for tool selection
+2. Determine search scope and apply safety filters
+3. Select primary tool with fallback options
+4. Return comprehensive tool chain for file discovery
+
+### Algorithm: Select_Content_Search_Tool
+**Purpose**: Choose appropriate content search method for different file types and query patterns
+
+**Steps**:
+1. Analyze content query characteristics and file set properties
+2. Select search algorithm optimized for performance
+3. Configure tool with appropriate parameters
+4. Return search tool with fallback strategies
+
+### Algorithm: Detect_Hidden_Files_Algorithm
+**Purpose**: Comprehensive hidden file detection including dot-files and system files
+
+**Steps**:
+1. Initialize file discovery with comprehensive scanning parameters
+2. Use platform-aware directory scanning tools
+3. Apply hidden file detection rules for different file systems
+4. Return categorized file list with safety classifications
+
+### Algorithm: Validate_Tool_Usage_Safety
+**Purpose**: Ensure safe tool usage with proper permission and security checks
+
+**Steps**:
+1. Check path safety and operation type validation
+2. Apply platform-specific security restrictions
+3. Verify resource limits and operation constraints
+4. Log operations for audit trail and return safety clearance
+
+## Specific Tool Implementations
+
+### File System Tools
+- **Directory Scanner**: Complete traversal with metadata (use for hidden files, permissions)
+- **Glob Pattern Matcher**: Pattern-based discovery (use for specific file types)
+- **Find Command Integration**: Advanced filtering (use for complex criteria)
+- **Stat Metadata Reader**: File properties without content (use for safe metadata access)
+
+### Search and Analysis Tools
+- **Regex Pattern Search**: Complex text pattern matching (use for structured search)
+- **Fuzzy Text Matching**: Approximate string matching (use for flexible queries)
+- **JSON/XML Parsers**: Structured data extraction (use for configuration files)
+- **Code Analysis Tools**: Semantic code understanding (use for source code analysis)
+
 ## Settings Compliance
 - Respect all settings in modules/rag-rules/settings.json
 - Apply context_window_size limits appropriately
