@@ -46,6 +46,12 @@ The **RAG (Retrieval-Augmented Generation) Rules** plugin enhances AI agents' ab
 - **Recursive Analysis**: Follows references and connections
 - **Pattern Integration**: Combines information from multiple sources
 
+#### 🔧 **Intelligent Tool Selection**
+- **Context-Aware Tools**: Automatically selects appropriate file discovery and search tools
+- **Hidden File Detection**: Comprehensive scanning including dot-files and system files
+- **Safe Tool Usage**: Validates permissions and applies security restrictions
+- **Performance Optimization**: Chooses optimal algorithms for different file types and query patterns
+
 ### Information Processing
 
 #### 📊 **Relevance Scoring**
