@@ -198,7 +198,28 @@
 
 ## 重要なエージェント要件 / Critical Requirements for Agents
 
-**必須遵守 / MANDATORY COMPLIANCE**: RAGルールを実装するエージェントは、これらの重要な要件を遵守しなければなりません：
+**必須遵守 / MANDATORY COMPLIANCE**: RAGルールを実装するエージェントは、これらの重要な要件を遵守しなければなりません。不遵守は即時のルール違反となります。
+
+### 自動トリガー条件 / Automatic Trigger Conditions
+**即時実行必須 / IMMEDIATE EXECUTION REQUIRED**: これらのアルゴリズムはトリガーされたときに自動的に実行されなければなりません：
+
+#### ディレクトリ調査トリガー / Directory Investigation Trigger
+- **WHEN**: エージェントが任意のディレクトリを調査したりファイル発見を実行したりする場合
+- **MUST EXECUTE**: `Detect_Hidden_Files_Algorithm` + `Select_File_Discovery_Tool`
+- **MANDATORY**: 隠しファイル検出が完了するまでファイル操作を続行できません
+- **VIOLATION**: 隠しファイル検出なしでディレクトリリストを使用する
+
+#### ファイル検索トリガー / File Search Trigger
+- **WHEN**: エージェントが設定ファイル、設定、初期化マーカーを検索する場合
+- **MUST EXECUTE**: `Select_Content_Search_Tool` を隠しファイル包含付きで
+- **MANDATORY**: 隠しファイルを含むすべてのファイルを検索 (.env, .gitignore, .settings)
+- **VIOLATION**: 検索操作から隠しファイルを除外する
+
+#### システム状態チェックトリガー / System Status Check Trigger
+- **WHEN**: エージェントがシステム初期化または設定状態をチェックする場合
+- **MUST EXECUTE**: すべてのドットファイルを含む包括的スキャン
+- **MANDATORY**: .agentic_initialized および他の隠しマーカーをチェック
+- **VIOLATION**: 隠しファイルの見落としによる不完全なシステム評価
 
 ### ファイル発見要件 / File Discovery Requirements
 - **隠しファイル検出 / HIDDEN FILE DETECTION**: エージェントは隠しファイル（.env、.gitignore、.settingsなどのドットファイル）を検出・処理しなければなりません

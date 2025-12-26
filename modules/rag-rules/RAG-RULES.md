@@ -6,7 +6,28 @@ Retrieval-Augmented Generation rules form the foundation of intelligent informat
 
 ## Critical Requirements for Agents
 
-**MANDATORY COMPLIANCE**: Agents implementing RAG rules MUST adhere to these critical requirements:
+**MANDATORY COMPLIANCE**: Agents implementing RAG rules MUST adhere to these critical requirements. Non-compliance results in immediate rule violation.
+
+### Automatic Trigger Conditions
+**IMMEDIATE EXECUTION REQUIRED**: These algorithms MUST execute automatically when triggered:
+
+#### Directory Investigation Trigger
+- **WHEN**: Agent investigates any directory or performs file discovery
+- **MUST EXECUTE**: `Detect_Hidden_Files_Algorithm` + `Select_File_Discovery_Tool`
+- **MANDATORY**: Cannot proceed with file operations until hidden file detection completes
+- **VIOLATION**: Using directory listing without hidden file detection
+
+#### File Search Trigger
+- **WHEN**: Agent searches for configuration files, settings, or initialization markers
+- **MUST EXECUTE**: `Select_Content_Search_Tool` with hidden file inclusion
+- **MANDATORY**: Search ALL files including hidden ones (.env, .gitignore, .settings)
+- **VIOLATION**: Excluding hidden files from search operations
+
+#### System Status Check Trigger
+- **WHEN**: Agent checks system initialization or configuration status
+- **MUST EXECUTE**: Comprehensive scan including ALL dot-files
+- **MANDATORY**: Check for .agentic_initialized and other hidden markers
+- **VIOLATION**: Incomplete system assessment due to missed hidden files
 
 ### File Discovery Requirements
 - **HIDDEN FILE DETECTION**: Agents MUST detect and process hidden files (dot-files like .env, .gitignore, .settings)
@@ -21,6 +42,7 @@ Retrieval-Augmented Generation rules form the foundation of intelligent informat
 - **NO EXCEPTIONS**: Agents cannot skip algorithm execution based on "assumptions"
 - **COMPLETE IMPLEMENTATION**: All algorithm steps MUST be followed
 - **PROPER TOOL USAGE**: Use tools as specified in tool selection algorithms
+- **AUTOMATIC ENFORCEMENT**: Trigger conditions MUST activate algorithms without manual intervention
 
 ## System-Wide Impact
 
@@ -160,7 +182,9 @@ Input: log_path, issue_description, analysis_type
 **MANDATORY REQUIREMENT**: Agents implementing RAG rules MUST use these algorithms for all file operations. Failure to use appropriate tools results in incomplete information processing.
 
 ### File Discovery Tool Selection Algorithm
-**MANDATORY**: Agents MUST execute this algorithm BEFORE any file operations to ensure appropriate tool selection.
+**MANDATORY TRIGGER**: Agents MUST execute this algorithm BEFORE ANY file operations, directory investigation, or system status checks.
+**PROHIBITED TOOLS**: Standard `list_dir` or basic file listing tools are INSUFFICIENT and violate compliance.
+**AUTOMATIC EXECUTION**: This algorithm MUST run automatically when file discovery is needed.
 
 ```
 Algorithm: Select_File_Discovery_Tool
@@ -169,8 +193,11 @@ Output: recommended_tool_chain
 
 MANDATORY ANALYSIS - Agents MUST evaluate ALL conditions:
 
-1. Analyze search_target characteristics:
+1. Analyze search_target characteristics - TRIGGER CONDITIONS:
+   - If ANY file operation: Execute this algorithm (MANDATORY)
    - If hidden_files_needed OR starts_with_dot: Use comprehensive_directory_scan (MANDATORY)
+   - If checking system status: Execute hidden file detection (MANDATORY)
+   - If searching configuration: Include ALL dot-files (.env, .settings, etc.)
    - If specific_extensions: Use filtered_glob_patterns
    - If recursive_search: Use recursive_directory_traversal
    - If metadata_only: Use filesystem_metadata_scanner
@@ -244,6 +271,10 @@ Algorithm: Detect_Hidden_Files_Algorithm
 Input: directory_path, include_system_files, recursion_depth
 Output: comprehensive_file_list
 
+**AUTOMATIC TRIGGER**: This algorithm MUST execute for ANY directory investigation, file search, or system status check.
+**MANDATORY EXECUTION**: Cannot proceed with file operations until this algorithm completes successfully.
+**VIOLATION**: Using any file listing tool without executing this algorithm first.
+
 MANDATORY STEPS - Agents MUST follow ALL of these:
 
 1. Initialize file discovery parameters:
@@ -251,6 +282,7 @@ MANDATORY STEPS - Agents MUST follow ALL of these:
    - max_depth = min(recursion_depth, 10)  # Safety limit
    - include_hidden = True  # ALWAYS include hidden files - NEVER set to False
    - exclude_patterns = ['.git', '__pycache__', 'node_modules']
+   - scan_mode = 'comprehensive'  # Always use comprehensive scanning
 
 2. Use comprehensive directory scanning:
    - Tool: os.scandir() or pathlib.Path.iterdir()
