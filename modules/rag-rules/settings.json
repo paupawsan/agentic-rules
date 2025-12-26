@@ -86,11 +86,17 @@
     },
     "knowledge_graph": {
       "enabled": false,
+      "auto_construction": {
+        "enabled": false,
+        "background_only": true,
+        "user_triggered_only": true,
+        "minimal_scope": true
+      },
       "runtime_generation": {
-        "entity_extraction": true,
-        "relationship_discovery": true,
-        "semantic_linking": true,
-        "dynamic_updates": true
+        "entity_extraction": false,
+        "relationship_discovery": false,
+        "semantic_linking": false,
+        "dynamic_updates": false
       },
       "graph_management": {
         "max_nodes": 10000,
