@@ -146,6 +146,232 @@ your-ai-project/
 - Reduces mistakes and "hallucinations"
 - Promotes more careful and accurate responses
 
+### 🧠 Knowledge Graph (KG) Intelligence
+- **Automatic Learning**: AI builds knowledge maps of your projects
+- **Smart Connections**: Discovers relationships between code, files, and concepts
+- **Enhanced Understanding**: Provides deeper insights about your codebase
+- **Contextual Memory**: Remembers how different parts of your project relate
+
+## 🧠 How Knowledge Graphs Enhance Your AI Experience
+
+### What Are Knowledge Graphs?
+
+Knowledge Graphs (KGs) are intelligent maps that your AI builds automatically. They create visual connections between different parts of your projects, making your AI "understand" your codebase like a human expert would.
+
+```
+🎯 Example: Your AI analyzes this codebase and creates connections:
+
+Code Files ←→ Functions ←→ Dependencies ←→ Features
+    ↓           ↓           ↓           ↓
+"main.py" ←→ "process_data()" ←→ "pandas" ←→ "Data Processing"
+"utils.py" ←→ "validate_input()" ←→ "None" ←→ "Input Validation"
+"config.py" ←→ "load_settings()" ←→ "json" ←→ "Configuration"
+```
+
+### How KG Construction Works Automatically
+
+**🤖 Single Agent Architecture**: Your AI agent builds KGs using its own intelligence + framework algorithms
+
+```mermaid
+graph TD
+    A[User Works with Project] --> B[AI Analyzes Code]
+    B --> C{KG Construction Triggers}
+    C --> D[Knowledge Map Built]
+
+    E["analyze this file"] --> F["extract entities"]
+    F --> G["find relationships"]
+    G --> H["store connections"]
+```
+
+**⚡ Background Processing**: KG building happens invisibly while you work:
+
+```mermaid
+graph TD
+    A["Main Conversation: 'help me understand this project'"] --> B[AI responds immediately]
+    B --> C[Background KG Construction Begins]
+
+    C --> D[🔍 Entity Discovery]
+    D --> E[🔗 Relationship Mapping]
+    E --> F[🏗️ Graph Construction]
+    F --> G[💾 Memory Storage]
+    G --> H[⚡ Query Preparation]
+
+    B -.-> I[User continues working]
+    I -.-> J[Enhanced responses ready]
+```
+
+### Practical Benefits You Get
+
+#### **1. Smarter Code Explanations**
+```
+❌ Without KG: "This function processes user input"
+✅ With KG: "validate_input() processes user data, connects to error_handler() for validation,
+            used by process_user_request() in main.py, and handles data sanitization"
+```
+
+#### **2. Intelligent Project Navigation**
+```
+User: "How does the authentication system work?"
+KG-Powered AI: Shows complete auth flow with all connected components
+```
+
+#### **3. Dependency Understanding**
+```
+User: "What happens if I change this database config?"
+KG-Powered AI: "Affects: user_auth() → db_connection() → data_validator() → api_response()"
+```
+
+#### **4. Pattern Recognition**
+```
+User: "Similar to my user login system?"
+KG-Powered AI: "Your auth pattern matches: login_flow() → validate_creds() → create_session()"
+```
+
+### KG Visualization Examples
+
+#### **Project Architecture Map**
+```mermaid
+graph TB
+    subgraph "Frontend Layer"
+        FE[Frontend Components]
+        FE --> React[React Components]
+        FE --> UI[UI/UX Elements]
+        FE --> Forms[Form Handlers]
+    end
+
+    subgraph "Backend Layer"
+        BE[Backend Services]
+        BE --> API[API Endpoints]
+        BE --> Auth[Authentication]
+        BE --> Business[Business Logic]
+    end
+
+    subgraph "Data Layer"
+        DB[(Database)]
+        DB --> PostgreSQL[PostgreSQL]
+        DB --> Users[User Tables]
+        DB --> Sessions[Session Data]
+    end
+
+    subgraph "Supporting Layer"
+        Config[Configuration]
+        Config --> Settings[App Settings]
+        Config --> Env[Environment Vars]
+        Config --> Secrets[API Secrets]
+
+        Utils[Utility Functions]
+        Utils --> Helpers[Helper Functions]
+        Utils --> Format[Data Formatters]
+        Utils --> Logging[Logging System]
+
+        Models[Data Models]
+        Models --> Schemas[Data Schemas]
+        Models --> Validation[Input Validation]
+        Models --> Types[Type Definitions]
+    end
+
+    React --> API
+    UI --> Auth
+    Forms --> Business
+    API --> PostgreSQL
+    Auth --> Users
+    Business --> Sessions
+
+    Config --> Utils
+    Utils --> Models
+    Models --> DB
+
+    classDef frontend fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef backend fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef data fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef support fill:#fff3e0,stroke:#e65100,stroke-width:2px
+
+    class FE,React,UI,Forms frontend
+    class BE,API,Auth,Business backend
+    class DB,PostgreSQL,Users,Sessions data
+    class Config,Settings,Env,Secrets,Utils,Helpers,Format,Logging,Models,Schemas,Validation,Types support
+```
+
+#### **Component Relationship Web**
+```mermaid
+flowchart LR
+    A[login_page.html] --> B[login_api.py]
+    B --> C[user_model.py]
+    C --> D[(database.py)]
+
+    A -->|"form submit"| E["validate input"]
+    B -->|"validate input"| F["check user"]
+    C -->|"check user"| G["query users"]
+    D -->|"query users"| H["return results"]
+
+    classDef html fill:#e3f2fd,stroke:#1976d2
+    classDef python fill:#f3e5f5,stroke:#7b1fa2
+    classDef database fill:#e8f5e8,stroke:#388e3c
+    classDef action fill:#fff3e0,stroke:#f57c00
+
+    class A html
+    class B,C,D python
+    class E,F,G,H action
+```
+
+### When KGs Are Most Helpful
+
+#### **🚀 Best For:**
+- **Large Codebases**: Understanding complex project structures
+- **Team Collaboration**: Onboarding new developers
+- **Architecture Decisions**: Planning feature additions
+- **Debugging**: Tracing issues through connected components
+- **Refactoring**: Understanding impact of code changes
+
+#### **📈 Advanced Queries You Can Ask:**
+```
+"Show me all functions that handle user data"
+"What components depend on the payment system?"
+"How does error handling flow through the application?"
+"Find similar patterns to my new feature"
+"What would break if I change this database schema?"
+```
+
+### KG Construction Settings
+
+**For Advanced Users**: You can control KG behavior in `modules/rag-rules/settings.json`:
+
+```json
+{
+  "kg_background_processing": {
+    "enabled": true,              // Enable automatic KG building
+    "separate_conversation": true, // Never interrupt your work
+    "minimal_construction": true,  // Only build what's needed
+    "project_analysis_only": true, // Scope to current project
+    "batch_processing": true,      // Process efficiently
+    "no_user_waiting": true        // Instant responses always
+  }
+}
+```
+
+### Privacy & Performance
+
+**🛡️ Your Data Stays Private:**
+- KGs are built from your local files only
+- No data is sent to external servers
+- Knowledge stays within your project environment
+
+**⚡ Performance Optimized:**
+- Background processing prevents slowdowns
+- Incremental updates (only changes are processed)
+- Smart caching for frequently accessed components
+- Minimal memory footprint
+
+### Getting Started with KG Intelligence
+
+**🎯 Simple Start:**
+1. **Enable RAG Rules** in setup.html (includes KG capabilities)
+2. **Work normally** - KGs build automatically in background
+3. **Ask deeper questions** - AI now understands project relationships
+4. **Experience enhanced responses** - More accurate, contextual answers
+
+**That's it!** Your AI becomes significantly smarter about your codebase through automatic KG construction. 🧠✨
+
 ## 🔧 Troubleshooting
 
 ### Setup Won't Open
