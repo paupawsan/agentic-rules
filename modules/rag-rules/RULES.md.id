@@ -196,6 +196,18 @@ Algoritma: Adaptive_Graph_Maintenance
 - **JSON/XML Parsers**: Ekstraksi data terstruktur (gunakan untuk file konfigurasi)
 - **Code Analysis Tools**: Pemahaman kode semantik (gunakan untuk analisis kode sumber)
 
+## Persyaratan Kritis untuk Agen
+
+**KEPATUHAN WAJIB**: Agen yang mengimplementasikan aturan RAG HARUS mematuhi persyaratan kritis ini:
+
+### Persyaratan Penemuan File
+- **DETEKSI FILE TERSEMBUNYI**: Agen HARUS mendeteksi dan memproses file tersembunyi (dot-file seperti .env, .gitignore, .settings)
+- **PEMINDAIAN KOMPREHENSIF**: Gunakan alat yang sesuai untuk menemukan SEMUA file, bukan hanya yang terlihat
+- **PEMILIHAN ALAT**: Eksekusi algoritma Select_File_Discovery_Tool sebelum operasi file apa pun
+- **VALIDASI KEAMANAN**: Eksekusi Validate_Tool_Usage_Safety untuk semua operasi file
+
+**KONSEKUENSI PELANGGARAN**: Agen yang gagal mendeteksi file tersembunyi atau menggunakan alat yang tidak sesuai akan memberikan pemrosesan informasi yang tidak lengkap dan melanggar kepatuhan aturan RAG.
+
 ## Kepatuhan Pengaturan
 - Hormati semua pengaturan di modules/rag-rules/settings.json
 - Terapkan batas context_window_size secara tepat

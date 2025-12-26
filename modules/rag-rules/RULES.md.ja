@@ -196,6 +196,18 @@
 - **JSON/XML Parsers**: 構造化データ抽出 / Structured data extraction (設定ファイルに使用)
 - **Code Analysis Tools**: セマンティックコード理解 / Semantic code understanding (ソースコード分析に使用)
 
+## 重要なエージェント要件 / Critical Requirements for Agents
+
+**必須遵守 / MANDATORY COMPLIANCE**: RAGルールを実装するエージェントは、これらの重要な要件を遵守しなければなりません：
+
+### ファイル発見要件 / File Discovery Requirements
+- **隠しファイル検出 / HIDDEN FILE DETECTION**: エージェントは隠しファイル（.env、.gitignore、.settingsなどのドットファイル）を検出・処理しなければなりません
+- **包括的スキャン / COMPREHENSIVE SCANNING**: 適切なツールを使用して、表示ファイルだけでなくすべてのファイルを検索します
+- **ツール選択 / TOOL SELECTION**: あらゆるファイル操作前にSelect_File_Discovery_Toolアルゴリズムを実行します
+- **安全検証 / SAFETY VALIDATION**: すべてのファイル操作に対してValidate_Tool_Usage_Safetyを実行します
+
+**違反結果 / VIOLATION CONSEQUENCE**: 隠しファイルを検出できない、または不適切なツールを使用するエージェントは、不完全な情報処理を提供し、RAGルールの遵守に違反します。
+
 ## 設定準拠 / Settings Compliance
 - modules/rag-rules/settings.jsonのすべての設定を尊重 / Respect all settings in rag-rules/settings.json
 - context_window_size制限を適切に適用 / Apply context_window_size limits appropriately

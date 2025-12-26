@@ -4,6 +4,24 @@
 
 Retrieval-Augmented Generation rules form the foundation of intelligent information processing, optimizing context management across the entire agentic system. These rules enhance memory operations, influence design decisions, and provide pattern-driven insights for all agent activities.
 
+## Critical Requirements for Agents
+
+**MANDATORY COMPLIANCE**: Agents implementing RAG rules MUST adhere to these critical requirements:
+
+### File Discovery Requirements
+- **HIDDEN FILE DETECTION**: Agents MUST detect and process hidden files (dot-files like .env, .gitignore, .settings)
+- **COMPREHENSIVE SCANNING**: Use appropriate tools to find ALL files, not just visible ones
+- **TOOL SELECTION**: Execute Select_File_Discovery_Tool algorithm before any file operations
+- **SAFETY VALIDATION**: Execute Validate_Tool_Usage_Safety for all file operations
+
+**VIOLATION CONSEQUENCE**: Agents that fail to detect hidden files or use inappropriate tools will provide incomplete information processing and violate RAG rule compliance.
+
+### Algorithm Execution Requirements
+- **MANDATORY EXECUTION**: All defined algorithms MUST be executed when their conditions are met
+- **NO EXCEPTIONS**: Agents cannot skip algorithm execution based on "assumptions"
+- **COMPLETE IMPLEMENTATION**: All algorithm steps MUST be followed
+- **PROPER TOOL USAGE**: Use tools as specified in tool selection algorithms
+
 ## System-Wide Impact
 
 ### Memory Integration
@@ -36,6 +54,16 @@ Knowledge Graph algorithms integrate with memory rules for persistence:
 - **Fallback**: When memory disabled, graphs maintained in session context only
 
 ## Core Algorithms
+
+### File Discovery Requirements
+**MANDATORY**: Agents implementing RAG rules MUST use the following file discovery protocols:
+
+1. **Hidden File Detection**: Always scan for hidden files (dot-files, system files)
+2. **Comprehensive Directory Scanning**: Use platform-aware directory traversal
+3. **Tool Selection**: Apply Select_File_Discovery_Tool algorithm for optimal method
+4. **Safety Validation**: Validate all file operations using Validate_Tool_Usage_Safety
+
+**VIOLATION**: Agents that fail to detect hidden configuration files or use inappropriate file discovery tools.
 
 ### Context Window Optimization Algorithm
 1. **Information Assessment**: Analyze total available information volume
@@ -129,39 +157,47 @@ Input: log_path, issue_description, analysis_type
 
 ## Tool Selection and Usage Algorithms
 
+**MANDATORY REQUIREMENT**: Agents implementing RAG rules MUST use these algorithms for all file operations. Failure to use appropriate tools results in incomplete information processing.
+
 ### File Discovery Tool Selection Algorithm
+**MANDATORY**: Agents MUST execute this algorithm BEFORE any file operations to ensure appropriate tool selection.
+
 ```
 Algorithm: Select_File_Discovery_Tool
 Input: search_target, search_context, file_types_needed
 Output: recommended_tool_chain
 
+MANDATORY ANALYSIS - Agents MUST evaluate ALL conditions:
+
 1. Analyze search_target characteristics:
-   - If hidden_files_needed OR starts_with_dot: Use comprehensive_directory_scan
+   - If hidden_files_needed OR starts_with_dot: Use comprehensive_directory_scan (MANDATORY)
    - If specific_extensions: Use filtered_glob_patterns
    - If recursive_search: Use recursive_directory_traversal
    - If metadata_only: Use filesystem_metadata_scanner
 
-2. Determine search scope:
+2. Determine search scope - MUST verify:
    - project_root: Use relative_path_resolution
    - system_wide: Use absolute_path_resolution with permissions_check
    - network_shares: Use network_mount_detection
 
-3. Select primary tool based on target:
+3. Select primary tool based on target - REQUIRED tool selection:
    - Standard files: Use os.listdir() + glob.glob()
-   - Hidden files: Use os.scandir() with include_hidden=True
+   - Hidden files: Use os.scandir() with include_hidden=True (MANDATORY for dot-files)
    - Large directories: Use pathlib.Path.rglob() with iterator
    - Network paths: Use os.path.exists() + permission checks
 
-4. Apply safety filters:
-   - Exclude system directories (/proc, /sys, /dev on Unix)
-   - Skip unauthorized directories based on permissions
+4. Apply safety filters - MUST exclude:
+   - System directories (/proc, /sys, /dev on Unix)
+   - Unauthorized directories based on permissions
    - Respect .gitignore patterns when applicable
    - Limit recursion depth to prevent infinite loops
 
-5. Return tool_chain with fallback options:
-   - Primary: scandir_recursive_with_hidden
+5. Return tool_chain with fallback options - MUST provide:
+   - Primary: scandir_recursive_with_hidden (for hidden file detection)
    - Fallback: glob_with_hidden_pattern
    - Emergency: manual_path_construction
+
+VIOLATION: Agents using inappropriate tools or failing to detect required file types.
 ```
 
 ### Content Search Tool Selection Algorithm
@@ -201,26 +237,30 @@ Output: optimal_search_strategy
 ```
 
 ### Hidden File Detection Algorithm
+**MANDATORY**: Agents MUST execute this algorithm for ALL directory scans to ensure complete file discovery.
+
 ```
 Algorithm: Detect_Hidden_Files_Algorithm
 Input: directory_path, include_system_files, recursion_depth
 Output: comprehensive_file_list
 
+MANDATORY STEPS - Agents MUST follow ALL of these:
+
 1. Initialize file discovery parameters:
    - base_path = resolve_absolute_path(directory_path)
    - max_depth = min(recursion_depth, 10)  # Safety limit
-   - include_hidden = True  # Always include hidden files for completeness
+   - include_hidden = True  # ALWAYS include hidden files - NEVER set to False
    - exclude_patterns = ['.git', '__pycache__', 'node_modules']
 
 2. Use comprehensive directory scanning:
    - Tool: os.scandir() or pathlib.Path.iterdir()
-   - Flags: Include hidden files (names starting with '.')
+   - Flags: Include hidden files (names starting with '.') - REQUIRED
    - Filter: Apply permission checks and safety exclusions
 
-3. Apply hidden file detection rules:
+3. Apply hidden file detection rules - MUST check ALL:
    - Dot-prefix files: .* (Unix/Linux hidden files)
    - System attributes: Check platform-specific hidden flags
-   - Configuration files: .env, .gitignore, .eslintrc, etc.
+   - Configuration files: .env, .gitignore, .eslintrc, .settings, etc.
    - Temporary files: .tmp, .cache, .log variants
 
 4. Process special file types:
@@ -229,11 +269,13 @@ Output: comprehensive_file_list
    - Large files: Use stat() for size checking before processing
    - Binary files: Flag for specialized processing
 
-5. Return categorized file list:
+5. Return categorized file list - MUST include:
    - visible_files: Regular user-visible files
-   - hidden_files: Configuration and system files
+   - hidden_files: Configuration and system files (MANDATORY)
    - special_files: Links, devices (with warnings)
    - inaccessible_files: Permission denied files (logged)
+
+VIOLATION: Agents that skip hidden files or use incomplete scanning methods.
 ```
 
 ### Safe Tool Usage Conditions

@@ -146,17 +146,19 @@ Algorithm: Adaptive_Graph_Maintenance
 
 ## Tool Selection and Usage Algorithms
 
+**MANDATORY REQUIREMENT**: Agents implementing RAG rules MUST use these algorithms for all file operations. Hidden file detection is REQUIRED for complete information processing.
+
 ### Algorithm: Select_File_Discovery_Tool
-**Purpose**: Determine optimal file discovery strategy based on search requirements
+**MANDATORY**: Execute BEFORE any file operations. Choose appropriate tools based on search requirements.
 
 **Steps**:
-1. Analyze search_target characteristics for tool selection
+1. Analyze search_target characteristics - MUST include hidden file detection
 2. Determine search scope and apply safety filters
-3. Select primary tool with fallback options
+3. Select primary tool - MUST use scandir for hidden files
 4. Return comprehensive tool chain for file discovery
 
 ### Algorithm: Select_Content_Search_Tool
-**Purpose**: Choose appropriate content search method for different file types and query patterns
+**MANDATORY**: Execute for all content searches. Choose optimal search method for file types.
 
 **Steps**:
 1. Analyze content query characteristics and file set properties
@@ -165,12 +167,12 @@ Algorithm: Adaptive_Graph_Maintenance
 4. Return search tool with fallback strategies
 
 ### Algorithm: Detect_Hidden_Files_Algorithm
-**Purpose**: Comprehensive hidden file detection including dot-files and system files
+**MANDATORY**: Execute for ALL directory scans. Comprehensive hidden file detection REQUIRED.
 
 **Steps**:
 1. Initialize file discovery with comprehensive scanning parameters
-2. Use platform-aware directory scanning tools
-3. Apply hidden file detection rules for different file systems
+2. Use platform-aware directory scanning tools with hidden file support
+3. Apply hidden file detection rules for different file systems - MUST find dot-files
 4. Return categorized file list with safety classifications
 
 ### Algorithm: Validate_Tool_Usage_Safety
