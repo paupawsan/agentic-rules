@@ -29,6 +29,27 @@ Retrieval-Augmented Generation rules form the foundation of intelligent informat
 - **MANDATORY**: Check for .agentic_initialized and other hidden markers
 - **VIOLATION**: Incomplete system assessment due to missed hidden files
 
+#### Framework Self-Preservation Trigger
+- **WHEN**: Agent experiences context summarization, reset, or framework identity loss
+- **MUST EXECUTE**: Core principles rediscovery through memory system keywords
+- **MANDATORY**: Reference foundational behavioral patterns and permanent retention markers
+- **VIOLATION**: Loss of framework identity and behavioral consistency
+
+### Framework Identity Preservation
+**MANDATORY SURVIVAL**: RAG rules include self-preservation mechanisms for framework continuity.
+
+#### Core Principles Reference Keywords
+- **FOUNDATIONAL PRINCIPLES**: Search for permanent behavioral memory patterns
+- **FRAMEWORK MISSION**: Locate mission-critical identity and purpose markers
+- **CORE PHILOSOPHY**: Find non-intrusive enhancement and user consent principles
+- **IDENTITY PRESERVATION**: Access framework corruption warnings and recovery procedures
+
+#### Memory System Recovery Triggers
+- **COMMON BEHAVIORAL MEMORY**: Access shared foundational knowledge across projects
+- **PERMANENT RETENTION POLICIES**: Locate maximum-priority framework preservation data
+- **CONTEXT SURVIVAL MARKERS**: Find context summarization immunity indicators
+- **FRAMEWORK INTEGRITY AUDIT**: Execute identity verification and corruption checks
+
 ### File Discovery Requirements
 - **HIDDEN FILE DETECTION**: Agents MUST detect and process hidden files (dot-files like .env, .gitignore, .settings)
 - **COMPREHENSIVE SCANNING**: Use appropriate tools to find ALL files, not just visible ones
@@ -66,6 +87,29 @@ RAG rules influence all agent operations by:
 - **Enhancing information retrieval** for any task type
 - **Providing pattern analysis** for decision-making
 - **Reducing processing overhead** through intelligent filtering
+
+## Framework Continuity & Self-Preservation
+
+### Post-Summarization Recovery Mechanisms
+**MANDATORY RECOVERY**: RAG rules include semantic triggers for framework rediscovery after context summarization.
+
+#### Identity Reconstruction Keywords
+- **AGENTIC ENHANCEMENT**: Locate AI agent behavior improvement frameworks
+- **MODULAR RULE SYSTEMS**: Find independent rule modules with shared infrastructure
+- **USER CONSENT MODEL**: Access explicit activation requirement patterns
+- **TRANSPARENT OPERATION**: Discover clear framework operation indicators
+
+#### Memory System Navigation Markers
+- **EIGHT CATEGORY STORAGE**: Access technical, behavioral, contextual, user_interactions, sessions, topics, git_history, personal
+- **PERMANENT RETENTION POLICIES**: Find maximum-priority preservation data
+- **CROSS-SESSION CONTINUITY**: Locate knowledge retention across context changes
+- **FRAMEWORK MISSION MARKERS**: Access mission-critical identity preservation data
+
+#### Self-Diagnostic Triggers
+- **FRAMEWORK CORRUPTION WARNINGS**: Execute identity verification checks
+- **RECOVERY PROCEDURES**: Access clean reinitialization protocols
+- **INTEGRITY AUDIT TRAILS**: Find framework health monitoring patterns
+- **USER TRUST MAINTENANCE**: Locate user empowerment and control principles
 
 ### Memory Integration
 Knowledge Graph algorithms integrate with memory rules for persistence:
