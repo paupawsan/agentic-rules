@@ -129,6 +129,174 @@ your-ai-project/
 - Mengurangi kesalahan dan "halusinasi"
 - Mendorong respons yang lebih hati-hati dan akurat
 
+### 🧠 Kecerdasan Knowledge Graph (KG)
+- **Pembelajaran Otomatis**: AI membangun peta pengetahuan dari proyek Anda
+- **Koneksi Cerdas**: Menemukan hubungan antara kode, file, dan konsep
+- **Pemahaman Ditingkatkan**: Memberikan wawasan yang lebih dalam tentang basis kode Anda
+- **Memori Konteks**: Mengingat bagaimana berbagai bagian proyek Anda saling terkait
+
+## 🧠 Bagaimana Knowledge Graphs Meningkatkan Pengalaman AI Anda
+
+### Apa Itu Knowledge Graphs?
+
+Knowledge Graphs (KG) adalah peta cerdas yang dibangun AI secara otomatis. KG menciptakan koneksi visual antara berbagai bagian proyek Anda, membuat AI "memahami" basis kode seperti ahli manusia.
+
+```
+🎯 Contoh: AI Anda menganalisis basis kode ini dan membuat koneksi:
+
+File Kode ←→ Fungsi ←→ Dependensi ←→ Fitur
+    ↓         ↓         ↓         ↓
+"main.py" ←→ "process_data()" ←→ "pandas" ←→ "Pemrosesan Data"
+"utils.py" ←→ "validate_input()" ←→ "None" ←→ "Validasi Input"
+"config.py" ←→ "load_settings()" ←→ "json" ←→ "Konfigurasi"
+```
+
+### Bagaimana Konstruksi KG Bekerja Secara Otomatis
+
+**🤖 Arsitektur Agen Tunggal**: Agen AI Anda membangun KG menggunakan kecerdasan sendiri + algoritma framework
+
+```
+Pengguna Bekerja dengan Proyek → AI Menganalisis Kode → Pemicu Konstruksi KG → Peta Pengetahuan Dibuat
+        ↓                              ↓                              ↓                    ↓
+   "analisis file ini"           "ekstrak entitas"              "temukan hubungan"    "simpan koneksi"
+```
+
+**⚡ Pemrosesan Latar Belakang**: Konstruksi KG terjadi secara tersembunyi saat Anda bekerja:
+
+```
+Percakapan Utama: "bantu saya memahami proyek ini"
+    ↓
+AI merespons segera + memunculkan konstruksi KG di latar belakang:
+├── 🔍 Penemuan Entitas (fungsi, kelas, file)
+├── 🔗 Pemetaan Hubungan (dependensi, pemanggilan, import)
+├── 🏗️ Konstruksi Graph (hubungkan komponen terkait)
+├── 💾 Penyimpanan Memori (simpan untuk penggunaan di masa depan)
+└── ⚡ Persiapan Query (siap untuk pertanyaan kompleks)
+```
+
+### Manfaat Praktis yang Anda Dapatkan
+
+#### **1. Penjelasan Kode yang Lebih Cerdas**
+```
+❌ Tanpa KG: "Fungsi ini memproses input pengguna"
+✅ Dengan KG: "validate_input() memproses data pengguna, terhubung dengan error_handler()
+              untuk validasi, digunakan oleh process_user_request() di main.py, dan
+              menangani sanitasi data"
+```
+
+#### **2. Navigasi Proyek Cerdas**
+```
+Pengguna: "Bagaimana sistem autentikasi bekerja?"
+KG-Powered AI: Menunjukkan alur auth lengkap dengan semua komponen yang terhubung
+```
+
+#### **3. Pemahaman Dependensi**
+```
+Pengguna: "Apa yang terjadi jika saya mengubah config database ini?"
+KG-Powered AI: "Mempengaruhi: user_auth() → db_connection() → data_validator() → api_response()"
+```
+
+#### **4. Pengenalan Pola**
+```
+Pengguna: "Mirip dengan sistem login saya?"
+KG-Powered AI: "Pola auth Anda cocok dengan: login_flow() → validate_creds() → create_session()"
+```
+
+### Contoh Visualisasi KG
+
+#### **Peta Arsitektur Proyek**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      KG PROYEK ANDA                           │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐     │
+│  │   Frontend  │◄───┤   Backend   │◄───┤  Database   │     │
+│  │             │    │             │    │             │     │
+│  │  • React    │    │  • API      │    │  • PostgreSQL│     │
+│  │  • UI/UX    │    │  • Auth     │    │  • Users     │     │
+│  │  • Forms    │    │  • Business │    │  • Sessions  │     │
+│  └─────────────┘    └─────────────┘    └─────────────┘     │
+│          ▲                   ▲                   ▲         │
+│          │                   │                   │         │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐     │
+│  │   Config    │◄───┤   Utils     │◄───┤   Models    │     │
+│  │             │    │             │    │             │     │
+│  │  • Settings │    │  • Helpers  │    │  • Schemas  │     │
+│  │  • Env vars │    │  • Format   │    │  • Validation│     │
+│  │  • Secrets  │    │  • Logging  │    │  • Types     │    │
+│  └─────────────┘    └─────────────┘    └─────────────┘     │
+└─────────────────────────────────────────────────────────────┘
+
+Legenda: ◄─── Dependensi langsung    ···· Hubungan tidak langsung
+```
+
+#### **Jaringan Hubungan Komponen**
+```
+Alur Autentikasi Pengguna:
+login_page.html → login_api.py → user_model.py → database.py
+       ↓              ↓              ↓              ↓
+   "submit form" → "validasi input" → "periksa user" → "query users"
+```
+
+### Kapan KG Paling Berguna
+
+#### **🚀 Paling Baik Untuk:**
+- **Basis Kode Besar**: Memahami struktur proyek kompleks
+- **Kolaborasi Tim**: Onboarding developer baru
+- **Keputusan Arsitektur**: Merencanakan penambahan fitur
+- **Debugging**: Melacak masalah melalui komponen yang terhubung
+- **Refactoring**: Memahami dampak perubahan kode
+
+#### **📈 Query Tingkat Lanjut yang Dapat Anda Ajukan:**
+```
+"Perlihatkan semua fungsi yang menangani data pengguna"
+"Komponen apa yang bergantung pada sistem pembayaran?"
+"Bagaimana alur penanganan error melalui aplikasi?"
+"Temukan pola serupa dengan fitur baru saya"
+"Apa yang akan rusak jika saya mengubah skema database ini?"
+```
+
+### Pengaturan Konstruksi KG
+
+**Untuk Pengguna Tingkat Lanjut**: Anda dapat mengontrol perilaku KG di `modules/rag-rules/settings.json`:
+
+```json
+{
+  "kg_background_processing": {
+    "enabled": true,              // Aktifkan konstruksi KG otomatis
+    "separate_conversation": true, // Jangan pernah mengganggu pekerjaan Anda
+    "minimal_construction": true,  // Hanya bangun apa yang diperlukan
+    "project_analysis_only": true, // Cakup ke proyek saat ini
+    "batch_processing": true,      // Proses secara efisien
+    "no_user_waiting": true        // Respons instan selalu
+  }
+}
+```
+
+### Privasi & Performa
+
+**🛡️ Data Anda Tetap Privat:**
+- KG dibangun dari file lokal Anda saja
+- Tidak ada data yang dikirim ke server eksternal
+- Pengetahuan tetap dalam lingkungan proyek Anda
+
+**⚡ Dioptimalkan Performa:**
+- Pemrosesan latar belakang mencegah perlambatan
+- Pembaruan inkremental (hanya perubahan yang diproses)
+- Cache cerdas untuk komponen yang sering diakses
+- Jejak memori minimal
+
+### Memulai dengan Kecerdasan KG
+
+**🎯 Mulai Sederhana:**
+1. **Aktifkan RAG Rules** di setup.html (termasuk kemampuan KG)
+2. **Bekerja secara normal** - KG dibangun otomatis di latar belakang
+3. **Ajukan pertanyaan yang lebih dalam** - AI sekarang memahami hubungan proyek
+4. **Rasakan respons yang ditingkatkan** - Jawaban yang lebih akurat dan kontekstual
+
+**Itu saja!** AI Anda menjadi jauh lebih cerdas tentang basis kode melalui konstruksi KG otomatis. 🧠✨
+
 ## 🔧 Pemecahan Masalah
 
 ### Pengaturan Tidak Terbuka

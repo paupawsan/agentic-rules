@@ -73,7 +73,7 @@ The **Agentic Rules Framework** enhances AI agent capabilities through three spe
 📖 **[Plugin Details](modules/memory-rules/README.md)** - **Local, human-readable memory** system with 10 specialized categories for persistent context, learning, and personalization across sessions. Full visibility and control over your AI agent's memory data.
 
 ### 📚 **RAG Rules**
-📖 **[Plugin Details](modules/rag-rules/README.md)** - Advanced information processing with smart reading strategies, context optimization, and relevance scoring for efficient knowledge utilization.
+📖 **[Plugin Details](modules/rag-rules/README.md)** - Advanced information processing with smart reading strategies, context optimization, relevance scoring, and **automatic Knowledge Graph construction** for intelligent project understanding and relationship mapping.
 
 ### 🤔 **Critical Thinking Rules**
 📖 **[Plugin Details](modules/critical-thinking-rules/README.md)** - Systematic reasoning enhancement with error prevention, assumption validation, and evidence-based decision making.
