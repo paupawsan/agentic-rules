@@ -98,6 +98,18 @@
         "semantic_linking": false,
         "dynamic_updates": false
       },
+      "python_enhancement": {
+        "enabled": true,
+        "runtime_script_generation": true,
+        "safety_validation_required": true,
+        "sandbox_execution": true,
+        "fallback_to_text": true,
+        "transparency_logging": true,
+        "allowed_modules": ["ast", "inspect", "importlib", "sys", "os"],
+        "max_execution_time": 30,
+        "max_memory_mb": 50,
+        "script_validation": true
+      },
       "graph_management": {
         "max_nodes": 10000,
         "relationship_pruning": true,
@@ -145,6 +157,18 @@
         "temporal_relevance": true,
         "semantic_similarity": true
       }
+    },
+    "python_enhancement": {
+      "enabled": true,
+      "runtime_script_generation": true,
+      "safety_validation_required": true,
+      "sandbox_execution": true,
+      "fallback_to_text": true,
+      "transparency_logging": true,
+      "allowed_modules": ["ast", "inspect", "importlib", "sys", "os"],
+      "max_execution_time": 30,
+      "max_memory_mb": 50,
+      "script_validation": true
     }
   }
 }

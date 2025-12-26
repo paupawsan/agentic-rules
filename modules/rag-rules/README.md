@@ -15,6 +15,43 @@ The **RAG (Retrieval-Augmented Generation) Rules** plugin enhances AI agents' ab
 - **Self-Learning Patterns**: Adapts behavior based on user interactions and preferences
 - **Token Efficiency**: Maximizes useful information within token limits
 
+## 🚀 **Python-Enhanced KG Construction**
+
+### Advanced Capabilities
+The RAG Rules plugin includes **Python execution capabilities** for enhanced Knowledge Graph construction:
+
+- **Runtime Script Generation**: Dynamically creates Python analysis scripts
+- **Safe Execution Environment**: Sandboxed Python execution with safety validation
+- **Intelligent Fallback**: Automatically falls back to text analysis when needed
+- **Transparency Logging**: Complete audit trail of script generation and execution
+
+### Python Enhancement Features
+- **AST-Based Analysis**: Direct Python code structure parsing
+- **Import Resolution**: Actual dependency mapping vs. text guessing
+- **Class Hierarchy**: Inheritance relationship discovery
+- **Dynamic Analysis**: Runtime behavior understanding
+- **Cross-Module Analysis**: Inter-file relationship mapping
+
+### Safety & Security
+- **Sandboxed Execution**: Isolated Python environment
+- **Module Whitelisting**: Only safe analysis modules allowed
+- **Resource Limits**: CPU time and memory constraints
+- **Automatic Fallback**: Text analysis always available
+
+### Configuration
+```json
+{
+  "python_enhancement": {
+    "enabled": true,
+    "runtime_script_generation": true,
+    "safety_validation_required": true,
+    "sandbox_execution": true,
+    "fallback_to_text": true,
+    "allowed_modules": ["ast", "inspect", "importlib", "sys", "os"]
+  }
+}
+```
+
 ## 🚨 **MANDATORY COMPLIANCE REQUIREMENTS**
 
 ### Critical Agent Requirements

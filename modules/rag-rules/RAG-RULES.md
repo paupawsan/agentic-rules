@@ -605,6 +605,135 @@ Output: Optimized knowledge graph
 6. Generate maintenance report with statistics
 ```
 
+## Python-Enhanced KG Construction
+
+**ADVANCED CAPABILITY**: Agents can leverage Python execution for enhanced KG construction when system conditions allow safe execution.
+
+### Runtime Script Generation Algorithm
+```
+Algorithm: Python_Enhanced_KG_Construction
+Input: project_files, system_capabilities, safety_requirements
+Output: Enhanced KG with Python-derived insights
+
+1. Execute Safety_Validation_Check:
+   - Verify Python execution environment safety
+   - Check allowed modules availability
+   - Validate sandboxing capabilities
+   - Confirm fallback mechanisms
+
+2. IF safety validation PASSES:
+   - Generate Python analysis script dynamically
+   - Execute in sandboxed environment
+   - Process results into KG format
+   - Log transparency information
+
+3. IF safety validation FAILS or execution errors:
+   - Automatically fallback to text-based analysis
+   - Log fallback reason for transparency
+   - Continue with standard KG construction
+
+4. Merge Python-enhanced and text-based results
+5. Update KG with combined insights
+```
+
+### Safety Validation Requirements
+**MANDATORY**: Python execution requires comprehensive safety validation.
+
+#### Pre-Execution Checks
+- **Environment Safety**: Verify sandboxed execution capabilities
+- **Module Whitelisting**: Only allow safe, analysis-relevant modules
+- **Resource Limits**: CPU time and memory constraints enforced
+- **Fallback Availability**: Text-based analysis must remain functional
+
+#### Execution Environment
+- **Sandboxed Python**: Isolated execution preventing system access
+- **Timeout Protection**: Automatic termination of long-running scripts
+- **Memory Monitoring**: Resource usage tracking and limits
+- **Error Containment**: Script failures don't affect main KG system
+
+### Dynamic Script Generation
+
+#### Code Analysis Scripts
+```python
+# Example generated script for import analysis
+import ast
+import os
+from typing import Dict, List, Set
+
+def analyze_python_imports(file_path: str) -> Dict[str, List[str]]:
+    \"\"\"Analyze Python file for import relationships.\"\"\"
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            tree = ast.parse(f.read())
+
+        imports = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    imports.append(alias.name.split('.')[0])
+            elif isinstance(node, ast.ImportFrom):
+                if node.module:
+                    imports.append(node.module.split('.')[0])
+
+        return {file_path: list(set(imports))}
+    except Exception as e:
+        return {file_path: []}
+```
+
+#### Class Hierarchy Analysis
+```python
+# Generated script for inheritance relationships
+def analyze_class_hierarchy(file_path: str) -> Dict[str, List[str]]:
+    \"\"\"Extract class inheritance relationships.\"\"\"
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            tree = ast.parse(f.read())
+
+        classes = {}
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ClassDef):
+                parents = []
+                for base in node.bases:
+                    if isinstance(base, ast.Name):
+                        parents.append(base.id)
+                    elif isinstance(base, ast.Attribute):
+                        # Handle module.Class patterns
+                        parents.append(f"{base.value.id}.{base.attr}" if isinstance(base.value, ast.Name) else base.attr)
+                classes[node.name] = parents
+
+        return {file_path: classes}
+    except Exception as e:
+        return {file_path: {}}
+```
+
+### Transparency & Logging
+
+#### Execution Transparency
+**MANDATORY**: All Python executions must be logged for user transparency.
+
+- **Script Content**: Generated script code logged before execution
+- **Execution Results**: Success/failure status and output
+- **Fallback Reasons**: Why text fallback was used (if applicable)
+- **Performance Metrics**: Execution time, memory usage, analysis coverage
+
+#### User-Accessible Transparency
+- **`/kg-python-status`**: Show current Python enhancement status
+- **`/kg-script-log`**: View recent script generation and execution logs
+- **`/kg-fallback-reasons`**: Understand why text analysis was used
+
+### Fallback Mechanisms
+
+#### Automatic Fallback Triggers
+- **Safety Validation Failure**: Environment not safe for Python execution
+- **Module Unavailability**: Required analysis modules not installed
+- **Execution Errors**: Script runtime failures or timeouts
+- **Resource Limits**: Memory or time constraints exceeded
+
+#### Seamless Integration
+- **Result Merging**: Python and text analysis results combined intelligently
+- **Quality Scoring**: Results ranked by analysis method reliability
+- **Progressive Enhancement**: Python results enhance text analysis, don't replace
+
 ## Quality Assurance
 
 ### Reading Completeness Check
