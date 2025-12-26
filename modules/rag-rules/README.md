@@ -15,6 +15,32 @@ The **RAG (Retrieval-Augmented Generation) Rules** plugin enhances AI agents' ab
 - **Self-Learning Patterns**: Adapts behavior based on user interactions and preferences
 - **Token Efficiency**: Maximizes useful information within token limits
 
+## 🚨 **MANDATORY COMPLIANCE REQUIREMENTS**
+
+### Critical Agent Requirements
+**⚠️ NON-COMPLIANCE RESULTS IN RULE VIOLATION**
+
+Agents implementing RAG rules **MUST** adhere to these requirements:
+
+#### 🔍 **Hidden File Detection (MANDATORY)**
+- **AUTOMATIC EXECUTION**: Detect_Hidden_Files_Algorithm executes for ANY directory investigation
+- **COMPREHENSIVE SCANNING**: Include ALL dot-files (.env, .gitignore, .settings, .agentic_initialized)
+- **TOOL MANDATE**: Use `pathlib.Path.iterdir()` or `os.scandir()` - **NEVER** basic `list_dir`
+- **VIOLATION CONSEQUENCE**: Incomplete information processing and rule compliance failure
+
+#### 🔧 **Tool Selection Requirements (MANDATORY)**
+- **PRE-OPERATION EXECUTION**: Select_File_Discovery_Tool runs BEFORE any file operations
+- **AUTOMATIC TRIGGERS**: Executes when investigating directories, searching files, or checking system status
+- **PROHIBITED TOOLS**: Standard directory listing tools are INSUFFICIENT and violate compliance
+- **MANDATORY ALGORITHMS**: All defined algorithms MUST execute when conditions are met
+
+#### ⚡ **Automatic Trigger Conditions**
+- **Directory Investigation**: Triggers hidden file detection algorithms
+- **File Search Operations**: Forces comprehensive scanning including hidden files
+- **System Status Checks**: Requires scanning for initialization markers and config files
+
+---
+
 ## ✨ Key Capabilities
 
 ### Intelligent Reading Strategies
@@ -48,7 +74,9 @@ The **RAG (Retrieval-Augmented Generation) Rules** plugin enhances AI agents' ab
 
 #### 🔧 **Intelligent Tool Selection**
 - **Context-Aware Tools**: Automatically selects appropriate file discovery and search tools
-- **Hidden File Detection**: Comprehensive scanning including dot-files and system files
+- **MANDATORY Hidden File Detection**: Agents MUST detect and process hidden files (dot-files like .env, .gitignore, .settings)
+- **Automatic Algorithm Triggers**: Executes Detect_Hidden_Files_Algorithm for ANY directory investigation
+- **Comprehensive Scanning**: Uses pathlib.Path.iterdir() with hidden file inclusion - NEVER uses basic list_dir
 - **Safe Tool Usage**: Validates permissions and applies security restrictions
 - **Performance Optimization**: Chooses optimal algorithms for different file types and query patterns
 
