@@ -143,6 +143,64 @@
 4. 構造化された知識と非構造化テキストを組み合わせた強化されたコンテキストを生成 / Generate enriched context combining structured knowledge and unstructured text
 5. クエリ処理中に発見された新しい関係性で知識グラフを更新 / Update knowledge graph with new relationships discovered during query processing
 6. 事実的および関係的コンテキストを含む包括的な応答を提供 / Provide comprehensive response with both factual and relational context
+7. 応答の完全性と正確性を最適化 / Optimize response completeness and accuracy
+
+## Python 強化 KG 構築 / Python-Enhanced KG Construction
+
+**高度な機能 / ADVANCED CAPABILITY**: システム条件が安全な実行を許可する場合、エージェントは Python 実行を活用して強化された KG 構築を行うことができます。
+
+### アルゴリズム: Python_Enhanced_KG_Construction / Algorithm: Python_Enhanced_KG_Construction
+**必須 / MANDATORY**: python_enhancement.enabled = true かつ安全性検証が合格した場合に実行
+
+**ステップ / Steps**:
+1. python_enhancement.safety_validation_required = true を確認 / Check python_enhancement.safety_validation_required = true
+2. 実行環境の安全性とサンドボックス化を検証 / Validate execution environment safety and sandboxing
+3. allowed_modules の可用性を確認 / Verify allowed_modules availability
+4. 分析ニーズに基づいて動的な Python 分析スクリプトを生成 / Generate dynamic Python analysis script based on analysis needs
+5. リソース制限付きのサンドボックス環境でスクリプトを実行 / Execute script in sandboxed environment with resource limits
+6. 実行結果を KG 形式に処理 / Process execution results into KG format
+7. テキストベースの分析結果とマージ / Merge with text-based analysis results
+8. ユーザーアクセス用の透明性情報をログ / Log transparency information for user access
+
+**重要 / CRITICAL**: Python 実行が失敗した場合、常にテキストベースの分析へのフォールバックを維持
+
+### アルゴリズム: Safety_Validation_Check / Algorithm: Safety_Validation_Check
+**必須 / MANDATORY**: Python スクリプト生成前に実行
+
+**ステップ / Steps**:
+1. サンドボックス実行環境の可用性を確認 / Verify sandboxed execution environment availability
+2. すべての allowed_modules がインストールされ安全であることを確認 / Check all allowed_modules are installed and safe
+3. リソース制限を検証 (max_execution_time, max_memory_mb) / Validate resource limits (max_execution_time, max_memory_mb)
+4. fallback_to_text = true が設定されていることを確認 / Confirm fallback_to_text = true is configured
+5. script_validation 機能をテスト / Test script_validation functionality
+6. 検証ステータスを返す / Return validation status
+
+### アルゴリズム: Dynamic_Script_Generation / Algorithm: Dynamic_Script_Generation
+**必須 / MANDATORY**: 現在のニーズに基づいて分析スクリプトを生成
+
+**ステップ / Steps**:
+1. 必要な分析タイプを分析 (imports, classes, functions など) / Analyze required analysis type (imports, classes, functions, etc.)
+2. 適切な Python AST パースコードを生成 / Generate appropriate Python AST parsing code
+3. エラーハンドリングと安全対策を含む / Include error handling and safety measures
+4. ログと透明性機能を追加 / Add logging and transparency features
+5. 生成されたスクリプトをセキュリティルールに対して検証 / Validate generated script against security rules
+6. 実行可能なスクリプトを返す / Return executable script
+
+### アルゴリズム: Sandboxed_Execution / Algorithm: Sandboxed_Execution
+**必須 / MANDATORY**: 生成されたスクリプトを安全に実行
+
+**ステップ / Steps**:
+1. サンドボックス Python 環境を初期化 / Initialize sandboxed Python environment
+2. リソース制限と監視を設定 / Set resource limits and monitoring
+3. タイムアウト保護付きでスクリプトを実行 / Execute script with timeout protection
+4. 出力とエラー情報をキャプチャ / Capture output and error information
+5. 実行環境をクリーンアップ / Clean up execution environment
+6. 結果またはエラーステータスを返す / Return results or error status
+
+### 透明性要件 / Transparency Requirements
+- **必須 / MANDATORY**: すべてのスクリプト生成と実行アクティビティをログ / Log all script generation and execution activities
+- **必須 / MANDATORY**: ユーザーアクセス可能な透明性コマンドを提供 / Provide user-accessible transparency commands
+- **必須 / MANDATORY**: Python 実行が失敗した場合のフォールバック理由を文書化 / Document fallback reasons when Python execution fails
 
 ## ツール選択および使用アルゴリズム / Tool Selection and Usage Algorithms
 
