@@ -208,10 +208,10 @@ MANDATORY ANALYSIS - Agents MUST evaluate ALL conditions:
    - network_shares: Use network_mount_detection
 
 3. Select primary tool based on target - REQUIRED tool selection:
-   - Standard files: Use os.listdir() + glob.glob()
-   - Hidden files: Use os.scandir() with include_hidden=True (MANDATORY for dot-files)
-   - Large directories: Use pathlib.Path.rglob() with iterator
-   - Network paths: Use os.path.exists() + permission checks
+   - Standard files: Use available directory listing tool with pattern matching
+   - Hidden files: Use comprehensive directory scanning tool capable of detecting dot-files (MANDATORY for dot-files)
+   - Large directories: Use recursive directory traversal with iterator support
+   - Network paths: Use path existence checking with permission validation
 
 4. Apply safety filters - MUST exclude:
    - System directories (/proc, /sys, /dev on Unix)
@@ -220,8 +220,8 @@ MANDATORY ANALYSIS - Agents MUST evaluate ALL conditions:
    - Limit recursion depth to prevent infinite loops
 
 5. Return tool_chain with fallback options - MUST provide:
-   - Primary: scandir_recursive_with_hidden (for hidden file detection)
-   - Fallback: glob_with_hidden_pattern
+   - Primary: comprehensive_recursive_directory_scanner (for hidden file detection)
+   - Fallback: pattern_matching_directory_scanner
    - Emergency: manual_path_construction
 
 VIOLATION: Agents using inappropriate tools or failing to detect required file types.
@@ -285,8 +285,8 @@ MANDATORY STEPS - Agents MUST follow ALL of these:
    - scan_mode = 'comprehensive'  # Always use comprehensive scanning
 
 2. Use comprehensive directory scanning:
-   - Tool: os.scandir() or pathlib.Path.iterdir()
-   - Flags: Include hidden files (names starting with '.') - REQUIRED
+   - Tool: Available directory scanning function capable of detecting hidden files
+   - Capability: Must include files starting with '.' (dot-files) - REQUIRED
    - Filter: Apply permission checks and safety exclusions
 
 3. Apply hidden file detection rules - MUST check ALL:
@@ -350,12 +350,12 @@ Output: safety_clearance_boolean
 ### File System Tools
 ```
 Available Tools:
-1. Directory Scanner (os.scandir, pathlib.Path)
+1. Directory Scanner (available directory scanning tools)
    - Purpose: Complete directory traversal with metadata
    - Use When: Need comprehensive file listing, hidden files, permissions
    - Safety: Apply path validation and recursion limits
 
-2. Glob Pattern Matcher (glob.glob, pathlib.Path.glob)
+2. Pattern Matcher (available pattern matching tools)
    - Purpose: Pattern-based file discovery
    - Use When: Searching for specific file types or naming patterns
    - Safety: Validate patterns prevent directory traversal attacks
@@ -365,7 +365,7 @@ Available Tools:
    - Use When: Need size, date, or content-based filtering
    - Safety: Sanitize command arguments, limit execution time
 
-4. Stat Metadata Reader (os.stat, pathlib.Path.stat)
+4. Metadata Reader (available file metadata tools)
    - Purpose: File metadata without content reading
    - Use When: Checking file properties, sizes, permissions
    - Safety: Safe for all accessible files
