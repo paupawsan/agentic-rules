@@ -56,7 +56,7 @@ A plug-and-play framework providing structured rules for intelligent AI agent be
 ### ⚡ **Step 2: Initialize Agentic Rules System**
 **After setup.html, complete this ONE-TIME bootstrap initialization!**
 
-1. **Tell your AI agent**: `Initialize agentic rules system`
+1. **Tell your AI agent**: `Initialize the agentic rules system in /path/to/your/agentic-rules folder. I already completed setup.html, so just perform the bootstrap initialization.`
 2. **Grant permission** when prompted to enable the framework
 3. **Review settings** for Memory, RAG, and Critical Thinking rules
 4. **Framework is active** - your agent now has enhanced capabilities!

@@ -34,7 +34,7 @@
 ### **Fase 2: Inisialisasi Bootstrap (SETELAH setup.html)**
 
 #### **Langkah 3: Inisialisasi Framework**
-Beritahu agen AI Anda: **`Initialize agentic rules system`** atau **`Setup agentic rules bootstrap`**
+Beritahu agen AI Anda: **`Inisialisasi sistem aturan agentic di folder /path/to/your/agentic-rules. Saya sudah menyelesaikan setup.html, jadi lakukan saja inisialisasi bootstrap.`**
 
 #### **Langkah 4: Berikan Izin Bootstrap**
 Ketika diminta: *"Bootstrap configuration not found. Initialize Agentic Rules Framework? (y/n)"*

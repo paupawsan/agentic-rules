@@ -34,7 +34,7 @@
 ### **Phase 2: Bootstrap Initialization (AFTER setup.html)**
 
 #### **Step 3: Initialize Framework**
-Tell your AI agent: **`Initialize agentic rules system`** or **`Setup agentic rules bootstrap`**
+Tell your AI agent: **`Initialize the agentic rules system in /path/to/your/agentic-rules folder. I already completed setup.html, so just perform the bootstrap initialization.`**
 
 #### **Step 4: Grant Bootstrap Permission**
 When prompted: *"Bootstrap configuration not found. Initialize Agentic Rules Framework? (y/n)"*

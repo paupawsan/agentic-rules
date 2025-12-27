@@ -34,7 +34,7 @@
 ### **フェーズ2: ブートストラップ初期化（setup.htmlの後）**
 
 #### **ステップ3: フレームワークの初期化**
-AIエージェントに伝える：**`Agentic rules systemを初期化`** または **`Setup agentic rules bootstrap`**
+AIエージェントに伝える：**`agentic rules systemを/path/to/your/agentic-rulesフォルダで初期化してください。setup.htmlは既に完了しているので、bootstrap初期化だけを実行してください。`**
 
 #### **ステップ4: ブートストラップ権限の付与**
 「*Bootstrap configuration not found. Initialize Agentic Rules Framework? (y/n)*」というプロンプトが表示されたら：
