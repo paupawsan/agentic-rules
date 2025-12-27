@@ -16,6 +16,8 @@ Folder ini berisi panduan lengkap untuk Agentic Rules Framework.
 
 ### 🔧 Pengembangan & Penambahan Fitur
 - **[EXTENSION-MANUAL.id.md](EXTENSION-MANUAL.id.md)** - Panduan langkah demi langkah untuk menambahkan fitur baru
+- **[KG_IMPLEMENTATION_GUIDE.id.md](KG_IMPLEMENTATION_GUIDE.id.md)** - Panduan implementasi agen untuk fungsi Knowledge Graph
+- **[README_KG_INTEGRATION.id.md](README_KG_INTEGRATION.id.md)** - Integrasi KG pengguna akhir dan manfaatnya
 
 ### 📚 Dokumentasi Plugin
 - **[../../../modules/memory-rules/docs/localization/id/README.id.md](../../../modules/memory-rules/docs/localization/id/README.id.md)** - Aturan Memori: kemampuan, contoh penggunaan, pengaturan

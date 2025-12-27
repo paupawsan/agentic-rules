@@ -86,6 +86,25 @@ The **Agentic Rules Framework** enhances AI agent capabilities through three spe
 - **🌐 Generic**: Applicable to any AI agent capable of following structured guidelines
 - **🌍 Multi-Language**: 18+ languages supported with localized rule templates
 
+## 🧠 **Knowledge Graph Integration**
+**✅ ENABLED BY DEFAULT** - Automatic KG construction and usage for intelligent project understanding.
+
+### **What It Does**
+- **🔍 Automatic Discovery**: Scans conversations and codebases to build knowledge graphs
+- **🧷 Smart Linking**: Connects related concepts, files, and ideas automatically
+- **💬 Proactive Usage**: Uses KG insights in conversations without manual activation
+- **📈 Learning Evolution**: KGs grow smarter with continued usage
+
+### **For Users**
+- **Zero Configuration**: Works out-of-the-box with standard setup
+- **Enhanced Conversations**: Responses include relevant historical context
+- **Relationship Understanding**: System knows how project components connect
+- **Progressive Intelligence**: Gets smarter with each interaction
+
+### **For Agent Developers**
+📖 **[KG Implementation Guide](docs/KG_IMPLEMENTATION_GUIDE.md)** - Logical algorithms and pseudocode for KG functionality
+📖 **[User KG Integration](docs/README_KG_INTEGRATION.md)** - End-user KG experience and benefits
+
 ## 🚀 Quick Start
 
 ### ⚡ **First-Time Setup** (One-Time Only)

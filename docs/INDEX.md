@@ -16,6 +16,8 @@ This directory contains detailed documentation for the Agentic Rules Framework.
 
 ### 🔧 Extension & Development
 - **[EXTENSION-MANUAL.md](EXTENSION-MANUAL.md)** - Step-by-step guide for extending the framework
+- **[KG_IMPLEMENTATION_GUIDE.md](KG_IMPLEMENTATION_GUIDE.md)** - Agent implementation guide for Knowledge Graph functionality
+- **[README_KG_INTEGRATION.md](README_KG_INTEGRATION.md)** - End-user KG integration and benefits
 
 ### 📚 Plugin Documentation
 - **[../modules/memory-rules/README.md](../modules/memory-rules/README.md)** - Memory Rules: capabilities, use cases, configuration
