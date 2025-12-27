@@ -63,22 +63,36 @@
 
 ### Flexible Bootstrap Context Verification (Available for Framework Users)
 **Algorithm: Verify_Bootstrap_Context**
+
+**MANDATORY REQUIREMENT**: When checking for initialization marker, agents MUST use cross-platform hidden file detection tools as specified in `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md`.
+
 ```
 1. Check for initialization marker file (.agentic_initialized)
+   - MANDATORY: Use platform-specific commands for hidden file detection
+   - FOR Windows: Use "Get-ChildItem -Path 'agentic-rules' -Force -File | Where-Object {$_.Name -eq '.agentic_initialized'}"
+   - FOR Unix/Linux/macOS: Use "find agentic-rules -name '.agentic_initialized' -type f 2>/dev/null"
+   - FOR Cross-platform: Use Python pathlib with hidden file awareness
+   - PROHIBITED: Using standard directory listing tools that cannot detect hidden files
+
 2. IF marker file exists and is valid:
    - Skip user consent prompts for standard initialization
    - Proceed directly to configuration validation
    - Log: "Framework previously initialized - skipping consent prompts"
+
 3. IF marker file is MISSING or INVALID:
    - Display user prompt: "Bootstrap configuration not found. Initialize Agentic Rules Framework? (y/n)"
    - REQUIRE explicit user approval before proceeding
    - IF user approves: Execute Framework_Bootstrap_Initialization
    - IF user declines: Terminate framework operations
+
 4. IF bootstrap context exists: Validate integrity and version compatibility
 5. IF validation fails: Display user prompt: "Bootstrap configuration corrupted. Reload framework? (y/n)"
 6. REQUIRE user confirmation for any bootstrap reload operations
 7. FORBIDDEN: Operate without valid bootstrap context
 ```
+
+#### **Critical Implementation Note:**
+**VIOLATION**: Agents that use `os.listdir()`, `glob.glob()`, or any directory listing tool incapable of detecting hidden files (dot-files) when checking for `.agentic_initialized` will fail framework initialization and violate bootstrap compliance requirements.
 
 **AVAILABLE**: Execute Verify_Bootstrap_Context when framework features are desired.
 
