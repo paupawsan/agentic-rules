@@ -58,6 +58,79 @@ Retrieval-Augmented Generation rules form the foundation of intelligent informat
 
 **VIOLATION CONSEQUENCE**: Agents that fail to detect hidden files or use inappropriate tools will provide incomplete information processing and violate RAG rule compliance.
 
+#### Hidden File Detection Implementation Guide
+**MANDATORY REFERENCE**: When checking framework initialization status (.agentic_initialized), agents MUST use cross-platform hidden file detection tools.
+
+##### Problematic Default Behaviors (REQUIRES CORRECT PARAMETERS):
+```python
+# ❌ PROBLEMATIC - Default behavior misses hidden files
+import os
+files = os.listdir('agentic-rules')  # Default behavior excludes hidden files
+
+# ❌ PROBLEMATIC - Default glob excludes hidden files
+import glob
+files = glob.glob('agentic-rules/*')  # Default behavior excludes hidden files
+
+# ✅ CORRECT - Use include_hidden parameter
+import glob
+files = glob.glob('agentic-rules/*', include_hidden=True)
+
+# ✅ CORRECT - Use iterdir() which includes all files
+from pathlib import Path
+path = Path('agentic-rules')
+files = list(path.iterdir())  # Includes hidden files
+
+# ✅ CORRECT - Filter for hidden files explicitly
+import os
+all_files = os.listdir('agentic-rules')
+hidden_files = [f for f in all_files if f.startswith('.')]
+```
+
+##### Platform-Specific Commands for .agentic_initialized Detection:
+```bash
+# Windows - PowerShell
+Get-ChildItem -Path "agentic-rules" -Force -File | Where-Object {$_.Name -eq '.agentic_initialized'}
+
+# Unix/Linux/macOS - find command
+find agentic-rules -name '.agentic_initialized' -type f 2>/dev/null
+```
+
+##### Cross-Platform Python Implementation:
+```python
+import platform
+from pathlib import Path
+
+def check_framework_initialization():
+    system = platform.system().lower()
+    marker_path = Path('agentic-rules/.agentic_initialized')
+
+    # Method 1: Direct pathlib check (works on all platforms)
+    if marker_path.exists():
+        return True
+
+    # Method 2: Platform-specific detection for comprehensive checking
+    if system == 'windows':
+        # Use Windows-specific hidden file detection
+        try:
+            import win32api, win32con
+            if marker_path.exists():
+                attrs = win32api.GetFileAttributes(str(marker_path))
+                return bool(attrs & win32con.FILE_ATTRIBUTE_HIDDEN) or marker_path.exists()
+        except ImportError:
+            return marker_path.exists()  # Fallback
+    else:
+        # Unix-like systems
+        return marker_path.exists()
+
+    # Method 3: Directory iteration approach (alternative)
+    # Check if .agentic_initialized exists in directory listing
+    try:
+        agentic_rules_dir = Path('agentic-rules')
+        return any(f.name == '.agentic_initialized' for f in agentic_rules_dir.iterdir())
+    except (OSError, PermissionError):
+        return False
+```
+
 ### Algorithm Execution Requirements
 - **MANDATORY EXECUTION**: All defined algorithms MUST be executed when their conditions are met
 - **NO EXCEPTIONS**: Agents cannot skip algorithm execution based on "assumptions"
@@ -230,46 +303,74 @@ Input: log_path, issue_description, analysis_type
 **PROHIBITED TOOLS**: Standard `list_dir` or basic file listing tools are INSUFFICIENT and violate compliance.
 **AUTOMATIC EXECUTION**: This algorithm MUST run automatically when file discovery is needed.
 
+**📖 PLATFORM REFERENCE**: See `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md` for specific command implementations.
+
 ```
-Algorithm: Select_File_Discovery_Tool
-Input: search_target, search_context, file_types_needed
-Output: recommended_tool_chain
+Algorithm: Select_File_Discovery_Tool (Enhanced with Platform Commands)
+Input: search_target, search_context, file_types_needed, platform
+Output: specific_command_with_fallbacks
 
 MANDATORY ANALYSIS - Agents MUST evaluate ALL conditions:
 
-1. Analyze search_target characteristics - TRIGGER CONDITIONS:
-   - If ANY file operation: Execute this algorithm (MANDATORY)
-   - If hidden_files_needed OR starts_with_dot: Use comprehensive_directory_scan (MANDATORY)
-   - If checking system status: Execute hidden file detection (MANDATORY)
-   - If searching configuration: Include ALL dot-files (.env, .settings, etc.)
-   - If specific_extensions: Use filtered_glob_patterns
-   - If recursive_search: Use recursive_directory_traversal
-   - If metadata_only: Use filesystem_metadata_scanner
+1. Detect Platform and Analyze Requirements:
+   - platform = detect_current_platform()  # windows/linux/darwin/unknown
+   - If hidden_files_needed OR starts_with_dot: Execute Detect_Hidden_Files_Algorithm (MANDATORY)
+   - If system_status_check: Include .agentic_initialized, .bootstrap.json (MANDATORY)
+   - If configuration_search: Include .env, .gitignore, .settings, .config (MANDATORY)
 
 2. Determine search scope - MUST verify:
    - project_root: Use relative_path_resolution
    - system_wide: Use absolute_path_resolution with permissions_check
    - network_shares: Use network_mount_detection
 
-3. Select primary tool based on target - REQUIRED tool selection:
-   - Standard files: Use available directory listing tool with pattern matching
-   - Hidden files: Use comprehensive directory scanning tool capable of detecting dot-files (MANDATORY for dot-files)
-   - Large directories: Use recursive directory traversal with iterator support
-   - Network paths: Use path existence checking with permission validation
+3. Execute Platform-Specific Commands - MANDATORY IMPLEMENTATION:
+
+   FOR Windows Systems:
+   - Hidden files: PowerShell "Get-ChildItem -Path $directory -Force -File -Recurse"
+   - Fallback: CMD "dir /a:h /b /s $directory"
+   - Large dirs: Use iterator-based scanning to prevent memory issues
+
+   FOR Unix/Linux/macOS Systems:
+   - Hidden files: find $directory -name ".*" -type f 2>/dev/null
+   - Fallback: ls -la $directory | grep "^\."
+   - Large dirs: find with -maxdepth limits and progress indicators
+
+   FOR Unknown Platforms:
+   - Universal: Python pathlib.Path.glob('**/.*') with error handling
+   - Fallback: os.scandir() with manual hidden file detection
 
 4. Apply safety filters - MUST exclude:
-   - System directories (/proc, /sys, /dev on Unix)
+   - System directories (/proc, /sys, /dev on Unix; System32, Windows on Windows)
    - Unauthorized directories based on permissions
    - Respect .gitignore patterns when applicable
-   - Limit recursion depth to prevent infinite loops
+   - Limit recursion depth to prevent infinite loops (max 10 levels)
 
-5. Return tool_chain with fallback options - MUST provide:
-   - Primary: comprehensive_recursive_directory_scanner (for hidden file detection)
-   - Fallback: pattern_matching_directory_scanner
-   - Emergency: manual_path_construction
+5. Return command_chain with fallbacks - MUST provide:
+   - Primary: Platform-native command for hidden file detection
+   - Fallback: Cross-platform Python implementation
+   - Emergency: Manual path construction with basic os.listdir()
 
 VIOLATION: Agents using inappropriate tools or failing to detect required file types.
 ```
+
+#### **Critical Implementation Notes:**
+
+**MANDATORY COMMAND USAGE**:
+- **Windows**: Use `Get-ChildItem -Force` or `dir /a:h` - NOT basic `dir`
+- **Unix/macOS**: Use `find -name ".*"` or `ls -la` - NOT basic `ls`
+- **Cross-platform**: Use Python pathlib with proper hidden detection logic
+
+**HIDDEN FILE DETECTION VALIDATION**:
+- ✅ Must find files starting with `.` (dot-files)
+- ✅ Must detect Windows hidden attributes
+- ✅ Must include .env, .gitignore, .settings, .agentic_initialized
+- ✅ Must handle permission errors gracefully
+
+**PROHIBITED PRACTICES**:
+- ❌ Using `os.listdir()` without hidden file logic
+- ❌ Using `glob.glob()` without `**/.*` patterns
+- ❌ Assuming all platforms work like Unix (dot-files only)
+- ❌ Skipping platform detection and using generic commands
 
 ### Content Search Tool Selection Algorithm
 ```
@@ -310,48 +411,124 @@ Output: optimal_search_strategy
 ### Hidden File Detection Algorithm
 **MANDATORY**: Agents MUST execute this algorithm for ALL directory scans to ensure complete file discovery.
 
+**📖 CROSS-PLATFORM REFERENCE**: See `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md` for specific commands and implementations.
+
 ```
-Algorithm: Detect_Hidden_Files_Algorithm
-Input: directory_path, include_system_files, recursion_depth
+Algorithm: Detect_Hidden_Files_Algorithm (Enhanced with Platform-Specific Commands)
+Input: directory_path, include_system_files, recursion_depth, platform
 Output: comprehensive_file_list
 
 **AUTOMATIC TRIGGER**: This algorithm MUST execute for ANY directory investigation, file search, or system status check.
 **MANDATORY EXECUTION**: Cannot proceed with file operations until this algorithm completes successfully.
 **VIOLATION**: Using any file listing tool without executing this algorithm first.
 
-MANDATORY STEPS - Agents MUST follow ALL of these:
+MANDATORY STEPS - Agents MUST execute platform-specific commands:
 
-1. Initialize file discovery parameters:
+1. Detect Platform and Initialize Parameters:
+   - platform = detect_current_platform()  # windows/linux/darwin/unknown
    - base_path = resolve_absolute_path(directory_path)
    - max_depth = min(recursion_depth, 10)  # Safety limit
    - include_hidden = True  # ALWAYS include hidden files - NEVER set to False
    - exclude_patterns = ['.git', '__pycache__', 'node_modules']
-   - scan_mode = 'comprehensive'  # Always use comprehensive scanning
 
-2. Use comprehensive directory scanning:
-   - Tool: Available directory scanning function capable of detecting hidden files
-   - Capability: Must include files starting with '.' (dot-files) - REQUIRED
-   - Filter: Apply permission checks and safety exclusions
+2. Execute Platform-Specific Hidden File Detection:
+
+   FOR Windows Systems:
+   - Primary Command: PowerShell "Get-ChildItem -Path $directory -Force -File -Recurse"
+   - Fallback Command: CMD "dir /a:h /b /s $directory"
+   - Python Fallback: Use win32api.GetFileAttributes() with FILE_ATTRIBUTE_HIDDEN check
+
+   FOR Unix/Linux/macOS Systems:
+   - Primary Command: find $directory -name ".*" -type f 2>/dev/null
+   - Fallback Command: ls -la $directory | grep "^\."
+   - Python Fallback: pathlib.Path.glob('**/.*') with error handling
+
+   FOR Unknown Platforms:
+   - Universal Python: Cross-platform pathlib implementation
 
 3. Apply hidden file detection rules - MUST check ALL:
-   - Dot-prefix files: .* (Unix/Linux hidden files)
-   - System attributes: Check platform-specific hidden flags
-   - Configuration files: .env, .gitignore, .eslintrc, .settings, etc.
+   - Dot-prefix files: .* (Unix/Linux/macOS hidden files)
+   - System attributes: Platform-specific hidden flags (Windows FILE_ATTRIBUTE_HIDDEN)
+   - Configuration files: .env, .gitignore, .eslintrc, .settings, .config, .agentic_initialized
+   - Framework files: .bootstrap.json, .framework files
    - Temporary files: .tmp, .cache, .log variants
 
-4. Process special file types:
+4. Process special file types with platform awareness:
    - Symbolic links: Resolve and check target if accessible
    - Special files: Skip device files, sockets, named pipes
    - Large files: Use stat() for size checking before processing
    - Binary files: Flag for specialized processing
+   - Permission issues: Log and categorize as inaccessible
 
 5. Return categorized file list - MUST include:
    - visible_files: Regular user-visible files
    - hidden_files: Configuration and system files (MANDATORY)
+   - dot_files: Files starting with . (MANDATORY for Unix-like systems)
+   - system_hidden: Files with hidden attributes (MANDATORY for Windows)
    - special_files: Links, devices (with warnings)
    - inaccessible_files: Permission denied files (logged)
 
 VIOLATION: Agents that skip hidden files or use incomplete scanning methods.
+```
+
+#### **Platform-Specific Command Examples:**
+
+**Windows PowerShell:**
+```powershell
+# Comprehensive hidden file detection
+Get-ChildItem -Path "C:\project" -Force -File -Recurse | Where-Object {
+    $_.Attributes -band [System.IO.FileAttributes]::Hidden -or $_.Name -like ".*"
+}
+```
+
+**Windows Command Prompt:**
+```batch
+REM List all files including hidden
+dir /a /b /s "C:\project"
+```
+
+**Linux/macOS:**
+```bash
+# Find all hidden files recursively
+find /project -name ".*" -type f 2>/dev/null
+
+# Alternative using ls
+ls -laR /project 2>/dev/null | grep "^-" | grep "\./\."
+```
+
+**Cross-Platform Python Implementation:**
+```python
+import os
+import platform
+from pathlib import Path
+
+def detect_hidden_files_cross_platform(directory):
+    """Universal hidden file detection for all platforms."""
+    system = platform.system().lower()
+    hidden_files = []
+
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            filepath = os.path.join(root, file)
+
+            # Platform-specific hidden detection
+            if system == 'windows':
+                try:
+                    # Check Windows hidden attribute
+                    import win32api, win32con
+                    attrs = win32api.GetFileAttributes(filepath)
+                    is_hidden = bool(attrs & win32con.FILE_ATTRIBUTE_HIDDEN)
+                except ImportError:
+                    # Fallback to dot-file check
+                    is_hidden = file.startswith('.')
+            else:
+                # Unix-like systems
+                is_hidden = file.startswith('.')
+
+            if is_hidden:
+                hidden_files.append(filepath)
+
+    return hidden_files
 ```
 
 ### Safe Tool Usage Conditions
