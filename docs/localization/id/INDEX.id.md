@@ -29,6 +29,7 @@ Folder ini berisi panduan lengkap untuk Agentic Rules Framework.
 - **[../../../modules/memory-rules/MEMORY-RULES.md](../../../modules/memory-rules/MEMORY-RULES.md)** - Cara kerja sistem memori secara teknis
 - **[../../../modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md](../../../modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md)** - Cara kerja sistem berpikir kritis secara teknis
 - **[../../../modules/rag-rules/RAG-RULES.md](../../../modules/rag-rules/RAG-RULES.md)** - Cara kerja sistem RAG secara teknis
+- **[CROSS_PLATFORM_HIDDEN_FILE_DETECTION.id.md](CROSS_PLATFORM_HIDDEN_FILE_DETECTION.id.md)** - Perintah platform-spesifik untuk deteksi file tersembunyi yang andal
 
 ## Panduan Cepat
 

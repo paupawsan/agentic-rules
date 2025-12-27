@@ -29,6 +29,7 @@
 - **[../memory-rules/MEMORY-RULES.md](../memory-rules/MEMORY-RULES.md)** - メモリーシステムの技術的な仕組み
 - **[../critical-thinking-rules/CRITICAL-THINKING-RULES.md](../critical-thinking-rules/CRITICAL-THINKING-RULES.md)** - 考え方と確認の技術的な仕組み
 - **[../rag-rules/RAG-RULES.md](../rag-rules/RAG-RULES.md)** - 情報処理の技術的な仕組み
+- **[CROSS_PLATFORM_HIDDEN_FILE_DETECTION.ja.md](CROSS_PLATFORM_HIDDEN_FILE_DETECTION.ja.md)** - 信頼できる隠しファイル検出のためのプラットフォーム固有コマンド
 
 ## すぐに使えるガイド
 

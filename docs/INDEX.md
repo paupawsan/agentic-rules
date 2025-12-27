@@ -18,6 +18,7 @@ This directory contains detailed documentation for the Agentic Rules Framework.
 - **[EXTENSION-MANUAL.md](EXTENSION-MANUAL.md)** - Step-by-step guide for extending the framework
 - **[KG_IMPLEMENTATION_GUIDE.md](KG_IMPLEMENTATION_GUIDE.md)** - Agent implementation guide for Knowledge Graph functionality
 - **[README_KG_INTEGRATION.md](README_KG_INTEGRATION.md)** - End-user KG integration and benefits
+- **[CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md](CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md)** - Platform-specific commands for reliable hidden file detection
 
 ### 📚 Plugin Documentation
 - **[../modules/memory-rules/README.md](../modules/memory-rules/README.md)** - Memory Rules: capabilities, use cases, configuration
@@ -29,6 +30,7 @@ This directory contains detailed documentation for the Agentic Rules Framework.
 - **[../memory-rules/MEMORY-RULES.md](../memory-rules/MEMORY-RULES.md)** - Memory system technical algorithms
 - **[../critical-thinking-rules/CRITICAL-THINKING-RULES.md](../critical-thinking-rules/CRITICAL-THINKING-RULES.md)** - Reasoning and verification technical algorithms
 - **[../rag-rules/RAG-RULES.md](../rag-rules/RAG-RULES.md)** - Information processing technical algorithms
+- **[CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md](CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md)** - Platform-specific commands for reliable hidden file detection
 
 ## Quick Navigation
 
