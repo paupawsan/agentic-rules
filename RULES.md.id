@@ -18,7 +18,7 @@ Kerangka ini menyediakan perilaku agen AI terstruktur melalui aturan modular:
 
 ## Kepatuhan Bootstrap
 Sebelum memuat file aturan apa pun, agen HARUS:
-1. **Periksa penanda inisialisasi menggunakan alat deteksi file tersembunyi** (lihat `modules/rag-rules/RAG-RULES.md`)
+1. **Periksa status inisialisasi**: Deteksi file penanda `.agentic_initialized` menggunakan deteksi file tersembunyi lintas platform (lihat `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md`)
 2. Baca `bootstrap.json` untuk memahami konfigurasi kerangka
 3. Tinjau `Bootstrap.md` untuk spesifikasi algoritma detail dan persyaratan kepatuhan
 4. Periksa urutan pemuatan dan titik masuk

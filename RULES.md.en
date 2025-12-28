@@ -18,7 +18,7 @@ This framework provides structured AI agent behaviors through modular rules:
 
 ## Bootstrap Compliance
 Before loading any rule files, agents MUST:
-1. **Check initialization marker using hidden file detection tools** (see `modules/rag-rules/RAG-RULES.md`)
+1. **Check initialization status**: Detect the `.agentic_initialized` marker file using cross-platform hidden file detection (see `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md`)
 2. Read `bootstrap.json` to understand the framework configuration
 3. Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements
 4. Check loading sequence and entry points

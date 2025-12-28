@@ -18,7 +18,7 @@
 
 ## ブートストラップ準拠 / Bootstrap Compliance
 ルールファイルを読み込む前に、エージェントは必ず：
-1. **隠しファイル検出ツールを使用して初期化マーカーを確認する / Check initialization marker using hidden file detection tools** (see `modules/rag-rules/RAG-RULES.md`)
+1. **初期化ステータスを確認する / Check initialization status**: `.agentic_initialized` マーカーファイルをクロスプラットフォームの隠しファイル検出を使用して検出する (see `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md`)
 2. フレームワーク設定を理解するために`bootstrap.json`を読み取る / Read `bootstrap.json` to understand the framework configuration
 3. 詳細なアルゴリズム仕様と準拠要件については`Bootstrap.md`を確認 / Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements
 4. 読み込み順序とエントリーポイントを確認 / Check loading sequence and entry points
