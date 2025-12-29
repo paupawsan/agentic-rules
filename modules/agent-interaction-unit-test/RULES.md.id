@@ -29,6 +29,7 @@ Lihat [CORE-RULES.md](CORE-RULES.md) untuk spesifikasi algoritma yang detail.
 - **Integrasi Memori**: Simpan hasil tes dan riwayat validasi
 - **Integrasi RAG**: Optimalkan konteks untuk skenario testing
 - **Critical Thinking**: Berikan dukungan validasi ground check
+- **Analisis Debugging**: Eksekusi AgentDebuggingAnalysis_Process untuk analisis sistematis perilaku agen (lihat CORE-RULES.md)
 - **Koordinasi Bootstrap**: Hormati prioritas loading dan sequencing aturan
 
 ## Instruksi Penggunaan

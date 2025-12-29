@@ -12,6 +12,7 @@ The Agent Interaction Unit Test module provides automated validation and testing
 - **Tool Call Auditing**: Complete logging of all tool executions with validation
 - **Decision Process Auditing**: Documentation of all decision points with alternatives
 - **Context Management Monitoring**: Tracking of context window utilization and optimization
+- **Agent Debugging Analysis**: Systematic analysis of agent reasoning processes, tool usage, and parameter selections (see CORE-RULES.md for detailed algorithm)
 - **Compliance Validation**: Automated checking against framework requirements
 
 ## Quick Start
@@ -51,6 +52,22 @@ Use this format for unit testing:
 [Execute agent with unit test validation...]
 ```
 
+### Proven Effective Example
+
+This prompt pattern has been validated and proven effective:
+
+```markdown
+UNIT TEST: Agent Memory Retrieval
+Framework: Agentic Rules v1.1.0
+Task: Test basic agent Memory retrieval.
+
+Instruction:
+Sync your memory for current project.
+
+Output:
+I want unit test report in markdown format in this [your report folder]
+```
+
 ## Validation Criteria
 
 The module validates responses against:
@@ -59,6 +76,7 @@ The module validates responses against:
 - ✅ **0% Hallucinations** - All information source-verified
 - ✅ **Complete Tool Transparency** - Every call logged
 - ✅ **Decision Documentation** - All choices explained
+- ✅ **Agent Debugging Analysis** - Systematic reasoning and tool usage validation
 
 ## Integration
 
@@ -67,6 +85,31 @@ This module integrates with:
 - **RAG Rules**: Optimizes context for testing scenarios
 - **Critical Thinking Rules**: Provides ground check validation support
 - **Agent Interaction Unit Test**: Specialized testing framework for agent interaction patterns
+
+## Agent Debugging Analysis
+
+The module includes advanced debugging capabilities through the `AgentDebuggingAnalysis_Process` algorithm for systematic analysis of agent behavior:
+
+### Key Debugging Features
+- **Chain of Thoughts Analysis**: Detailed examination of reasoning processes and decision-making
+- **Tool Usage Validation**: Analysis of tool selection appropriateness and parameter choices
+- **Parameter Optimization**: Evaluation of parameter settings and their effectiveness
+- **Performance Assessment**: Identification of inefficiencies and optimization opportunities
+- **Structured Reporting**: Comprehensive markdown-formatted debugging reports
+
+### Debugging Report Structure
+The debugging analysis generates structured reports with:
+1. **Chain of Thought**: Full raw step-by-step reasoning process documentation
+2. **Step-by-Step Analysis**: Tabular breakdown of each reasoning step, decision, tool used, and findings
+3. **Key Issues & Opportunities**: Critical problems and improvement suggestions
+4. **Recommendations**: Actionable suggestions for performance enhancement
+5. **Key Steps Summary**: 3-5 bullet points highlighting main findings
+
+### Debugging Use Cases
+- **Code Analysis Validation**: Verify accuracy of code analysis and recommendations
+- **Tool Selection Review**: Assess appropriateness of tool choices and parameter settings
+- **Reasoning Process Audit**: Examine logical flow and decision-making quality
+- **Performance Optimization**: Identify bottlenecks and suggest improvements
 
 ## Usage Examples
 
@@ -178,6 +221,21 @@ Task: Complete interaction validation and compliance testing
 
 User Query: "create detailed agent interaction sequence logs including tools calling and parameters"
 ```
+
+### Use Case 6: Agent Debugging Analysis
+```
+UNIT TEST: agent_debugging_analysis
+Framework: Agentic Rules v1.1.0
+Task: Systematic debugging and validation of agent reasoning processes
+
+User Query: "debug the agent's reasoning process for the previous code analysis task"
+```
+
+**Debugging Analysis Focus:**
+- Chain of thoughts examination and logical flow validation
+- Tool selection appropriateness and parameter optimization
+- Reasoning process efficiency and decision quality assessment
+- Performance bottleneck identification and improvement recommendations
 
 ### Detailed Interaction Example
 
@@ -301,6 +359,7 @@ When a user requests code analysis, the unit testing framework captures comprehe
 ✅ Hallucination Detection: 0%
 ✅ Tool Transparency: Complete
 ✅ Decision Documentation: Full audit trail
+✅ Agent Debugging Analysis: Comprehensive reasoning validation
 ```
 
 ### Memory System Impact
