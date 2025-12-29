@@ -1,5 +1,5 @@
 # Knowledge Graph Implementation Guide for Agentic Rules Framework
-**Framework Version**: 1.1.0
+**Framework Version**: 1.2.0
 **Document Purpose**: Agent Implementation Guidance for KG Functionality
 **Implementation Approach**: Logical Algorithms & Pseudocode Only
 

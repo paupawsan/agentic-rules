@@ -1,5 +1,5 @@
 # Cross-Platform Hidden File Detection Implementation Guide
-**Framework Version**: 1.1.0
+**Framework Version**: 1.2.0
 **Purpose**: Provide specific commands and algorithms for reliable hidden file detection
 **Scope**: Mandatory implementation for all file system operations
 

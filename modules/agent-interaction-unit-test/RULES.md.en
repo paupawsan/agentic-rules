@@ -44,7 +44,7 @@ See [CORE-RULES.md](CORE-RULES.md) for detailed algorithm specifications.
 ### Test Case Format:
 ```
 UNIT TEST: [Test_Name]
-Framework: Agentic Rules v1.1.0
+Framework: Agentic Rules v1.2.0
 Task: [Specific_Test_Task]
 
 [Execute with unit test validation...]

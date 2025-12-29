@@ -1,5 +1,5 @@
 # Panduan Deteksi File Tersembunyi Lintas Platform
-**Versi Framework**: 1.1.0
+**Versi Framework**: 1.2.0
 **Tujuan**: Berikan perintah spesifik dan algoritma untuk deteksi file tersembunyi yang andal
 **Cakupan**: Implementasi wajib untuk semua operasi sistem file
 

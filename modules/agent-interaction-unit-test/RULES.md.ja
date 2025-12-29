@@ -44,7 +44,7 @@
 ### テストケース形式:
 ```
 UNIT TEST: [Test_Name]
-Framework: Agentic Rules v1.1.0
+Framework: Agentic Rules v1.2.0
 Task: [Specific_Test_Task]
 
 [Execute with unit test validation...]

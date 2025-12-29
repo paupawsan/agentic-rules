@@ -1,5 +1,5 @@
 # Panduan Implementasi Knowledge Graph untuk Agentic Rules Framework
-**Versi Framework**: 1.1.0
+**Versi Framework**: 1.2.0
 **Tujuan Dokumen**: Panduan Implementasi Agen untuk Fungsi KG
 **Pendekatan Implementasi**: Algoritma Logis & Pseudocode Saja
 
