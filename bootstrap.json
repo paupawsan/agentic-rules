@@ -5,7 +5,7 @@
     "license_file": "LICENSE"
   },
   "agentic_bootstrap": {
-    "version": "1.1.0",
+    "version": "1.2.0",
     "framework_id": "agentic-core-rules-v1",
     "agent_algorithm_reference": "Bootstrap.md",
     "distributed_integration": true,
@@ -26,7 +26,14 @@
         "description": "Check if framework has been previously initialized",
         "required": true,
         "initialization_marker": ".agentic_initialized",
-        "skip_if_initialized": true
+        "skip_if_initialized": true,
+        "hidden_file_detection_required": true,
+        "cross_platform_tools_reference": "docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md",
+        "mandatory_tool_usage": {
+          "windows": "Get-ChildItem -Force",
+          "unix": "find -name '.*'",
+          "prohibited_tools": ["os.listdir()", "glob.glob()"]
+        }
       },
       {
         "step": 1,

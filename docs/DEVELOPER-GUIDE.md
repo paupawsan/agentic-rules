@@ -16,9 +16,7 @@ After `setup.html` creates the necessary files, the bootstrap initialization is 
 
 ```bash
 # Tell your AI agent to initialize the framework
-"Initialize agentic rules system"
-# or
-"Setup agentic rules bootstrap"
+"Initialize the agentic rules system in /path/to/your/agentic-rules folder. I already completed setup.html, so just perform the bootstrap initialization."
 ```
 
 **The bootstrap initialization is an interactive process managed by the AI agent, not a programmatic script.**

@@ -4,9 +4,9 @@
     "copyright": "Copyright (c) 2025 Paulus Ery Wasito Adhi",
     "license_file": "LICENSE"
   },
-  "version": "1.0.0",
+  "version": "1.2.0",
   "rag_rules": {
-    "enabled": false,
+    "enabled": true,
     "context_window_optimization": {
       "enabled": true,
       "max_context_tokens": 8000,
@@ -53,6 +53,12 @@
         "working_memory_mb": 50,
         "compression_threshold": 80,
         "cache_enabled": true
+      },
+      "kg_context": {
+        "auto_injection_enabled": true,
+        "conversation_start_kg_pull": true,
+        "kg_context_preloading": true,
+        "relevance_based_kg_injection": true
       }
     },
     "tool_integration": {
@@ -86,11 +92,35 @@
     },
     "knowledge_graph": {
       "enabled": false,
+      "auto_construction": {
+        "enabled": true,
+        "background_only": true,
+        "user_triggered_only": false,
+        "minimal_scope": true
+      },
       "runtime_generation": {
-        "entity_extraction": true,
-        "relationship_discovery": true,
-        "semantic_linking": true,
-        "dynamic_updates": true
+        "entity_extraction": false,
+        "relationship_discovery": false,
+        "semantic_linking": false,
+        "dynamic_updates": false
+      },
+      "python_enhancement": {
+        "enabled": true,
+        "runtime_script_generation": true,
+        "safety_validation_required": true,
+        "sandbox_execution": true,
+        "fallback_to_text": true,
+        "transparency_logging": true,
+        "allowed_modules": [
+          "ast",
+          "inspect",
+          "importlib",
+          "sys",
+          "os"
+        ],
+        "max_execution_time": 30,
+        "max_memory_mb": 50,
+        "script_validation": true
       },
       "graph_management": {
         "max_nodes": 10000,
@@ -138,7 +168,35 @@
         "relationship_strength": true,
         "temporal_relevance": true,
         "semantic_similarity": true
-      }
+      },
+      "proactive_kg_usage": true,
+      "conversation_kg_context": true,
+      "auto_kg_context_injection": true
+    },
+    "python_enhancement": {
+      "enabled": true,
+      "runtime_script_generation": true,
+      "safety_validation_required": true,
+      "sandbox_execution": true,
+      "fallback_to_text": true,
+      "transparency_logging": true,
+      "allowed_modules": [
+        "ast",
+        "inspect",
+        "importlib",
+        "sys",
+        "os"
+      ],
+      "max_execution_time": 30,
+      "max_memory_mb": 50,
+      "script_validation": true
+    },
+    "kg_memory_integration": {
+      "enabled": true,
+      "memory_driven_kg_queries": true,
+      "kg_context_memory_storage": true,
+      "auto_kg_memory_linking": true,
+      "conversation_kg_awareness": true
     }
   }
 }

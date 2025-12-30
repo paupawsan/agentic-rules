@@ -16,6 +16,8 @@
 
 ### 🔧 機能追加と開発
 - **[EXTENSION-MANUAL.ja.md](EXTENSION-MANUAL.ja.md)** - フレームワークに機能を追加する詳しい手順
+- **[KG_IMPLEMENTATION_GUIDE.ja.md](KG_IMPLEMENTATION_GUIDE.ja.md)** - KG機能向けエージェント実装ガイド
+- **[README_KG_INTEGRATION.ja.md](README_KG_INTEGRATION.ja.md)** - エンドユーザー向けKG統合と利点
 
 ### 📚 プラグインの説明書
 - **[../../../modules/memory-rules/docs/localization/ja/README.ja.md](../../../modules/memory-rules/docs/localization/ja/README.ja.md)** - メモリールール：機能、使い方の例、設定
@@ -27,6 +29,7 @@
 - **[../memory-rules/MEMORY-RULES.md](../memory-rules/MEMORY-RULES.md)** - メモリーシステムの技術的な仕組み
 - **[../critical-thinking-rules/CRITICAL-THINKING-RULES.md](../critical-thinking-rules/CRITICAL-THINKING-RULES.md)** - 考え方と確認の技術的な仕組み
 - **[../rag-rules/RAG-RULES.md](../rag-rules/RAG-RULES.md)** - 情報処理の技術的な仕組み
+- **[CROSS_PLATFORM_HIDDEN_FILE_DETECTION.ja.md](CROSS_PLATFORM_HIDDEN_FILE_DETECTION.ja.md)** - 信頼できる隠しファイル検出のためのプラットフォーム固有コマンド
 
 ## すぐに使えるガイド
 

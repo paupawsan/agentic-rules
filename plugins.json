@@ -1,6 +1,6 @@
 {
   "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "plugins": [
     "modules/agent-interaction-unit-test",
     "modules/critical-thinking-rules",

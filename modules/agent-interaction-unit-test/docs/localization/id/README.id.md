@@ -12,6 +12,7 @@ Modul Unit Test Interaksi Agen menyediakan kerangka kerja validasi dan pengujian
 - **Audit Pemanggilan Tool**: Logging lengkap dari semua eksekusi tool dengan validasi
 - **Audit Proses Keputusan**: Dokumentasi dari semua titik keputusan dengan alternatif
 - **Pemantauan Manajemen Konteks**: Pelacakan pemanfaatan jendela konteks dan optimasi
+- **Analisis Debugging Agen**: Analisis sistematis dari proses penalaran agen, penggunaan tool, dan pemilihan parameter (lihat CORE-RULES.md untuk algoritma detail)
 - **Validasi Kepatuhan**: Pemeriksaan otomatis terhadap persyaratan kerangka kerja
 
 ## Mulai Cepat
@@ -45,10 +46,26 @@ Gunakan format ini untuk unit testing:
 
 ```markdown
 # UNIT TEST: [Test_Name]
-**Framework:** Agentic Rules v1.1.0
+**Framework:** Agentic Rules v1.2.0
 **Task:** [Specific_Test_Task]
 
 [Eksekusi agen dengan validasi unit test...]
+```
+
+### Contoh Yang Terbukti Efektif
+
+Pola prompt ini telah divalidasi dan terbukti efektif:
+
+```markdown
+UNIT TEST: Pengambilan Memori Agen
+Framework: Agentic Rules v1.2.0
+Task: Uji pengambilan Memori agen dasar.
+
+Instruction:
+Sinkronkan memori Anda untuk proyek saat ini.
+
+Output:
+Saya ingin laporan unit test dalam format markdown di folder ini [folder laporan Anda]
 ```
 
 ## Kriteria Validasi
@@ -59,6 +76,7 @@ Modul memvalidasi respons terhadap:
 - ✅ **0% Halusinasi** - Semua informasi diverifikasi sumber
 - ✅ **Transparansi Tool Lengkap** - Setiap pemanggilan dicatat
 - ✅ **Dokumentasi Keputusan** - Semua pilihan dijelaskan
+- ✅ **Analisis Debugging Agen** - Validasi penalaran sistematis dan penggunaan tool
 
 ## Integrasi
 
@@ -66,6 +84,31 @@ Modul ini terintegrasi dengan:
 - **Aturan Memori**: Menyimpan hasil tes dan riwayat validasi
 - **Aturan RAG**: Mengoptimalkan konteks untuk skenario testing
 - **Aturan Berpikir Kritis**: Menyediakan dukungan validasi ground check
+
+## Analisis Debugging Agen
+
+Modul ini mencakup kemampuan debugging lanjutan melalui algoritma `AgentDebuggingAnalysis_Process` untuk analisis sistematis perilaku agen:
+
+### Fitur Debugging Utama
+- **Analisis Chain of Thoughts**: Pemeriksaan detail dari proses penalaran dan pengambilan keputusan
+- **Validasi Penggunaan Tool**: Analisis kesesuaian pemilihan tool dan pilihan parameter
+- **Optimasi Parameter**: Evaluasi pengaturan parameter dan efektivitasnya
+- **Penilaian Performa**: Identifikasi inefisiensi dan peluang optimasi
+- **Pelaporan Terstruktur**: Laporan debugging komprehensif dalam format markdown
+
+### Struktur Laporan Debugging
+Analisis debugging menghasilkan laporan terstruktur dengan:
+1. **Chain of Thought**: Dokumentasi proses penalaran langkah demi langkah mentah penuh
+2. **Analisis Langkah demi Langkah**: Rincian tabular dari setiap langkah penalaran, keputusan, tool yang digunakan, dan temuan
+3. **Masalah Utama & Peluang Perbaikan**: Masalah kritis dan saran perbaikan
+4. **Rekomendasi**: Saran dapat ditindaklanjuti untuk peningkatan performa
+5. **Ringkasan Langkah Utama**: 3-5 poin penting yang menyoroti temuan utama
+
+### Kasus Penggunaan Debugging
+- **Validasi Analisis Kode**: Verifikasi akurasi analisis kode dan rekomendasi
+- **Tinjauan Pemilihan Tool**: Nilai kesesuaian pilihan tool dan pengaturan parameter
+- **Audit Proses Penalaran**: Periksa alur logis dan kualitas pengambilan keputusan
+- **Optimasi Performa**: Identifikasi bottleneck dan saran perbaikan
 
 ## Contoh Penggunaan
 
@@ -81,7 +124,7 @@ Modul ini terintegrasi dengan:
 ### Jalankan Test Case
 ```
 UNIT TEST: Code Analysis Validation
-Framework: Agentic Rules v1.1.0
+Framework: Agentic Rules v1.2.0
 Task: Analyze the function in setup.html that generates AGENTS.md files
 
 [Agent executes with full validation...]
@@ -112,7 +155,7 @@ Ini memberitahu agen untuk mempersiapkan validasi komprehensif dalam percakapan 
 ### Kasus Penggunaan 1: Analisis Kode & Debugging
 ```
 UNIT TEST: code_analysis_debugging
-Framework: Agentic Rules v1.1.0
+Framework: Agentic Rules v1.2.0
 Task: Analyze authentication module for security vulnerabilities
 
 Query Pengguna: "Analisis kode autentikasi di auth.js untuk masalah keamanan potensial"
@@ -127,7 +170,7 @@ Query Pengguna: "Analisis kode autentikasi di auth.js untuk masalah keamanan pot
 ### Kasus Penggunaan 2: Identifikasi Masalah
 ```
 UNIT TEST: problem_identification
-Framework: Agentic Rules v1.1.0
+Framework: Agentic Rules v1.2.0
 Task: Identify root cause of database connection failures
 
 Query Pengguna: "Debug masalah koneksi database di production - periksa log dan identifikasi akar penyebabnya"
@@ -142,7 +185,7 @@ Query Pengguna: "Debug masalah koneksi database di production - periksa log dan 
 ### Kasus Penggunaan 3: Analisis Arsitektur Kodebase
 ```
 UNIT TEST: architecture_analysis
-Framework: Agentic Rules v1.1.0
+Framework: Agentic Rules v1.2.0
 Task: Analyze codebase structure and recommend improvements
 
 Query Pengguna: "Analisis seluruh struktur codebase dan sarankan perbaikan arsitektur"
@@ -157,7 +200,7 @@ Query Pengguna: "Analisis seluruh struktur codebase dan sarankan perbaikan arsit
 ### Kasus Penggunaan 4: Validasi Refactoring
 ```
 UNIT TEST: refactoring_validation
-Framework: Agentic Rules v1.1.0
+Framework: Agentic Rules v1.2.0
 Task: Validate refactoring changes maintain functionality
 
 Query Pengguna: "Review perubahan refactoring terbaru untuk memastikan tidak merusak fungsionalitas yang ada"
@@ -172,11 +215,26 @@ Query Pengguna: "Review perubahan refactoring terbaru untuk memastikan tidak mer
 ### Kasus Penggunaan 5: Pengujian Sistem Komprehensif
 ```
 UNIT TEST: comprehensive_agent_interaction_testing
-Framework: Agentic Rules v1.1.0
+Framework: Agentic Rules v1.2.0
 Task: Complete interaction validation and compliance testing
 
 Query Pengguna: "buat log urutan interaksi agen yang detail termasuk pemanggilan tools dan parameter"
 ```
+
+### Kasus Penggunaan 6: Analisis Debugging Agen
+```
+UNIT TEST: agent_debugging_analysis
+Framework: Agentic Rules v1.2.0
+Task: Systematic debugging and validation of agent reasoning processes
+
+Query Pengguna: "debug proses penalaran agen untuk tugas analisis kode sebelumnya"
+```
+
+**Fokus Analisis Debugging:**
+- Pemeriksaan chain of thoughts dan validasi alur logis
+- Kesesuaian pemilihan tool dan optimasi parameter
+- Penilaian efisiensi proses penalaran dan kualitas keputusan
+- Identifikasi bottleneck performa dan rekomendasi perbaikan
 
 ### Contoh Interaksi Detail
 
@@ -300,6 +358,7 @@ Ketika pengguna meminta analisis kode, kerangka kerja pengujian unit menangkap d
 ✅ Deteksi Halusinasi: 0%
 ✅ Transparansi Tool: Lengkap
 ✅ Dokumentasi Keputusan: Trail audit penuh
+✅ Analisis Debugging Agen: Validasi penalaran komprehensif
 ```
 
 ### Dampak Sistem Memori
@@ -344,6 +403,6 @@ Ikuti panduan kontribusi Agentic Rules Framework standar. Semua perubahan harus 
 
 ---
 
-**Integrasi Kerangka Kerja:** Kompatibel dengan Agentic Rules v1.1.0+
+**Integrasi Kerangka Kerja:** Kompatibel dengan Agentic Rules v1.2.0+
 **Lisensi:** Lisensi MIT
 **Maintenance:** Dipertahankan secara aktif

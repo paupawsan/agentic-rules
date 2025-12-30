@@ -4,9 +4,9 @@
     "copyright": "Copyright (c) 2025 Paulus Ery Wasito Adhi",
     "license_file": "LICENSE"
   },
-  "version": "1.0.0",
+  "version": "1.2.0",
   "memory_rules": {
-    "enabled": false,
+    "enabled": true,
     "max_entries_per_category": 100,
     "cleanup_guidance_days": 90,
     "index_update_frequency": "realtime",
@@ -109,6 +109,15 @@
         "share_across_projects": false,
         "encryption_required": true,
         "access_controlled": true
+      },
+      "knowledge_graph": {
+        "enabled": true,
+        "suggested_retention_days": 365,
+        "storage_location": "common",
+        "share_across_projects": true,
+        "background_construction": true,
+        "minimal_auto_build": true,
+        "user_invisible": true
       }
     },
     "compression": {
@@ -121,14 +130,18 @@
       "enable_topic_search": true,
       "enable_session_search": true,
       "max_results": 20,
-      "include_interaction_history": true
+      "include_interaction_history": true,
+      "enable_kg_search": true,
+      "kg_relationship_search": true
     },
     "capture_settings": {
       "auto_capture_interactions": true,
       "session_boundary_detection": true,
       "topic_extraction": true,
       "user_prompt_filtering": false,
-      "sensitive_data_masking": true
+      "sensitive_data_masking": true,
+      "kg_context_capture": true,
+      "auto_kg_linking": true
     },
     "auto_recording": {
       "enabled": true,
@@ -138,7 +151,15 @@
       "record_all_responses": true,
       "continuous_session_tracking": true,
       "real_time_indexing": true,
-      "background_processing": false
+      "background_processing": true
+    },
+    "kg_background_processing": {
+      "enabled": true,
+      "separate_conversation": true,
+      "minimal_construction": true,
+      "project_analysis_only": true,
+      "batch_processing": true,
+      "no_user_waiting": true
     },
     "migration_settings": {
       "auto_detect_existing_memories": true,
@@ -169,6 +190,14 @@
       "session_context_inclusion": true,
       "topic_evolution_tracking": true,
       "user_pattern_analysis": true
+    },
+    "kg_memory_integration": {
+      "enabled": true,
+      "auto_kg_reference_scanning": true,
+      "conversation_context_injection": true,
+      "kg_relevance_threshold": 0.6,
+      "max_kg_context_items": 5,
+      "kg_context_priority": "high"
     }
   },
   "storage": {

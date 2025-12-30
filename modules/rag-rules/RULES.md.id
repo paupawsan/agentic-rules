@@ -143,6 +143,128 @@ Algoritma: Adaptive_Graph_Maintenance
 4. Hasilkan konteks yang diperkaya yang menggabungkan pengetahuan terstruktur dan teks tak terstruktur
 5. Perbarui grafik pengetahuan dengan hubungan baru yang ditemukan selama pemrosesan query
 6. Berikan respons komprehensif dengan konteks faktual dan relasional
+7. Optimalkan kelengkapan dan akurasi respons
+
+## Konstruksi KG yang Ditingkatkan Python
+
+**KEMAMPUAN LANJUT**: Agen dapat memanfaatkan eksekusi Python untuk konstruksi KG yang ditingkatkan ketika kondisi sistem mengizinkan eksekusi yang aman.
+
+### Algoritma: Python_Enhanced_KG_Construction
+**WAJIB**: Eksekusi ketika python_enhancement.enabled = true dan validasi keamanan lulus
+
+**Langkah-langkah**:
+1. Periksa python_enhancement.safety_validation_required = true
+2. Validasi keamanan dan sandboxing lingkungan eksekusi
+3. Verifikasi ketersediaan allowed_modules
+4. Hasilkan skrip analisis Python dinamis berdasarkan kebutuhan analisis
+5. Eksekusi skrip di lingkungan sandbox dengan batas sumber daya
+6. Proses hasil eksekusi ke dalam format KG
+7. Gabungkan dengan hasil analisis berbasis teks
+8. Log informasi transparansi untuk akses pengguna
+
+**KRITIS**: Selalu pertahankan fallback ke analisis berbasis teks jika eksekusi Python gagal
+
+### Algoritma: Safety_Validation_Check
+**WAJIB**: Eksekusi sebelum pembuatan skrip Python apa pun
+
+**Langkah-langkah**:
+1. Verifikasi ketersediaan lingkungan eksekusi sandboxed
+2. Periksa semua allowed_modules terinstal dan aman
+3. Validasi batas sumber daya (max_execution_time, max_memory_mb)
+4. Konfirmasi fallback_to_text = true dikonfigurasi
+5. Uji fungsionalitas script_validation
+6. Kembalikan status validasi
+
+### Algoritma: Dynamic_Script_Generation
+**WAJIB**: Hasilkan skrip analisis berdasarkan kebutuhan saat ini
+
+**Langkah-langkah**:
+1. Analisis tipe analisis yang diperlukan (imports, classes, functions, dll.)
+2. Hasilkan kode parsing AST Python yang sesuai
+3. Sertakan penanganan error dan langkah-langkah keamanan
+4. Tambahkan fitur logging dan transparansi
+5. Validasi skrip yang dihasilkan terhadap aturan keamanan
+6. Kembalikan skrip yang dapat dieksekusi
+
+### Algoritma: Sandboxed_Execution
+**WAJIB**: Eksekusi skrip yang dihasilkan dengan aman
+
+**Langkah-langkah**:
+1. Inisialisasi lingkungan Python sandboxed
+2. Tetapkan batas sumber daya dan pemantauan
+3. Eksekusi skrip dengan perlindungan timeout
+4. Tangkap output dan informasi error
+5. Bersihkan lingkungan eksekusi
+6. Kembalikan hasil atau status error
+
+### Persyaratan Transparansi
+- **WAJIB**: Log semua aktivitas pembuatan dan eksekusi skrip
+- **WAJIB**: Berikan perintah transparansi yang dapat diakses pengguna
+- **WAJIB**: Dokumentasikan alasan fallback ketika eksekusi Python gagal
+
+## Algoritma Pemilihan dan Penggunaan Alat
+
+### Algoritma: Select_File_Discovery_Tool
+**Tujuan**: Tentukan strategi penemuan file optimal berdasarkan persyaratan pencarian
+
+**Langkah-langkah**:
+1. Analisis karakteristik target_pencarian untuk pemilihan alat
+2. Tentukan cakupan pencarian dan terapkan filter keamanan
+3. Pilih alat utama dengan opsi fallback
+4. Kembalikan rantai alat komprehensif untuk penemuan file
+
+### Algoritma: Select_Content_Search_Tool
+**Tujuan**: Pilih metode pencarian konten yang sesuai untuk berbagai jenis file dan pola query
+
+**Langkah-langkah**:
+1. Analisis karakteristik query konten dan properti set file
+2. Pilih algoritma pencarian yang dioptimalkan untuk performa
+3. Konfigurasi alat dengan parameter yang sesuai
+4. Kembalikan alat pencarian dengan strategi fallback
+
+### Algoritma: Detect_Hidden_Files_Algorithm
+**Tujuan**: Deteksi file tersembunyi yang komprehensif termasuk dot-file dan file sistem
+
+**Langkah-langkah**:
+1. Inisialisasi penemuan file dengan parameter pemindaian komprehensif
+2. Gunakan alat pemindaian direktori yang sadar platform
+3. Terapkan aturan deteksi file tersembunyi untuk berbagai sistem file
+4. Kembalikan daftar file yang dikategorikan dengan klasifikasi keamanan
+
+### Algoritma: Validate_Tool_Usage_Safety
+**Tujuan**: Pastikan penggunaan alat yang aman dengan pemeriksaan izin dan keamanan yang tepat
+
+**Langkah-langkah**:
+1. Periksa keamanan path dan validasi jenis operasi
+2. Terapkan pembatasan keamanan spesifik platform
+3. Verifikasi batas sumber daya dan batasan operasi
+4. Log operasi untuk jejak audit dan kembalikan izin keamanan
+
+## Implementasi Alat Spesifik
+
+### Alat Sistem File
+- **Directory Scanner**: Penjelajahan lengkap dengan metadata (gunakan untuk file tersembunyi, izin)
+- **Glob Pattern Matcher**: Penemuan berbasis pola (gunakan untuk jenis file tertentu)
+- **Find Command Integration**: Pemfilteran lanjutan (gunakan untuk kriteria kompleks)
+- **Stat Metadata Reader**: Properti file tanpa konten (gunakan untuk akses metadata aman)
+
+### Alat Pencarian dan Analisis
+- **Regex Pattern Search**: Pencocokkan pola teks kompleks (gunakan untuk pencarian terstruktur)
+- **Fuzzy Text Matching**: Pencocokkan string perkiraan (gunakan untuk query fleksibel)
+- **JSON/XML Parsers**: Ekstraksi data terstruktur (gunakan untuk file konfigurasi)
+- **Code Analysis Tools**: Pemahaman kode semantik (gunakan untuk analisis kode sumber)
+
+## Persyaratan Kritis untuk Agen
+
+**KEPATUHAN WAJIB**: Agen yang mengimplementasikan aturan RAG HARUS mematuhi persyaratan kritis ini:
+
+### Persyaratan Penemuan File
+- **DETEKSI FILE TERSEMBUNYI**: Agen HARUS mendeteksi dan memproses file tersembunyi (dot-file seperti .env, .gitignore, .settings)
+- **PEMINDAIAN KOMPREHENSIF**: Gunakan alat yang sesuai untuk menemukan SEMUA file, bukan hanya yang terlihat
+- **PEMILIHAN ALAT**: Eksekusi algoritma Select_File_Discovery_Tool sebelum operasi file apa pun
+- **VALIDASI KEAMANAN**: Eksekusi Validate_Tool_Usage_Safety untuk semua operasi file
+
+**KONSEKUENSI PELANGGARAN**: Agen yang gagal mendeteksi file tersembunyi atau menggunakan alat yang tidak sesuai akan memberikan pemrosesan informasi yang tidak lengkap dan melanggar kepatuhan aturan RAG.
 
 ## Kepatuhan Pengaturan
 - Hormati semua pengaturan di modules/rag-rules/settings.json

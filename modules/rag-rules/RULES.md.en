@@ -142,7 +142,118 @@ Algorithm: Adaptive_Graph_Maintenance
 4. Generate enriched context combining structured knowledge and unstructured text
 5. Update knowledge graph with new relationships discovered during query processing
 6. Provide comprehensive response with both factual and relational context
-5. Optimize response completeness and accuracy
+7. Optimize response completeness and accuracy
+
+## Python-Enhanced KG Construction
+
+**ADVANCED CAPABILITY**: Agents can leverage Python execution for enhanced KG construction when system conditions allow safe execution.
+
+### Algorithm: Python_Enhanced_KG_Construction
+**MANDATORY**: Execute when python_enhancement.enabled = true and safety validation passes
+
+**Steps**:
+1. Check python_enhancement.safety_validation_required = true
+2. Validate execution environment safety and sandboxing
+3. Verify allowed_modules availability
+4. Generate dynamic Python analysis script based on analysis needs
+5. Execute script in sandboxed environment with resource limits
+6. Process execution results into KG format
+7. Merge with text-based analysis results
+8. Log transparency information for user access
+
+**CRITICAL**: Always maintain fallback to text-based analysis if Python execution fails
+
+### Algorithm: Safety_Validation_Check
+**MANDATORY**: Execute before any Python script generation
+
+**Steps**:
+1. Verify sandboxed execution environment availability
+2. Check all allowed_modules are installed and safe
+3. Validate resource limits (max_execution_time, max_memory_mb)
+4. Confirm fallback_to_text = true is configured
+5. Test script_validation functionality
+6. Return validation status
+
+### Algorithm: Dynamic_Script_Generation
+**MANDATORY**: Generate analysis scripts based on current needs
+
+**Steps**:
+1. Analyze required analysis type (imports, classes, functions, etc.)
+2. Generate appropriate Python AST parsing code
+3. Include error handling and safety measures
+4. Add logging and transparency features
+5. Validate generated script against security rules
+6. Return executable script
+
+### Algorithm: Sandboxed_Execution
+**MANDATORY**: Execute generated scripts safely
+
+**Steps**:
+1. Initialize sandboxed Python environment
+2. Set resource limits and monitoring
+3. Execute script with timeout protection
+4. Capture output and error information
+5. Clean up execution environment
+6. Return results or error status
+
+### Transparency Requirements
+- **MANDATORY**: Log all script generation and execution activities
+- **MANDATORY**: Provide user-accessible transparency commands
+- **MANDATORY**: Document fallback reasons when Python execution fails
+
+## Tool Selection and Usage Algorithms
+
+**MANDATORY REQUIREMENT**: Agents implementing RAG rules MUST use these algorithms for all file operations. Hidden file detection is REQUIRED for complete information processing.
+
+### Algorithm: Select_File_Discovery_Tool
+**MANDATORY**: Execute BEFORE any file operations. Choose appropriate tools based on search requirements.
+
+**Steps**:
+1. Analyze search_target characteristics - MUST include hidden file detection
+2. Determine search scope and apply safety filters
+3. Select primary tool - MUST use scandir for hidden files
+4. Return comprehensive tool chain for file discovery
+
+### Algorithm: Select_Content_Search_Tool
+**MANDATORY**: Execute for all content searches. Choose optimal search method for file types.
+
+**Steps**:
+1. Analyze content query characteristics and file set properties
+2. Select search algorithm optimized for performance
+3. Configure tool with appropriate parameters
+4. Return search tool with fallback strategies
+
+### Algorithm: Detect_Hidden_Files_Algorithm
+**MANDATORY**: Execute for ALL directory scans. Comprehensive hidden file detection REQUIRED.
+
+**Steps**:
+1. Initialize file discovery with comprehensive scanning parameters
+2. Use platform-aware directory scanning tools with hidden file support
+3. Apply hidden file detection rules for different file systems - MUST find dot-files
+4. Return categorized file list with safety classifications
+
+### Algorithm: Validate_Tool_Usage_Safety
+**Purpose**: Ensure safe tool usage with proper permission and security checks
+
+**Steps**:
+1. Check path safety and operation type validation
+2. Apply platform-specific security restrictions
+3. Verify resource limits and operation constraints
+4. Log operations for audit trail and return safety clearance
+
+## Specific Tool Implementations
+
+### File System Tools
+- **Directory Scanner**: Complete traversal with metadata (use for hidden files, permissions)
+- **Glob Pattern Matcher**: Pattern-based discovery (use for specific file types)
+- **Find Command Integration**: Advanced filtering (use for complex criteria)
+- **Stat Metadata Reader**: File properties without content (use for safe metadata access)
+
+### Search and Analysis Tools
+- **Regex Pattern Search**: Complex text pattern matching (use for structured search)
+- **Fuzzy Text Matching**: Approximate string matching (use for flexible queries)
+- **JSON/XML Parsers**: Structured data extraction (use for configuration files)
+- **Code Analysis Tools**: Semantic code understanding (use for source code analysis)
 
 ## Settings Compliance
 - Respect all settings in modules/rag-rules/settings.json

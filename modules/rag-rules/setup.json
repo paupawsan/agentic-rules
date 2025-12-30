@@ -83,7 +83,7 @@
       "localization": {
         "en": {
           "title": "Runtime Knowledge Graph",
-          "description": "Enable dynamic knowledge graph generation for self-learning (with concrete algorithms)"
+          "description": "Enable dynamic knowledge graph generation for self-learning (with concrete algorithms and tool selection)"
         },
         "ja": {
           "title": "ランタイム知識グラフ",

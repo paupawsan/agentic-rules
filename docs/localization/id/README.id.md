@@ -56,7 +56,7 @@ Framework plug-and-play yang menyediakan aturan terstruktur untuk perilaku agen 
 ### ⚡ **Langkah 2: Inisialisasi Sistem Agentic Rules**
 **Setelah setup.html, selesaikan inisialisasi bootstrap SATU KALI ini!**
 
-1. **Beritahu agen AI Anda**: `Initialize agentic rules system`
+1. **Beritahu agen AI Anda**: `Inisialisasi sistem aturan agentic di folder /path/to/your/agentic-rules. Saya sudah menyelesaikan setup.html, jadi lakukan saja inisialisasi bootstrap.`
 2. **Berikan izin** ketika diminta untuk mengaktifkan framework
 3. **Tinjau pengaturan** untuk aturan Memori, RAG, dan Berpikir Kritis
 4. **Framework aktif** - agen Anda sekarang memiliki kemampuan yang ditingkatkan!

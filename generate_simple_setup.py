@@ -106,7 +106,7 @@ def generate_web_config():
     default_lang = get_default_language()
     available_langs = get_available_languages()
     web_config = {
-        "version": "1.1.0",
+        "version": "1.2.0",
         "description": "Static web configuration generated from setup.json files",
         "availableLanguages": available_langs,
         "uiLanguage": default_lang,
@@ -347,7 +347,7 @@ def embed_config_in_html(web_config):
                 new_html = new_html[:agent_start_replace] + f'\n{"\\n".join(agent_options)}\n            ' + new_html[agent_end_replace:]
 
     # Replace version placeholder with actual version
-    version = web_config.get('version', '1.1.0')
+    version = web_config.get('version', '1.2.0')
     new_html = new_html.replace('{version}', version)
 
     # Write back to setup.html

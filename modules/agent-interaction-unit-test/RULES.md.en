@@ -29,6 +29,7 @@ See [CORE-RULES.md](CORE-RULES.md) for detailed algorithm specifications.
 - **Memory Integration**: Store test results and validation history
 - **RAG Integration**: Optimize context for testing scenarios
 - **Critical Thinking**: Provide ground check validation support
+- **Debugging Analysis**: Execute AgentDebuggingAnalysis_Process for systematic agent behavior analysis (see CORE-RULES.md)
 - **Bootstrap Coordination**: Respect loading priorities and rule sequencing
 
 ## Usage Instructions
@@ -43,7 +44,7 @@ See [CORE-RULES.md](CORE-RULES.md) for detailed algorithm specifications.
 ### Test Case Format:
 ```
 UNIT TEST: [Test_Name]
-Framework: Agentic Rules v1.1.0
+Framework: Agentic Rules v1.2.0
 Task: [Specific_Test_Task]
 
 [Execute with unit test validation...]

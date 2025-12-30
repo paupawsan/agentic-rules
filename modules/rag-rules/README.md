@@ -15,6 +15,69 @@ The **RAG (Retrieval-Augmented Generation) Rules** plugin enhances AI agents' ab
 - **Self-Learning Patterns**: Adapts behavior based on user interactions and preferences
 - **Token Efficiency**: Maximizes useful information within token limits
 
+## 🚀 **Python-Enhanced KG Construction**
+
+### Advanced Capabilities
+The RAG Rules plugin includes **Python execution capabilities** for enhanced Knowledge Graph construction:
+
+- **Runtime Script Generation**: Dynamically creates Python analysis scripts
+- **Safe Execution Environment**: Sandboxed Python execution with safety validation
+- **Intelligent Fallback**: Automatically falls back to text analysis when needed
+- **Transparency Logging**: Complete audit trail of script generation and execution
+
+### Python Enhancement Features
+- **AST-Based Analysis**: Direct Python code structure parsing
+- **Import Resolution**: Actual dependency mapping vs. text guessing
+- **Class Hierarchy**: Inheritance relationship discovery
+- **Dynamic Analysis**: Runtime behavior understanding
+- **Cross-Module Analysis**: Inter-file relationship mapping
+
+### Safety & Security
+- **Sandboxed Execution**: Isolated Python environment
+- **Module Whitelisting**: Only safe analysis modules allowed
+- **Resource Limits**: CPU time and memory constraints
+- **Automatic Fallback**: Text analysis always available
+
+### Configuration
+```json
+{
+  "python_enhancement": {
+    "enabled": true,
+    "runtime_script_generation": true,
+    "safety_validation_required": true,
+    "sandbox_execution": true,
+    "fallback_to_text": true,
+    "allowed_modules": ["ast", "inspect", "importlib", "sys", "os"]
+  }
+}
+```
+
+## 🚨 **MANDATORY COMPLIANCE REQUIREMENTS**
+
+### Critical Agent Requirements
+**⚠️ NON-COMPLIANCE RESULTS IN RULE VIOLATION**
+
+Agents implementing RAG rules **MUST** adhere to these requirements:
+
+#### 🔍 **Hidden File Detection (MANDATORY)**
+- **AUTOMATIC EXECUTION**: Detect_Hidden_Files_Algorithm executes for ANY directory investigation
+- **COMPREHENSIVE SCANNING**: Include ALL dot-files (.env, .gitignore, .settings, .agentic_initialized)
+- **TOOL MANDATE**: Use `pathlib.Path.iterdir()` or `os.scandir()` - **NEVER** basic `list_dir`
+- **VIOLATION CONSEQUENCE**: Incomplete information processing and rule compliance failure
+
+#### 🔧 **Tool Selection Requirements (MANDATORY)**
+- **PRE-OPERATION EXECUTION**: Select_File_Discovery_Tool runs BEFORE any file operations
+- **AUTOMATIC TRIGGERS**: Executes when investigating directories, searching files, or checking system status
+- **PROHIBITED TOOLS**: Standard directory listing tools are INSUFFICIENT and violate compliance
+- **MANDATORY ALGORITHMS**: All defined algorithms MUST execute when conditions are met
+
+#### ⚡ **Automatic Trigger Conditions**
+- **Directory Investigation**: Triggers hidden file detection algorithms
+- **File Search Operations**: Forces comprehensive scanning including hidden files
+- **System Status Checks**: Requires scanning for initialization markers and config files
+
+---
+
 ## ✨ Key Capabilities
 
 ### Intelligent Reading Strategies
@@ -45,6 +108,14 @@ The **RAG (Retrieval-Augmented Generation) Rules** plugin enhances AI agents' ab
 - **Multi-Level Reading**: Summaries → Key sections → Details → Code
 - **Recursive Analysis**: Follows references and connections
 - **Pattern Integration**: Combines information from multiple sources
+
+#### 🔧 **Intelligent Tool Selection**
+- **Context-Aware Tools**: Automatically selects appropriate file discovery and search tools
+- **MANDATORY Hidden File Detection**: Agents MUST detect and process hidden files (dot-files like .env, .gitignore, .settings)
+- **Automatic Algorithm Triggers**: Executes Detect_Hidden_Files_Algorithm for ANY directory investigation
+- **Comprehensive Scanning**: Uses pathlib.Path.iterdir() with hidden file inclusion - NEVER uses basic list_dir
+- **Safe Tool Usage**: Validates permissions and applies security restrictions
+- **Performance Optimization**: Chooses optimal algorithms for different file types and query patterns
 
 ### Information Processing
 

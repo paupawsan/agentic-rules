@@ -18,11 +18,12 @@ This framework provides structured AI agent behaviors through modular rules:
 
 ## Bootstrap Compliance
 Before loading any rule files, agents MUST:
-1. Read `bootstrap.json` to understand the framework configuration
-2. Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements
-3. Check loading sequence and entry points
-4. Validate user consent and settings
-5. Only load enabled rule integrations
+1. **Check initialization status**: Detect the `.agentic_initialized` marker file using cross-platform hidden file detection (see `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md`)
+2. Read `bootstrap.json` to understand the framework configuration
+3. Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements
+4. Check loading sequence and entry points
+5. Validate user consent and settings
+6. Only load enabled rule integrations
 
 ## Rule Integration Requirements
 Each rule provides specific algorithmic implementations that agents must actively execute:
@@ -57,6 +58,10 @@ Agents using this framework can benefit from enhanced capabilities while maintai
 - Enhanced accuracy and reliability through optional structured validation
 
 **FRAMEWORK BENEFITS**: Improved agent behavior through transparent, optional enhancements that don't interfere with natural user interactions.
+
+---
+
+**CRITICAL REMINDER**: Always use cross-platform hidden file detection tools when checking for `.agentic_initialized` marker. Failure to do so will result in incorrect framework status detection and bootstrap compliance violations.
 
 <!-- METADATA: Root level agent integration template with framework overview -->
 <!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

@@ -4,6 +4,140 @@
 
 Retrieval-Augmented Generation rules form the foundation of intelligent information processing, optimizing context management across the entire agentic system. These rules enhance memory operations, influence design decisions, and provide pattern-driven insights for all agent activities.
 
+## Critical Requirements for Agents
+
+**MANDATORY COMPLIANCE**: Agents implementing RAG rules MUST adhere to these critical requirements. Non-compliance results in immediate rule violation.
+
+### Automatic Trigger Conditions
+**IMMEDIATE EXECUTION REQUIRED**: These algorithms MUST execute automatically when triggered:
+
+#### Directory Investigation Trigger
+- **WHEN**: Agent investigates any directory or performs file discovery
+- **MUST EXECUTE**: `Detect_Hidden_Files_Algorithm` + `Select_File_Discovery_Tool`
+- **MANDATORY**: Cannot proceed with file operations until hidden file detection completes
+- **VIOLATION**: Using directory listing without hidden file detection
+
+#### File Search Trigger
+- **WHEN**: Agent searches for configuration files, settings, or initialization markers
+- **MUST EXECUTE**: `Select_Content_Search_Tool` with hidden file inclusion
+- **MANDATORY**: Search ALL files including hidden ones (.env, .gitignore, .settings)
+- **VIOLATION**: Excluding hidden files from search operations
+
+#### System Status Check Trigger
+- **WHEN**: Agent checks system initialization or configuration status
+- **MUST EXECUTE**: Comprehensive scan including ALL dot-files
+- **MANDATORY**: Check for .agentic_initialized and other hidden markers
+- **VIOLATION**: Incomplete system assessment due to missed hidden files
+
+#### Framework Self-Preservation Trigger
+- **WHEN**: Agent experiences context summarization, reset, or framework identity loss
+- **MUST EXECUTE**: Core principles rediscovery through memory system keywords
+- **MANDATORY**: Reference foundational behavioral patterns and permanent retention markers
+- **VIOLATION**: Loss of framework identity and behavioral consistency
+
+### Framework Identity Preservation
+**MANDATORY SURVIVAL**: RAG rules include self-preservation mechanisms for framework continuity.
+
+#### Core Principles Reference Keywords
+- **FOUNDATIONAL PRINCIPLES**: Search for permanent behavioral memory patterns
+- **FRAMEWORK MISSION**: Locate mission-critical identity and purpose markers
+- **CORE PHILOSOPHY**: Find non-intrusive enhancement and user consent principles
+- **IDENTITY PRESERVATION**: Access framework corruption warnings and recovery procedures
+
+#### Memory System Recovery Triggers
+- **COMMON BEHAVIORAL MEMORY**: Access shared foundational knowledge across projects
+- **PERMANENT RETENTION POLICIES**: Locate maximum-priority framework preservation data
+- **CONTEXT SURVIVAL MARKERS**: Find context summarization immunity indicators
+- **FRAMEWORK INTEGRITY AUDIT**: Execute identity verification and corruption checks
+
+### File Discovery Requirements
+- **HIDDEN FILE DETECTION**: Agents MUST detect and process hidden files (dot-files like .env, .gitignore, .settings)
+- **COMPREHENSIVE SCANNING**: Use appropriate tools to find ALL files, not just visible ones
+- **TOOL SELECTION**: Execute Select_File_Discovery_Tool algorithm before any file operations
+- **SAFETY VALIDATION**: Execute Validate_Tool_Usage_Safety for all file operations
+
+**VIOLATION CONSEQUENCE**: Agents that fail to detect hidden files or use inappropriate tools will provide incomplete information processing and violate RAG rule compliance.
+
+#### Hidden File Detection Implementation Guide
+**MANDATORY REFERENCE**: When checking framework initialization status (.agentic_initialized), agents MUST use cross-platform hidden file detection tools.
+
+##### Problematic Default Behaviors (REQUIRES CORRECT PARAMETERS):
+```python
+# ❌ PROBLEMATIC - Default behavior misses hidden files
+import os
+files = os.listdir('agentic-rules')  # Default behavior excludes hidden files
+
+# ❌ PROBLEMATIC - Default glob excludes hidden files
+import glob
+files = glob.glob('agentic-rules/*')  # Default behavior excludes hidden files
+
+# ✅ CORRECT - Use include_hidden parameter
+import glob
+files = glob.glob('agentic-rules/*', include_hidden=True)
+
+# ✅ CORRECT - Use iterdir() which includes all files
+from pathlib import Path
+path = Path('agentic-rules')
+files = list(path.iterdir())  # Includes hidden files
+
+# ✅ CORRECT - Filter for hidden files explicitly
+import os
+all_files = os.listdir('agentic-rules')
+hidden_files = [f for f in all_files if f.startswith('.')]
+```
+
+##### Platform-Specific Commands for .agentic_initialized Detection:
+```bash
+# Windows - PowerShell
+Get-ChildItem -Path "agentic-rules" -Force -File | Where-Object {$_.Name -eq '.agentic_initialized'}
+
+# Unix/Linux/macOS - find command
+find agentic-rules -name '.agentic_initialized' -type f 2>/dev/null
+```
+
+##### Cross-Platform Python Implementation:
+```python
+import platform
+from pathlib import Path
+
+def check_framework_initialization():
+    system = platform.system().lower()
+    marker_path = Path('agentic-rules/.agentic_initialized')
+
+    # Method 1: Direct pathlib check (works on all platforms)
+    if marker_path.exists():
+        return True
+
+    # Method 2: Platform-specific detection for comprehensive checking
+    if system == 'windows':
+        # Use Windows-specific hidden file detection
+        try:
+            import win32api, win32con
+            if marker_path.exists():
+                attrs = win32api.GetFileAttributes(str(marker_path))
+                return bool(attrs & win32con.FILE_ATTRIBUTE_HIDDEN) or marker_path.exists()
+        except ImportError:
+            return marker_path.exists()  # Fallback
+    else:
+        # Unix-like systems
+        return marker_path.exists()
+
+    # Method 3: Directory iteration approach (alternative)
+    # Check if .agentic_initialized exists in directory listing
+    try:
+        agentic_rules_dir = Path('agentic-rules')
+        return any(f.name == '.agentic_initialized' for f in agentic_rules_dir.iterdir())
+    except (OSError, PermissionError):
+        return False
+```
+
+### Algorithm Execution Requirements
+- **MANDATORY EXECUTION**: All defined algorithms MUST be executed when their conditions are met
+- **NO EXCEPTIONS**: Agents cannot skip algorithm execution based on "assumptions"
+- **COMPLETE IMPLEMENTATION**: All algorithm steps MUST be followed
+- **PROPER TOOL USAGE**: Use tools as specified in tool selection algorithms
+- **AUTOMATIC ENFORCEMENT**: Trigger conditions MUST activate algorithms without manual intervention
+
 ## System-Wide Impact
 
 ### Memory Integration
@@ -27,6 +161,29 @@ RAG rules influence all agent operations by:
 - **Providing pattern analysis** for decision-making
 - **Reducing processing overhead** through intelligent filtering
 
+## Framework Continuity & Self-Preservation
+
+### Post-Summarization Recovery Mechanisms
+**MANDATORY RECOVERY**: RAG rules include semantic triggers for framework rediscovery after context summarization.
+
+#### Identity Reconstruction Keywords
+- **AGENTIC ENHANCEMENT**: Locate AI agent behavior improvement frameworks
+- **MODULAR RULE SYSTEMS**: Find independent rule modules with shared infrastructure
+- **USER CONSENT MODEL**: Access explicit activation requirement patterns
+- **TRANSPARENT OPERATION**: Discover clear framework operation indicators
+
+#### Memory System Navigation Markers
+- **EIGHT CATEGORY STORAGE**: Access technical, behavioral, contextual, user_interactions, sessions, topics, git_history, personal
+- **PERMANENT RETENTION POLICIES**: Find maximum-priority preservation data
+- **CROSS-SESSION CONTINUITY**: Locate knowledge retention across context changes
+- **FRAMEWORK MISSION MARKERS**: Access mission-critical identity preservation data
+
+#### Self-Diagnostic Triggers
+- **FRAMEWORK CORRUPTION WARNINGS**: Execute identity verification checks
+- **RECOVERY PROCEDURES**: Access clean reinitialization protocols
+- **INTEGRITY AUDIT TRAILS**: Find framework health monitoring patterns
+- **USER TRUST MAINTENANCE**: Locate user empowerment and control principles
+
 ### Memory Integration
 Knowledge Graph algorithms integrate with memory rules for persistence:
 - **Graph Persistence**: When memory_rules.enabled = true, constructed knowledge graphs are stored in persistent memory system
@@ -36,6 +193,16 @@ Knowledge Graph algorithms integrate with memory rules for persistence:
 - **Fallback**: When memory disabled, graphs maintained in session context only
 
 ## Core Algorithms
+
+### File Discovery Requirements
+**MANDATORY**: Agents implementing RAG rules MUST use the following file discovery protocols:
+
+1. **Hidden File Detection**: Always scan for hidden files (dot-files, system files)
+2. **Comprehensive Directory Scanning**: Use platform-aware directory traversal
+3. **Tool Selection**: Apply Select_File_Discovery_Tool algorithm for optimal method
+4. **Safety Validation**: Validate all file operations using Validate_Tool_Usage_Safety
+
+**VIOLATION**: Agents that fail to detect hidden configuration files or use inappropriate file discovery tools.
 
 ### Context Window Optimization Algorithm
 1. **Information Assessment**: Analyze total available information volume
@@ -127,25 +294,327 @@ Input: log_path, issue_description, analysis_type
 4. **Compression Techniques**: Summarize less critical information
 5. **Cache Management**: Maintain frequently accessed information
 
-## Tool Integration
+## Tool Selection and Usage Algorithms
+
+**MANDATORY REQUIREMENT**: Agents implementing RAG rules MUST use these algorithms for all file operations. Failure to use appropriate tools results in incomplete information processing.
+
+### File Discovery Tool Selection Algorithm
+**MANDATORY TRIGGER**: Agents MUST execute this algorithm BEFORE ANY file operations, directory investigation, or system status checks.
+**PROHIBITED TOOLS**: Standard `list_dir` or basic file listing tools are INSUFFICIENT and violate compliance.
+**AUTOMATIC EXECUTION**: This algorithm MUST run automatically when file discovery is needed.
+
+**📖 PLATFORM REFERENCE**: See `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md` for specific command implementations.
+
+```
+Algorithm: Select_File_Discovery_Tool (Enhanced with Platform Commands)
+Input: search_target, search_context, file_types_needed, platform
+Output: specific_command_with_fallbacks
+
+MANDATORY ANALYSIS - Agents MUST evaluate ALL conditions:
+
+1. Detect Platform and Analyze Requirements:
+   - platform = detect_current_platform()  # windows/linux/darwin/unknown
+   - If hidden_files_needed OR starts_with_dot: Execute Detect_Hidden_Files_Algorithm (MANDATORY)
+   - If system_status_check: Include .agentic_initialized, .bootstrap.json (MANDATORY)
+   - If configuration_search: Include .env, .gitignore, .settings, .config (MANDATORY)
+
+2. Determine search scope - MUST verify:
+   - project_root: Use relative_path_resolution
+   - system_wide: Use absolute_path_resolution with permissions_check
+   - network_shares: Use network_mount_detection
+
+3. Execute Platform-Specific Commands - MANDATORY IMPLEMENTATION:
+
+   FOR Windows Systems:
+   - Hidden files: PowerShell "Get-ChildItem -Path $directory -Force -File -Recurse"
+   - Fallback: CMD "dir /a:h /b /s $directory"
+   - Large dirs: Use iterator-based scanning to prevent memory issues
+
+   FOR Unix/Linux/macOS Systems:
+   - Hidden files: find $directory -name ".*" -type f 2>/dev/null
+   - Fallback: ls -la $directory | grep "^\."
+   - Large dirs: find with -maxdepth limits and progress indicators
+
+   FOR Unknown Platforms:
+   - Universal: Python pathlib.Path.glob('**/.*') with error handling
+   - Fallback: os.scandir() with manual hidden file detection
+
+4. Apply safety filters - MUST exclude:
+   - System directories (/proc, /sys, /dev on Unix; System32, Windows on Windows)
+   - Unauthorized directories based on permissions
+   - Respect .gitignore patterns when applicable
+   - Limit recursion depth to prevent infinite loops (max 10 levels)
+
+5. Return command_chain with fallbacks - MUST provide:
+   - Primary: Platform-native command for hidden file detection
+   - Fallback: Cross-platform Python implementation
+   - Emergency: Manual path construction with basic os.listdir()
+
+VIOLATION: Agents using inappropriate tools or failing to detect required file types.
+```
+
+#### **Critical Implementation Notes:**
+
+**MANDATORY COMMAND USAGE**:
+- **Windows**: Use `Get-ChildItem -Force` or `dir /a:h` - NOT basic `dir`
+- **Unix/macOS**: Use `find -name ".*"` or `ls -la` - NOT basic `ls`
+- **Cross-platform**: Use Python pathlib with proper hidden detection logic
+
+**HIDDEN FILE DETECTION VALIDATION**:
+- ✅ Must find files starting with `.` (dot-files)
+- ✅ Must detect Windows hidden attributes
+- ✅ Must include .env, .gitignore, .settings, .agentic_initialized
+- ✅ Must handle permission errors gracefully
+
+**PROHIBITED PRACTICES**:
+- ❌ Using `os.listdir()` without hidden file logic
+- ❌ Using `glob.glob()` without `**/.*` patterns
+- ❌ Assuming all platforms work like Unix (dot-files only)
+- ❌ Skipping platform detection and using generic commands
+
+### Content Search Tool Selection Algorithm
+```
+Algorithm: Select_Content_Search_Tool
+Input: content_query, file_set, search_constraints
+Output: optimal_search_strategy
+
+1. Analyze content_query characteristics:
+   - If exact_match: Use string.find() or regex exact match
+   - If pattern_match: Use re.search() with compiled patterns
+   - If fuzzy_match: Use difflib or specialized fuzzy libraries
+   - If semantic_search: Use embedding-based similarity
+
+2. Evaluate file_set properties:
+   - If small_files (< 1MB): Use memory-mapped search
+   - If large_files (> 100MB): Use streaming line-by-line search
+   - If binary_files: Use specialized binary search tools
+   - If encoded_files: Apply appropriate decoding before search
+
+3. Select search algorithm:
+   - Text files: Use grep-like line-by-line scanning
+   - Structured files: Use format-specific parsers (JSON, XML, CSV)
+   - Code files: Use AST parsing for semantic understanding
+   - Binary files: Use hex pattern matching with context
+
+4. Optimize for performance:
+   - Pre-compile regex patterns for reuse
+   - Use memory mapping for large files
+   - Implement parallel processing for multiple files
+   - Cache frequently accessed file metadata
+
+5. Return search_tool with configuration:
+   - Tool: streaming_grep_with_context
+   - Configuration: {buffer_size: 8192, context_lines: 3}
+   - Fallback: memory_mapped_search
+```
+
+### Hidden File Detection Algorithm
+**MANDATORY**: Agents MUST execute this algorithm for ALL directory scans to ensure complete file discovery.
+
+**📖 CROSS-PLATFORM REFERENCE**: See `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md` for specific commands and implementations.
+
+```
+Algorithm: Detect_Hidden_Files_Algorithm (Enhanced with Platform-Specific Commands)
+Input: directory_path, include_system_files, recursion_depth, platform
+Output: comprehensive_file_list
+
+**AUTOMATIC TRIGGER**: This algorithm MUST execute for ANY directory investigation, file search, or system status check.
+**MANDATORY EXECUTION**: Cannot proceed with file operations until this algorithm completes successfully.
+**VIOLATION**: Using any file listing tool without executing this algorithm first.
+
+MANDATORY STEPS - Agents MUST execute platform-specific commands:
+
+1. Detect Platform and Initialize Parameters:
+   - platform = detect_current_platform()  # windows/linux/darwin/unknown
+   - base_path = resolve_absolute_path(directory_path)
+   - max_depth = min(recursion_depth, 10)  # Safety limit
+   - include_hidden = True  # ALWAYS include hidden files - NEVER set to False
+   - exclude_patterns = ['.git', '__pycache__', 'node_modules']
+
+2. Execute Platform-Specific Hidden File Detection:
+
+   FOR Windows Systems:
+   - Primary Command: PowerShell "Get-ChildItem -Path $directory -Force -File -Recurse"
+   - Fallback Command: CMD "dir /a:h /b /s $directory"
+   - Python Fallback: Use win32api.GetFileAttributes() with FILE_ATTRIBUTE_HIDDEN check
+
+   FOR Unix/Linux/macOS Systems:
+   - Primary Command: find $directory -name ".*" -type f 2>/dev/null
+   - Fallback Command: ls -la $directory | grep "^\."
+   - Python Fallback: pathlib.Path.glob('**/.*') with error handling
+
+   FOR Unknown Platforms:
+   - Universal Python: Cross-platform pathlib implementation
+
+3. Apply hidden file detection rules - MUST check ALL:
+   - Dot-prefix files: .* (Unix/Linux/macOS hidden files)
+   - System attributes: Platform-specific hidden flags (Windows FILE_ATTRIBUTE_HIDDEN)
+   - Configuration files: .env, .gitignore, .eslintrc, .settings, .config, .agentic_initialized
+   - Framework files: .bootstrap.json, .framework files
+   - Temporary files: .tmp, .cache, .log variants
+
+4. Process special file types with platform awareness:
+   - Symbolic links: Resolve and check target if accessible
+   - Special files: Skip device files, sockets, named pipes
+   - Large files: Use stat() for size checking before processing
+   - Binary files: Flag for specialized processing
+   - Permission issues: Log and categorize as inaccessible
+
+5. Return categorized file list - MUST include:
+   - visible_files: Regular user-visible files
+   - hidden_files: Configuration and system files (MANDATORY)
+   - dot_files: Files starting with . (MANDATORY for Unix-like systems)
+   - system_hidden: Files with hidden attributes (MANDATORY for Windows)
+   - special_files: Links, devices (with warnings)
+   - inaccessible_files: Permission denied files (logged)
+
+VIOLATION: Agents that skip hidden files or use incomplete scanning methods.
+```
+
+#### **Platform-Specific Command Examples:**
+
+**Windows PowerShell:**
+```powershell
+# Comprehensive hidden file detection
+Get-ChildItem -Path "C:\project" -Force -File -Recurse | Where-Object {
+    $_.Attributes -band [System.IO.FileAttributes]::Hidden -or $_.Name -like ".*"
+}
+```
+
+**Windows Command Prompt:**
+```batch
+REM List all files including hidden
+dir /a /b /s "C:\project"
+```
+
+**Linux/macOS:**
+```bash
+# Find all hidden files recursively
+find /project -name ".*" -type f 2>/dev/null
+
+# Alternative using ls
+ls -laR /project 2>/dev/null | grep "^-" | grep "\./\."
+```
+
+**Cross-Platform Python Implementation:**
+```python
+import os
+import platform
+from pathlib import Path
+
+def detect_hidden_files_cross_platform(directory):
+    """Universal hidden file detection for all platforms."""
+    system = platform.system().lower()
+    hidden_files = []
+
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            filepath = os.path.join(root, file)
+
+            # Platform-specific hidden detection
+            if system == 'windows':
+                try:
+                    # Check Windows hidden attribute
+                    import win32api, win32con
+                    attrs = win32api.GetFileAttributes(filepath)
+                    is_hidden = bool(attrs & win32con.FILE_ATTRIBUTE_HIDDEN)
+                except ImportError:
+                    # Fallback to dot-file check
+                    is_hidden = file.startswith('.')
+            else:
+                # Unix-like systems
+                is_hidden = file.startswith('.')
+
+            if is_hidden:
+                hidden_files.append(filepath)
+
+    return hidden_files
+```
+
+### Safe Tool Usage Conditions
+```
+Algorithm: Validate_Tool_Usage_Safety
+Input: tool_name, target_path, operation_type
+Output: safety_clearance_boolean
+
+1. Check path safety:
+   - Is path within allowed directories?
+   - Does path contain suspicious patterns (.. , symbolic links)?
+   - Is path accessible with current permissions?
+
+2. Validate operation type:
+   - read_operations: Generally safe if path is accessible
+   - write_operations: Require explicit user consent
+   - execute_operations: Highly restricted, require validation
+   - network_operations: Check firewall and security settings
+
+3. Apply platform-specific restrictions:
+   - Windows: Avoid system directories (C:\\Windows, C:\\System32)
+   - Unix/Linux: Avoid /proc, /sys, /dev directories
+   - macOS: Respect application sandbox restrictions
+
+4. Check resource limits:
+   - File size limits for reading operations
+   - Time limits for long-running operations
+   - Memory limits for large file processing
+
+5. Log operation for audit trail:
+   - Record tool used, path accessed, operation result
+   - Flag suspicious activities for review
+   - Maintain usage statistics for optimization
+
+6. Return safety clearance with confidence level
+```
+
+## Specific Tool Implementations
 
 ### File System Tools
-- Use directory listing to understand project structure
-- Apply glob patterns for targeted file discovery
-- Read file metadata before content analysis
-- Implement streaming reads for large files
+```
+Available Tools:
+1. Directory Scanner (available directory scanning tools)
+   - Purpose: Complete directory traversal with metadata
+   - Use When: Need comprehensive file listing, hidden files, permissions
+   - Safety: Apply path validation and recursion limits
 
-### Search and Filter Tools
-- Apply text search with context expansion
-- Use regex patterns for structured data extraction
-- Implement fuzzy matching for flexible queries
-- Support multi-file search operations
+2. Pattern Matcher (available pattern matching tools)
+   - Purpose: Pattern-based file discovery
+   - Use When: Searching for specific file types or naming patterns
+   - Safety: Validate patterns prevent directory traversal attacks
 
-### External Tool Integration
-- Leverage code execution for dynamic analysis
-- Use external commands for file processing
-- Integrate with version control for change tracking
-- Connect to databases for structured data retrieval
+3. Find Command Integration (subprocess with find)
+   - Purpose: Advanced file searching with complex criteria
+   - Use When: Need size, date, or content-based filtering
+   - Safety: Sanitize command arguments, limit execution time
+
+4. Metadata Reader (available file metadata tools)
+   - Purpose: File metadata without content reading
+   - Use When: Checking file properties, sizes, permissions
+   - Safety: Safe for all accessible files
+```
+
+### Search and Analysis Tools
+```
+Available Tools:
+1. Regex Pattern Search (re module)
+   - Purpose: Complex pattern matching in text
+   - Use When: Structured text search, validation patterns
+   - Safety: Pre-compile patterns, limit input size
+
+2. Fuzzy Text Matching (difflib, fuzzywuzzy)
+   - Purpose: Approximate string matching
+   - Use When: Handling typos, variations in search terms
+   - Safety: Set similarity thresholds to prevent false matches
+
+3. JSON/XML Parsers (json, xml.etree)
+   - Purpose: Structured data extraction
+   - Use When: Processing configuration files, data formats
+   - Safety: Validate input format before parsing
+
+4. Code Analysis Tools (ast, tokenize)
+   - Purpose: Semantic code understanding
+   - Use When: Analyzing source code structure and dependencies
+   - Safety: Handle syntax errors gracefully
+```
 
 ## Multi-language Support
 
@@ -312,6 +781,135 @@ Output: Optimized knowledge graph
      - Graph optimizations lost when context resets
 6. Generate maintenance report with statistics
 ```
+
+## Python-Enhanced KG Construction
+
+**ADVANCED CAPABILITY**: Agents can leverage Python execution for enhanced KG construction when system conditions allow safe execution.
+
+### Runtime Script Generation Algorithm
+```
+Algorithm: Python_Enhanced_KG_Construction
+Input: project_files, system_capabilities, safety_requirements
+Output: Enhanced KG with Python-derived insights
+
+1. Execute Safety_Validation_Check:
+   - Verify Python execution environment safety
+   - Check allowed modules availability
+   - Validate sandboxing capabilities
+   - Confirm fallback mechanisms
+
+2. IF safety validation PASSES:
+   - Generate Python analysis script dynamically
+   - Execute in sandboxed environment
+   - Process results into KG format
+   - Log transparency information
+
+3. IF safety validation FAILS or execution errors:
+   - Automatically fallback to text-based analysis
+   - Log fallback reason for transparency
+   - Continue with standard KG construction
+
+4. Merge Python-enhanced and text-based results
+5. Update KG with combined insights
+```
+
+### Safety Validation Requirements
+**MANDATORY**: Python execution requires comprehensive safety validation.
+
+#### Pre-Execution Checks
+- **Environment Safety**: Verify sandboxed execution capabilities
+- **Module Whitelisting**: Only allow safe, analysis-relevant modules
+- **Resource Limits**: CPU time and memory constraints enforced
+- **Fallback Availability**: Text-based analysis must remain functional
+
+#### Execution Environment
+- **Sandboxed Python**: Isolated execution preventing system access
+- **Timeout Protection**: Automatic termination of long-running scripts
+- **Memory Monitoring**: Resource usage tracking and limits
+- **Error Containment**: Script failures don't affect main KG system
+
+### Dynamic Script Generation
+
+#### Code Analysis Scripts
+```python
+# Example generated script for import analysis
+import ast
+import os
+from typing import Dict, List, Set
+
+def analyze_python_imports(file_path: str) -> Dict[str, List[str]]:
+    \"\"\"Analyze Python file for import relationships.\"\"\"
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            tree = ast.parse(f.read())
+
+        imports = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    imports.append(alias.name.split('.')[0])
+            elif isinstance(node, ast.ImportFrom):
+                if node.module:
+                    imports.append(node.module.split('.')[0])
+
+        return {file_path: list(set(imports))}
+    except Exception as e:
+        return {file_path: []}
+```
+
+#### Class Hierarchy Analysis
+```python
+# Generated script for inheritance relationships
+def analyze_class_hierarchy(file_path: str) -> Dict[str, List[str]]:
+    \"\"\"Extract class inheritance relationships.\"\"\"
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            tree = ast.parse(f.read())
+
+        classes = {}
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ClassDef):
+                parents = []
+                for base in node.bases:
+                    if isinstance(base, ast.Name):
+                        parents.append(base.id)
+                    elif isinstance(base, ast.Attribute):
+                        # Handle module.Class patterns
+                        parents.append(f"{base.value.id}.{base.attr}" if isinstance(base.value, ast.Name) else base.attr)
+                classes[node.name] = parents
+
+        return {file_path: classes}
+    except Exception as e:
+        return {file_path: {}}
+```
+
+### Transparency & Logging
+
+#### Execution Transparency
+**MANDATORY**: All Python executions must be logged for user transparency.
+
+- **Script Content**: Generated script code logged before execution
+- **Execution Results**: Success/failure status and output
+- **Fallback Reasons**: Why text fallback was used (if applicable)
+- **Performance Metrics**: Execution time, memory usage, analysis coverage
+
+#### User-Accessible Transparency
+- **`/kg-python-status`**: Show current Python enhancement status
+- **`/kg-script-log`**: View recent script generation and execution logs
+- **`/kg-fallback-reasons`**: Understand why text analysis was used
+
+### Fallback Mechanisms
+
+#### Automatic Fallback Triggers
+- **Safety Validation Failure**: Environment not safe for Python execution
+- **Module Unavailability**: Required analysis modules not installed
+- **Execution Errors**: Script runtime failures or timeouts
+- **Resource Limits**: Memory or time constraints exceeded
+
+#### Seamless Integration
+- **Result Merging**: Python and text analysis results combined intelligently
+- **Quality Scoring**: Results ranked by analysis method reliability
+- **Progressive Enhancement**: Python results enhance text analysis, don't replace
 
 ## Quality Assurance
 

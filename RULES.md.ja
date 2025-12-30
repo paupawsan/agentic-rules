@@ -18,11 +18,12 @@
 
 ## ブートストラップ準拠 / Bootstrap Compliance
 ルールファイルを読み込む前に、エージェントは必ず：
-1. フレームワーク設定を理解するために`bootstrap.json`を読み取る / Read `bootstrap.json` to understand the framework configuration
-2. 詳細なアルゴリズム仕様と準拠要件については`Bootstrap.md`を確認 / Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements
-3. 読み込み順序とエントリーポイントを確認 / Check loading sequence and entry points
-4. ユーザー同意と設定を検証 / Validate user consent and settings
-5. 有効化されたルール統合のみを読み込む / Only load enabled rule integrations
+1. **初期化ステータスを確認する / Check initialization status**: `.agentic_initialized` マーカーファイルをクロスプラットフォームの隠しファイル検出を使用して検出する (see `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md`)
+2. フレームワーク設定を理解するために`bootstrap.json`を読み取る / Read `bootstrap.json` to understand the framework configuration
+3. 詳細なアルゴリズム仕様と準拠要件については`Bootstrap.md`を確認 / Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements
+4. 読み込み順序とエントリーポイントを確認 / Check loading sequence and entry points
+5. ユーザー同意と設定を検証 / Validate user consent and settings
+6. 有効化されたルール統合のみを読み込む / Only load enabled rule integrations
 
 ## ルール統合要件 / Rule Integration Requirements
 各ルールはエージェントが積極的に実行する必要がある特定のアルゴリズム実装を提供します：
@@ -57,6 +58,10 @@
 - オプションの構造化検証による正確性と信頼性の向上 / Enhanced accuracy and reliability through optional structured validation
 
 **フレームワークの利点 / FRAMEWORK BENEFITS**: 自然なユーザー対話を妨げない透明でオプションの拡張によるエージェント動作の改善。
+
+---
+
+**重要リマインダー / CRITICAL REMINDER**: `.agentic_initialized` マーカーを確認する際は、必ずクロスプラットフォームの隠しファイル検出ツールを使用してください。これを怠ると、フレームワークステータスの検出が正しく行われず、ブートストラップ準拠違反となります。
 
 <!-- METADATA: Root level agent integration template with framework overview (Japanese) -->
 <!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

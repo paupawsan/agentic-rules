@@ -18,11 +18,12 @@ Kerangka ini menyediakan perilaku agen AI terstruktur melalui aturan modular:
 
 ## Kepatuhan Bootstrap
 Sebelum memuat file aturan apa pun, agen HARUS:
-1. Baca `bootstrap.json` untuk memahami konfigurasi kerangka
-2. Tinjau `Bootstrap.md` untuk spesifikasi algoritma detail dan persyaratan kepatuhan
-3. Periksa urutan pemuatan dan titik masuk
-4. Validasi persetujuan dan pengaturan pengguna
-5. Hanya muat integrasi aturan yang diaktifkan
+1. **Periksa status inisialisasi**: Deteksi file penanda `.agentic_initialized` menggunakan deteksi file tersembunyi lintas platform (lihat `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md`)
+2. Baca `bootstrap.json` untuk memahami konfigurasi kerangka
+3. Tinjau `Bootstrap.md` untuk spesifikasi algoritma detail dan persyaratan kepatuhan
+4. Periksa urutan pemuatan dan titik masuk
+5. Validasi persetujuan dan pengaturan pengguna
+6. Hanya muat integrasi aturan yang diaktifkan
 
 ## Persyaratan Integrasi Aturan
 Setiap aturan menyediakan implementasi algoritma spesifik yang harus dieksekusi agen secara aktif:
@@ -57,6 +58,10 @@ Agen yang menggunakan kerangka ini dapat memperoleh manfaat dari kemampuan yang 
 - Peningkatan akurasi dan keandalan melalui validasi terstruktur opsional
 
 **MANFAAT KERANGKA**: Perbaikan perilaku agen melalui peningkatan transparan dan opsional yang tidak mengganggu interaksi pengguna alami.
+
+---
+
+**PENGINGAT KRITIS**: Selalu gunakan alat deteksi file tersembunyi lintas platform saat memeriksa penanda `.agentic_initialized`. Kegagalan melakukannya akan mengakibatkan deteksi status kerangka kerja yang salah dan pelanggaran kepatuhan bootstrap.
 
 <!-- METADATA: Template integrasi agen tingkat root dengan gambaran kerangka -->
 <!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
