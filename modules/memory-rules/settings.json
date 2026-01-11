@@ -1,10 +1,10 @@
 {
   "_metadata": {
     "license": "MIT",
-    "copyright": "Copyright (c) 2025 Paulus Ery Wasito Adhi",
+    "copyright": "Copyright (c) 2025-2026 Paulus Ery Wasito Adhi",
     "license_file": "LICENSE"
   },
-  "version": "1.2.0",
+  "version": "1.2.1",
   "memory_rules": {
     "enabled": true,
     "max_entries_per_category": 100,

@@ -82,7 +82,7 @@ typings/
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-# LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).
+# LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).
 
 # OS generated files
 .DS_Store
@@ -114,3 +114,7 @@ logs/
 
 # Platform-specific cache
 .cache/
+
+# Release artifacts (not committed)
+PR_*.md
+RELEASE_NOTES_*.md

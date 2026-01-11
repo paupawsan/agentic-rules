@@ -147,4 +147,4 @@ No system files were found to load.
 
 **注**: このコマンドはAgentic Rules Frameworkとシームレスに連携するように設計されています。読み込み後、エージェントは読み込まれたシステムルールに従って理解し、動作します。
 
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

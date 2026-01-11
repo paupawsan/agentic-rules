@@ -147,4 +147,4 @@ No system files were found to load.
 
 **Catatan**: Perintah ini dirancang untuk bekerja dengan mulus dengan Agentic Rules Framework. Setelah memuat, agen akan memahami dan beroperasi sesuai dengan aturan sistem yang dimuat.
 
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

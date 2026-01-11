@@ -147,4 +147,4 @@ No system files were found to load.
 
 **Note**: This command is designed to work seamlessly with the Agentic Rules Framework. After loading, the agent will understand and operate according to the loaded system rules.
 
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

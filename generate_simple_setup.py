@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 Paulus Ery Wasito Adhi
+# Copyright (c) 2025-2026 Paulus Ery Wasito Adhi
 #
 # Licensed under the MIT License. See LICENSE file for details.
 #
@@ -106,7 +106,7 @@ def generate_web_config():
     default_lang = get_default_language()
     available_langs = get_available_languages()
     web_config = {
-        "version": "1.2.0",
+        "version": "1.2.1",
         "description": "Static web configuration generated from setup.json files",
         "availableLanguages": available_langs,
         "uiLanguage": default_lang,
