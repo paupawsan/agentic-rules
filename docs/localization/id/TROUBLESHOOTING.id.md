@@ -164,6 +164,35 @@ ATURAN BERPIKIR KRITIS:
 Terapkan semua aturan ini segera dan pertahankan selama seluruh durasi kerja kami bersama. Konfirmasi Anda memahami setiap kategori aturan dan akan mengikutinya secara konsisten.
 ```
 
+### 📥 **Menggunakan Perintah Preload (Direkomendasikan)**
+
+**Cara termudah untuk memuat aturan secara manual** adalah menggunakan perintah preload bawaan:
+
+#### **Cursor IDE - Perintah Preload**
+```
+/agentic-rules/preload-agentic-rules [TARGET_DIRECTORY]
+```
+
+**Contoh:**
+```bash
+# Muat dari path absolut
+/agentic-rules/preload-agentic-rules /Users/username/Projects/my-agent-rules
+
+# Muat dari path relatif
+/agentic-rules/preload-agentic-rules ../my-agent-rules
+
+# Mode interaktif (meminta direktori)
+/agentic-rules/preload-agentic-rules
+```
+
+**Manfaat:**
+- ✅ Secara otomatis menemukan dan memuat semua file `AGENTS.md`, `GEMINI.md`, dan `CLAUDE.md`
+- ✅ Mencari secara rekursif di subdirektori
+- ✅ Secara otomatis mengecualikan file backup
+- ✅ Memberikan umpan balik yang jelas tentang apa yang dimuat
+
+📖 **Dokumentasi Lengkap**: Lihat [Panduan Perintah Preload](PRELOAD-COMMAND.id.md) untuk instruksi penggunaan lengkap.
+
 ### 📞 **Mendapatkan Bantuan**
 
 Jika Anda terus mengalami masalah:

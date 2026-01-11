@@ -285,6 +285,35 @@ CRITICAL THINKING RULES:
 Apply all these rules immediately and maintain them for the entire duration of our work together. Confirm you understand each rule category and will follow them consistently.
 ```
 
+### 📥 **Using the Preload Command (Recommended)**
+
+**The easiest way to manually load rules** is using the built-in preload command:
+
+#### **Cursor IDE - Preload Command**
+```
+/agentic-rules/preload-agentic-rules [TARGET_DIRECTORY]
+```
+
+**Examples:**
+```bash
+# Load from absolute path
+/agentic-rules/preload-agentic-rules /Users/username/Projects/my-agent-rules
+
+# Load from relative path
+/agentic-rules/preload-agentic-rules ../my-agent-rules
+
+# Interactive mode (prompts for directory)
+/agentic-rules/preload-agentic-rules
+```
+
+**Benefits:**
+- ✅ Automatically finds and loads all `AGENTS.md`, `GEMINI.md`, and `CLAUDE.md` files
+- ✅ Recursively searches subdirectories
+- ✅ Excludes backup files automatically
+- ✅ Provides clear feedback on what was loaded
+
+📖 **Full Documentation**: See [Preload Command Guide](PRELOAD-COMMAND.md) for complete usage instructions.
+
 ### 🛠️ **Creating Reusable Commands (Advanced)**
 
 For frequent use, create reusable commands in your editor to automatically load all rules:

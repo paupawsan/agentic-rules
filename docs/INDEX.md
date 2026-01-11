@@ -13,6 +13,7 @@ This directory contains detailed documentation for the Agentic Rules Framework.
 - **[USER-GUIDE.md](USER-GUIDE.md)** - Step-by-step setup for non-technical users
 - **[DEVELOPER-GUIDE.md](DEVELOPER-GUIDE.md)** - Advanced setup and technical implementation
 - **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solutions for common issues and manual loading instructions
+- **[PRELOAD-COMMAND.md](PRELOAD-COMMAND.md)** - Manual system rules loader command documentation
 
 ### 🔧 Extension & Development
 - **[EXTENSION-MANUAL.md](EXTENSION-MANUAL.md)** - Step-by-step guide for extending the framework
@@ -77,6 +78,7 @@ When adding new rules or features:
 - **[システムの説明](localization/ja/SYSTEM-OVERVIEW.ja.md)** - システムの仕組み
 - **[拡張マニュアル](localization/ja/EXTENSION-MANUAL.ja.md)** - プラグイン開発
 - **[トラブルシューティング](localization/ja/TROUBLESHOOTING.ja.md)** - 問題解決ガイド
+- **[Preloadコマンド](localization/ja/PRELOAD-COMMAND.ja.md)** - システムルールローダーコマンドのドキュメント
 
 ### Indonesian (Bahasa Indonesia)
 - **[Indeks Dokumentasi](localization/id/README.id.md)** - Ringkasan dokumentasi
@@ -85,6 +87,7 @@ When adding new rules or features:
 - **[Ikhtisar Sistem](localization/id/SYSTEM-OVERVIEW.id.md)** - Detail arsitektur
 - **[Manual Ekstensi](localization/id/EXTENSION-MANUAL.id.md)** - Pengembangan plugin
 - **[Panduan Pemecahan Masalah](localization/id/TROUBLESHOOTING.id.md)** - Panduan penyelesaian masalah
+- **[Perintah Preload](localization/id/PRELOAD-COMMAND.id.md)** - Dokumentasi perintah pemuat aturan sistem manual
 
 </details>
 
