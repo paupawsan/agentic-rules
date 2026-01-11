@@ -164,6 +164,35 @@ CRITICAL THINKING RULES:
 これらすべてのルールを即座に適用し、一緒に働く期間全体を通して維持してください。各ルールカテゴリを理解し、一貫して従うことを確認してください。
 ```
 
+### 📥 **Preloadコマンドの使用（推奨）**
+
+**ルールを手動で読み込む最も簡単な方法**は、組み込みのpreloadコマンドを使用することです：
+
+#### **Cursor IDE - Preloadコマンド**
+```
+/agentic-rules/preload-agentic-rules [TARGET_DIRECTORY]
+```
+
+**例:**
+```bash
+# 絶対パスから読み込む
+/agentic-rules/preload-agentic-rules /Users/username/Projects/my-agent-rules
+
+# 相対パスから読み込む
+/agentic-rules/preload-agentic-rules ../my-agent-rules
+
+# 対話モード（ディレクトリの入力を求めます）
+/agentic-rules/preload-agentic-rules
+```
+
+**利点:**
+- ✅ `AGENTS.md`、`GEMINI.md`、`CLAUDE.md`ファイルを自動的に検索して読み込み
+- ✅ サブディレクトリを再帰的に検索
+- ✅ バックアップファイルを自動的に除外
+- ✅ 読み込まれた内容について明確なフィードバックを提供
+
+📖 **完全なドキュメント**: 完全な使用手順については[Preloadコマンドガイド](PRELOAD-COMMAND.ja.md)を参照してください。
+
 ### 📞 **ヘルプを得る**
 
 問題が続く場合：

@@ -13,6 +13,7 @@ Folder ini berisi panduan lengkap untuk Agentic Rules Framework.
 - **[USER-GUIDE.id.md](USER-GUIDE.id.md)** - Panduan langkah demi langkah untuk orang awam
 - **[DEVELOPER-GUIDE.id.md](DEVELOPER-GUIDE.id.md)** - Panduan tingkat lanjut untuk programmer
 - **[TROUBLESHOOTING.id.md](TROUBLESHOOTING.id.md)** - Cara mengatasi masalah umum dan instruksi manual
+- **[PRELOAD-COMMAND.id.md](PRELOAD-COMMAND.id.md)** - Dokumentasi perintah pemuat aturan sistem manual
 
 ### 🔧 Pengembangan & Penambahan Fitur
 - **[EXTENSION-MANUAL.id.md](EXTENSION-MANUAL.id.md)** - Panduan langkah demi langkah untuk menambahkan fitur baru

@@ -98,6 +98,8 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+.cursor/
+!.cursor/commands/
 
 # Temporary files
 *.tmp
@@ -111,6 +113,4 @@ logs/
 *.log
 
 # Platform-specific cache
-.cursor/
-.vscode/
 .cache/

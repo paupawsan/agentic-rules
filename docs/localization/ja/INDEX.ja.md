@@ -13,6 +13,7 @@
 - **[USER-GUIDE.ja.md](USER-GUIDE.ja.md)** - 初心者向けの詳しいセットアップ手順
 - **[DEVELOPER-GUIDE.ja.md](DEVELOPER-GUIDE.ja.md)** - 上級者向けのセットアップと技術的な実装
 - **[TROUBLESHOOTING.ja.md](TROUBLESHOOTING.ja.md)** - よくある問題の解決方法と手動読み込み手順
+- **[PRELOAD-COMMAND.ja.md](PRELOAD-COMMAND.ja.md)** - システムルールローダーコマンドのドキュメント
 
 ### 🔧 機能追加と開発
 - **[EXTENSION-MANUAL.ja.md](EXTENSION-MANUAL.ja.md)** - フレームワークに機能を追加する詳しい手順
