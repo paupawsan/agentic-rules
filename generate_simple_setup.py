@@ -349,6 +349,10 @@ def embed_config_in_html(web_config):
     # Replace version placeholder with actual version
     version = web_config.get('version', '1.2.0')
     new_html = new_html.replace('{version}', version)
+    
+    # Update hardcoded version display (e.g., "Version v1.2.0" -> "Version v1.2.1")
+    version_pattern = r'Version v\d+\.\d+\.\d+'
+    new_html = re.sub(version_pattern, f'Version v{version}', new_html)
 
     # Write back to setup.html
     try:
