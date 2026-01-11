@@ -420,4 +420,4 @@ Remember: Manual loading always works as a fallback when automatic systems fail!
 
 ---
 
-Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).
+Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).

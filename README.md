@@ -117,7 +117,7 @@ The **Agentic Rules Framework** enhances AI agent capabilities through three spe
 ### **Unit Test Format Example**
 ```
 UNIT TEST: Agent Memory Retrieval
-Framework: Agentic Rules v1.2.0
+Framework: Agentic Rules v1.2.1
 Task: Test basic agent Memory retrieval.
 
 Instruction:
@@ -198,4 +198,4 @@ I want unit test report in markdown format @debug
 
 ---
 
-Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).
+Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).

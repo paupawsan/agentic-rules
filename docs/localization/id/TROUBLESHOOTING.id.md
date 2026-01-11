@@ -220,7 +220,7 @@ Ingat: Pemuatan manual selalu bekerja sebagai fallback ketika sistem otomatis ga
 
 ---
 
-Copyright (c) 2025 Paulus Ery Wasito Adhi. Dilisensikan di bawah Lisensi MIT (lihat file LICENSE).
+Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Dilisensikan di bawah Lisensi MIT (lihat file LICENSE).
 
 ---
 

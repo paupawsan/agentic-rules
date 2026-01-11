@@ -70,7 +70,7 @@ Dokumentasi ini untuk versi framework 1.0.0.
 
 ---
 
-Hak Cipta (c) 2025 Paulus Ery Wasito Adhi. Dilisensikan di bawah Lisensi MIT (lihat file LICENSE).
+Hak Cipta (c) 2025-2026 Paulus Ery Wasito Adhi. Dilisensikan di bawah Lisensi MIT (lihat file LICENSE).
 
 ---
 
