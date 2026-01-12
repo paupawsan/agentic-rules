@@ -5,7 +5,7 @@
     "license_file": "LICENSE"
   },
   "agentic_bootstrap": {
-    "version": "1.2.1",
+    "version": "1.3.0",
     "framework_id": "agentic-core-rules-v1",
     "agent_algorithm_reference": "Bootstrap.md",
     "distributed_integration": true,
@@ -192,6 +192,30 @@
         "tool_mapping_path": "cursor_tools.json",
         "memory_base_path": "${workspace}/agentic-memory",
         "supported_features": ["file_system", "terminal", "editor_tools"]
+      },
+      "cursor_2_0_multi_agent": {
+        "config_path": "settings/cursor-2.0-multi-agent-adapter.json",
+        "agent_config_path": ".cursor/agents",
+        "memory_base_path": "${workspace}/agentic-memory",
+        "supported_features": ["file_system", "terminal", "editor_tools", "multi_agent_orchestration", "git_worktrees", "parallel_execution", "best_of_n_strategy"],
+        "multi_agent_features": {
+          "orchestrator_agent": ".cursor/agents/orchestrator.md",
+          "sub_agents": [
+            ".cursor/agents/memory-agent.md",
+            ".cursor/agents/rag-agent.md",
+            ".cursor/agents/critical-thinking-agent.md",
+            ".cursor/agents/docs-agent.md",
+            ".cursor/agents/test-agent.md"
+          ],
+          "worktree_support": true,
+          "parallel_execution": true,
+          "agent_coordination": "framework_based",
+          "delegation_strategy": "rule_priority_based"
+        },
+        "version": "2.0",
+        "nightly_channel_required": true,
+        "composer_mode": "agent",
+        "plan_mode_shortcut": "Shift+Tab"
       },
       "vscode": {
         "config_path": "settings/vscode-adapter.json",
