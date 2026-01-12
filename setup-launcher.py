@@ -119,6 +119,9 @@ class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_error(400, f"Invalid file location: {filename} must be in root or within allowed plugin directories")
                 return
 
+            # Create parent directories if they don't exist
+            file_path.parent.mkdir(parents=True, exist_ok=True)
+
             # Create backup if file exists
             if file_path.exists():
                 backup_path = file_path.with_suffix(f"{file_path.suffix}.backup")
