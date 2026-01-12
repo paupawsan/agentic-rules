@@ -195,17 +195,17 @@
       },
       "cursor_2_0_multi_agent": {
         "config_path": "settings/cursor-2.0-multi-agent-adapter.json",
-        "agent_config_path": "modules/cursor-agents",
+        "agent_config_path": ".cursor/agents",
         "memory_base_path": "${workspace}/agentic-memory",
         "supported_features": ["file_system", "terminal", "editor_tools", "multi_agent_orchestration", "git_worktrees", "parallel_execution", "best_of_n_strategy"],
         "multi_agent_features": {
-          "orchestrator_agent": "modules/cursor-agents/orchestrator.md",
+          "orchestrator_agent": ".cursor/agents/orchestrator.md",
           "sub_agents": [
-            "modules/cursor-agents/memory-agent.md",
-            "modules/cursor-agents/rag-agent.md",
-            "modules/cursor-agents/critical-thinking-agent.md",
-            "modules/cursor-agents/docs-agent.md",
-            "modules/cursor-agents/test-agent.md"
+            ".cursor/agents/memory-agent.md",
+            ".cursor/agents/rag-agent.md",
+            ".cursor/agents/critical-thinking-agent.md",
+            ".cursor/agents/docs-agent.md",
+            ".cursor/agents/test-agent.md"
           ],
           "worktree_support": true,
           "parallel_execution": true,

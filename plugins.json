@@ -5,7 +5,8 @@
     "modules/agent-interaction-unit-test",
     "modules/critical-thinking-rules",
     "modules/memory-rules",
-    "modules/rag-rules"
+    "modules/rag-rules",
+    ".cursor"
   ],
   "description": "Manifest of available agentic-rules plugins"
 }

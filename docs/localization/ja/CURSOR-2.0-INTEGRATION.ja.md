@@ -56,14 +56,14 @@ Orchestrator Agent（プライマリ）
 3. **言語を選択**: エージェントの言語を選択（英語、インドネシア語、または日本語）
 4. **ルールを選択**: 有効にするフレームワークモジュールを選択
 5. **ファイルを生成**: 「設定ファイルを生成」をクリック
-6. **プロジェクトにコピー**: 生成された`modules/cursor-agents/*.md`ファイルをプロジェクトの`modules/cursor-agents/`ディレクトリにコピー
+6. **プロジェクトにコピー**: 生成された`.cursor/agents/*.md`ファイルをプロジェクトの`.cursor/agents/`ディレクトリにコピー
 
 #### 生成されるファイル
 
 生成後、以下のファイルが作成されます：
 
 ```
-modules/cursor-agents/
+.cursor/agents/
 ├── orchestrator.md              # プライマリOrchestrator
 ├── memory-agent.md              # メモリ操作スペシャリスト
 ├── rag-agent.md                 # 情報取得スペシャリスト
@@ -153,11 +153,11 @@ Orchestratorは委任にフレームワークルールを使用します：
 
 - **フレームワークドキュメント**: `docs/CORE-RULES.md`
 - **ブートストラップガイド**: `Bootstrap.md`
-- **エージェント設定ジェネレーター**: `setup.html` (`modules/cursor-agents/*.md`ファイルを生成)
+- **エージェント設定ジェネレーター**: `setup.html` (`.cursor/agents/*.md`ファイルを生成)
 - **アダプター設定**: `settings/cursor-2.0-multi-agent-adapter.json`
 - **ブートストラップ設定**: `bootstrap.json`
 
-**注意**: エージェント設定ファイル（`modules/cursor-agents/*.md`）は`setup.html`によって自動生成されます。ユーザーは手動で作成するのではなく、インストーラーを使用して生成する必要があります。
+**注意**: エージェント設定ファイル（`.cursor/agents/*.md`）は`setup.html`によって自動生成されます。ユーザーは手動で作成するのではなく、インストーラーを使用して生成する必要があります。
 
 ---
 

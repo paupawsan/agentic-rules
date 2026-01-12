@@ -56,14 +56,14 @@ Orchestrator Agent (Utama)
 3. **Pilih Bahasa**: Pilih bahasa agen (Bahasa Inggris, Indonesia, atau Jepang)
 4. **Pilih Aturan**: Pilih modul framework yang ingin diaktifkan
 5. **Generate File**: Klik "Generate Configuration Files"
-6. **Salin ke Proyek**: Salin file `modules/cursor-agents/*.md` yang dihasilkan ke direktori `modules/cursor-agents/` proyek Anda
+6. **Salin ke Proyek**: Salin file `.cursor/agents/*.md` yang dihasilkan ke direktori `.cursor/agents/` proyek Anda
 
 #### File yang Dihasilkan
 
 Setelah generasi, Anda akan memiliki:
 
 ```
-modules/cursor-agents/
+.cursor/agents/
 ├── orchestrator.md              # Orchestrator utama
 ├── memory-agent.md              # Spesialis operasi memori
 ├── rag-agent.md                 # Spesialis pengambilan informasi
@@ -231,11 +231,11 @@ Konfigurasikan framework di `settings/global-settings.json`:
 
 - **Dokumentasi Framework**: `docs/CORE-RULES.md`
 - **Panduan Bootstrap**: `Bootstrap.md`
-- **Generator Konfigurasi Agen**: `setup.html` (menghasilkan file `modules/cursor-agents/*.md`)
+- **Generator Konfigurasi Agen**: `setup.html` (menghasilkan file `.cursor/agents/*.md`)
 - **Konfigurasi Adapter**: `settings/cursor-2.0-multi-agent-adapter.json`
 - **Konfigurasi Bootstrap**: `bootstrap.json`
 
-**Catatan**: File konfigurasi agen (`modules/cursor-agents/*.md`) dihasilkan secara otomatis oleh `setup.html`. Pengguna harus menghasilkan file tersebut menggunakan installer daripada membuatnya secara manual.
+**Catatan**: File konfigurasi agen (`.cursor/agents/*.md`) dihasilkan secara otomatis oleh `setup.html`. Pengguna harus menghasilkan file tersebut menggunakan installer daripada membuatnya secara manual.
 
 ---
 

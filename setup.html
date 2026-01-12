@@ -1681,7 +1681,7 @@
       "deploymentTargetLabel": "Deployment Target:",
       "deploymentTargetHelp": "Choose deployment target: Standard or Cursor 2.0 multi-agent system",
       "deploymentTargetOptionStandard": "Standard (AGENTS.md/GEMINI.md/CLAUDE.md)",
-      "deploymentTargetOptionCursor": "Cursor 2.0 Multi-Agent (modules/cursor-agents/)",
+      "deploymentTargetOptionCursor": "Cursor 2.0 Multi-Agent (.cursor/agents/)",
       "agentLabel": "Agent Language:",
       "agentHelp": "Language for generated agent files",
       "fileTypeLabel": "Agent File Type:",
@@ -1825,7 +1825,7 @@
       "deploymentTargetLabel": "デプロイメントターゲット:",
       "deploymentTargetHelp": "デプロイメントターゲットを選択: 標準またはCursor 2.0マルチエージェントシステム",
       "deploymentTargetOptionStandard": "標準 (AGENTS.md/GEMINI.md/CLAUDE.md)",
-      "deploymentTargetOptionCursor": "Cursor 2.0マルチエージェント (modules/cursor-agents/)",
+      "deploymentTargetOptionCursor": "Cursor 2.0マルチエージェント (.cursor/agents/)",
       "agentLabel": "エージェント言語:",
       "agentHelp": "生成されるエージェントファイルの言語",
       "fileTypeLabel": "エージェントファイルタイプ:",
@@ -1969,7 +1969,7 @@
       "deploymentTargetLabel": "Target Deployment:",
       "deploymentTargetHelp": "Pilih target deployment: Standar atau sistem multi-agen Cursor 2.0",
       "deploymentTargetOptionStandard": "Standar (AGENTS.md/GEMINI.md/CLAUDE.md)",
-      "deploymentTargetOptionCursor": "Cursor 2.0 Multi-Agent (modules/cursor-agents/)",
+      "deploymentTargetOptionCursor": "Cursor 2.0 Multi-Agent (.cursor/agents/)",
       "agentLabel": "Bahasa Agen:",
       "agentHelp": "Bahasa untuk file agen yang dihasilkan",
       "fileTypeLabel": "Jenis File Agen:",
@@ -2150,7 +2150,7 @@
           <label for="deployment-target" id="deployment-target-label">Deployment Target:</label>
           <select id="deployment-target" onchange="updateDeploymentTarget()">
             <option value="standard" id="deployment-target-option-standard">Standard (AGENTS.md/GEMINI.md/CLAUDE.md)</option>
-            <option value="cursor" id="deployment-target-option-cursor">Cursor 2.0 Multi-Agent (modules/cursor-agents/)</option>
+            <option value="cursor" id="deployment-target-option-cursor">Cursor 2.0 Multi-Agent (.cursor/agents/)</option>
           </select>
           <div class="help-text" id="deployment-target-help">Choose deployment target: Standard or Cursor 2.0 multi-agent system</div>
         </div>
@@ -2179,7 +2179,7 @@
         <div class="help-text" style="margin-top: 15px;">
           <strong>Agent Language:</strong> Controls the language of generated agent files<br>
           <strong>Deployment Target:</strong> 
-          <span id="target-description">Standard generates AGENTS.md/GEMINI.md/CLAUDE.md files. Cursor generates orchestrator and sub-agent configs in modules/cursor-agents/</span>
+          <span id="target-description">Standard generates AGENTS.md/GEMINI.md/CLAUDE.md files. Cursor generates orchestrator and sub-agent configs in .cursor/agents/</span>
         </div>
       </div>
 
@@ -2734,9 +2734,9 @@
       const desc = document.getElementById('target-description');
       if (desc) {
         if (deploymentTarget === 'cursor') {
-          desc.textContent = 'Cursor generates orchestrator.md and sub-agent configs (memory-agent.md, rag-agent.md, etc.) in modules/cursor-agents/ directory with localization support.';
+          desc.textContent = 'Cursor generates orchestrator.md and sub-agent configs (memory-agent.md, rag-agent.md, etc.) in .cursor/agents/ directory with localization support.';
         } else {
-          desc.textContent = 'Standard generates AGENTS.md/GEMINI.md/CLAUDE.md files. Cursor generates orchestrator and sub-agent configs in modules/cursor-agents/';
+          desc.textContent = 'Standard generates AGENTS.md/GEMINI.md/CLAUDE.md files. Cursor generates orchestrator and sub-agent configs in .cursor/agents/';
         }
       }
     }
@@ -3441,12 +3441,12 @@
           if (orchestratorContent) {
             // Generate orchestrator.md for this language
             if (lang === 'en') {
-              fileContents['modules/cursor-agents/orchestrator.md'] = orchestratorContent;
+              fileContents['.cursor/agents/orchestrator.md'] = orchestratorContent;
             } else {
               // For other languages, we could create localized versions if needed
               // For now, generate main orchestrator in selected language
               if (lang === config.agentLanguage) {
-                fileContents['modules/cursor-agents/orchestrator.md'] = orchestratorContent;
+                fileContents['.cursor/agents/orchestrator.md'] = orchestratorContent;
               }
             }
           }
@@ -3464,14 +3464,14 @@
           // Generate for selected language
           const subAgentContent = await generateCursorSubAgentFromRules(rule, config.agentLanguage, config);
           if (subAgentContent) {
-            fileContents[`modules/cursor-agents/${agentFileName}`] = subAgentContent;
+            fileContents[`.cursor/agents/${agentFileName}`] = subAgentContent;
           }
         }
       }
 
-      // Generate README.md for modules/cursor-agents/
+      // Generate README.md for .cursor/agents/
       const readmeContent = generateCursorAgentsReadme(config);
-      fileContents['modules/cursor-agents/README.md'] = readmeContent;
+      fileContents['.cursor/agents/README.md'] = readmeContent;
     }
 
     async function generateCursorOrchestratorFromRules(lang, config) {
@@ -3746,18 +3746,18 @@ To regenerate or update them, use setup.html and select "Cursor 2.0 Multi-Agent"
       let treeLines = [`<strong>${fg.projectRoot}</strong><br>`, '📁 your-project/<br>'];
 
       // Check if this is Cursor deployment
-      const isCursorDeployment = Object.keys(files).some(f => f.startsWith('modules/cursor-agents/'));
+      const isCursorDeployment = Object.keys(files).some(f => f.startsWith('.cursor/agents/'));
       
       if (isCursorDeployment) {
-        // Cursor deployment: modules/cursor-agents/ structure
-        const cursorFiles = Object.keys(files).filter(f => f.startsWith('modules/cursor-agents/')).sort();
-        const otherFiles = Object.keys(files).filter(f => !f.startsWith('modules/cursor-agents/')).sort();
+        // Cursor deployment: .cursor/agents/ structure
+        const cursorFiles = Object.keys(files).filter(f => f.startsWith('.cursor/agents/')).sort();
+        const otherFiles = Object.keys(files).filter(f => !f.startsWith('.cursor/agents/')).sort();
         
-        // Add modules/cursor-agents/ structure
-        treeLines.push('├── 📁 modules/<br>');
-        treeLines.push('│   └── 📁 cursor-agents/<br>');
+        // Add .cursor/agents/ structure
+        treeLines.push('├── 📁 .cursor/<br>');
+        treeLines.push('│   └── 📁 agents/<br>');
 
-        const agentFiles = cursorFiles.map(f => f.replace('modules/cursor-agents/', '')).sort();
+        const agentFiles = cursorFiles.map(f => f.replace('.cursor/agents/', '')).sort();
         agentFiles.forEach((file, index) => {
           const isLast = index === agentFiles.length - 1 && otherFiles.length === 0;
           const prefix = isLast ? '│       └──' : '│       ├──';
