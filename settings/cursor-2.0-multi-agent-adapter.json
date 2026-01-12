@@ -14,13 +14,13 @@
     "features": {
       "orchestrator": {
         "enabled": true,
-        "config_path": ".cursor/agents/orchestrator.md",
+        "config_path": "modules/cursor-agents/orchestrator.md",
         "plan_mode_shortcut": "Shift+Tab",
         "global_context_marker": "@Codebase"
       },
       "sub_agents": {
         "enabled": true,
-        "config_directory": ".cursor/agents",
+        "config_directory": "modules/cursor-agents",
         "available_agents": [
           {
             "name": "memory-agent",
