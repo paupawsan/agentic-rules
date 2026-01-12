@@ -3472,6 +3472,10 @@
       // Generate README.md for .cursor/agents/
       const readmeContent = generateCursorAgentsReadme(config);
       fileContents['.cursor/agents/README.md'] = readmeContent;
+
+      // Generate dynamic cursor adapter configuration
+      const adapterContent = generateCursorAdapterConfig(config, fileContents);
+      fileContents['settings/cursor-2.0-multi-agent-adapter.json'] = adapterContent;
     }
 
     async function generateCursorOrchestratorFromRules(lang, config) {
@@ -3627,6 +3631,123 @@ You are the **${agentName}** - specialized agent for ${getModuleDescription(modu
         'agent-interaction-unit-test': 'test creation and quality verification'
       };
       return mapping[moduleName] || 'specialized operations';
+    }
+
+    function generateCursorAdapterConfig(config, fileContents) {
+      // Build list of actually generated sub-agents
+      const cursorFiles = Object.keys(fileContents).filter(f => f.startsWith('.cursor/agents/') && f !== '.cursor/agents/orchestrator.md' && f !== '.cursor/agents/README.md');
+
+      // Map module names to agent configurations
+      const moduleToAgentMap = {
+        'memory-rules': {
+          name: 'memory-agent',
+          file: 'memory-agent.md',
+          framework_module: 'memory-rules',
+          priority: 'medium'
+        },
+        'rag-rules': {
+          name: 'rag-agent',
+          file: 'rag-agent.md',
+          framework_module: 'rag-rules',
+          priority: 'high'
+        },
+        'critical-thinking-rules': {
+          name: 'critical-thinking-agent',
+          file: 'critical-thinking-agent.md',
+          framework_module: 'critical-thinking-rules',
+          priority: 'high'
+        },
+        'agent-interaction-unit-test': {
+          name: 'test-agent',
+          file: 'test-agent.md',
+          framework_module: 'critical-thinking-rules,memory-rules',
+          priority: 'medium'
+        }
+      };
+
+      // Build available_agents array from actually generated files
+      const availableAgents = [];
+      for (const filePath of cursorFiles) {
+        const fileName = filePath.split('/').pop();
+        // Find which module this file corresponds to
+        for (const [moduleName, agentConfig] of Object.entries(moduleToAgentMap)) {
+          if (agentConfig.file === fileName) {
+            availableAgents.push(agentConfig);
+            break;
+          }
+        }
+      }
+
+      // Generate the adapter configuration
+      const adapterConfig = {
+        "_metadata": {
+          "license": "MIT",
+          "copyright": "Copyright (c) 2025-2026 Paulus Ery Wasito Adhi",
+          "license_file": "LICENSE",
+          "version": "1.3.0",
+          "adapter_for": "cursor_2_0_multi_agent",
+          "generated_from_rules": Object.keys(config.rules).filter(rule => config.rules[rule])
+        },
+        "cursor_2_0": {
+          "version": "2.0",
+          "multi_agent_support": true,
+          "nightly_channel_required": true,
+          "composer_mode": "agent",
+          "features": {
+            "orchestrator": {
+              "enabled": true,
+              "config_path": ".cursor/agents/orchestrator.md",
+              "plan_mode_shortcut": "Shift+Tab",
+              "global_context_marker": "@Codebase"
+            },
+            "sub_agents": {
+              "enabled": true,
+              "config_directory": ".cursor/agents",
+              "available_agents": availableAgents
+            },
+            "parallel_execution": {
+              "enabled": true,
+              "method": "git_worktrees",
+              "verification_command": "git worktree list",
+              "merge_strategy": "apply_button_ui"
+            },
+            "best_of_n_strategy": {
+              "enabled": true,
+              "multiple_models_support": true,
+              "comparison_ui": "tab_based",
+              "selection_method": "user_choice"
+            }
+          },
+          "framework_integration": {
+            "bootstrap_compliance": true,
+            "rule_loading": "distributed_per_rule",
+            "agent_coordination": "framework_based",
+            "delegation_strategy": "rule_priority_based",
+            "memory_sharing": true,
+            "context_optimization": true
+          },
+          "workflow_patterns": {
+            "task_decomposition": {
+              "orchestrator_planning": true,
+              "sub_agent_delegation": true,
+              "parallel_execution": true,
+              "result_synthesis": true
+            },
+            "quality_assurance": {
+              "critical_thinking_validation": true,
+              "memory_pattern_matching": true,
+              "rag_context_verification": true
+            },
+            "coordination": {
+              "rule_interconnections": true,
+              "framework_algorithms": true,
+              "transparency_logging": true
+            }
+          }
+        }
+      };
+
+      return JSON.stringify(adapterConfig, null, 2);
     }
 
     function generateCursorAgentsReadme(config) {
