@@ -124,6 +124,16 @@
       padding-bottom: 10px;
     }
 
+    .section > .form-group > label {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 1.5em;
+      border-bottom: 3px solid #3498db;
+      padding-bottom: 10px;
+      display: block;
+      font-weight: 600;
+    }
+
     .plugin-config-group {
       margin-bottom: 30px;
       border: 2px solid #3498db;
@@ -2121,6 +2131,14 @@
     <div class="content">
       <!-- Language Selection -->
       <div class="section">
+        <div class="form-group">
+          <label for="deployment-target">Deployment Target:</label>
+          <select id="deployment-target" onchange="updateDeploymentTarget()">
+            <option value="standard">Standard (AGENTS.md/GEMINI.md/CLAUDE.md)</option>
+            <option value="cursor">Cursor 2.0 Multi-Agent (.cursor/agents/)</option>
+          </select>
+          <div class="help-text">Choose deployment target: Standard or Cursor 2.0 multi-agent system</div>
+        </div>
         <h2>🌐 Agent Language Settings</h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
           <div class="form-group">
@@ -2132,7 +2150,7 @@
             </select>
             <div class="help-text">Language for generated agent files</div>
           </div>
-          <div class="form-group">
+          <div class="form-group" id="agent-file-type-group">
             <label for="agent-file-type">Agent File Type:</label>
             <select id="agent-file-type" onchange="updateAgentFileType()">
               <option value="AGENTS.md">AGENTS.md</option>
@@ -2140,14 +2158,6 @@
               <option value="CLAUDE.md">CLAUDE.md</option>
             </select>
             <div class="help-text">Choose AGENTS.md, GEMINI.md, or CLAUDE.md format</div>
-          </div>
-          <div class="form-group">
-            <label for="deployment-target">Deployment Target:</label>
-            <select id="deployment-target" onchange="updateDeploymentTarget()">
-              <option value="standard">Standard (AGENTS.md/GEMINI.md/CLAUDE.md)</option>
-              <option value="cursor">Cursor 2.0 Multi-Agent (.cursor/agents/)</option>
-            </select>
-            <div class="help-text">Choose deployment target: Standard or Cursor 2.0 multi-agent system</div>
           </div>
         </div>
 
@@ -2299,6 +2309,7 @@
         document.getElementById('deployment-target').value = deploymentTarget;
       }
       updateTargetDescription();
+      updateAgentFileTypeVisibility();
 
       // Load selected rules
       const savedRules = loadFromStorage('agentic-rules-selected-rules');
@@ -2689,6 +2700,19 @@
       deploymentTarget = document.getElementById('deployment-target').value;
       savePreferences();
       updateTargetDescription();
+      updateAgentFileTypeVisibility();
+    }
+
+    function updateAgentFileTypeVisibility() {
+      const agentFileTypeGroup = document.getElementById('agent-file-type-group');
+      if (agentFileTypeGroup) {
+        // Hide agent-file-type when Cursor 2.0 is selected (not applicable)
+        if (deploymentTarget === 'cursor') {
+          agentFileTypeGroup.style.display = 'none';
+        } else {
+          agentFileTypeGroup.style.display = 'block';
+        }
+      }
     }
 
     function updateTargetDescription() {
