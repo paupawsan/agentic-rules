@@ -1677,6 +1677,11 @@
       "description": "Configure your AI agent rules with ease"
     },
     "language": {
+      "sectionTitle": "🌐 Agent Language Settings",
+      "deploymentTargetLabel": "Deployment Target:",
+      "deploymentTargetHelp": "Choose deployment target: Standard or Cursor 2.0 multi-agent system",
+      "deploymentTargetOptionStandard": "Standard (AGENTS.md/GEMINI.md/CLAUDE.md)",
+      "deploymentTargetOptionCursor": "Cursor 2.0 Multi-Agent (.cursor/agents/)",
       "agentLabel": "Agent Language:",
       "agentHelp": "Language for generated agent files",
       "fileTypeLabel": "Agent File Type:",
@@ -1816,6 +1821,11 @@
       "description": "AIエージェントのルールを簡単に設定"
     },
     "language": {
+      "sectionTitle": "🌐 エージェント言語設定",
+      "deploymentTargetLabel": "デプロイメントターゲット:",
+      "deploymentTargetHelp": "デプロイメントターゲットを選択: 標準またはCursor 2.0マルチエージェントシステム",
+      "deploymentTargetOptionStandard": "標準 (AGENTS.md/GEMINI.md/CLAUDE.md)",
+      "deploymentTargetOptionCursor": "Cursor 2.0マルチエージェント (.cursor/agents/)",
       "agentLabel": "エージェント言語:",
       "agentHelp": "生成されるエージェントファイルの言語",
       "fileTypeLabel": "エージェントファイルタイプ:",
@@ -1955,6 +1965,11 @@
       "description": "Konfigurasikan aturan agen AI Anda dengan mudah"
     },
     "language": {
+      "sectionTitle": "🌐 Pengaturan Bahasa Agen",
+      "deploymentTargetLabel": "Target Deployment:",
+      "deploymentTargetHelp": "Pilih target deployment: Standar atau sistem multi-agen Cursor 2.0",
+      "deploymentTargetOptionStandard": "Standar (AGENTS.md/GEMINI.md/CLAUDE.md)",
+      "deploymentTargetOptionCursor": "Cursor 2.0 Multi-Agent (.cursor/agents/)",
       "agentLabel": "Bahasa Agen:",
       "agentHelp": "Bahasa untuk file agen yang dihasilkan",
       "fileTypeLabel": "Jenis File Agen:",
@@ -2132,14 +2147,14 @@
       <!-- Language Selection -->
       <div class="section">
         <div class="form-group">
-          <label for="deployment-target">Deployment Target:</label>
+          <label for="deployment-target" id="deployment-target-label">Deployment Target:</label>
           <select id="deployment-target" onchange="updateDeploymentTarget()">
-            <option value="standard">Standard (AGENTS.md/GEMINI.md/CLAUDE.md)</option>
-            <option value="cursor">Cursor 2.0 Multi-Agent (.cursor/agents/)</option>
+            <option value="standard" id="deployment-target-option-standard">Standard (AGENTS.md/GEMINI.md/CLAUDE.md)</option>
+            <option value="cursor" id="deployment-target-option-cursor">Cursor 2.0 Multi-Agent (.cursor/agents/)</option>
           </select>
-          <div class="help-text">Choose deployment target: Standard or Cursor 2.0 multi-agent system</div>
+          <div class="help-text" id="deployment-target-help">Choose deployment target: Standard or Cursor 2.0 multi-agent system</div>
         </div>
-        <h2>🌐 Agent Language Settings</h2>
+        <h2 id="language-section-title">🌐 Agent Language Settings</h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
           <div class="form-group">
             <label for="agent-language">Agent Language:</label>
@@ -2737,12 +2752,22 @@
       if (headerDesc) headerDesc.textContent = strings.header.description;
 
       // Update language section
+      const languageSectionTitle = document.getElementById('language-section-title');
+      const deploymentTargetLabel = document.getElementById('deployment-target-label');
+      const deploymentTargetHelp = document.getElementById('deployment-target-help');
+      const deploymentTargetOptionStandard = document.getElementById('deployment-target-option-standard');
+      const deploymentTargetOptionCursor = document.getElementById('deployment-target-option-cursor');
       const agentLangLabel = document.querySelector('label[for="agent-language"]');
       const agentLangHelp = document.querySelector('select[id="agent-language"]').nextElementSibling;
       const agentFileTypeLabel = document.querySelector('label[for="agent-file-type"]');
       const agentFileTypeHelp = document.querySelector('select[id="agent-file-type"]').nextElementSibling;
       const langHelpText = document.querySelector('div.help-text[style*="margin-top"]');
 
+      if (languageSectionTitle) languageSectionTitle.textContent = strings.language.sectionTitle;
+      if (deploymentTargetLabel) deploymentTargetLabel.innerHTML = strings.language.deploymentTargetLabel;
+      if (deploymentTargetHelp) deploymentTargetHelp.textContent = strings.language.deploymentTargetHelp;
+      if (deploymentTargetOptionStandard) deploymentTargetOptionStandard.textContent = strings.language.deploymentTargetOptionStandard;
+      if (deploymentTargetOptionCursor) deploymentTargetOptionCursor.textContent = strings.language.deploymentTargetOptionCursor;
       if (agentLangLabel) agentLangLabel.innerHTML = strings.language.agentLabel;
       if (agentLangHelp) agentLangHelp.textContent = strings.language.agentHelp;
       if (agentFileTypeLabel) agentFileTypeLabel.innerHTML = strings.language.fileTypeLabel;
