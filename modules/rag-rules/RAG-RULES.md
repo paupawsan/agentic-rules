@@ -698,6 +698,18 @@ Algorithm: Incremental_Graph_Builder
 Input: entities, relationships, existing_graph, memory_system_enabled
 Output: Updated knowledge graph
 
+0. Check git context for overlay mode:
+   - IF knowledge_graph.git_aware.enabled AND project is git-managed:
+     - Determine if base graph exists
+     - IF on non-default branch AND base exists:
+       - Delegate to Diff_Based_Overlay_Construction instead
+       - RETURN overlay result (skip standard full construction)
+     - IF on default branch AND base exists AND changes are small:
+       - Delegate to Base_Graph_Refresh instead
+       - RETURN refreshed base (skip standard full construction)
+   - IF NOT git-managed OR git_aware.enabled = false:
+     - Continue with standard full construction (steps 1-6 unchanged)
+
 1. Initialize graph with existing nodes and edges
 2. Process new entities:
    - Add as nodes with type and attribute metadata
@@ -715,8 +727,14 @@ Output: Updated knowledge graph
    - Update graph indices for efficient querying
 6. Persist graph state with timestamp metadata:
    - If memory_rules.enabled = true:
-     - Store graph data in persistent memory system
-     - Use appropriate memory category (knowledge_graph or technical)
+     - IF knowledge_graph.git_aware.enabled AND is_base_construction:
+       - Store in knowledge_graph/base/ with base_manifest
+       - Record base_commit for future overlay comparisons
+     - IF knowledge_graph.git_aware.enabled AND is_overlay_construction:
+       - Store in knowledge_graph/overlays/[sanitized-branch-name]/
+     - ELSE (standard non-git-aware mode):
+       - Store graph data in persistent memory system
+       - Use appropriate memory category (knowledge_graph or technical)
      - Include metadata for graph reconstruction
      - Set retention policy for long-term knowledge preservation
    - If memory_rules.enabled = false:
@@ -729,6 +747,17 @@ Output: Updated knowledge graph
 Algorithm: Semantic_Graph_Query
 Input: query_text, knowledge_graph
 Output: Ranked list of relevant information
+
+0. Resolve effective graph for git-aware mode:
+   - IF knowledge_graph.git_aware.enabled AND project is git-managed:
+     - Determine current branch
+     - IF on non-default branch AND overlay exists for current branch:
+       - Execute Overlay_Merge_Resolution to get effective_knowledge_graph
+       - Use effective_knowledge_graph as the knowledge_graph input for steps 1-6
+     - IF on default branch:
+       - Use base graph directly
+   - IF NOT git-managed OR git_aware.enabled = false:
+     - Use standard knowledge_graph (current behavior)
 
 1. Parse query for entities and intent
 2. Identify relevant nodes through direct matching
@@ -762,6 +791,16 @@ Output: Optimized knowledge graph
    - Reduce confidence scores for unused elements
    - Remove edges below minimum threshold
    - Consolidate similar but unused nodes
+2.5. Overlay lifecycle management (git-aware mode):
+   - IF knowledge_graph.git_aware.enabled:
+     - Scan all branch overlays in knowledge_graph/overlays/
+     - FOR each overlay:
+       - Check if branch still exists: git branch --list [branch-name]
+       - IF branch deleted AND overlay age > overlay_retention_days:
+         - Mark overlay for cleanup (with user consent per cleanup_guidance)
+       - IF overlay is STALE (base refreshed since overlay created):
+         - Mark for reconstruction on next branch checkout
+     - Prune overlay directory of cleaned-up branches
 3. Perform graph restructuring:
    - Merge highly similar nodes
    - Simplify redundant relationship paths
@@ -910,6 +949,193 @@ def analyze_class_hierarchy(file_path: str) -> Dict[str, List[str]]:
 - **Result Merging**: Python and text analysis results combined intelligently
 - **Quality Scoring**: Results ranked by analysis method reliability
 - **Progressive Enhancement**: Python results enhance text analysis, don't replace
+
+## Git-Aware Knowledge Graph Algorithms
+
+When the target project is managed by git, KG construction can leverage branch-level diffing to avoid redundant reconstruction. Instead of rebuilding the entire graph per branch, a **base graph** represents the default branch and lightweight **overlay graphs** capture only the delta for each feature branch.
+
+**Guard Clause**: All algorithms in this section check `knowledge_graph.git_aware.enabled` first. When disabled (default), all existing KG algorithms execute unchanged. For non-git projects, the git detection in step 1 triggers an immediate fallback to standard `Incremental_Graph_Builder`.
+
+### Git-Aware KG Construction Algorithm
+```
+Algorithm: Git_Aware_KG_Construction
+Input: project_path, current_branch, memory_system, existing_base_graph
+Output: effective_knowledge_graph (base + overlay)
+
+1. Detect git context:
+   - Check if project_path is a git repository
+   - IF NOT git managed: Fallback to standard Incremental_Graph_Builder
+   - Identify default branch (main/master) via git remote HEAD or config
+   - IF git_aware_kg.default_branch_override is set: Use that value
+   - Identify current branch via git rev-parse --abbrev-ref HEAD
+   - Get merge-base commit between current branch and default branch
+
+2. Determine construction mode:
+   - IF current_branch == default_branch: MODE = "base_construction"
+   - IF base graph does not exist: MODE = "base_construction"
+   - IF base graph exists AND current_branch != default_branch: MODE = "overlay_construction"
+
+3. IF MODE == "base_construction":
+   - Execute full Incremental_Graph_Builder on entire codebase
+   - Generate base_manifest with node/edge identifiers and content hashes
+   - Store as base graph in knowledge_graph/base/
+   - Record base_commit (HEAD of default branch at construction time)
+
+4. IF MODE == "overlay_construction":
+   - Execute Diff_Based_Overlay_Construction
+
+5. Return effective graph:
+   - IF on default branch: Return base graph directly
+   - IF on non-default branch: Execute Overlay_Merge_Resolution
+```
+
+### Diff-Based Overlay Construction Algorithm
+```
+Algorithm: Diff_Based_Overlay_Construction
+Input: project_path, current_branch, default_branch, base_graph, base_manifest
+Output: branch_overlay
+
+1. Compute file diff set:
+   - Run: git diff --name-only [merge-base]..HEAD
+   - Collect changed_files (added, modified, deleted)
+   - Record merge_base_commit for overlay provenance
+
+2. Compute dependency expansion:
+   - FOR each file in changed_files:
+     - Query base_graph for entities sourced from this file
+     - Identify direct dependents (files that import/reference changed files)
+     - Add first-degree dependents to analysis_set
+   - Deduplicate analysis_set
+   - Cap analysis_set at max_overlay_analysis_files (default: 50)
+
+3. Extract entities from analysis_set:
+   - Execute Structured_Entity_Extraction on each file in analysis_set
+   - Execute Pattern_Based_Relation_Extraction for relationships
+   - IF python_enhancement.enabled:
+     - Execute Python_Enhanced_KG_Construction on analysis_set only
+
+4. Compute delta against base_graph:
+   - FOR each extracted entity:
+     - IF entity exists in base_manifest with same content_hash: SKIP (unchanged)
+     - IF entity exists with different content_hash: Mark as MODIFIED
+     - IF entity NOT in base_manifest: Mark as ADDED
+   - FOR each base entity sourced from deleted files: Mark as REMOVED
+   - FOR each extracted relationship:
+     - Compare against base relationships using source+target+type key
+     - Classify as ADDED, MODIFIED, or UNCHANGED
+   - FOR each base relationship involving REMOVED entities: Mark as REMOVED
+
+5. Construct overlay document:
+   - Create overlay with sections: added_nodes, removed_nodes, modified_nodes,
+     added_edges, removed_edges, modified_edges
+   - Include merge_base_commit and branch_name in metadata
+   - Include file_diff_summary for traceability
+
+6. Store overlay:
+   - Sanitize branch name: replace / with -- for directory safety
+   - Write to knowledge_graph/overlays/[sanitized-branch-name]/
+   - Update overlay_manifest with timestamp and validity info
+   - IF memory_rules.enabled = false: Keep overlay in session context only
+```
+
+### Overlay Merge Resolution Algorithm
+```
+Algorithm: Overlay_Merge_Resolution
+Input: base_graph, branch_overlay
+Output: effective_knowledge_graph
+
+1. Initialize effective_graph as deep copy of base_graph
+
+2. Apply removals:
+   - FOR each node in overlay.removed_nodes:
+     - Remove node and all connected edges from effective_graph
+   - FOR each edge in overlay.removed_edges:
+     - Remove edge from effective_graph
+
+3. Apply modifications:
+   - FOR each node in overlay.modified_nodes:
+     - Replace matching node in effective_graph with overlay version
+   - FOR each edge in overlay.modified_edges:
+     - Replace matching edge in effective_graph with overlay version
+
+4. Apply additions:
+   - FOR each node in overlay.added_nodes: Add to effective_graph
+   - FOR each edge in overlay.added_edges:
+     - Add edge (validate source/target nodes exist)
+
+5. Validate merged graph:
+   - Check for orphaned edges (referencing non-existent nodes)
+   - Check for duplicate nodes after merge
+   - Log inconsistencies for debugging
+
+6. Return effective_knowledge_graph
+```
+
+### Base Graph Refresh Algorithm
+```
+Algorithm: Base_Graph_Refresh
+Input: project_path, existing_base_graph, base_manifest
+Output: updated_base_graph, invalidated_overlays_list
+
+1. Detect base changes:
+   - Get current HEAD of default branch
+   - Compare with base_manifest.base_commit
+   - IF unchanged: Return existing base graph (no work needed)
+   - Run: git diff --name-only [base_commit]..HEAD on default branch
+
+2. Incremental base update:
+   - Apply Diff_Based_Overlay_Construction logic targeting the base itself
+   - Apply resulting delta to base_graph
+   - Update base_manifest with new base_commit and content hashes
+
+3. Invalidate affected overlays:
+   - FOR each overlay in knowledge_graph/overlays/:
+     - IF overlay's changed files overlap with base changed_files: Mark STALE
+     - IF no overlap: Overlay remains valid
+   - Return list of invalidated overlays
+
+4. Persist updated base and manifest
+```
+
+### Cross-Branch KG Analysis Algorithm
+```
+Algorithm: Cross_Branch_KG_Analysis
+Input: base_graph, branch_overlays[], analysis_scope
+Output: cross_branch_analysis_report
+
+1. Collect active branch overlays:
+   - Scan knowledge_graph/overlays/ for branch directories
+   - Load overlay_manifest from each
+   - Filter stale overlays (merge_base older than base graph)
+   - Limit to max_branches_to_compare (default: 10)
+
+2. Entity collision detection:
+   - Build entity_modification_map: entity_id -> [branches that modify it]
+   - FOR each entity modified by 2+ branches:
+     - IF same change across branches: Flag as CONVERGENT (low risk)
+     - IF different changes: Flag as DIVERGENT (high risk)
+
+3. Semantic conflict detection:
+   - FOR each DIVERGENT entity:
+     - Analyze relationship changes across branches
+     - Detect interface modifications (same interface changed differently)
+     - Detect dependency changes (edges to/from entity differ)
+     - Assign semantic_conflict_score (0.0 = safe, 1.0 = certain conflict)
+
+4. Branch divergence mapping:
+   - FOR each overlay: count total delta size, compute overlap_ratio with others
+   - Calculate divergence_distance from base
+
+5. Generate report:
+   - Merge conflicts ranked by semantic_conflict_score
+   - Subsystem impact map (which branches touch which areas)
+   - Merge-order recommendations (least conflicts first)
+   - Store in knowledge_graph/cross_branch/ using Cross-Branch Analysis Template
+
+6. Persist report:
+   - IF memory_rules.enabled: Store as markdown in cross_branch/ directory
+   - IF memory_rules.enabled = false: Return in session context only
+```
 
 ## Quality Assurance
 

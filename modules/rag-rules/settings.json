@@ -133,6 +133,14 @@
         "inference_engine": true,
         "relationship_ranking": true,
         "contextual_expansion": true
+      },
+      "git_aware": {
+        "enabled": false,
+        "overlay_mode": true,
+        "base_graph_caching": true,
+        "overlay_merge_strategy": "three_way",
+        "dependency_expansion_depth": 1,
+        "cross_branch_analysis_enabled": true
       }
     },
     "self_learning": {
