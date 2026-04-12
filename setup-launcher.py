@@ -176,7 +176,7 @@ class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                             cleaned_files.append(f"{ext_variant}")
 
             # Clean up rule directories
-            rule_dirs = ['modules/memory-rules', 'modules/rag-rules', 'modules/critical-thinking-rules']
+            rule_dirs = ['modules/memory-rules', 'modules/rag-rules', 'modules/critical-thinking-rules', 'modules/agent-interaction-unit-test']
             for rule_dir in rule_dirs:
                 rule_path = self.server_directory / rule_dir
                 if rule_path.exists():
