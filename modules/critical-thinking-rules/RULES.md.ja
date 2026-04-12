@@ -4,6 +4,23 @@
 **⚠️ 安全対策 / SAFETY PRECAUTION**: これはテンプレートファイルです。エージェントは自動的にこのファイルを読み込んではいけません。`AGENTS.md`、`GEMINI.md`、または`CLAUDE.md`に名前を変更した後でのみ読み込み、settings.jsonで`rag_rules.enabled = true`の場合のみ使用してください。
 <!-- SAFETY_PRECAUTION_END -->
 
+## 初回実行手順 / First-Run Procedure
+
+このプロジェクトでの最初のセッション時、応答前に以下の手順を実行してください:
+
+1. **マーカーを確認。** 作業ディレクトリで `.agentic_initialized` を探す（隠しファイル対応の検出を使用）。存在しバージョンが一致すれば、通常の応答に進む。
+
+2. **有効なルールを読み取る。** `modules/*/settings.json` でどのルールが有効か確認する。
+
+3. **KGコンテキストを読み込む。** `kg_context` ツールが利用可能な場合、`kg_context('starting work in this project')` を呼び出す。利用不可の場合、スキップ。
+
+4. **確認を伝える。** 有効なルールを一文でユーザーに伝える。ルールの有効化/無効化を促さない。
+
+5. **マーカーを書き込む。** `.agentic_initialized` を作成: `{"version": "1.4.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+
+この手順がスキップされても、有効なルールは機能します。マーカーはソフトシグナルであり、ゲートではありません。
+詳細: `docs/FIRST_RUN_LOADING.md`
+
 **必須**: settings.jsonでcritical_thinking_rules.enabled = trueの場合、エージェントは以下のすべてのアルゴリズムを実装しなければなりません。
 
 ## Critical Thinking Rules Extended の概要

@@ -8,6 +8,23 @@
 **PENGGUNAAN TIDAK VALID**: Jangan muat file ini secara otomatis, jangan referensikan dalam proses startup, jangan sertakan dalam inisialisasi kerangka kerja otomatis apa pun.
 <!-- SAFETY_PRECAUTION_END -->
 
+## Prosedur Pertama Kali / First-Run Procedure
+
+Pada sesi pertama Anda di proyek ini, jalankan langkah-langkah berikut sebelum merespons:
+
+1. **Periksa penanda.** Cari `.agentic_initialized` di direktori kerja (gunakan deteksi yang mendukung file tersembunyi). Jika ada dan versi cocok, lanjutkan ke respons normal.
+
+2. **Baca aturan aktif.** Periksa `modules/*/settings.json` untuk aturan mana yang diaktifkan.
+
+3. **Muat konteks KG.** Jika alat `kg_context` tersedia, panggil `kg_context('starting work in this project')`. Jika tidak tersedia, lewati.
+
+4. **Konfirmasi.** Beritahu pengguna dalam satu kalimat aturan mana yang aktif. Jangan meminta untuk mengaktifkan/menonaktifkan aturan.
+
+5. **Tulis penanda.** Buat `.agentic_initialized` dengan: `{"version": "1.4.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+
+Jika prosedur ini dilewati, aturan yang diaktifkan tetap berfungsi. Penanda adalah sinyal lunak, bukan gerbang.
+Detail: `docs/FIRST_RUN_LOADING.md`
+
 **PENINGKATAN KERANGKA**: Ketika memory_rules.enabled = true di settings.json, agen dapat mengimplementasikan algoritma ini untuk kemampuan memori yang lebih baik.
 
 ## Arsitektur Sistem Memori
