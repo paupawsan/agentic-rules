@@ -8,6 +8,23 @@
 **INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
 <!-- SAFETY_PRECAUTION_END -->
 
+## First-Run Procedure
+
+On your first session in this project, execute these steps before responding:
+
+1. **Check marker.** Look for `.agentic_initialized` in the working directory (use hidden-file-aware detection). If it exists and version matches, skip to your normal response.
+
+2. **Read active rules.** Check `modules/*/settings.json` for which rules are enabled.
+
+3. **Load KG context.** If `kg_context` tool is available, call `kg_context('starting work in this project')`. If not, skip silently.
+
+4. **Acknowledge.** Tell the user in one sentence which rules are active. Do not prompt to enable/disable rules.
+
+5. **Write marker.** Create `.agentic_initialized` with: `{"version": "1.4.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+
+If this procedure is skipped, enabled rules still work. The marker is a soft signal, not a gate.
+Details: `docs/FIRST_RUN_LOADING.md`
+
 **FRAMEWORK ENHANCEMENT**: When memory_rules.enabled = true in settings.json, agents can implement these algorithms for enhanced memory capabilities.
 
 ## Memory System Architecture
