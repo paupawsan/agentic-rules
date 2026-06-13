@@ -128,11 +128,45 @@ def check_generated_artifacts():
         fail(f"setup.html does not display 'Version v{version}' — run: python3 generate_simple_setup.py")
 
 
+def _key_paths(obj, prefix=''):
+    paths = set()
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            here = f"{prefix}.{key}" if prefix else key
+            paths.add(here)
+            paths |= _key_paths(value, here)
+    return paths
+
+
+def check_localization_parity():
+    loc = load_json('localization.json')
+    langs = [k for k in loc if k != '_comment']
+    if len(langs) < 2:
+        ok(f"localization.json has {len(langs)} language(s)")
+        return
+    reference = langs[0]
+    ref_keys = _key_paths(loc[reference])
+    consistent = True
+    for lang in langs[1:]:
+        keys = _key_paths(loc[lang])
+        missing = ref_keys - keys
+        extra = keys - ref_keys
+        if missing:
+            fail(f"localization.json[{lang}] missing keys present in [{reference}]: {sorted(missing)}")
+            consistent = False
+        if extra:
+            fail(f"localization.json[{lang}] has keys absent from [{reference}]: {sorted(extra)}")
+            consistent = False
+    if consistent:
+        ok(f"localization.json key sets match across {', '.join(langs)} ({len(ref_keys)} keys)")
+
+
 def main():
     print("🔎 Agentic Rules Framework - Consistency Validator")
     print("=" * 50)
     check_versions()
     check_module_lists()
+    check_localization_parity()
     check_generated_artifacts()
     print("=" * 50)
     if errors:
