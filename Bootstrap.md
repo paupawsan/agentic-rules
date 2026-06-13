@@ -1,5 +1,7 @@
 # Bootstrap Configuration - Agent Algorithm Reference
 
+> **⚠️ v1.4.0 NOTE — marker location changed**: The `.agentic_initialized` marker is now **project-local** (`$CWD/.agentic_initialized`, in the project the agent is working on), written by the agent at runtime. It is no longer stored inside the `agentic-rules/` framework directory. See `docs/FIRST_RUN_LOADING.md` for the current first-run procedure.
+
 ## Algorithm: Framework_Bootstrap_Initialization
 
 **FRAMEWORK GUIDANCE**: Agents are RECOMMENDED to follow this algorithm for optimal framework operation. Framework integration enhances agent behavior when enabled.
@@ -68,9 +70,10 @@
 
 ```
 1. Check for initialization marker file (.agentic_initialized)
+   - v1.4.0+: marker is project-local — check $CWD, not the agentic-rules directory (see docs/FIRST_RUN_LOADING.md)
    - MANDATORY: Use platform-specific commands for hidden file detection
-   - FOR Windows: Use "Get-ChildItem -Path 'agentic-rules' -Force -File | Where-Object {$_.Name -eq '.agentic_initialized'}"
-   - FOR Unix/Linux/macOS: Use "find agentic-rules -name '.agentic_initialized' -type f 2>/dev/null"
+   - FOR Windows: Use "Get-ChildItem -Path '.' -Force -File | Where-Object {$_.Name -eq '.agentic_initialized'}"
+   - FOR Unix/Linux/macOS: Use "find . -maxdepth 1 -name '.agentic_initialized' -type f 2>/dev/null"
    - FOR Cross-platform: Use Python pathlib with hidden file awareness
    - PROHIBITED: Using standard directory listing tools that cannot detect hidden files
 
