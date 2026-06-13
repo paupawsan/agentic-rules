@@ -65,34 +65,34 @@ Retrieval-Augmented Generation rules form the foundation of intelligent informat
 ```python
 # ❌ PROBLEMATIC - Default behavior misses hidden files
 import os
-files = os.listdir('agentic-rules')  # Default behavior excludes hidden files
+files = os.listdir('.')  # Default behavior excludes hidden files
 
 # ❌ PROBLEMATIC - Default glob excludes hidden files
 import glob
-files = glob.glob('agentic-rules/*')  # Default behavior excludes hidden files
+files = glob.glob('./*')  # Default behavior excludes hidden files
 
 # ✅ CORRECT - Use include_hidden parameter
 import glob
-files = glob.glob('agentic-rules/*', include_hidden=True)
+files = glob.glob('./*', include_hidden=True)
 
 # ✅ CORRECT - Use iterdir() which includes all files
 from pathlib import Path
-path = Path('agentic-rules')
+path = Path('.')
 files = list(path.iterdir())  # Includes hidden files
 
 # ✅ CORRECT - Filter for hidden files explicitly
 import os
-all_files = os.listdir('agentic-rules')
+all_files = os.listdir('.')
 hidden_files = [f for f in all_files if f.startswith('.')]
 ```
 
 ##### Platform-Specific Commands for .agentic_initialized Detection:
 ```bash
 # Windows - PowerShell
-Get-ChildItem -Path "agentic-rules" -Force -File | Where-Object {$_.Name -eq '.agentic_initialized'}
+Get-ChildItem -Path "." -Force -File | Where-Object {$_.Name -eq '.agentic_initialized'}
 
 # Unix/Linux/macOS - find command
-find agentic-rules -name '.agentic_initialized' -type f 2>/dev/null
+find . -maxdepth 1 -name '.agentic_initialized' -type f 2>/dev/null
 ```
 
 ##### Cross-Platform Python Implementation:
@@ -102,7 +102,7 @@ from pathlib import Path
 
 def check_framework_initialization():
     system = platform.system().lower()
-    marker_path = Path('agentic-rules/.agentic_initialized')
+    marker_path = Path('.agentic_initialized')
 
     # Method 1: Direct pathlib check (works on all platforms)
     if marker_path.exists():
@@ -125,7 +125,7 @@ def check_framework_initialization():
     # Method 3: Directory iteration approach (alternative)
     # Check if .agentic_initialized exists in directory listing
     try:
-        agentic_rules_dir = Path('agentic-rules')
+        agentic_rules_dir = Path('.')
         return any(f.name == '.agentic_initialized' for f in agentic_rules_dir.iterdir())
     except (OSError, PermissionError):
         return False
