@@ -37,7 +37,51 @@ A plug-and-play framework providing structured rules for intelligent AI agent be
 
 </details>
 
-## 🚀 Quick Start - First Time Setup
+## 🧩 Use with Claude Code (Plugin)
+
+If you're on **Claude Code**, the framework installs as a native plugin — no `setup.html`, no bootstrap step. **Enabling the plugin is the activation.** Claude Code is one adapter among many: the plugin lives entirely in [claude-code/](claude-code/), and the platform-neutral core (`modules/`) is untouched.
+
+```bash
+# 1. Add this repo as a plugin marketplace
+/plugin marketplace add paupawsan/agentic-rules
+
+# 2. Install the plugin from it
+/plugin install agentic-rules@agentic-rules
+```
+
+Then manage it from within Claude Code:
+
+```bash
+/plugin                 # enable/disable, edit options
+/agentic-rules:status   # show which modules are active
+/agentic-rules:help     # orientation
+```
+
+**What you get**
+
+- Four rule modules as **skills** that auto-load when relevant: memory, RAG/context, critical-thinking, and agent interaction unit-test.
+- An optional **always-on** mode (`always_on_injection`) that injects the enabled rules into every session — the closest equivalent to a `CLAUDE.md`.
+- An optional **Knowledge Graph** MCP server — set `kg_mcp_url` to your endpoint (memory/RAG degrade gracefully without it).
+- **No duplication** — skills and the injector read the canonical `modules/` rule files (every language the framework ships, e.g. `ja`/`id`); upstream edits flow through with no re-sync.
+
+**Configuration** (set via `/plugin`)
+
+| Option | Default | Purpose |
+|--------|---------|---------|
+| `language` | `en` | Language for injected rule text (`en` / `ja` / `id`) |
+| `memory_path` | — | Root directory for the memory store |
+| `enable_memory` / `enable_rag` / `enable_critical_thinking` | on | Toggle rule modules |
+| `enable_agent_unit_test` | off | Conversation auditing (invoke explicitly) |
+| `always_on_injection` | off | Inject rules every session vs. on-demand skills |
+| `kg_mcp_url` | — | Knowledge Graph MCP endpoint (blank = disabled) |
+
+📖 **[Claude Code Plugin Guide](docs/CLAUDE_CODE_PLUGIN.md)** — full component mapping, how rules are delivered, and how it differs from the `setup.html` path.
+
+> The sections below (`setup.html`, bootstrap) are for **other platforms** — Cursor, VSCode, and custom agentic systems. Claude Code users can skip them.
+
+---
+
+## 🚀 Quick Start - First Time Setup (Other Platforms)
 
 ### ⚠️ **Step 1: Run Setup Interface (IMPORTANT!)**
 **Execute `setup.html` first to configure your rules and generate necessary files!**

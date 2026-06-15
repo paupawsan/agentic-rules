@@ -96,6 +96,8 @@ Thumbs.db
 # Claude Code
 .claude/
 .mcp.json
+# ...but the Claude Code plugin's own MCP config (parameterized, no secrets) must ship
+!claude-code/.mcp.json
 
 # IDE files
 .vscode/

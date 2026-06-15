@@ -1,0 +1,15 @@
+{
+  "_comment": "Optional always-on rule injection. Inert unless the plugin's always_on_injection userConfig option is true; the script self-gates on that env var and prints nothing otherwise. When off (default), rules load on demand as skills.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.py\""
+          }
+        ]
+      }
+    ]
+  }
+}

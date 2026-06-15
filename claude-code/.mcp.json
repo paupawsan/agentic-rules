@@ -1,0 +1,9 @@
+{
+  "_comment": "The plugin's standard MCP config (plugin root is claude-code/, so this auto-loads). URL is supplied at enable time via the kg_mcp_url userConfig option; if blank the server is unreachable and the memory/RAG skills run without KG enrichment, by design. This is NOT the repo-root .mcp.json (that one is internal dev config and never ships with the plugin).",
+  "mcpServers": {
+    "kg-dgx": {
+      "type": "http",
+      "url": "${user_config.kg_mcp_url}"
+    }
+  }
+}
