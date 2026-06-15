@@ -6,34 +6,27 @@ Memory rules enable agents to maintain persistent understanding through structur
 
 ## Framework Guidance
 
-**FRAMEWORK ENHANCEMENT**: Memory functionality works best when user settings are respected. When `"enabled": false`:
-- Memory functionality remains disabled
-- User settings are respected
-- Operations can proceed without memory features
-- Framework maintains user choice autonomy
+Memory is opt-in. It activates only when `memory_rules.enabled = true`. When disabled, skip all memory operations and respect the user's choice — never auto-enable.
 
-**RECOMMENDED FORMAT**: Memory storage works best as markdown (.md) files for transparency and accessibility.
+When memory is enabled **and** a memory operation is requested, follow these rules consistently:
 
-**AVAILABLE ENHANCEMENT**: When memory construction is requested and memory is enabled, agents can:
-- **ALWAYS** create actual local markdown (.md) files in the configured storage location
-- **NEVER** use JSON format - use markdown format exclusively
-- **NEVER** store memory only in session context - persist to filesystem
-- **ALWAYS** follow the exact directory structure: [storage.base_path]/projects/[project-id]/[category]/
-- **ALWAYS** use standardized markdown templates from this specification
-- **ALWAYS** verify file creation and provide confirmation with exact file paths
+- **Format**: write markdown (.md) files, not JSON. Markdown keeps memory transparent and human-readable.
+- **Persistence**: write to the filesystem, not only session context. Session-only "memory" is lost on the next reset.
+- **Location**: follow the directory structure `[storage.base_path]/projects/[project-id]/[category]/`.
+- **Templates**: use the standardized markdown templates in this specification.
+- **Confirmation**: after writing, verify the file exists and report its exact path.
 
-### Implementation Guards
+These rules are firm *once memory is active*; activation itself stays the user's decision.
 
-**REQUIRED**: Every memory operation must check `memory_rules.enabled` first.
+### Implementation Guard
 
-**Pattern**:
+Check `memory_rules.enabled` before every memory operation:
+
 ```javascript
 if (!getMemorySettings().enabled) {
-  return null; // Exit immediately - NEVER auto-enable
+  return null; // exit immediately — never auto-enable
 }
 ```
-
-**FRAMEWORK GUIDANCE**: User settings and consent preferences are respected.
 
 ## Core Algorithm
 
@@ -380,6 +373,48 @@ When constructing project memory, create files in this exact structure:
 ## Tags
 [tag1, tag2, tag3]
 ```
+
+#### Filled Example (Standard Memory Template)
+
+A populated `technical` memory, written to `~/.memory/projects/acme-api/technical/2026-06-16T1430_technical_memory.md`:
+
+```markdown
+# Memory Entry: technical - 2026-06-16T14:30:00Z
+
+## Metadata
+- **Version**: 1.4.0
+- **Generated**: 2026-06-16T14:30:00Z
+- **Category**: technical
+- **Migration Notes**: none
+
+## Context
+The acme-api test suite hung intermittently in CI but passed locally.
+
+## Understanding
+The hang traced to an async DB connection acquired in a test fixture that
+was never released when an assertion failed mid-test, exhausting the pool
+on the next test. Local runs passed because the local pool was larger.
+
+## Decision/Action
+Wrapped the fixture acquisition in try/finally and released the connection
+in the finally block. Lowered the CI pool size to surface the bug earlier.
+
+## Outcome
+Suite is green across 50 consecutive CI runs. Pattern: any test fixture
+that acquires a pooled resource must release it in finally, not after the
+assertions.
+
+## Related Memories
+[[2026-05-02T0900_technical_memory]] — earlier connection-pool tuning
+
+## Tags
+[testing, async, connection-pool, ci, flaky-tests]
+```
+
+Note what makes this useful later: the **Understanding** explains *why*, the
+**Outcome** states a reusable rule, and **Tags** make it retrievable by
+`kg_query`/index search. Empty or placeholder sections defeat the purpose —
+fill every section or omit the entry.
 
 ### Git History Memory Template
 ```markdown

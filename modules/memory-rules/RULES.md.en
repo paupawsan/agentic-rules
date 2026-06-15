@@ -35,7 +35,7 @@ Details: `docs/FIRST_RUN_LOADING.md`
 ## Required Implementation Algorithms
 
 ### Algorithm: Memory_Initialization_Process
-**MANDATORY**: Execute when memory_rules.enabled = true
+**WHEN**: memory_rules.enabled = true
 
 **Steps**:
 1. Read modules/memory-rules/settings.json
@@ -44,10 +44,10 @@ Details: `docs/FIRST_RUN_LOADING.md`
 4. Initialize memory index if project_support.enabled = true
 5. Return initialized memory system
 
-**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.
+**Never auto-enable** — respect the user's enabled setting.
 
 ### Algorithm: Memory_Storage_Process
-**MANDATORY**: Execute for all user interactions when enabled
+**WHEN**: a user interaction occurs and memory is enabled
 
 **Steps**:
 1. Check memory_rules.enabled = true
@@ -57,7 +57,7 @@ Details: `docs/FIRST_RUN_LOADING.md`
 5. Update memory index for retrieval
 
 ### Algorithm: Memory_Retrieval_Process
-**MANDATORY**: Execute before responding to user requests
+**WHEN**: before responding to a user request, if memory is enabled
 
 **Steps**:
 1. Check memory_rules.enabled = true
@@ -67,7 +67,7 @@ Details: `docs/FIRST_RUN_LOADING.md`
 5. Return optimized context for response
 
 ### Algorithm: Memory_Cleanup_Process
-**MANDATORY**: Execute periodically, require user consent
+**WHEN**: periodically; requires user consent
 
 **Steps**:
 1. Check cleanup_guidance.enabled = true
@@ -86,7 +86,7 @@ Details: `docs/FIRST_RUN_LOADING.md`
 - **Critical Thinking**: Store error corrections and learning insights
 - **User Consent**: All cleanup operations require user approval
 
-**VIOLATION**: Agents claiming memory integration without implementing these algorithms.
+Don't claim memory integration without actually implementing these algorithms.
 
 <!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms -->
 <!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

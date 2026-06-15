@@ -228,6 +228,22 @@ Input: log_path, issue_description, analysis_type
 8. Generate summary with key insights
 ```
 
+### Worked Example: Applying These Strategies
+
+**Task**: "Why does `/checkout` return 500 for guest users?" in an unfamiliar 400-file codebase.
+
+A naive approach reads files top to bottom and burns the context window. The RAG strategies instead:
+
+1. **Context Optimization — filter before reading.** Search for the route, not the whole tree:
+   `grep -rn "checkout" --include=*.py routes/ handlers/` → 3 candidate files, not 400.
+2. **Hierarchical Reading — signatures first.** In the handler, read function signatures and the guest-user branch before the bodies. The 500 path is an `if user.is_guest:` branch that calls `user.email.lower()`.
+3. **Selective Drilling — follow one chain.** Guests have `email = None`, so `.lower()` raises. Trace only that one path; skip the authenticated branch entirely.
+4. **Log Analysis — confirm, don't assume.** `Intelligent_Log_Analysis` on the error log: search `AttributeError`, find `'NoneType' object has no attribute 'lower'` at the same line. Claim verified.
+
+**Result**: ~4 targeted reads and one grep instead of dozens of full-file reads — the bug is located with a fraction of the context budget, and the diagnosis is confirmed against the log rather than guessed.
+
+The principle across all four steps: **narrow with search and structure before spending tokens on full content.** Read the least that answers the question.
+
 ## Context Management
 
 ### Information Chunking Algorithm

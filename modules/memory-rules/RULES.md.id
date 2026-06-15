@@ -35,7 +35,7 @@ Detail: `docs/FIRST_RUN_LOADING.md`
 ## Algoritma Implementasi yang Diperlukan
 
 ### Algoritma: Memory_Initialization_Process
-**WAJIB**: Eksekusi ketika memory_rules.enabled = true
+**KAPAN**: ketika memory_rules.enabled = true
 
 **Langkah-langkah**:
 1. Baca modules/memory-rules/settings.json
@@ -44,10 +44,10 @@ Detail: `docs/FIRST_RUN_LOADING.md`
 4. Inisialisasi indeks memori jika project_support.enabled = true
 5. Kembalikan sistem memori yang diinisialisasi
 
-**KRITIS**: Jangan aktifkan otomatis - hormati pengaturan pengguna yang diaktifkan.
+**Jangan aktifkan otomatis** — hormati pengaturan pengguna yang diaktifkan.
 
 ### Algoritma: Memory_Storage_Process
-**WAJIB**: Eksekusi untuk semua interaksi pengguna ketika diaktifkan
+**KAPAN**: interaksi pengguna terjadi dan memori diaktifkan
 
 **Langkah-langkah**:
 1. Periksa memory_rules.enabled = true
@@ -57,7 +57,7 @@ Detail: `docs/FIRST_RUN_LOADING.md`
 5. Perbarui indeks memori untuk pengambilan
 
 ### Algoritma: Memory_Retrieval_Process
-**WAJIB**: Eksekusi sebelum menjawab permintaan pengguna
+**KAPAN**: sebelum menjawab permintaan pengguna, jika memori diaktifkan
 
 **Langkah-langkah**:
 1. Periksa memory_rules.enabled = true
@@ -67,7 +67,7 @@ Detail: `docs/FIRST_RUN_LOADING.md`
 5. Kembalikan konteks yang dioptimalkan untuk respons
 
 ### Algoritma: Memory_Cleanup_Process
-**WAJIB**: Eksekusi secara berkala, memerlukan persetujuan pengguna
+**KAPAN**: secara berkala; memerlukan persetujuan pengguna
 
 **Langkah-langkah**:
 1. Periksa cleanup_guidance.enabled = true
@@ -86,7 +86,7 @@ Detail: `docs/FIRST_RUN_LOADING.md`
 - **Berpikir Kritis**: Simpan koreksi error dan wawasan pembelajaran
 - **Persetujuan Pengguna**: Semua operasi pembersihan memerlukan persetujuan pengguna
 
-**PELANGGARAN**: Agen yang mengklaim integrasi memori tanpa mengimplementasikan algoritma ini.
+Jangan mengklaim integrasi memori tanpa benar-benar mengimplementasikan algoritma ini.
 
 <!-- METADATA: Template integrasi agen aturan memori dengan algoritma penyimpanan dan pengambilan -->
 <!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
