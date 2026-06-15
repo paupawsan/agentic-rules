@@ -229,4 +229,4 @@ RECOMMENDED: Monitor framework state when using enhanced features
 **FRAMEWORK GUIDANCE**: This document provides guidance for optimal framework operation. Framework features enhance agent behavior when properly configured.
 
 <!-- METADATA: Bootstrap guidance for agent framework integration -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

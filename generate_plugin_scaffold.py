@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 Paulus Ery Wasito Adhi
+# Copyright (c) 2025-2026 Paulus Ery Wasito Adhi
 #
 # Licensed under the MIT License. See LICENSE file for details.
 #

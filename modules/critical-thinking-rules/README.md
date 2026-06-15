@@ -307,4 +307,4 @@ Help improve Critical Thinking Rules:
 
 **🤔 Critical Thinking Rules**: Teaching AI agents to think carefully, reason soundly, and admit when they're uncertain.
 
-*Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License.*
+*Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Licensed under the MIT License.*

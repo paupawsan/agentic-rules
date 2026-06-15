@@ -64,4 +64,4 @@
 **重要リマインダー / CRITICAL REMINDER**: `.agentic_initialized` マーカーを確認する際は、必ずクロスプラットフォームの隠しファイル検出ツールを使用してください。これを怠ると、フレームワークステータスの検出が正しく行われず、ブートストラップ準拠違反となります。
 
 <!-- METADATA: Root level agent integration template with framework overview (Japanese) -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

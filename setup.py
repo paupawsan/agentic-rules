@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 Paulus Ery Wasito Adhi
+# Copyright (c) 2025-2026 Paulus Ery Wasito Adhi
 #
 # Licensed under the MIT License. See LICENSE file for details.
 #
@@ -590,7 +590,7 @@ Agents using this framework must:
 **VIOLATION**: Agents that do not respect these integration requirements or user settings.
 
 <!-- METADATA: Root level agent integration template with framework overview -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->"""
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->"""
 
     # Generate the root file
     try:

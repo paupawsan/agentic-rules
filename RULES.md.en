@@ -64,4 +64,4 @@ Agents using this framework can benefit from enhanced capabilities while maintai
 **CRITICAL REMINDER**: Always use cross-platform hidden file detection tools when checking for `.agentic_initialized` marker. Failure to do so will result in incorrect framework status detection and bootstrap compliance violations.
 
 <!-- METADATA: Root level agent integration template with framework overview -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

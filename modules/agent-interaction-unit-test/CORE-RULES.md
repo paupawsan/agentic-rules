@@ -205,4 +205,4 @@ Before finalizing your report, confirm that you have:
 - Maintained professional and constructive tone.
 
 <!-- METADATA: Core rules for agent interaction unit test algorithms -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

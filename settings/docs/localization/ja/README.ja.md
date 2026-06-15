@@ -92,4 +92,4 @@ global-settings.json (メインコントロール)
 
 ---
 
-Copyright (c) 2025 Paulus Ery Wasito Adhi. MIT Licenseの下でライセンスされています（LICENSEファイルを参照してください）。
+Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. MIT Licenseの下でライセンスされています（LICENSEファイルを参照してください）。

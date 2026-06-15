@@ -477,7 +477,7 @@ Query Bahasa Alami → Klasifikasi Intent → Resolusi Entitas → Traversal Gra
 
 **🔧 Ikhtisar Sistem**: Arsitektur teknis komprehensif dan prinsip desain Agentic Rules Framework.
 
-*Copyright (c) 2025 Paulus Ery Wasito Adhi. Dilisensikan di bawah Lisensi MIT.*
+*Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Dilisensikan di bawah Lisensi MIT.*
 
 ---
 

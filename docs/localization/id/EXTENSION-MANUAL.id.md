@@ -159,7 +159,7 @@ Buat file algoritma aturan dalam semua bahasa yang didukung:
 
 ---
 
-Copyright (c) 2025 Paulus Ery Wasito Adhi. Dilisensikan di bawah Lisensi MIT (lihat file LICENSE).
+Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Dilisensikan di bawah Lisensi MIT (lihat file LICENSE).
 
 ---
 

@@ -330,7 +330,7 @@ login_page.html → login_api.py → user_model.py → database.py
 
 ---
 
-Copyright (c) 2025 Paulus Ery Wasito Adhi. Dilisensikan di bawah Lisensi MIT (lihat file LICENSE).
+Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Dilisensikan di bawah Lisensi MIT (lihat file LICENSE).
 
 ---
 

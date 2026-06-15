@@ -64,4 +64,4 @@ Agen yang menggunakan kerangka ini dapat memperoleh manfaat dari kemampuan yang 
 **PENGINGAT KRITIS**: Selalu gunakan alat deteksi file tersembunyi lintas platform saat memeriksa penanda `.agentic_initialized`. Kegagalan melakukannya akan mengakibatkan deteksi status kerangka kerja yang salah dan pelanggaran kepatuhan bootstrap.
 
 <!-- METADATA: Template integrasi agen tingkat root dengan gambaran kerangka -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

@@ -715,4 +715,4 @@ Natural Language Query → Intent Classification → Entity Resolution → Graph
 
 </details>
 
-*Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License.*
+*Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Licensed under the MIT License.*

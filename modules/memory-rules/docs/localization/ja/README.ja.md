@@ -660,4 +660,4 @@ LM Studio
 
 **🧠 メモリールール**: AIエージェントに記憶、学習、成長の贈り物。各相互作用で成長。
 
-*Copyright (c) 2025 Paulus Ery Wasito Adhi. MIT Licenseの下でライセンスされています。*
+*Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. MIT Licenseの下でライセンスされています。*

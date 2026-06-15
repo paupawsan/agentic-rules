@@ -224,4 +224,4 @@
 
 **🤔 批判的思考ルール**: エージェントに賢明で信頼できる意思決定の力を与える。
 
-*Copyright (c) 2025 Paulus Ery Wasito Adhi. MIT Licenseの下でライセンスされています。*
+*Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. MIT Licenseの下でライセンスされています。*

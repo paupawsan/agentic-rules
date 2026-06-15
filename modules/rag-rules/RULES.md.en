@@ -286,4 +286,4 @@ Use these algorithms for file operations. They exist because basic listing tools
 Skipping these algorithms leads to inefficient context management and incomplete results.
 
 <!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

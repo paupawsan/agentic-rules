@@ -92,5 +92,5 @@ All rule applications are logged when `logging_enabled: true`. Logs include:
 
 ---
 
-Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).
+Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).
 
