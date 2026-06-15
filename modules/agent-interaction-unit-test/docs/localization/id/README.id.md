@@ -4,6 +4,15 @@
 
 Modul Unit Test Interaksi Agen menyediakan kerangka kerja validasi dan pengujian otomatis untuk percakapan agen dengan persyaratan transparansi maksimum dan ground check. Modul ini dapat dengan mudah diaktifkan/nonaktifkan untuk skenario unit testing.
 
+### Hubungan dengan Aturan Berpikir Kritis / Relationship to Critical Thinking Rules
+
+Modul ini dan `critical-thinking-rules` mencakup perilaku yang sama (menantang asumsi, ground-check klaim, mengakui kesalahan) tetapi memiliki **peran berbeda**, bukan duplikat:
+
+- **`critical-thinking-rules`**: **Mendefinisikan** perilaku (heuristik yang harus diikuti agen). Aktifkan selama pekerjaan normal untuk membentuk respons agen.
+- **Modul ini**: **Memverifikasi** bahwa perilaku tersebut benar-benar terjadi (test harness). Aktifkan saat pengujian untuk mengaudit kepatuhan percakapan dan menghasilkan laporan validasi.
+
+Singkatnya, critical-thinking-rules adalah *standar*-nya; modul ini adalah *tes terhadap standar* tersebut. Heuristiknya sendiri berada di `modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md` — modul ini merujuknya sebagai target validasi, bukan mendefinisikannya ulang.
+
 ## Fitur
 
 - **Validasi Ground Check**: Verifikasi otomatis dari semua informasi terhadap data sumber
@@ -83,7 +92,7 @@ Modul memvalidasi respons terhadap:
 Modul ini terintegrasi dengan:
 - **Aturan Memori**: Menyimpan hasil tes dan riwayat validasi
 - **Aturan RAG**: Mengoptimalkan konteks untuk skenario testing
-- **Aturan Berpikir Kritis**: Menyediakan dukungan validasi ground check
+- **Aturan Berpikir Kritis**: Mendefinisikan heuristik (ground-check, menantang asumsi, mengakui kesalahan) yang divalidasi modul ini — lihat "Hubungan dengan Aturan Berpikir Kritis" di atas
 
 ## Analisis Debugging Agen
 

@@ -4,6 +4,18 @@
 
 The Agent Interaction Unit Test module provides automated validation and testing framework for agent conversations with maximum transparency and ground check requirements, specifically designed for testing agent interaction patterns. This module can be easily enabled/disabled for unit testing scenarios.
 
+### Relationship to Critical Thinking Rules
+
+This module and `critical-thinking-rules` cover the same behaviors — challenging assumptions, ground-checking claims, admitting errors — but play **different roles**, not duplicate ones:
+
+| | `critical-thinking-rules` | `agent-interaction-unit-test` (this module) |
+|---|---|---|
+| **Role** | Defines the behaviors (the heuristics an agent should follow) | Verifies the behaviors actually happened (the test harness) |
+| **When active** | During normal work, shaping how the agent responds | During testing, auditing a conversation for compliance |
+| **Output** | Better-calibrated responses | A validation report (ground-check coverage, tool/decision audit) |
+
+In short: critical-thinking-rules is the *standard*; this module is the *test against the standard*. Enable critical-thinking-rules for everyday work; enable this module when you want to measure and prove that those heuristics were applied. The heuristics themselves live in `modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md` — this module references them as validation targets rather than redefining them.
+
 ## Features
 
 - **Ground Check Validation**: Automatic verification of all information against source data
@@ -83,7 +95,7 @@ The module validates responses against:
 This module integrates with:
 - **Memory Rules**: Stores test results and validation history
 - **RAG Rules**: Optimizes context for testing scenarios
-- **Critical Thinking Rules**: Provides ground check validation support
+- **Critical Thinking Rules**: Defines the heuristics (ground-check, assumption challenge, error admission) that this module validates — see "Relationship to Critical Thinking Rules" above
 - **Agent Interaction Unit Test**: Specialized testing framework for agent interaction patterns
 
 ## Agent Debugging Analysis
