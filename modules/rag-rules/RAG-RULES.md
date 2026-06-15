@@ -605,6 +605,31 @@ Available Tools:
 3. **Result Aggregation**: Combine parallel results intelligently
 4. **Error Handling**: Manage failures in parallel operations
 
+## Knowledge Graph Tools (`kg` MCP Server)
+
+The algorithms below describe the *logic* of KG construction and retrieval. When a `kg` MCP server is connected, agents do not re-implement that logic by hand — they call the server's tools, which perform multi-stage retrieval (BM25 ∥ semantic → score-aware fusion → cross-encoder rerank → edge-aware boost) and persistence on the agent's behalf. The in-document algorithms remain the fallback when no `kg` server is available.
+
+Six tools form the runtime interface:
+
+| Tool | Purpose | Maps to algorithm |
+|------|---------|-------------------|
+| `kg_context` | Load rules, patterns, and gotchas relevant to a task description. Call once before non-trivial work. | `Semantic_Graph_Query` (task-scoped) |
+| `kg_query` | Free-text search across the graph. | `Semantic_Graph_Query` (query-scoped) |
+| `kg_get_node` | Fetch one node by id, with its edges. | graph traversal / node lookup |
+| `kg_add` | Persist a new node (rule, pattern, fact, procedure, gotcha). | `Incremental_Graph_Builder` (add node) |
+| `kg_link` | Create an edge between two nodes. | `Incremental_Graph_Builder` (add edge) |
+| `kg_list` | Browse nodes by type or scope (global / project). | graph enumeration |
+
+**When to use which**:
+- **Before a non-trivial task** → `kg_context("<what you're about to do>")` to pull relevant prior knowledge.
+- **Looking for something specific** → `kg_query("<free text>")`, then `kg_get_node` to expand a hit.
+- **After learning something durable** (a gotcha, a decided pattern, a non-obvious fact) → `kg_add`, then `kg_link` to connect it to related nodes so future `kg_context` calls surface it.
+- **Auditing or browsing** → `kg_list` filtered by type/scope.
+
+**Graceful degradation**: every tool is optional. If the `kg` server is absent, skip the call silently and fall back to the in-document algorithms and local context — never block work waiting on the KG. This mirrors the First-Run Procedure, which calls `kg_context` only "if the `kg_context` tool is available."
+
+**Persistence boundary**: `kg_add`/`kg_link` write to the KG store. They follow the same consent model as memory — persist durable, reusable knowledge, not transient session detail, and never store secrets or credentials.
+
 ## Knowledge Graph Algorithms
 
 ### Entity Extraction Algorithm

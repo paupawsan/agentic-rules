@@ -123,6 +123,17 @@ When constructing project memory, create files in this exact structure:
 4. **Context Integration**: Incorporate relevant memories into current reasoning
 5. **Usage Logging**: Record memory usage for pattern analysis
 
+### Knowledge Graph Tools (`kg` MCP Server)
+
+When a `kg` MCP server is connected, structured knowledge (rules, patterns, facts, procedures, gotchas) lives in the graph alongside the markdown memory files, and the server's tools become the preferred path for the steps above:
+
+- `kg_context("<task description>")` — load relevant rules/patterns/gotchas before a non-trivial task (richer than a raw index scan).
+- `kg_query("<free text>")` / `kg_get_node(id)` — search the graph and expand a specific node.
+- `kg_add(...)` / `kg_link(...)` — persist a durable insight and connect it to related nodes, so it surfaces in future `kg_context` calls.
+- `kg_list(type/scope)` — browse stored knowledge by type or scope (global / project).
+
+These tools are optional and follow the same consent boundary as file-based memory: persist durable, reusable knowledge — never secrets or transient session detail. If no `kg` server is present, use the markdown memory files and index described above. The full tool reference and algorithm mapping lives in `modules/rag-rules/RAG-RULES.md`.
+
 ## Version Tracking Algorithm
 
 ### Version Reading Process
