@@ -11,7 +11,8 @@ Covers:
     hooks.json) and that the plugin root is claude-code/
   * `claude plugin validate` (skipped if the CLI is unavailable)
   * skill + command frontmatter; skill deep-links resolve to real repo files
-  * claude-code/rules/ stays in sync with the authoritative modules/ (drift test)
+  * rule text is symlinked (claude-code/modules -> ../modules), never copied, and
+    the injector still works as-installed with no sibling repo modules/ (regression)
   * the SessionStart injector across the full settings matrix
   * cross-check that documented settings == manifest settings == what the
     injector actually consumes (no phantom or undocumented settings)
@@ -206,7 +207,7 @@ def skill_references_canonical_modules():
     """Skills must REFERENCE modules/ (no duplicated rule text); canonical files exist."""
     for module in MODULES:
         body = read(f"claude-code/skills/{module}/SKILL.md")
-        ref = f"${{CLAUDE_PLUGIN_ROOT}}/../modules/{module}/RULES.md.<lang>"
+        ref = f"${{CLAUDE_PLUGIN_ROOT}}/modules/{module}/RULES.md.<lang>"
         assert ref in body, f"{module} skill must reference {ref}"
         for lang in LANGS:
             assert os.path.isfile(os.path.join(REPO, "modules", module, f"RULES.md.{lang}")), \
@@ -226,12 +227,45 @@ def commands_have_descriptions():
 # --- single source of truth: reference modules/, never duplicate ------------
 
 @test
-def no_rule_text_duplication():
-    """The plugin must not bundle copies of rule text — modules/ is the only source."""
+def rules_are_symlinked_not_copied():
+    """No copies of rule text. claude-code/modules is a SYMLINK to the single
+    source (../modules), which Claude Code materializes into the plugin cache on
+    install — so the plugin ships the rules without duplicating them in the repo."""
     assert not os.path.isdir(os.path.join(PLUGIN, "rules")), \
         "claude-code/rules/ must not exist (no duplicated rule text)"
     assert not os.path.isfile(os.path.join(PLUGIN, "sync_rules.py")), \
-        "sync_rules.py must not exist (nothing to sync when nothing is copied)"
+        "sync_rules.py must not exist (nothing to sync — modules is symlinked, not copied)"
+    link = os.path.join(PLUGIN, "modules")
+    assert os.path.islink(link), \
+        "claude-code/modules must be a symlink (a real dir would be a duplicated copy)"
+    assert os.readlink(link) == "../modules", \
+        f"claude-code/modules must point to ../modules, got {os.readlink(link)!r}"
+    assert os.path.isfile(os.path.join(link, "memory-rules", "RULES.md.en")), \
+        "claude-code/modules symlink must resolve to the canonical rule files"
+
+
+@test
+def injector_works_as_installed_without_sibling_modules():
+    """Regression guard for the packaging bug: simulate the install cache — the
+    plugin tree only, with the symlink materialized into a real modules/ and NO
+    sibling repo modules/ one level up. The injector must still emit content
+    (a `../modules` traversal would resolve to nothing here)."""
+    import shutil
+    import tempfile
+    tmp = tempfile.mkdtemp()
+    try:
+        dst = os.path.join(tmp, "claude-code")
+        # symlinks=False dereferences claude-code/modules -> real files under
+        # dst/modules, mirroring how Claude Code packages a symlinked subtree.
+        shutil.copytree(PLUGIN, dst, symlinks=False)
+        assert not os.path.exists(os.path.join(tmp, "modules")), \
+            "test setup: there must be no sibling modules/ next to the plugin root"
+        out, err, code = run_hook({"always_on_injection": "true"}, plugin_root=dst)
+        assert code == 0 and out.strip(), \
+            f"as-installed injector emitted nothing (code={code}, err={err[:200]})"
+        assert "Agentic Rules Framework (active)" in out
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
 
 
 # --- injector: gating ------------------------------------------------------

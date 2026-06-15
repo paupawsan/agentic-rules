@@ -57,8 +57,11 @@ def clean(text):
         flags=re.DOTALL,
     )
     # Remove the First-Run Procedure section (references repo-relative paths).
+    # Match the heading in any language — skeletons localize it bilingually,
+    # e.g. "## 初回実行手順 / First-Run Procedure" — so allow text before the
+    # English anchor instead of requiring it immediately after "## ".
     text = re.sub(
-        r"\n##\s+First-Run Procedure\b.*?(?=\n##\s)",
+        r"\n##\s+[^\n]*First-Run Procedure\b.*?(?=\n##\s)",
         "\n",
         text,
         flags=re.DOTALL,
@@ -75,9 +78,13 @@ def main():
     root = os.environ.get("CLAUDE_PLUGIN_ROOT", "")
     if not root:
         return
-    # Reference the canonical rule text in modules/ (one level up from the plugin
-    # root). Nothing is duplicated inside the plugin — modules/ is the single source.
-    modules_root = os.path.normpath(os.path.join(root, os.pardir, "modules"))
+    # Reference the canonical rule text via the in-plugin `modules` symlink
+    # (claude-code/modules -> ../modules). The symlink — not a copy — is what
+    # ships: Claude Code materializes the symlinked tree inside the plugin cache
+    # on install, so ${CLAUDE_PLUGIN_ROOT}/modules resolves to the single source
+    # in modules/. A path that traversed OUTSIDE the plugin root (../modules)
+    # would not survive packaging.
+    modules_root = os.path.join(root, "modules")
     if not os.path.isdir(modules_root):
         return
 

@@ -6,9 +6,13 @@ bootstrap flow (see the main [README](../README.md)). Claude Code is supported a
 adapter among many**, packaged as a native plugin under [`claude-code/`](../claude-code/) so
 the repo root stays generic. A future `cursor/` or `windsurf/` adapter would be a sibling.
 
-**The adapter duplicates nothing.** Its skills and its always-on hook *reference* the
-canonical `modules/` rule files at runtime, so anything you change upstream — new rules, new
-languages, edited heuristics — flows into Claude Code with no re-sync.
+**The adapter duplicates nothing.** The single source of truth stays `modules/`. The plugin
+exposes it through a relative symlink — `claude-code/modules → ../modules` — which Claude Code
+materializes into the plugin cache on install. (A `../modules` path that traversed *outside*
+the plugin root would not survive packaging — installed plugins can't reference files above
+their root, so the symlink is what makes the single-source model ship.) Anything you change
+upstream — new rules, new languages, edited heuristics — flows into Claude Code via
+`claude plugin update`, with no copy to keep in sync.
 
 ## Install
 
@@ -17,11 +21,10 @@ languages, edited heuristics — flows into Claude Code with no re-sync.
 /plugin install agentic-rules@agentic-rules
 ```
 
-The root `.claude-plugin/marketplace.json` points the installer at `./claude-code`. Because
-the rules are read from `modules/` (one level up from the plugin root), install the plugin
-from a source that contains the whole repo — the standard `marketplace add <github-repo>`
-clones it in full, so this is automatic. (Don't publish the plugin via a `git-subdir` sparse
-source that would check out only `claude-code/`.)
+The root `.claude-plugin/marketplace.json` points the installer at `./claude-code`. The plugin
+reads its rule text from `${CLAUDE_PLUGIN_ROOT}/modules/…`, resolved through the
+`claude-code/modules → ../modules` symlink that ships with the plugin and is materialized into
+the cache on install. `claude plugin update` re-pulls the latest rules from upstream.
 
 Manage it from within Claude Code:
 
@@ -35,15 +38,16 @@ Manage it from within Claude Code:
 
 ```
 agentic-rules/                     # platform-neutral root (THE source of truth)
-├── modules/<m>/RULES.md.{en,ja,id}   # canonical rule text — referenced, never copied
+├── modules/<m>/RULES.md.{en,ja,id}   # canonical rule text — the only copy
 ├── .mcp.json                      # INTERNAL dev config (your KG endpoint) — never ships
 ├── .claude-plugin/
 │   └── marketplace.json           # points at ./claude-code
-└── claude-code/                   # the Claude Code adapter (no rule text lives here)
+└── claude-code/                   # the Claude Code adapter (no rule text *copied* here)
+    ├── modules -> ../modules      # symlink to the single source; ships, materialized in cache
     ├── .claude-plugin/plugin.json
-    ├── skills/                     # thin stubs that READ ../modules/<m>/RULES.md.<lang>
+    ├── skills/                     # thin stubs that READ ${CLAUDE_PLUGIN_ROOT}/modules/<m>/RULES.md.<lang>
     ├── commands/                   # status, help
-    ├── hooks/                      # SessionStart injector (opt-in) — also reads ../modules
+    ├── hooks/                      # SessionStart injector (opt-in) — also reads ${CLAUDE_PLUGIN_ROOT}/modules
     └── .mcp.json                   # parameterized KG server (kg_mcp_url)
 ```
 
@@ -53,15 +57,15 @@ agentic-rules/                     # platform-neutral root (THE source of truth)
 |-------------------|-----------------------|----------|
 | Plugin manifest | `plugin.json` | `claude-code/.claude-plugin/plugin.json` |
 | Distribution | `marketplace.json` | `.claude-plugin/marketplace.json` (repo root) |
-| Rule modules | **Skills** (auto-invoked) — reference only | `claude-code/skills/` → read `../modules/` |
-| Always-on injection | **SessionStart hook** — reference only | `claude-code/hooks/` → read `../modules/` |
+| Rule modules | **Skills** (auto-invoked) — reference only | `claude-code/skills/` → read `modules/` (symlink) |
+| Always-on injection | **SessionStart hook** — reference only | `claude-code/hooks/` → read `modules/` (symlink) |
 | Knowledge Graph | **MCP server** | `claude-code/.mcp.json` |
 | User commands | **Slash commands** | `claude-code/commands/` |
 | **Rule text (all languages)** | **Source of truth** | `modules/<m>/RULES.md.{en,ja,id}` |
 
 Each skill is a ~10-line stub: a `description` (the invocation trigger) plus an instruction to
-read and apply `${CLAUDE_PLUGIN_ROOT}/../modules/<m>/RULES.md.<lang>`. No rule text is copied
-into the plugin. The repo-root `.mcp.json` and [`.claude/`](../.claude/) are this project's
+read and apply `${CLAUDE_PLUGIN_ROOT}/modules/<m>/RULES.md.<lang>` (resolved via the
+`claude-code/modules → ../modules` symlink). No rule text is copied into the plugin. The repo-root `.mcp.json` and [`.claude/`](../.claude/) are this project's
 internal dev config and never ship with the plugin.
 
 ## How rules are delivered
