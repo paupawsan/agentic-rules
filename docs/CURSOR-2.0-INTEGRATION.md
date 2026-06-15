@@ -353,7 +353,7 @@ Extend framework integration:
 
 ---
 
-**Framework Version**: 1.3.0  
+**Framework Version**: 1.4.0  
 **Cursor Version**: 2.0+  
 **Integration Model**: distributed_per_rule  
 **Last Updated**: 2026-01-12

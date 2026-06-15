@@ -1,11 +1,16 @@
 {
-  "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
+  "_comment": "Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
   "en": {
     "header": {
       "title": "🤖 Agentic Rules Setup",
       "description": "Configure your AI agent rules with ease"
     },
     "language": {
+      "sectionTitle": "🌐 Agent Language Settings",
+      "deploymentTargetLabel": "Deployment Target:",
+      "deploymentTargetHelp": "Choose deployment target: Standard or Cursor 2.0 multi-agent system",
+      "deploymentTargetOptionStandard": "Standard (AGENTS.md/GEMINI.md/CLAUDE.md)",
+      "deploymentTargetOptionCursor": "Cursor 2.0 Multi-Agent (.cursor/agents/)",
       "agentLabel": "Agent Language:",
       "agentHelp": "Language for generated agent files",
       "fileTypeLabel": "Agent File Type:",
@@ -145,6 +150,11 @@
       "description": "AIエージェントのルールを簡単に設定"
     },
     "language": {
+      "sectionTitle": "🌐 エージェント言語設定",
+      "deploymentTargetLabel": "デプロイメントターゲット:",
+      "deploymentTargetHelp": "デプロイメントターゲットを選択: 標準またはCursor 2.0マルチエージェントシステム",
+      "deploymentTargetOptionStandard": "標準 (AGENTS.md/GEMINI.md/CLAUDE.md)",
+      "deploymentTargetOptionCursor": "Cursor 2.0マルチエージェント (.cursor/agents/)",
       "agentLabel": "エージェント言語:",
       "agentHelp": "生成されるエージェントファイルの言語",
       "fileTypeLabel": "エージェントファイルタイプ:",
@@ -284,6 +294,11 @@
       "description": "Konfigurasikan aturan agen AI Anda dengan mudah"
     },
     "language": {
+      "sectionTitle": "🌐 Pengaturan Bahasa Agen",
+      "deploymentTargetLabel": "Target Deployment:",
+      "deploymentTargetHelp": "Pilih target deployment: Standar atau sistem multi-agen Cursor 2.0",
+      "deploymentTargetOptionStandard": "Standar (AGENTS.md/GEMINI.md/CLAUDE.md)",
+      "deploymentTargetOptionCursor": "Cursor 2.0 Multi-Agent (.cursor/agents/)",
       "agentLabel": "Bahasa Agen:",
       "agentHelp": "Bahasa untuk file agen yang dihasilkan",
       "fileTypeLabel": "Jenis File Agen:",

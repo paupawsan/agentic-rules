@@ -230,8 +230,10 @@ def cleanup_templates_clone(temp_dir):
                 ["git", "worktree", "remove", str(temp_dir)],
                 capture_output=True
             )
-        except:
-            # Fallback to regular directory removal (for zip download or failed git worktree)
+        except OSError:
+            pass  # git not available
+        # Fallback to regular directory removal (for zip download or failed git worktree)
+        if temp_dir.exists():
             shutil.rmtree(temp_dir, ignore_errors=True)
 
 def load_template(template_path, variables):

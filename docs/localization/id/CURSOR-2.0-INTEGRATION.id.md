@@ -239,7 +239,7 @@ Konfigurasikan framework di `settings/global-settings.json`:
 
 ---
 
-**Versi Framework**: 1.3.0  
+**Versi Framework**: 1.4.0  
 **Versi Cursor**: 2.0+  
 **Model Integrasi**: distributed_per_rule  
 **Terakhir Diperbarui**: 2026-01-12

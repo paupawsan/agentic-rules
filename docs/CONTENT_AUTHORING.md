@@ -52,7 +52,7 @@ Agent receives relevant rules, patterns, gotchas
 
 If you edit a skeleton and forget to regenerate, the published `setup.html` will be stale. The next user who runs setup will get old content.
 
-Verification: compare `web-config.json` template strings against `modules/*/RULES.md.{lang}` file content. If they differ, regeneration was missed.
+Verification: run `python3 validate.py`. It checks that every `web-config.json` template matches its `RULES.md.{lang}` source, that `setup.html` embeds the current web-config, that version fields agree across all manifests, and that hardcoded module lists match `plugins.json`. Run it before committing any skeleton or manifest change.
 
 ## File Naming Conventions
 

@@ -1,0 +1,8 @@
+.git
+__pycache__/
+*.pyc
+*.backup
+.claude/
+node_modules/
+*.tmp
+*.temp

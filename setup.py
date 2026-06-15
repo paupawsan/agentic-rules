@@ -412,7 +412,13 @@ def select_plugin_languages(selected_rules, global_agent_lang, ui_lang='en', scr
 def select_agent_file_type(cli_file_type=None, lang='en'):
     """Select agent file type (AGENTS.md, GEMINI.md, or CLAUDE.md)."""
     if cli_file_type:
-        return cli_file_type.upper()
+        # Normalize to the canonical filename. The agent tools look for an exact
+        # name (CLAUDE.md, not CLAUDE.MD) and on case-sensitive filesystems a
+        # wrong-cased extension would never be loaded.
+        for valid in ['AGENTS.md', 'GEMINI.md', 'CLAUDE.md']:
+            if cli_file_type.lower() == valid.lower():
+                return valid
+        return cli_file_type
 
     print(f"\n{t('file_type_title', locale=lang)}")
     print(f"{t('file_type_prompt', locale=lang)}")

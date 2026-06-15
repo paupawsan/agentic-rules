@@ -106,6 +106,8 @@ Then manage it from within Claude Code:
 4. **Framework is active** - your agent now has enhanced capabilities!
 
 > 💡 **Why this step?** The framework requires initial bootstrap configuration to ensure proper integration with your AI environment. This one-time setup enables all framework features.
+>
+> 💡 **No extra commands needed**: the bootstrap runs automatically the first time your AI agent reads the generated rule file (CLAUDE.md / AGENTS.md / GEMINI.md). The agent performs the first-run procedure and writes a `.agentic_initialized` marker in your project directory ($CWD) so it only happens once per project. See [First-Run Loading](docs/FIRST_RUN_LOADING.md).
 
 ---
 
@@ -122,7 +124,7 @@ The **Agentic Rules Framework** enhances AI agent capabilities through three spe
 ### 🤔 **Critical Thinking Rules**
 📖 **[Plugin Details](modules/critical-thinking-rules/README.md)** - Systematic reasoning enhancement with error prevention, assumption validation, and evidence-based decision making.
 
-### 🧪 **Agent Interaction Unit Test** (ENABLED)
+### 🧪 **Agent Interaction Unit Test** (disabled by default)
 📖 **[Plugin Details](modules/agent-interaction-unit-test/README.md)** - **Automated validation and testing framework** for agent conversations with maximum transparency and ground check requirements. Chain of thoughts logging, agent debugging analysis, and comprehensive validation testing.
 
 **✅ Proven Effective**: Unit test framework validated for agent interaction patterns with 100% framework compliance, complete tool transparency, and systematic debugging analysis.
@@ -161,7 +163,7 @@ The **Agentic Rules Framework** enhances AI agent capabilities through three spe
 ### **Unit Test Format Example**
 ```
 UNIT TEST: Agent Memory Retrieval
-Framework: Agentic Rules v1.2.1
+Framework: Agentic Rules v1.4.0
 Task: Test basic agent Memory retrieval.
 
 Instruction:
