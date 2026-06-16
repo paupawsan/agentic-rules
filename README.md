@@ -83,6 +83,11 @@ Then manage it from within Claude Code:
 
 ## 🚀 Quick Start - First Time Setup (Other Platforms)
 
+> 🤖 **Want your AI editor to install it for you?** Point it at **[INSTALL.md](INSTALL.md)** —
+> an authorized, agent-drivable runbook: *"Read INSTALL.md and install agentic-rules for me."*
+> It asks whether to install globally or per-project, then drives `setup.py --yes` for you.
+> The manual `setup.html` flow below remains available.
+
 ### ⚠️ **Step 1: Run Setup Interface (IMPORTANT!)**
 **Execute `setup.html` first to configure your rules and generate necessary files!**
 
