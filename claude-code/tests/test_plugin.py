@@ -268,6 +268,55 @@ def injector_works_as_installed_without_sibling_modules():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+@test
+def injector_works_when_symlink_preserved_with_repo():
+    """Complements the test above. The previous case dereferences the symlink
+    (symlinks=False). This covers the *other* installer behaviour: the symlink is
+    PRESERVED (symlinks=True) and the rule source travels with it (whole-repo
+    fetch) — so `claude-code/modules -> ../modules` resolves to a real sibling.
+    Either packaging behaviour must leave the rules reachable.
+
+    NOTE: the one scenario no in-process test can catch is an installer that
+    preserves the symlink but drops the parent modules/ (dangling link). That is
+    why packaging must also be verified against a real `claude plugin install`
+    (see the plugin-tester agent / Phase 2b installed-cache check)."""
+    import shutil
+    import tempfile
+    tmp = tempfile.mkdtemp()
+    try:
+        dst = os.path.join(tmp, "claude-code")
+        shutil.copytree(PLUGIN, dst, symlinks=True)  # preserve modules -> ../modules
+        assert os.path.islink(os.path.join(dst, "modules")), \
+            "test setup: symlink must be preserved in this scenario"
+        # The whole repo travels: materialize the sibling the symlink points to.
+        shutil.copytree(os.path.join(REPO, "modules"), os.path.join(tmp, "modules"))
+        out, err, code = run_hook({"always_on_injection": "true"}, plugin_root=dst)
+        assert code == 0 and out.strip(), \
+            f"preserved-symlink injector emitted nothing (code={code}, err={err[:200]})"
+        assert "Agentic Rules Framework (active)" in out
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+@test
+def injector_dangling_symlink_degrades_silently():
+    """Pessimistic install: symlink PRESERVED but parent modules/ absent (dangling
+    link). The injector must degrade gracefully — exit 0, emit nothing — never crash."""
+    import shutil
+    import tempfile
+    tmp = tempfile.mkdtemp()
+    try:
+        dst = os.path.join(tmp, "claude-code")
+        shutil.copytree(PLUGIN, dst, symlinks=True)
+        assert os.path.islink(os.path.join(dst, "modules")) and \
+            not os.path.exists(os.path.join(tmp, "modules")), \
+            "test setup: dangling symlink (no sibling modules/)"
+        out, err, code = run_hook({"always_on_injection": "true"}, plugin_root=dst)
+        assert code == 0, f"dangling symlink must not crash the hook (code={code}, err={err[:200]})"
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 # --- injector: gating ------------------------------------------------------
 
 @test

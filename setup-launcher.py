@@ -103,20 +103,30 @@ class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_error(400, "Invalid file type")
                 return
 
-            # Check if file is in allowed directory
-            file_path = self.server_directory / filename
-            
+            # Resolve the target to defend against path traversal (e.g. "a/../../etc/x").
+            # relative_to() is purely lexical and does NOT collapse "..", so the
+            # allow-list must be checked against the *resolved* path.
+            server_root = self.server_directory.resolve()
+            file_path = (self.server_directory / filename).resolve()
+
+            # Must stay within the server root no matter what the input claims.
+            try:
+                file_path.relative_to(server_root)
+            except ValueError:
+                self.send_error(400, f"Invalid file location: {filename} escapes the server root")
+                return
+
             # Files directly in root are always allowed
-            if file_path.parent == self.server_directory:
+            if file_path.parent == server_root:
                 is_allowed = True
             else:
-                # Check if file is within any allowed plugin directory
+                # Check if file is within any allowed plugin directory (resolved)
                 is_allowed = False
                 for allowed_dir in allowed_dirs:
                     if allowed_dir == '.':
                         # Skip root directory check here (already handled above)
                         continue
-                    allowed_path = self.server_directory / allowed_dir
+                    allowed_path = (self.server_directory / allowed_dir).resolve()
                     try:
                         # Check if file_path is within allowed_path
                         file_path.relative_to(allowed_path)

@@ -18,6 +18,7 @@
 import json
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -52,13 +53,24 @@ def check_versions():
         rel = settings_file.relative_to(ROOT)
         versions[str(rel)] = load_json(rel).get('version')
 
+    # Consumer-facing plugin manifests — the versions Claude Code actually reads at install.
+    # (marketplace.json's top-level "version" is the marketplace-format version, not the
+    # framework version, so we check the plugin entry's version instead.)
+    versions['claude-code/.claude-plugin/plugin.json'] = load_json('claude-code/.claude-plugin/plugin.json').get('version')
+    marketplace = load_json('.claude-plugin/marketplace.json')
+    mp_plugins = marketplace.get('plugins') or [{}]
+    versions['.claude-plugin/marketplace.json:plugins[0]'] = mp_plugins[0].get('version')
+
     unique = set(versions.values())
     if len(unique) == 1 and None not in unique:
         ok(f"All {len(versions)} version fields agree: {unique.pop()}")
     else:
+        # Report only the offenders (entries differing from the majority), not every field.
+        present = [v for v in versions.values() if v is not None]
+        majority = Counter(present).most_common(1)[0][0] if present else None
         for source, version in sorted(versions.items()):
-            if version is None or len(set(versions.values())) > 1:
-                fail(f"version mismatch or missing: {source} = {version}")
+            if version != majority:
+                fail(f"version mismatch or missing: {source} = {version} (expected {majority})")
 
 
 def check_module_lists():
@@ -102,7 +114,9 @@ def check_generated_artifacts():
                 stale.append(f"web-config.json template for {plugin_dir} ({lang}) != {skeleton.relative_to(ROOT)}")
     for lang, embedded in web_config.get('rootTemplates', {}).items():
         skeleton = ROOT / f'RULES.md.{lang}'
-        if skeleton.read_text(encoding='utf-8') != embedded:
+        if not skeleton.exists():
+            stale.append(f"RULES.md.{lang} missing but embedded in web-config.json rootTemplates")
+        elif skeleton.read_text(encoding='utf-8') != embedded:
             stale.append(f"web-config.json rootTemplate ({lang}) != RULES.md.{lang}")
     if stale:
         for msg in stale:

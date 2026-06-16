@@ -60,8 +60,10 @@ def clean(text):
     # Match the heading in any language — skeletons localize it bilingually,
     # e.g. "## 初回実行手順 / First-Run Procedure" — so allow text before the
     # English anchor instead of requiring it immediately after "## ".
+    # Bound the section by the next "## " heading OR end-of-text (\Z), so the
+    # strip still works if First-Run Procedure is the last section.
     text = re.sub(
-        r"\n##\s+[^\n]*First-Run Procedure\b.*?(?=\n##\s)",
+        r"\n##\s+[^\n]*First-Run Procedure\b.*?(?=\n##\s|\Z)",
         "\n",
         text,
         flags=re.DOTALL,

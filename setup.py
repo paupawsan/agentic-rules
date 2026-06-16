@@ -111,13 +111,16 @@ def load_json_file(filepath):
 def get_installed_languages(script_dir=None):
     """Dynamically detect all languages available from installed plugin templates."""
     if script_dir is None:
-        script_dir = Path('.')
+        # Resolve against the script's own directory, not the caller's CWD, so
+        # language detection works when setup.py is invoked from elsewhere.
+        script_dir = get_script_directory()
 
     installed_languages = set()
 
     try:
-        # Check plugins.json for plugin directories
-        plugins_manifest = load_json_file('plugins.json')
+        # Check plugins.json for plugin directories (resolved against script_dir,
+        # matching how plugin directories below are resolved).
+        plugins_manifest = load_json_file(script_dir / 'plugins.json')
         if plugins_manifest:
             plugin_names = plugins_manifest.get('plugins', [])
             for plugin_name in plugin_names:
@@ -1376,7 +1379,12 @@ def main():
         args.ui_lang = args.ui_lang or default_lang
         args.agent_lang = args.agent_lang or default_lang
         args.agent_file_type = args.agent_file_type or 'AGENTS.md'
-        args.rules = args.rules or 'all'
+        if not args.rules:
+            # Match the Claude Code plugin's default-enabled set: everything except
+            # agent-interaction-unit-test, which is opt-in (off by default). Keeps an
+            # AI-editor `setup.py --yes` install consistent with a plugin install.
+            default_on = [r for r in available_rules if 'agent-interaction-unit-test' not in r]
+            args.rules = ','.join(default_on) if default_on else 'all'
 
     # Step 2: Select languages
     # Handle backward compatibility with --lang
