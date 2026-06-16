@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schemastore.org/claude-code-plugin-manifest.json",
+  "name": "agentic-rules",
+  "displayName": "Agentic Rules Framework",
+  "version": "1.4.0",
+  "description": "Structured behavioral rules for AI agents: persistent memory, RAG/context discipline, critical-thinking heuristics, and interaction unit-testing. Delivered as auto-invocable skills, with an optional always-on injector and a Knowledge Graph MCP server.",
+  "author": {
+    "name": "Paulus Ery Wasito Adhi",
+    "email": "paupawsan@users.noreply.github.com",
+    "url": "https://github.com/paupawsan"
+  },
+  "homepage": "https://github.com/paupawsan/agentic-rules",
+  "repository": "https://github.com/paupawsan/agentic-rules",
+  "license": "MIT",
+  "keywords": [
+    "rules",
+    "memory",
+    "rag",
+    "critical-thinking",
+    "knowledge-graph",
+    "agent-behavior",
+    "guardrails"
+  ],
+  "defaultEnabled": true,
+  "userConfig": {
+    "language": {
+      "type": "string",
+      "title": "Rule language",
+      "description": "Language for injected rule text (always-on mode). Accepted: en, ja, id.",
+      "default": "en"
+    },
+    "memory_path": {
+      "type": "directory",
+      "title": "Memory root path",
+      "description": "Root directory for the persistent memory store. Creates common/, private/, and <project>/ subfolders. Leave blank to let the memory skill ask on first use.",
+      "required": false
+    },
+    "enable_memory": {
+      "type": "boolean",
+      "title": "Enable memory rules",
+      "description": "Persistent cross-session memory (store/recall facts, decisions, corrections).",
+      "default": true
+    },
+    "enable_rag": {
+      "type": "boolean",
+      "title": "Enable RAG / context rules",
+      "description": "Hierarchical reading, relevance scoring, and source-grounded responses.",
+      "default": true
+    },
+    "enable_critical_thinking": {
+      "type": "boolean",
+      "title": "Enable critical-thinking rules",
+      "description": "Challenge vague requirements, ground-check claims, calibrate uncertainty, prevent hallucination.",
+      "default": true
+    },
+    "enable_agent_unit_test": {
+      "type": "boolean",
+      "title": "Enable agent interaction unit-test rules",
+      "description": "Compliance/ground-check auditing of agent conversations. Off by default; invoke explicitly.",
+      "default": false
+    },
+    "always_on_injection": {
+      "type": "boolean",
+      "title": "Always-on rule injection",
+      "description": "When on, a SessionStart hook injects the enabled rule text into every session (heavier token cost, closest to a CLAUDE.md). When off (default), rules load on demand as skills.",
+      "default": false
+    },
+    "kg_mcp_url": {
+      "type": "string",
+      "title": "Knowledge Graph MCP endpoint",
+      "description": "HTTP URL of your Knowledge Graph MCP server. Clear this to disable the KG server; the memory and RAG skills degrade gracefully without it.",
+      "default": ""
+    }
+  }
+}

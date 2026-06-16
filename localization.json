@@ -1,11 +1,16 @@
 {
-  "_comment": "Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
+  "_comment": "Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details.",
   "en": {
     "header": {
       "title": "🤖 Agentic Rules Setup",
       "description": "Configure your AI agent rules with ease"
     },
     "language": {
+      "sectionTitle": "🌐 Agent Language Settings",
+      "deploymentTargetLabel": "Deployment Target:",
+      "deploymentTargetHelp": "Choose deployment target: Standard or Cursor 2.0 multi-agent system",
+      "deploymentTargetOptionStandard": "Standard (AGENTS.md/GEMINI.md/CLAUDE.md)",
+      "deploymentTargetOptionCursor": "Cursor 2.0 Multi-Agent (.cursor/agents/)",
       "agentLabel": "Agent Language:",
       "agentHelp": "Language for generated agent files",
       "fileTypeLabel": "Agent File Type:",
@@ -136,7 +141,14 @@
       "lang_option_ta": "🇮🇳 தமிழ்",
       "lang_option_th": "🇹🇭 ไทย",
       "lang_option_tr": "🇹🇷 Türkçe",
-      "lang_option_vi": "🇻🇳 Tiếng Việt"
+      "lang_option_vi": "🇻🇳 Tiếng Việt",
+      "completion_title": "✓ Setup Complete!",
+      "completion_summary": "Successfully activated {count} rule module(s):",
+      "completion_next_steps": "Next steps:",
+      "completion_step_1": "1. The agent file (AGENTS.md / CLAUDE.md / GEMINI.md) is now active in this directory.",
+      "completion_step_2": "2. Review modules/<module>/settings.json to tune each module's behavior.",
+      "completion_step_3": "3. On the first session, your agent runs the First-Run Procedure and writes .agentic_initialized.",
+      "completion_step_4": "4. See INSTALL.md to wire the framework into your editor (global or project scope)."
     }
   },
   "ja": {
@@ -145,6 +157,11 @@
       "description": "AIエージェントのルールを簡単に設定"
     },
     "language": {
+      "sectionTitle": "🌐 エージェント言語設定",
+      "deploymentTargetLabel": "デプロイメントターゲット:",
+      "deploymentTargetHelp": "デプロイメントターゲットを選択: 標準またはCursor 2.0マルチエージェントシステム",
+      "deploymentTargetOptionStandard": "標準 (AGENTS.md/GEMINI.md/CLAUDE.md)",
+      "deploymentTargetOptionCursor": "Cursor 2.0マルチエージェント (.cursor/agents/)",
       "agentLabel": "エージェント言語:",
       "agentHelp": "生成されるエージェントファイルの言語",
       "fileTypeLabel": "エージェントファイルタイプ:",
@@ -275,7 +292,14 @@
       "lang_option_ta": "🇮🇳 タミル語",
       "lang_option_th": "🇹🇭 タイ語",
       "lang_option_tr": "🇹🇷 トルコ語",
-      "lang_option_vi": "🇻🇳 ベトナム語"
+      "lang_option_vi": "🇻🇳 ベトナム語",
+      "completion_title": "✓ セットアップ完了！",
+      "completion_summary": "{count}個のルールモジュールをアクティブ化しました：",
+      "completion_next_steps": "次のステップ：",
+      "completion_step_1": "1. エージェントファイル（AGENTS.md / CLAUDE.md / GEMINI.md）がこのディレクトリで有効になりました。",
+      "completion_step_2": "2. modules/<module>/settings.json で各モジュールの動作を調整できます。",
+      "completion_step_3": "3. 最初のセッションで、エージェントは初回実行手順を実行し .agentic_initialized を書き込みます。",
+      "completion_step_4": "4. エディタへの組み込み（グローバル／プロジェクト）は INSTALL.md を参照してください。"
     }
   },
   "id": {
@@ -284,6 +308,11 @@
       "description": "Konfigurasikan aturan agen AI Anda dengan mudah"
     },
     "language": {
+      "sectionTitle": "🌐 Pengaturan Bahasa Agen",
+      "deploymentTargetLabel": "Target Deployment:",
+      "deploymentTargetHelp": "Pilih target deployment: Standar atau sistem multi-agen Cursor 2.0",
+      "deploymentTargetOptionStandard": "Standar (AGENTS.md/GEMINI.md/CLAUDE.md)",
+      "deploymentTargetOptionCursor": "Cursor 2.0 Multi-Agent (.cursor/agents/)",
       "agentLabel": "Bahasa Agen:",
       "agentHelp": "Bahasa untuk file agen yang dihasilkan",
       "fileTypeLabel": "Jenis File Agen:",
@@ -414,7 +443,14 @@
       "lang_option_ta": "🇮🇳 தமிழ்",
       "lang_option_th": "🇹🇭 ไทย",
       "lang_option_tr": "🇹🇷 Türkçe",
-      "lang_option_vi": "🇻🇳 Tiếng Việt"
+      "lang_option_vi": "🇻🇳 Tiếng Việt",
+      "completion_title": "✓ Penyiapan Selesai!",
+      "completion_summary": "Berhasil mengaktifkan {count} modul aturan:",
+      "completion_next_steps": "Langkah berikutnya:",
+      "completion_step_1": "1. File agen (AGENTS.md / CLAUDE.md / GEMINI.md) kini aktif di direktori ini.",
+      "completion_step_2": "2. Tinjau modules/<module>/settings.json untuk menyetel perilaku tiap modul.",
+      "completion_step_3": "3. Pada sesi pertama, agen menjalankan Prosedur First-Run dan menulis .agentic_initialized.",
+      "completion_step_4": "4. Lihat INSTALL.md untuk menyambungkan kerangka ke editor Anda (lingkup global atau proyek)."
     }
   }
 }

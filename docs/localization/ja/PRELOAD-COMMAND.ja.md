@@ -27,7 +27,7 @@
 
 ### 例1: 絶対パスから読み込む
 ```bash
-/agentic-rules/preload-agentic-rules /Users/paupawsan/Library/CloudStorage/GoogleDrive-paupawsan@gmail.com/My Drive/AI/local-as/agentic-rules
+/agentic-rules/preload-agentic-rules /Users/yourname/projects/agentic-rules
 ```
 
 ### 例2: 相対パスから読み込む

@@ -1,0 +1,15 @@
+{
+  "_comment": "Optional always-on rule injection. Inert unless the plugin's always_on_injection userConfig option is true. A cheap shell guard checks the env var first, so the default (off) path costs only a shell test — no python3 cold-start. When truthy, it execs the injector, which prints the rule context. When off (default), rules load on demand as skills.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c 'case \"${CLAUDE_PLUGIN_OPTION_ALWAYS_ON_INJECTION:-${CLAUDE_PLUGIN_OPTION_always_on_injection:-}}\" in true|1|yes|on|TRUE|YES|ON|True|Yes|On) exec python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.py\" ;; esac'"
+          }
+        ]
+      }
+    ]
+  }
+}

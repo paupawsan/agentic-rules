@@ -8,6 +8,23 @@
 **INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
 <!-- SAFETY_PRECAUTION_END -->
 
+## First-Run Procedure
+
+On your first session in this project, execute these steps before responding:
+
+1. **Check marker.** Look for `.agentic_initialized` in the working directory (use hidden-file-aware detection). If it exists and version matches, skip to your normal response.
+
+2. **Read active rules.** Check `modules/*/settings.json` for which rules are enabled.
+
+3. **Load KG context.** If `kg_context` tool is available, call `kg_context('starting work in this project')`. If not, skip silently.
+
+4. **Acknowledge.** Tell the user in one sentence which rules are active. Do not prompt to enable/disable rules.
+
+5. **Write marker.** Create `.agentic_initialized` with: `{"version": "1.4.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+
+If this procedure is skipped, enabled rules still work. The marker is a soft signal, not a gate.
+Details: `docs/FIRST_RUN_LOADING.md`
+
 **FRAMEWORK ENHANCEMENT**: When memory_rules.enabled = true in settings.json, agents can implement these algorithms for enhanced memory capabilities.
 
 ## Memory System Architecture
@@ -18,7 +35,7 @@
 ## Required Implementation Algorithms
 
 ### Algorithm: Memory_Initialization_Process
-**MANDATORY**: Execute when memory_rules.enabled = true
+**WHEN**: memory_rules.enabled = true
 
 **Steps**:
 1. Read modules/memory-rules/settings.json
@@ -27,10 +44,10 @@
 4. Initialize memory index if project_support.enabled = true
 5. Return initialized memory system
 
-**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.
+**Never auto-enable** — respect the user's enabled setting.
 
 ### Algorithm: Memory_Storage_Process
-**MANDATORY**: Execute for all user interactions when enabled
+**WHEN**: a user interaction occurs and memory is enabled
 
 **Steps**:
 1. Check memory_rules.enabled = true
@@ -40,7 +57,7 @@
 5. Update memory index for retrieval
 
 ### Algorithm: Memory_Retrieval_Process
-**MANDATORY**: Execute before responding to user requests
+**WHEN**: before responding to a user request, if memory is enabled
 
 **Steps**:
 1. Check memory_rules.enabled = true
@@ -50,7 +67,7 @@
 5. Return optimized context for response
 
 ### Algorithm: Memory_Cleanup_Process
-**MANDATORY**: Execute periodically, require user consent
+**WHEN**: periodically; requires user consent
 
 **Steps**:
 1. Check cleanup_guidance.enabled = true
@@ -69,7 +86,7 @@
 - **Critical Thinking**: Store error corrections and learning insights
 - **User Consent**: All cleanup operations require user approval
 
-**VIOLATION**: Agents claiming memory integration without implementing these algorithms.
+Don't claim memory integration without actually implementing these algorithms.
 
 <!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 Paulus Ery Wasito Adhi
+# Copyright (c) 2025-2026 Paulus Ery Wasito Adhi
 #
 # Licensed under the MIT License. See LICENSE file for details.
 #
@@ -31,6 +31,24 @@ import time
 import urllib.parse
 import webbrowser
 from pathlib import Path
+
+# Fallback when plugins.json is missing or invalid; must list every module directory
+FALLBACK_PLUGIN_DIRS = [
+    'modules/memory-rules',
+    'modules/rag-rules',
+    'modules/critical-thinking-rules',
+    'modules/agent-interaction-unit-test',
+]
+
+def load_plugin_dirs(server_directory):
+    """Load plugin directories from plugins.json, falling back to the known module list."""
+    try:
+        plugins_file = Path(server_directory) / 'plugins.json'
+        with open(plugins_file, 'r', encoding='utf-8') as f:
+            plugins_data = json.load(f)
+            return plugins_data.get('plugins', FALLBACK_PLUGIN_DIRS)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return FALLBACK_PLUGIN_DIRS
 
 class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     """Custom HTTP request handler with file creation capabilities."""
@@ -69,14 +87,7 @@ class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             allowed_extensions = ['.md', '.json']
 
             # Load allowed plugin directories from plugins.json
-            try:
-                plugins_file = self.server_directory / 'plugins.json'
-                with open(plugins_file, 'r', encoding='utf-8') as f:
-                    plugins_data = json.load(f)
-                    plugins_from_json = plugins_data.get('plugins', [])
-            except (FileNotFoundError, json.JSONDecodeError):
-                # Fallback to hardcoded list if plugins.json is missing or invalid
-                plugins_from_json = ['modules/memory-rules', 'modules/rag-rules', 'modules/critical-thinking-rules']
+            plugins_from_json = load_plugin_dirs(self.server_directory)
 
             # Validate plugins exist as directories and add to allowed_dirs
             allowed_dirs = ['.']  # Root directory is always allowed
@@ -92,20 +103,30 @@ class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_error(400, "Invalid file type")
                 return
 
-            # Check if file is in allowed directory
-            file_path = self.server_directory / filename
-            
+            # Resolve the target to defend against path traversal (e.g. "a/../../etc/x").
+            # relative_to() is purely lexical and does NOT collapse "..", so the
+            # allow-list must be checked against the *resolved* path.
+            server_root = self.server_directory.resolve()
+            file_path = (self.server_directory / filename).resolve()
+
+            # Must stay within the server root no matter what the input claims.
+            try:
+                file_path.relative_to(server_root)
+            except ValueError:
+                self.send_error(400, f"Invalid file location: {filename} escapes the server root")
+                return
+
             # Files directly in root are always allowed
-            if file_path.parent == self.server_directory:
+            if file_path.parent == server_root:
                 is_allowed = True
             else:
-                # Check if file is within any allowed plugin directory
+                # Check if file is within any allowed plugin directory (resolved)
                 is_allowed = False
                 for allowed_dir in allowed_dirs:
                     if allowed_dir == '.':
                         # Skip root directory check here (already handled above)
                         continue
-                    allowed_path = self.server_directory / allowed_dir
+                    allowed_path = (self.server_directory / allowed_dir).resolve()
                     try:
                         # Check if file_path is within allowed_path
                         file_path.relative_to(allowed_path)
@@ -118,6 +139,9 @@ class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             if not is_allowed:
                 self.send_error(400, f"Invalid file location: {filename} must be in root or within allowed plugin directories")
                 return
+
+            # Create parent directories if they don't exist
+            file_path.parent.mkdir(parents=True, exist_ok=True)
 
             # Create backup if file exists
             if file_path.exists():
@@ -173,7 +197,7 @@ class SetupHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                             cleaned_files.append(f"{ext_variant}")
 
             # Clean up rule directories
-            rule_dirs = ['modules/memory-rules', 'modules/rag-rules', 'modules/critical-thinking-rules']
+            rule_dirs = load_plugin_dirs(self.server_directory)
             for rule_dir in rule_dirs:
                 rule_path = self.server_directory / rule_dir
                 if rule_path.exists():
@@ -286,36 +310,6 @@ def start_enhanced_setup(port=8000, directory=None):
         return 1
 
     return 0
-
-def main():
-    parser = argparse.ArgumentParser(
-        description='Launch Agentic Rules Framework enhanced setup with full file access'
-    )
-    parser.add_argument(
-        '--port',
-        type=int,
-        default=8000,
-        help='Port to run on (default: 8000)'
-    )
-
-    args = parser.parse_args()
-
-    script_dir = Path(__file__).parent
-    setup_html = script_dir / "setup.html"
-
-    if not setup_html.exists():
-        print(f"❌ Error: setup.html not found at {script_dir}")
-        return 1
-
-    print("=" * 60)
-    print("🤖 Agentic Rules Framework - Enhanced Setup")
-    print("=" * 60)
-    print("Features:")
-    print("✅ Full file system access")
-    print("✅ Direct file creation (no download dialogs)")
-    print("✅ Automatic cleanup when switching file types")
-    print("✅ Real-time file operations")
-    print()
 
 def main():
     parser = argparse.ArgumentParser(

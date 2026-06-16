@@ -27,7 +27,7 @@ This command is useful when:
 
 ### Example 1: Load from Absolute Path
 ```bash
-/agentic-rules/preload-agentic-rules /Users/paupawsan/Library/CloudStorage/GoogleDrive-paupawsan@gmail.com/My Drive/AI/local-as/agentic-rules
+/agentic-rules/preload-agentic-rules /Users/yourname/projects/agentic-rules
 ```
 
 ### Example 2: Load from Relative Path

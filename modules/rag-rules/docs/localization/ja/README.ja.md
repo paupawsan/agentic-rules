@@ -251,4 +251,4 @@ RAG機能の改善提案がありますか？
 
 **📚 RAGルール**: エージェントに賢い情報検索と処理の力を与える。
 
-*Copyright (c) 2025 Paulus Ery Wasito Adhi. MIT Licenseの下でライセンスされています。*
+*Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. MIT Licenseの下でライセンスされています。*

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-marketplace.json",
+  "name": "agentic-rules",
+  "owner": {
+    "name": "Paulus Ery Wasito Adhi",
+    "email": "paupawsan@users.noreply.github.com"
+  },
+  "description": "Agentic Rules Framework — structured behavioral rules for AI agents, packaged for Claude Code.",
+  "version": "1.0",
+  "plugins": [
+    {
+      "name": "agentic-rules",
+      "source": "./claude-code",
+      "description": "Persistent memory, RAG/context discipline, critical-thinking heuristics, and interaction unit-testing as Claude Code skills.",
+      "displayName": "Agentic Rules Framework",
+      "version": "1.4.0",
+      "author": {
+        "name": "Paulus Ery Wasito Adhi",
+        "email": "paupawsan@users.noreply.github.com"
+      },
+      "homepage": "https://github.com/paupawsan/agentic-rules",
+      "repository": "https://github.com/paupawsan/agentic-rules",
+      "license": "MIT",
+      "keywords": [
+        "rules",
+        "memory",
+        "rag",
+        "critical-thinking",
+        "knowledge-graph"
+      ],
+      "category": "productivity"
+    }
+  ]
+}

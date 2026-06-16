@@ -4,6 +4,15 @@
 
 エージェントインタラクションユニットテスト モジュールは、エージェント会話の自動検証・テストフレームワークを提供し、最大限の透明性とグラウンドチェック要件を備えています。このモジュールは、ユニットテストシナリオで簡単に有効化/無効化できます。
 
+### クリティカルシンキングルールとの関係 / Relationship to Critical Thinking Rules
+
+このモジュールと `critical-thinking-rules` は同じ振る舞い（前提への問いかけ、主張のグラウンドチェック、誤りの認容）を扱いますが、**役割が異なり**、重複ではありません。
+
+- **`critical-thinking-rules`**: 振る舞いを**定義**する（エージェントが従うべきヒューリスティック）。通常作業中に有効化し、応答の質を高める。
+- **このモジュール**: 振る舞いが**実際に行われたかを検証**する（テストハーネス）。テスト時に有効化し、会話のコンプライアンスを監査して検証レポートを出力する。
+
+つまり critical-thinking-rules が*基準*で、本モジュールは*基準に対するテスト*です。ヒューリスティック本体は `modules/critical-thinking-rules/CRITICAL-THINKING-RULES.md` にあり、本モジュールはそれを再定義せず検証対象として参照します。
+
 ## 機能
 
 - **グラウンドチェック検証**: ソースデータに対するすべての情報の自動検証
@@ -46,7 +55,7 @@
 
 ```markdown
 # UNIT TEST: [Test_Name]
-**Framework:** Agentic Rules v1.2.0
+**Framework:** Agentic Rules v1.4.0
 **Task:** [Specific_Test_Task]
 
 [Execute agent with unit test validation...]
@@ -58,7 +67,7 @@
 
 ```markdown
 UNIT TEST: エージェントメモリ検索
-Framework: Agentic Rules v1.2.0
+Framework: Agentic Rules v1.4.0
 Task: 基本的なエージェントメモリ検索をテストします。
 
 Instruction:
@@ -83,7 +92,7 @@ Output:
 このモジュールは以下と統合:
 - **メモリルール**: テスト結果と検証履歴を保存
 - **RAGルール**: テストシナリオ向けにコンテキストを最適化
-- **クリティカルシンキングルール**: グラウンドチェック検証サポートを提供
+- **クリティカルシンキングルール**: 本モジュールが検証するヒューリスティック（グラウンドチェック、前提への問いかけ、誤りの認容）を定義する — 上記「クリティカルシンキングルールとの関係」を参照
 
 ## エージェントデバッグ分析
 
@@ -124,7 +133,7 @@ Output:
 ### テストケースを実行
 ```
 UNIT TEST: Code Analysis Validation
-Framework: Agentic Rules v1.2.0
+Framework: Agentic Rules v1.4.0
 Task: Analyze the function in setup.html that generates AGENTS.md files
 
 [Agent executes with full validation...]
@@ -155,7 +164,7 @@ Task: Analyze the function in setup.html that generates AGENTS.md files
 ### ユースケース1: コード分析 & デバッグ
 ```
 UNIT TEST: code_analysis_debugging
-Framework: Agentic Rules v1.2.0
+Framework: Agentic Rules v1.4.0
 Task: Analyze authentication module for security vulnerabilities
 
 ユーザークエリ: "auth.jsの認証コードを潜在的なセキュリティ問題について分析してください"
@@ -170,7 +179,7 @@ Task: Analyze authentication module for security vulnerabilities
 ### ユースケース2: 問題特定
 ```
 UNIT TEST: problem_identification
-Framework: Agentic Rules v1.2.0
+Framework: Agentic Rules v1.4.0
 Task: Identify root cause of database connection failures
 
 ユーザークエリ: "本番環境のデータベース接続問題をデバッグ - ログを確認して根本原因を特定してください"
@@ -185,7 +194,7 @@ Task: Identify root cause of database connection failures
 ### ユースケース3: コードベースアーキテクチャ分析
 ```
 UNIT TEST: architecture_analysis
-Framework: Agentic Rules v1.2.0
+Framework: Agentic Rules v1.4.0
 Task: Analyze codebase structure and recommend improvements
 
 ユーザークエリ: "コードベース全体の構造を分析し、アーキテクチャの改善を提案してください"
@@ -200,7 +209,7 @@ Task: Analyze codebase structure and recommend improvements
 ### ユースケース4: リファクタリング検証
 ```
 UNIT TEST: refactoring_validation
-Framework: Agentic Rules v1.2.0
+Framework: Agentic Rules v1.4.0
 Task: Validate refactoring changes maintain functionality
 
 ユーザークエリ: "最近のリファクタリング変更を確認して、既存の機能を破壊しないことを確認してください"
@@ -215,7 +224,7 @@ Task: Validate refactoring changes maintain functionality
 ### ユースケース5: 包括的システムテスト
 ```
 UNIT TEST: comprehensive_agent_interaction_testing
-Framework: Agentic Rules v1.2.0
+Framework: Agentic Rules v1.4.0
 Task: Complete interaction validation and compliance testing
 
 ユーザークエリ: "ツールの呼び出しとパラメータを含む詳細なエージェントインタラクションシーケンスログを作成してください"
@@ -224,7 +233,7 @@ Task: Complete interaction validation and compliance testing
 ### ユースケース6: エージェントデバッグ分析
 ```
 UNIT TEST: agent_debugging_analysis
-Framework: Agentic Rules v1.2.0
+Framework: Agentic Rules v1.4.0
 Task: Systematic debugging and validation of agent reasoning processes
 
 ユーザークエリ: "以前のコード分析タスクのエージェント推論プロセスをデバッグしてください"
@@ -403,6 +412,6 @@ Task: Systematic debugging and validation of agent reasoning processes
 
 ---
 
-**フレームワーク統合:** Agentic Rules v1.2.0+ と互換性あり
+**フレームワーク統合:** Agentic Rules v1.4.0+ と互換性あり
 **ライセンス:** MIT License
 **メンテナンス:** アクティブにメンテナンス

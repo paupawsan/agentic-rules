@@ -8,6 +8,23 @@
 **無効な使用方法 / INVALID USAGE**: このファイルを自動的に読み込まない、起動プロセスで参照しない、自動フレームワーク初期化に含めない。
 <!-- SAFETY_PRECAUTION_END -->
 
+## 初回実行手順 / First-Run Procedure
+
+このプロジェクトでの最初のセッション時、応答前に以下の手順を実行してください:
+
+1. **マーカーを確認。** 作業ディレクトリで `.agentic_initialized` を探す（隠しファイル対応の検出を使用）。存在しバージョンが一致すれば、通常の応答に進む。
+
+2. **有効なルールを読み取る。** `modules/*/settings.json` でどのルールが有効か確認する。
+
+3. **KGコンテキストを読み込む。** `kg_context` ツールが利用可能な場合、`kg_context('starting work in this project')` を呼び出す。利用不可の場合、スキップ。
+
+4. **確認を伝える。** 有効なルールを一文でユーザーに伝える。ルールの有効化/無効化を促さない。
+
+5. **マーカーを書き込む。** `.agentic_initialized` を作成: `{"version": "1.4.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+
+この手順がスキップされても、有効なルールは機能します。マーカーはソフトシグナルであり、ゲートではありません。
+詳細: `docs/FIRST_RUN_LOADING.md`
+
 **フレームワーク強化 / FRAMEWORK ENHANCEMENT**: settings.jsonでmemory_rules.enabled = trueの場合、エージェントはこれらのアルゴリズムを実装してメモリ機能を強化できます。
 
 ## メモリシステムアーキテクチャ / Memory System Architecture
@@ -18,7 +35,7 @@
 ## 必須実装アルゴリズム / Required Implementation Algorithms
 
 ### アルゴリズム: Memory_Initialization_Process / Algorithm: Memory_Initialization_Process
-**必須 / MANDATORY**: memory_rules.enabled = trueの場合に実行 / Execute when memory_rules.enabled = true
+**条件 / WHEN**: memory_rules.enabled = true の場合 / When memory_rules.enabled = true
 
 **ステップ / Steps**:
 1. modules/memory-rules/settings.jsonを読み取る / Read memory-rules/settings.json
@@ -27,10 +44,10 @@
 4. project_support.enabled = trueの場合、メモリインデックスを初期化 / Initialize memory index if project_support.enabled = true
 5. 初期化されたメモリシステムを返す / Return initialized memory system
 
-**重要 / CRITICAL**: 自動有効化しない - ユーザーの有効設定を尊重する / Do NOT auto-enable - respect user's enabled setting.
+**自動有効化しない / Never auto-enable** — ユーザーの有効設定を尊重する / respect the user's enabled setting.
 
 ### アルゴリズム: Memory_Storage_Process / Algorithm: Memory_Storage_Process
-**必須 / MANDATORY**: 有効時すべてのユーザー操作に対して実行 / Execute for all user interactions when enabled
+**条件 / WHEN**: ユーザー操作が発生し、メモリが有効な場合 / A user interaction occurs and memory is enabled
 
 **ステップ / Steps**:
 1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true
@@ -40,7 +57,7 @@
 5. 検索用のメモリインデックスを更新 / Update memory index for retrieval
 
 ### アルゴリズム: Memory_Retrieval_Process / Algorithm: Memory_Retrieval_Process
-**必須 / MANDATORY**: ユーザー要求に応答する前に実行 / Execute before responding to user requests
+**条件 / WHEN**: ユーザー要求に応答する前、メモリが有効な場合 / Before responding to a user request, if memory is enabled
 
 **ステップ / Steps**:
 1. memory_rules.enabled = trueを確認 / Check memory_rules.enabled = true
@@ -50,7 +67,7 @@
 5. 応答用の最適化されたコンテキストを返す / Return optimized context for response
 
 ### アルゴリズム: Memory_Cleanup_Process / Algorithm: Memory_Cleanup_Process
-**必須 / MANDATORY**: 定期的に実行、ユーザー同意を要求 / Execute periodically, require user consent
+**条件 / WHEN**: 定期的に、ユーザー同意を要する / Periodically; requires user consent
 
 **ステップ / Steps**:
 1. cleanup_guidance.enabled = trueを確認 / Check cleanup_guidance.enabled = true
@@ -69,7 +86,7 @@
 - **批判的思考 / Critical Thinking**: エラー修正と学習洞察を保存 / Store error corrections and learning insights
 - **ユーザー同意 / User Consent**: すべてのクリーンアップ操作にユーザー承認が必要 / All cleanup operations require user approval
 
-**違反 / VIOLATION**: これらのアルゴリズムを実装せずにメモリ統合を主張するエージェント / Agents claiming memory integration without implementing these algorithms.
+これらのアルゴリズムを実際に実装せずにメモリ統合を主張しないこと / Don't claim memory integration without actually implementing these algorithms.
 
 <!-- METADATA: Memory rules agent integration template with storage and retrieval algorithms (Japanese) -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

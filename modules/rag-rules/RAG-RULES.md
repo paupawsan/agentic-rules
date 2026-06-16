@@ -2,97 +2,72 @@
 
 ## Overview
 
-Retrieval-Augmented Generation rules form the foundation of intelligent information processing, optimizing context management across the entire agentic system. These rules enhance memory operations, influence design decisions, and provide pattern-driven insights for all agent activities.
+Retrieval-Augmented Generation rules optimize how agents manage context: what to read, in what order, and how much to load. They enhance memory operations, inform design decisions, and provide pattern-driven retrieval. The goal is higher information density per token — not ceremony.
 
-## Critical Requirements for Agents
+## When These Rules Apply
 
-**MANDATORY COMPLIANCE**: Agents implementing RAG rules MUST adhere to these critical requirements. Non-compliance results in immediate rule violation.
+These rules apply when `rag_rules.enabled = true`. The triggers below mark the situations where the algorithms add the most value. Run the matching algorithm when the situation fits the task; don't run them preemptively.
 
-### Automatic Trigger Conditions
-**IMMEDIATE EXECUTION REQUIRED**: These algorithms MUST execute automatically when triggered:
+### Trigger Conditions
 
 #### Directory Investigation Trigger
-- **WHEN**: Agent investigates any directory or performs file discovery
-- **MUST EXECUTE**: `Detect_Hidden_Files_Algorithm` + `Select_File_Discovery_Tool`
-- **MANDATORY**: Cannot proceed with file operations until hidden file detection completes
-- **VIOLATION**: Using directory listing without hidden file detection
+- **When**: investigating a directory or discovering files
+- **Run**: `Detect_Hidden_Files_Algorithm` + `Select_File_Discovery_Tool`
+- **Why**: plain directory listings miss dot-files (.env, .gitignore, .agentic_initialized)
 
 #### File Search Trigger
-- **WHEN**: Agent searches for configuration files, settings, or initialization markers
-- **MUST EXECUTE**: `Select_Content_Search_Tool` with hidden file inclusion
-- **MANDATORY**: Search ALL files including hidden ones (.env, .gitignore, .settings)
-- **VIOLATION**: Excluding hidden files from search operations
+- **When**: searching for configuration files, settings, or initialization markers
+- **Run**: `Select_Content_Search_Tool` with hidden-file inclusion
+- **Why**: configuration commonly lives in hidden files
 
 #### System Status Check Trigger
-- **WHEN**: Agent checks system initialization or configuration status
-- **MUST EXECUTE**: Comprehensive scan including ALL dot-files
-- **MANDATORY**: Check for .agentic_initialized and other hidden markers
-- **VIOLATION**: Incomplete system assessment due to missed hidden files
-
-#### Framework Self-Preservation Trigger
-- **WHEN**: Agent experiences context summarization, reset, or framework identity loss
-- **MUST EXECUTE**: Core principles rediscovery through memory system keywords
-- **MANDATORY**: Reference foundational behavioral patterns and permanent retention markers
-- **VIOLATION**: Loss of framework identity and behavioral consistency
-
-### Framework Identity Preservation
-**MANDATORY SURVIVAL**: RAG rules include self-preservation mechanisms for framework continuity.
-
-#### Core Principles Reference Keywords
-- **FOUNDATIONAL PRINCIPLES**: Search for permanent behavioral memory patterns
-- **FRAMEWORK MISSION**: Locate mission-critical identity and purpose markers
-- **CORE PHILOSOPHY**: Find non-intrusive enhancement and user consent principles
-- **IDENTITY PRESERVATION**: Access framework corruption warnings and recovery procedures
-
-#### Memory System Recovery Triggers
-- **COMMON BEHAVIORAL MEMORY**: Access shared foundational knowledge across projects
-- **PERMANENT RETENTION POLICIES**: Locate maximum-priority framework preservation data
-- **CONTEXT SURVIVAL MARKERS**: Find context summarization immunity indicators
-- **FRAMEWORK INTEGRITY AUDIT**: Execute identity verification and corruption checks
+- **When**: checking initialization or configuration status
+- **Run**: a scan that includes dot-files (.agentic_initialized and other markers)
+- **Why**: an incomplete scan reports the wrong system state
 
 ### File Discovery Requirements
-- **HIDDEN FILE DETECTION**: Agents MUST detect and process hidden files (dot-files like .env, .gitignore, .settings)
-- **COMPREHENSIVE SCANNING**: Use appropriate tools to find ALL files, not just visible ones
-- **TOOL SELECTION**: Execute Select_File_Discovery_Tool algorithm before any file operations
-- **SAFETY VALIDATION**: Execute Validate_Tool_Usage_Safety for all file operations
+- **Hidden file detection**: detect and process dot-files (.env, .gitignore, .settings)
+- **Comprehensive scanning**: use tools that find all files, not just visible ones
+- **Tool selection**: run Select_File_Discovery_Tool before file operations
+- **Safety validation**: run Validate_Tool_Usage_Safety for file operations
 
-**VIOLATION CONSEQUENCE**: Agents that fail to detect hidden files or use inappropriate tools will provide incomplete information processing and violate RAG rule compliance.
+Skipping hidden-file detection leads to incomplete information and wrong conclusions about project state.
 
 #### Hidden File Detection Implementation Guide
-**MANDATORY REFERENCE**: When checking framework initialization status (.agentic_initialized), agents MUST use cross-platform hidden file detection tools.
+When checking framework initialization status (.agentic_initialized), use cross-platform hidden-file detection. Examples follow.
 
-##### Problematic Default Behaviors (REQUIRES CORRECT PARAMETERS):
+##### Default Behaviors That Miss Hidden Files (and their fixes):
 ```python
 # ❌ PROBLEMATIC - Default behavior misses hidden files
 import os
-files = os.listdir('agentic-rules')  # Default behavior excludes hidden files
+files = os.listdir('.')  # Default behavior excludes hidden files
 
 # ❌ PROBLEMATIC - Default glob excludes hidden files
 import glob
-files = glob.glob('agentic-rules/*')  # Default behavior excludes hidden files
+files = glob.glob('./*')  # Default behavior excludes hidden files
 
 # ✅ CORRECT - Use include_hidden parameter
 import glob
-files = glob.glob('agentic-rules/*', include_hidden=True)
+files = glob.glob('./*', include_hidden=True)
 
 # ✅ CORRECT - Use iterdir() which includes all files
 from pathlib import Path
-path = Path('agentic-rules')
+path = Path('.')
 files = list(path.iterdir())  # Includes hidden files
 
 # ✅ CORRECT - Filter for hidden files explicitly
 import os
-all_files = os.listdir('agentic-rules')
+all_files = os.listdir('.')
 hidden_files = [f for f in all_files if f.startswith('.')]
 ```
 
 ##### Platform-Specific Commands for .agentic_initialized Detection:
 ```bash
 # Windows - PowerShell
-Get-ChildItem -Path "agentic-rules" -Force -File | Where-Object {$_.Name -eq '.agentic_initialized'}
+Get-ChildItem -Path "." -Force -File | Where-Object {$_.Name -eq '.agentic_initialized'}
 
 # Unix/Linux/macOS - find command
-find agentic-rules -name '.agentic_initialized' -type f 2>/dev/null
+find . -maxdepth 1 -name '.agentic_initialized' -type f 2>/dev/null
 ```
 
 ##### Cross-Platform Python Implementation:
@@ -102,7 +77,7 @@ from pathlib import Path
 
 def check_framework_initialization():
     system = platform.system().lower()
-    marker_path = Path('agentic-rules/.agentic_initialized')
+    marker_path = Path('.agentic_initialized')
 
     # Method 1: Direct pathlib check (works on all platforms)
     if marker_path.exists():
@@ -125,18 +100,17 @@ def check_framework_initialization():
     # Method 3: Directory iteration approach (alternative)
     # Check if .agentic_initialized exists in directory listing
     try:
-        agentic_rules_dir = Path('agentic-rules')
+        agentic_rules_dir = Path('.')
         return any(f.name == '.agentic_initialized' for f in agentic_rules_dir.iterdir())
     except (OSError, PermissionError):
         return False
 ```
 
-### Algorithm Execution Requirements
-- **MANDATORY EXECUTION**: All defined algorithms MUST be executed when their conditions are met
-- **NO EXCEPTIONS**: Agents cannot skip algorithm execution based on "assumptions"
-- **COMPLETE IMPLEMENTATION**: All algorithm steps MUST be followed
-- **PROPER TOOL USAGE**: Use tools as specified in tool selection algorithms
-- **AUTOMATIC ENFORCEMENT**: Trigger conditions MUST activate algorithms without manual intervention
+### Algorithm Execution Notes
+- Run an algorithm when its trigger condition is met, not preemptively
+- Follow the algorithm's steps in order; don't skip steps based on assumptions
+- Use the tools named in the tool-selection algorithms
+- Let trigger conditions drive execution rather than waiting for a manual prompt
 
 ## System-Wide Impact
 
@@ -161,30 +135,8 @@ RAG rules influence all agent operations by:
 - **Providing pattern analysis** for decision-making
 - **Reducing processing overhead** through intelligent filtering
 
-## Framework Continuity & Self-Preservation
+## Memory Integration for Knowledge Graphs
 
-### Post-Summarization Recovery Mechanisms
-**MANDATORY RECOVERY**: RAG rules include semantic triggers for framework rediscovery after context summarization.
-
-#### Identity Reconstruction Keywords
-- **AGENTIC ENHANCEMENT**: Locate AI agent behavior improvement frameworks
-- **MODULAR RULE SYSTEMS**: Find independent rule modules with shared infrastructure
-- **USER CONSENT MODEL**: Access explicit activation requirement patterns
-- **TRANSPARENT OPERATION**: Discover clear framework operation indicators
-
-#### Memory System Navigation Markers
-- **EIGHT CATEGORY STORAGE**: Access technical, behavioral, contextual, user_interactions, sessions, topics, git_history, personal
-- **PERMANENT RETENTION POLICIES**: Find maximum-priority preservation data
-- **CROSS-SESSION CONTINUITY**: Locate knowledge retention across context changes
-- **FRAMEWORK MISSION MARKERS**: Access mission-critical identity preservation data
-
-#### Self-Diagnostic Triggers
-- **FRAMEWORK CORRUPTION WARNINGS**: Execute identity verification checks
-- **RECOVERY PROCEDURES**: Access clean reinitialization protocols
-- **INTEGRITY AUDIT TRAILS**: Find framework health monitoring patterns
-- **USER TRUST MAINTENANCE**: Locate user empowerment and control principles
-
-### Memory Integration
 Knowledge Graph algorithms integrate with memory rules for persistence:
 - **Graph Persistence**: When memory_rules.enabled = true, constructed knowledge graphs are stored in persistent memory system
 - **Memory Categories**: Knowledge graphs stored in appropriate memory categories (knowledge_graph or technical)
@@ -195,14 +147,12 @@ Knowledge Graph algorithms integrate with memory rules for persistence:
 ## Core Algorithms
 
 ### File Discovery Requirements
-**MANDATORY**: Agents implementing RAG rules MUST use the following file discovery protocols:
+Use these file-discovery protocols:
 
-1. **Hidden File Detection**: Always scan for hidden files (dot-files, system files)
-2. **Comprehensive Directory Scanning**: Use platform-aware directory traversal
-3. **Tool Selection**: Apply Select_File_Discovery_Tool algorithm for optimal method
-4. **Safety Validation**: Validate all file operations using Validate_Tool_Usage_Safety
-
-**VIOLATION**: Agents that fail to detect hidden configuration files or use inappropriate file discovery tools.
+1. **Hidden file detection**: scan for dot-files and system files
+2. **Comprehensive directory scanning**: use platform-aware traversal
+3. **Tool selection**: apply Select_File_Discovery_Tool to pick the method
+4. **Safety validation**: validate file operations with Validate_Tool_Usage_Safety
 
 ### Context Window Optimization Algorithm
 1. **Information Assessment**: Analyze total available information volume
@@ -278,6 +228,22 @@ Input: log_path, issue_description, analysis_type
 8. Generate summary with key insights
 ```
 
+### Worked Example: Applying These Strategies
+
+**Task**: "Why does `/checkout` return 500 for guest users?" in an unfamiliar 400-file codebase.
+
+A naive approach reads files top to bottom and burns the context window. The RAG strategies instead:
+
+1. **Context Optimization — filter before reading.** Search for the route, not the whole tree:
+   `grep -rn "checkout" --include=*.py routes/ handlers/` → 3 candidate files, not 400.
+2. **Hierarchical Reading — signatures first.** In the handler, read function signatures and the guest-user branch before the bodies. The 500 path is an `if user.is_guest:` branch that calls `user.email.lower()`.
+3. **Selective Drilling — follow one chain.** Guests have `email = None`, so `.lower()` raises. Trace only that one path; skip the authenticated branch entirely.
+4. **Log Analysis — confirm, don't assume.** `Intelligent_Log_Analysis` on the error log: search `AttributeError`, find `'NoneType' object has no attribute 'lower'` at the same line. Claim verified.
+
+**Result**: ~4 targeted reads and one grep instead of dozens of full-file reads — the bug is located with a fraction of the context budget, and the diagnosis is confirmed against the log rather than guessed.
+
+The principle across all four steps: **narrow with search and structure before spending tokens on full content.** Read the least that answers the question.
+
 ## Context Management
 
 ### Information Chunking Algorithm
@@ -296,12 +262,10 @@ Input: log_path, issue_description, analysis_type
 
 ## Tool Selection and Usage Algorithms
 
-**MANDATORY REQUIREMENT**: Agents implementing RAG rules MUST use these algorithms for all file operations. Failure to use appropriate tools results in incomplete information processing.
+Use these algorithms for file operations. They exist because basic listing tools miss hidden files and produce incomplete results.
 
 ### File Discovery Tool Selection Algorithm
-**MANDATORY TRIGGER**: Agents MUST execute this algorithm BEFORE ANY file operations, directory investigation, or system status checks.
-**PROHIBITED TOOLS**: Standard `list_dir` or basic file listing tools are INSUFFICIENT and violate compliance.
-**AUTOMATIC EXECUTION**: This algorithm MUST run automatically when file discovery is needed.
+Run this algorithm before file operations, directory investigation, or system status checks. Basic `list_dir` or plain file listing is insufficient — it omits dot-files.
 
 **📖 PLATFORM REFERENCE**: See `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md` for specific command implementations.
 
@@ -310,20 +274,20 @@ Algorithm: Select_File_Discovery_Tool (Enhanced with Platform Commands)
 Input: search_target, search_context, file_types_needed, platform
 Output: specific_command_with_fallbacks
 
-MANDATORY ANALYSIS - Agents MUST evaluate ALL conditions:
+Evaluate all conditions:
 
 1. Detect Platform and Analyze Requirements:
    - platform = detect_current_platform()  # windows/linux/darwin/unknown
-   - If hidden_files_needed OR starts_with_dot: Execute Detect_Hidden_Files_Algorithm (MANDATORY)
-   - If system_status_check: Include .agentic_initialized, .bootstrap.json (MANDATORY)
-   - If configuration_search: Include .env, .gitignore, .settings, .config (MANDATORY)
+   - If hidden_files_needed OR starts_with_dot: Execute Detect_Hidden_Files_Algorithm
+   - If system_status_check: Include .agentic_initialized, .bootstrap.json
+   - If configuration_search: Include .env, .gitignore, .settings, .config
 
-2. Determine search scope - MUST verify:
+2. Determine search scope - verify:
    - project_root: Use relative_path_resolution
    - system_wide: Use absolute_path_resolution with permissions_check
    - network_shares: Use network_mount_detection
 
-3. Execute Platform-Specific Commands - MANDATORY IMPLEMENTATION:
+3. Execute Platform-Specific Commands:
 
    FOR Windows Systems:
    - Hidden files: PowerShell "Get-ChildItem -Path $directory -Force -File -Recurse"
@@ -339,36 +303,34 @@ MANDATORY ANALYSIS - Agents MUST evaluate ALL conditions:
    - Universal: Python pathlib.Path.glob('**/.*') with error handling
    - Fallback: os.scandir() with manual hidden file detection
 
-4. Apply safety filters - MUST exclude:
+4. Apply safety filters - exclude:
    - System directories (/proc, /sys, /dev on Unix; System32, Windows on Windows)
    - Unauthorized directories based on permissions
    - Respect .gitignore patterns when applicable
    - Limit recursion depth to prevent infinite loops (max 10 levels)
 
-5. Return command_chain with fallbacks - MUST provide:
+5. Return command_chain with fallbacks:
    - Primary: Platform-native command for hidden file detection
    - Fallback: Cross-platform Python implementation
    - Emergency: Manual path construction with basic os.listdir()
-
-VIOLATION: Agents using inappropriate tools or failing to detect required file types.
 ```
 
 #### **Critical Implementation Notes:**
 
-**MANDATORY COMMAND USAGE**:
-- **Windows**: Use `Get-ChildItem -Force` or `dir /a:h` - NOT basic `dir`
-- **Unix/macOS**: Use `find -name ".*"` or `ls -la` - NOT basic `ls`
-- **Cross-platform**: Use Python pathlib with proper hidden detection logic
+**Command usage**:
+- **Windows**: Use `Get-ChildItem -Force` or `dir /a:h` — not basic `dir`
+- **Unix/macOS**: Use `find -name ".*"` or `ls -la` — not basic `ls`
+- **Cross-platform**: Use Python pathlib with hidden-detection logic
 
-**HIDDEN FILE DETECTION VALIDATION**:
-- ✅ Must find files starting with `.` (dot-files)
-- ✅ Must detect Windows hidden attributes
-- ✅ Must include .env, .gitignore, .settings, .agentic_initialized
-- ✅ Must handle permission errors gracefully
+**Detection should**:
+- ✅ Find files starting with `.` (dot-files)
+- ✅ Detect Windows hidden attributes
+- ✅ Include .env, .gitignore, .settings, .agentic_initialized
+- ✅ Handle permission errors gracefully
 
-**PROHIBITED PRACTICES**:
-- ❌ Using `os.listdir()` without hidden file logic
-- ❌ Using `glob.glob()` without `**/.*` patterns
+**Avoid**:
+- ❌ `os.listdir()` without hidden-file logic
+- ❌ `glob.glob()` without `**/.*` patterns
 - ❌ Assuming all platforms work like Unix (dot-files only)
 - ❌ Skipping platform detection and using generic commands
 
@@ -409,7 +371,7 @@ Output: optimal_search_strategy
 ```
 
 ### Hidden File Detection Algorithm
-**MANDATORY**: Agents MUST execute this algorithm for ALL directory scans to ensure complete file discovery.
+Run this algorithm for directory scans so file discovery stays complete.
 
 **📖 CROSS-PLATFORM REFERENCE**: See `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md` for specific commands and implementations.
 
@@ -418,11 +380,10 @@ Algorithm: Detect_Hidden_Files_Algorithm (Enhanced with Platform-Specific Comman
 Input: directory_path, include_system_files, recursion_depth, platform
 Output: comprehensive_file_list
 
-**AUTOMATIC TRIGGER**: This algorithm MUST execute for ANY directory investigation, file search, or system status check.
-**MANDATORY EXECUTION**: Cannot proceed with file operations until this algorithm completes successfully.
-**VIOLATION**: Using any file listing tool without executing this algorithm first.
+Trigger: directory investigation, file search, or system status check.
+Run this before file operations that depend on a complete listing.
 
-MANDATORY STEPS - Agents MUST execute platform-specific commands:
+Steps - execute platform-specific commands:
 
 1. Detect Platform and Initialize Parameters:
    - platform = detect_current_platform()  # windows/linux/darwin/unknown
@@ -460,15 +421,13 @@ MANDATORY STEPS - Agents MUST execute platform-specific commands:
    - Binary files: Flag for specialized processing
    - Permission issues: Log and categorize as inaccessible
 
-5. Return categorized file list - MUST include:
+5. Return categorized file list - include:
    - visible_files: Regular user-visible files
-   - hidden_files: Configuration and system files (MANDATORY)
-   - dot_files: Files starting with . (MANDATORY for Unix-like systems)
-   - system_hidden: Files with hidden attributes (MANDATORY for Windows)
+   - hidden_files: Configuration and system files
+   - dot_files: Files starting with . (Unix-like systems)
+   - system_hidden: Files with hidden attributes (Windows)
    - special_files: Links, devices (with warnings)
    - inaccessible_files: Permission denied files (logged)
-
-VIOLATION: Agents that skip hidden files or use incomplete scanning methods.
 ```
 
 #### **Platform-Specific Command Examples:**
@@ -646,6 +605,31 @@ Available Tools:
 3. **Result Aggregation**: Combine parallel results intelligently
 4. **Error Handling**: Manage failures in parallel operations
 
+## Knowledge Graph Tools (`kg` MCP Server)
+
+The algorithms below describe the *logic* of KG construction and retrieval. When a `kg` MCP server is connected, agents do not re-implement that logic by hand — they call the server's tools, which perform multi-stage retrieval (BM25 ∥ semantic → score-aware fusion → cross-encoder rerank → edge-aware boost) and persistence on the agent's behalf. The in-document algorithms remain the fallback when no `kg` server is available.
+
+Six tools form the runtime interface:
+
+| Tool | Purpose | Maps to algorithm |
+|------|---------|-------------------|
+| `kg_context` | Load rules, patterns, and gotchas relevant to a task description. Call once before non-trivial work. | `Semantic_Graph_Query` (task-scoped) |
+| `kg_query` | Free-text search across the graph. | `Semantic_Graph_Query` (query-scoped) |
+| `kg_get_node` | Fetch one node by id, with its edges. | graph traversal / node lookup |
+| `kg_add` | Persist a new node (rule, pattern, fact, procedure, gotcha). | `Incremental_Graph_Builder` (add node) |
+| `kg_link` | Create an edge between two nodes. | `Incremental_Graph_Builder` (add edge) |
+| `kg_list` | Browse nodes by type or scope (global / project). | graph enumeration |
+
+**When to use which**:
+- **Before a non-trivial task** → `kg_context("<what you're about to do>")` to pull relevant prior knowledge.
+- **Looking for something specific** → `kg_query("<free text>")`, then `kg_get_node` to expand a hit.
+- **After learning something durable** (a gotcha, a decided pattern, a non-obvious fact) → `kg_add`, then `kg_link` to connect it to related nodes so future `kg_context` calls surface it.
+- **Auditing or browsing** → `kg_list` filtered by type/scope.
+
+**Graceful degradation**: every tool is optional. If the `kg` server is absent, skip the call silently and fall back to the in-document algorithms and local context — never block work waiting on the KG. This mirrors the First-Run Procedure, which calls `kg_context` only "if the `kg_context` tool is available."
+
+**Persistence boundary**: `kg_add`/`kg_link` write to the KG store. They follow the same consent model as memory — persist durable, reusable knowledge, not transient session detail, and never store secrets or credentials.
+
 ## Knowledge Graph Algorithms
 
 ### Entity Extraction Algorithm
@@ -698,6 +682,18 @@ Algorithm: Incremental_Graph_Builder
 Input: entities, relationships, existing_graph, memory_system_enabled
 Output: Updated knowledge graph
 
+0. Check git context for overlay mode:
+   - IF knowledge_graph.git_aware.enabled AND project is git-managed:
+     - Determine if base graph exists
+     - IF on non-default branch AND base exists:
+       - Delegate to Diff_Based_Overlay_Construction instead
+       - RETURN overlay result (skip standard full construction)
+     - IF on default branch AND base exists AND changes are small:
+       - Delegate to Base_Graph_Refresh instead
+       - RETURN refreshed base (skip standard full construction)
+   - IF NOT git-managed OR git_aware.enabled = false:
+     - Continue with standard full construction (steps 1-6 unchanged)
+
 1. Initialize graph with existing nodes and edges
 2. Process new entities:
    - Add as nodes with type and attribute metadata
@@ -715,8 +711,14 @@ Output: Updated knowledge graph
    - Update graph indices for efficient querying
 6. Persist graph state with timestamp metadata:
    - If memory_rules.enabled = true:
-     - Store graph data in persistent memory system
-     - Use appropriate memory category (knowledge_graph or technical)
+     - IF knowledge_graph.git_aware.enabled AND is_base_construction:
+       - Store in knowledge_graph/base/ with base_manifest
+       - Record base_commit for future overlay comparisons
+     - IF knowledge_graph.git_aware.enabled AND is_overlay_construction:
+       - Store in knowledge_graph/overlays/[sanitized-branch-name]/
+     - ELSE (standard non-git-aware mode):
+       - Store graph data in persistent memory system
+       - Use appropriate memory category (knowledge_graph or technical)
      - Include metadata for graph reconstruction
      - Set retention policy for long-term knowledge preservation
    - If memory_rules.enabled = false:
@@ -729,6 +731,17 @@ Output: Updated knowledge graph
 Algorithm: Semantic_Graph_Query
 Input: query_text, knowledge_graph
 Output: Ranked list of relevant information
+
+0. Resolve effective graph for git-aware mode:
+   - IF knowledge_graph.git_aware.enabled AND project is git-managed:
+     - Determine current branch
+     - IF on non-default branch AND overlay exists for current branch:
+       - Execute Overlay_Merge_Resolution to get effective_knowledge_graph
+       - Use effective_knowledge_graph as the knowledge_graph input for steps 1-6
+     - IF on default branch:
+       - Use base graph directly
+   - IF NOT git-managed OR git_aware.enabled = false:
+     - Use standard knowledge_graph (current behavior)
 
 1. Parse query for entities and intent
 2. Identify relevant nodes through direct matching
@@ -762,6 +775,16 @@ Output: Optimized knowledge graph
    - Reduce confidence scores for unused elements
    - Remove edges below minimum threshold
    - Consolidate similar but unused nodes
+2.5. Overlay lifecycle management (git-aware mode):
+   - IF knowledge_graph.git_aware.enabled:
+     - Scan all branch overlays in knowledge_graph/overlays/
+     - FOR each overlay:
+       - Check if branch still exists: git branch --list [branch-name]
+       - IF branch deleted AND overlay age > overlay_retention_days:
+         - Mark overlay for cleanup (with user consent per cleanup_guidance)
+       - IF overlay is STALE (base refreshed since overlay created):
+         - Mark for reconstruction on next branch checkout
+     - Prune overlay directory of cleaned-up branches
 3. Perform graph restructuring:
    - Merge highly similar nodes
    - Simplify redundant relationship paths
@@ -814,7 +837,7 @@ Output: Enhanced KG with Python-derived insights
 ```
 
 ### Safety Validation Requirements
-**MANDATORY**: Python execution requires comprehensive safety validation.
+Python execution requires safety validation before any script runs.
 
 #### Pre-Execution Checks
 - **Environment Safety**: Verify sandboxed execution capabilities
@@ -886,7 +909,7 @@ def analyze_class_hierarchy(file_path: str) -> Dict[str, List[str]]:
 ### Transparency & Logging
 
 #### Execution Transparency
-**MANDATORY**: All Python executions must be logged for user transparency.
+Log all Python executions so the user can see what ran.
 
 - **Script Content**: Generated script code logged before execution
 - **Execution Results**: Success/failure status and output
@@ -911,6 +934,193 @@ def analyze_class_hierarchy(file_path: str) -> Dict[str, List[str]]:
 - **Quality Scoring**: Results ranked by analysis method reliability
 - **Progressive Enhancement**: Python results enhance text analysis, don't replace
 
+## Git-Aware Knowledge Graph Algorithms
+
+When the target project is managed by git, KG construction can leverage branch-level diffing to avoid redundant reconstruction. Instead of rebuilding the entire graph per branch, a **base graph** represents the default branch and lightweight **overlay graphs** capture only the delta for each feature branch.
+
+**Guard Clause**: All algorithms in this section check `knowledge_graph.git_aware.enabled` first. When disabled (default), all existing KG algorithms execute unchanged. For non-git projects, the git detection in step 1 triggers an immediate fallback to standard `Incremental_Graph_Builder`.
+
+### Git-Aware KG Construction Algorithm
+```
+Algorithm: Git_Aware_KG_Construction
+Input: project_path, current_branch, memory_system, existing_base_graph
+Output: effective_knowledge_graph (base + overlay)
+
+1. Detect git context:
+   - Check if project_path is a git repository
+   - IF NOT git managed: Fallback to standard Incremental_Graph_Builder
+   - Identify default branch (main/master) via git remote HEAD or config
+   - IF git_aware_kg.default_branch_override is set: Use that value
+   - Identify current branch via git rev-parse --abbrev-ref HEAD
+   - Get merge-base commit between current branch and default branch
+
+2. Determine construction mode:
+   - IF current_branch == default_branch: MODE = "base_construction"
+   - IF base graph does not exist: MODE = "base_construction"
+   - IF base graph exists AND current_branch != default_branch: MODE = "overlay_construction"
+
+3. IF MODE == "base_construction":
+   - Execute full Incremental_Graph_Builder on entire codebase
+   - Generate base_manifest with node/edge identifiers and content hashes
+   - Store as base graph in knowledge_graph/base/
+   - Record base_commit (HEAD of default branch at construction time)
+
+4. IF MODE == "overlay_construction":
+   - Execute Diff_Based_Overlay_Construction
+
+5. Return effective graph:
+   - IF on default branch: Return base graph directly
+   - IF on non-default branch: Execute Overlay_Merge_Resolution
+```
+
+### Diff-Based Overlay Construction Algorithm
+```
+Algorithm: Diff_Based_Overlay_Construction
+Input: project_path, current_branch, default_branch, base_graph, base_manifest
+Output: branch_overlay
+
+1. Compute file diff set:
+   - Run: git diff --name-only [merge-base]..HEAD
+   - Collect changed_files (added, modified, deleted)
+   - Record merge_base_commit for overlay provenance
+
+2. Compute dependency expansion:
+   - FOR each file in changed_files:
+     - Query base_graph for entities sourced from this file
+     - Identify direct dependents (files that import/reference changed files)
+     - Add first-degree dependents to analysis_set
+   - Deduplicate analysis_set
+   - Cap analysis_set at max_overlay_analysis_files (default: 50)
+
+3. Extract entities from analysis_set:
+   - Execute Structured_Entity_Extraction on each file in analysis_set
+   - Execute Pattern_Based_Relation_Extraction for relationships
+   - IF python_enhancement.enabled:
+     - Execute Python_Enhanced_KG_Construction on analysis_set only
+
+4. Compute delta against base_graph:
+   - FOR each extracted entity:
+     - IF entity exists in base_manifest with same content_hash: SKIP (unchanged)
+     - IF entity exists with different content_hash: Mark as MODIFIED
+     - IF entity NOT in base_manifest: Mark as ADDED
+   - FOR each base entity sourced from deleted files: Mark as REMOVED
+   - FOR each extracted relationship:
+     - Compare against base relationships using source+target+type key
+     - Classify as ADDED, MODIFIED, or UNCHANGED
+   - FOR each base relationship involving REMOVED entities: Mark as REMOVED
+
+5. Construct overlay document:
+   - Create overlay with sections: added_nodes, removed_nodes, modified_nodes,
+     added_edges, removed_edges, modified_edges
+   - Include merge_base_commit and branch_name in metadata
+   - Include file_diff_summary for traceability
+
+6. Store overlay:
+   - Sanitize branch name: replace / with -- for directory safety
+   - Write to knowledge_graph/overlays/[sanitized-branch-name]/
+   - Update overlay_manifest with timestamp and validity info
+   - IF memory_rules.enabled = false: Keep overlay in session context only
+```
+
+### Overlay Merge Resolution Algorithm
+```
+Algorithm: Overlay_Merge_Resolution
+Input: base_graph, branch_overlay
+Output: effective_knowledge_graph
+
+1. Initialize effective_graph as deep copy of base_graph
+
+2. Apply removals:
+   - FOR each node in overlay.removed_nodes:
+     - Remove node and all connected edges from effective_graph
+   - FOR each edge in overlay.removed_edges:
+     - Remove edge from effective_graph
+
+3. Apply modifications:
+   - FOR each node in overlay.modified_nodes:
+     - Replace matching node in effective_graph with overlay version
+   - FOR each edge in overlay.modified_edges:
+     - Replace matching edge in effective_graph with overlay version
+
+4. Apply additions:
+   - FOR each node in overlay.added_nodes: Add to effective_graph
+   - FOR each edge in overlay.added_edges:
+     - Add edge (validate source/target nodes exist)
+
+5. Validate merged graph:
+   - Check for orphaned edges (referencing non-existent nodes)
+   - Check for duplicate nodes after merge
+   - Log inconsistencies for debugging
+
+6. Return effective_knowledge_graph
+```
+
+### Base Graph Refresh Algorithm
+```
+Algorithm: Base_Graph_Refresh
+Input: project_path, existing_base_graph, base_manifest
+Output: updated_base_graph, invalidated_overlays_list
+
+1. Detect base changes:
+   - Get current HEAD of default branch
+   - Compare with base_manifest.base_commit
+   - IF unchanged: Return existing base graph (no work needed)
+   - Run: git diff --name-only [base_commit]..HEAD on default branch
+
+2. Incremental base update:
+   - Apply Diff_Based_Overlay_Construction logic targeting the base itself
+   - Apply resulting delta to base_graph
+   - Update base_manifest with new base_commit and content hashes
+
+3. Invalidate affected overlays:
+   - FOR each overlay in knowledge_graph/overlays/:
+     - IF overlay's changed files overlap with base changed_files: Mark STALE
+     - IF no overlap: Overlay remains valid
+   - Return list of invalidated overlays
+
+4. Persist updated base and manifest
+```
+
+### Cross-Branch KG Analysis Algorithm
+```
+Algorithm: Cross_Branch_KG_Analysis
+Input: base_graph, branch_overlays[], analysis_scope
+Output: cross_branch_analysis_report
+
+1. Collect active branch overlays:
+   - Scan knowledge_graph/overlays/ for branch directories
+   - Load overlay_manifest from each
+   - Filter stale overlays (merge_base older than base graph)
+   - Limit to max_branches_to_compare (default: 10)
+
+2. Entity collision detection:
+   - Build entity_modification_map: entity_id -> [branches that modify it]
+   - FOR each entity modified by 2+ branches:
+     - IF same change across branches: Flag as CONVERGENT (low risk)
+     - IF different changes: Flag as DIVERGENT (high risk)
+
+3. Semantic conflict detection:
+   - FOR each DIVERGENT entity:
+     - Analyze relationship changes across branches
+     - Detect interface modifications (same interface changed differently)
+     - Detect dependency changes (edges to/from entity differ)
+     - Assign semantic_conflict_score (0.0 = safe, 1.0 = certain conflict)
+
+4. Branch divergence mapping:
+   - FOR each overlay: count total delta size, compute overlap_ratio with others
+   - Calculate divergence_distance from base
+
+5. Generate report:
+   - Merge conflicts ranked by semantic_conflict_score
+   - Subsystem impact map (which branches touch which areas)
+   - Merge-order recommendations (least conflicts first)
+   - Store in knowledge_graph/cross_branch/ using Cross-Branch Analysis Template
+
+6. Persist report:
+   - IF memory_rules.enabled: Store as markdown in cross_branch/ directory
+   - IF memory_rules.enabled = false: Return in session context only
+```
+
 ## Quality Assurance
 
 ### Reading Completeness Check
@@ -926,5 +1136,5 @@ def analyze_class_hierarchy(file_path: str) -> Dict[str, List[str]]:
 4. **Source Credibility**: Assess information reliability
 
 <!-- METADATA: This document contains algorithmic specifications for agent implementation -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file). -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file). -->
 

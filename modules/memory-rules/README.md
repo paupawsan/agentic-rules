@@ -661,4 +661,4 @@ Found issues or have suggestions for memory functionality?
 
 **🧠 Memory Rules**: Giving AI agents the gift of remembering, learning, and growing with each interaction.
 
-*Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License.*
+*Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Licensed under the MIT License.*

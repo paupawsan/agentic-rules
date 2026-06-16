@@ -6,34 +6,27 @@ Memory rules enable agents to maintain persistent understanding through structur
 
 ## Framework Guidance
 
-**FRAMEWORK ENHANCEMENT**: Memory functionality works best when user settings are respected. When `"enabled": false`:
-- Memory functionality remains disabled
-- User settings are respected
-- Operations can proceed without memory features
-- Framework maintains user choice autonomy
+Memory is opt-in. It activates only when `memory_rules.enabled = true`. When disabled, skip all memory operations and respect the user's choice — never auto-enable.
 
-**RECOMMENDED FORMAT**: Memory storage works best as markdown (.md) files for transparency and accessibility.
+When memory is enabled **and** a memory operation is requested, follow these rules consistently:
 
-**AVAILABLE ENHANCEMENT**: When memory construction is requested and memory is enabled, agents can:
-- **ALWAYS** create actual local markdown (.md) files in the configured storage location
-- **NEVER** use JSON format - use markdown format exclusively
-- **NEVER** store memory only in session context - persist to filesystem
-- **ALWAYS** follow the exact directory structure: [storage.base_path]/projects/[project-id]/[category]/
-- **ALWAYS** use standardized markdown templates from this specification
-- **ALWAYS** verify file creation and provide confirmation with exact file paths
+- **Format**: write markdown (.md) files, not JSON. Markdown keeps memory transparent and human-readable.
+- **Persistence**: write to the filesystem, not only session context. Session-only "memory" is lost on the next reset.
+- **Location**: follow the directory structure `[storage.base_path]/projects/[project-id]/[category]/`.
+- **Templates**: use the standardized markdown templates in this specification.
+- **Confirmation**: after writing, verify the file exists and report its exact path.
 
-### Implementation Guards
+These rules are firm *once memory is active*; activation itself stays the user's decision.
 
-**REQUIRED**: Every memory operation must check `memory_rules.enabled` first.
+### Implementation Guard
 
-**Pattern**:
+Check `memory_rules.enabled` before every memory operation:
+
 ```javascript
 if (!getMemorySettings().enabled) {
-  return null; // Exit immediately - NEVER auto-enable
+  return null; // exit immediately — never auto-enable
 }
 ```
-
-**FRAMEWORK GUIDANCE**: User settings and consent preferences are respected.
 
 ## Core Algorithm
 
@@ -105,8 +98,20 @@ When constructing project memory, create files in this exact structure:
 │   └── [timestamp]_personal_memory.md
 ├── sessions/
 │   └── [timestamp]_session_memory.md
-└── topics/
-    └── [timestamp]_topic_memory.md
+├── topics/
+│   └── [timestamp]_topic_memory.md
+├── git_history/
+│   └── [timestamp]_git_history_memory.md
+└── knowledge_graph/
+    ├── base/
+    │   ├── [timestamp]_base_kg.md
+    │   └── base_manifest.md
+    ├── overlays/
+    │   └── [branch-name]/
+    │       ├── [timestamp]_overlay.md
+    │       └── overlay_manifest.md
+    └── cross_branch/
+        └── [timestamp]_cross_branch.md
 ```
 
 **RECOMMENDED**: Each .md file works best using standardized templates (Standard Memory Template, Session Memory Template, Topic Memory Template, etc.)
@@ -117,6 +122,17 @@ When constructing project memory, create files in this exact structure:
 3. **Relevance Filtering**: Apply similarity algorithms to rank memories
 4. **Context Integration**: Incorporate relevant memories into current reasoning
 5. **Usage Logging**: Record memory usage for pattern analysis
+
+### Knowledge Graph Tools (`kg` MCP Server)
+
+When a `kg` MCP server is connected, structured knowledge (rules, patterns, facts, procedures, gotchas) lives in the graph alongside the markdown memory files, and the server's tools become the preferred path for the steps above:
+
+- `kg_context("<task description>")` — load relevant rules/patterns/gotchas before a non-trivial task (richer than a raw index scan).
+- `kg_query("<free text>")` / `kg_get_node(id)` — search the graph and expand a specific node.
+- `kg_add(...)` / `kg_link(...)` — persist a durable insight and connect it to related nodes, so it surfaces in future `kg_context` calls.
+- `kg_list(type/scope)` — browse stored knowledge by type or scope (global / project).
+
+These tools are optional and follow the same consent boundary as file-based memory: persist durable, reusable knowledge — never secrets or transient session detail. If no `kg` server is present, use the markdown memory files and index described above. The full tool reference and algorithm mapping lives in `modules/rag-rules/RAG-RULES.md`.
 
 ## Version Tracking Algorithm
 
@@ -223,6 +239,11 @@ When constructing project memory, create files in this exact structure:
 10. **Privacy Filtering**: Remove sensitive information based on privacy settings
 11. **Memory Generation**: Create structured memories from analysis results
 12. **Storage Routing**: Apply standard memory routing for git_history category
+13. **KG Integration Trigger**:
+    - IF `git_aware_kg.enabled` AND `knowledge_graph` category enabled:
+      - Pass branch_evolution_data to `Git_Aware_KG_Construction` as hint
+      - Pre-compute overlays for active branches discovered during analysis
+      - This allows the KG system to build branch-aware overlays proactively
 
 ### Migration Detection Algorithm
 1. **Directory Discovery**: Scan project directory for memory-related folders
@@ -364,6 +385,48 @@ When constructing project memory, create files in this exact structure:
 [tag1, tag2, tag3]
 ```
 
+#### Filled Example (Standard Memory Template)
+
+A populated `technical` memory, written to `~/.memory/projects/acme-api/technical/2026-06-16T1430_technical_memory.md`:
+
+```markdown
+# Memory Entry: technical - 2026-06-16T14:30:00Z
+
+## Metadata
+- **Version**: 1.4.0
+- **Generated**: 2026-06-16T14:30:00Z
+- **Category**: technical
+- **Migration Notes**: none
+
+## Context
+The acme-api test suite hung intermittently in CI but passed locally.
+
+## Understanding
+The hang traced to an async DB connection acquired in a test fixture that
+was never released when an assertion failed mid-test, exhausting the pool
+on the next test. Local runs passed because the local pool was larger.
+
+## Decision/Action
+Wrapped the fixture acquisition in try/finally and released the connection
+in the finally block. Lowered the CI pool size to surface the bug earlier.
+
+## Outcome
+Suite is green across 50 consecutive CI runs. Pattern: any test fixture
+that acquires a pooled resource must release it in finally, not after the
+assertions.
+
+## Related Memories
+[[2026-05-02T0900_technical_memory]] — earlier connection-pool tuning
+
+## Tags
+[testing, async, connection-pool, ci, flaky-tests]
+```
+
+Note what makes this useful later: the **Understanding** explains *why*, the
+**Outcome** states a reusable rule, and **Tags** make it retrievable by
+`kg_query`/index search. Empty or placeholder sections defeat the purpose —
+fill every section or omit the entry.
+
 ### Git History Memory Template
 ```markdown
 # Git History Analysis: [PROJECT_ID] - [ANALYSIS_TYPE] - [DATE]
@@ -422,6 +485,103 @@ When constructing project memory, create files in this exact structure:
 ```
 
 *Framework Requirement: Generated memory content must always exclude framework licensing and branding to maintain neutrality.*
+
+### Base KG Manifest Template
+```markdown
+# Base KG Manifest: [PROJECT_ID] - [TIMESTAMP]
+
+## Metadata
+- **Version**: [MEMORY_RULES_VERSION]
+- **Base Commit**: [COMMIT_HASH]
+- **Default Branch**: [BRANCH_NAME]
+- **Generated**: [TIMESTAMP]
+- **Node Count**: [N]
+- **Edge Count**: [M]
+
+## Node Registry
+| Node ID | Type | Source File | Content Hash |
+|---------|------|-------------|--------------|
+| [id]    | [type] | [file_path] | [sha256_short] |
+
+## Edge Registry
+| Edge Key | Source Node | Target Node | Type | Content Hash |
+|----------|------------|-------------|------|--------------|
+| [key]    | [source_id] | [target_id] | [rel_type] | [sha256_short] |
+```
+
+### Branch Overlay Template
+```markdown
+# KG Branch Overlay: [BRANCH_NAME] - [TIMESTAMP]
+
+## Metadata
+- **Version**: [MEMORY_RULES_VERSION]
+- **Branch**: [BRANCH_NAME]
+- **Merge Base Commit**: [COMMIT_HASH]
+- **Base Graph Timestamp**: [BASE_TIMESTAMP]
+- **Generated**: [TIMESTAMP]
+- **Files Changed**: [N]
+- **Status**: [VALID|STALE]
+
+## File Diff Summary
+| File | Change Type |
+|------|-------------|
+| [path] | added/modified/deleted |
+
+## Added Nodes
+| Node ID | Type | Source File | Attributes |
+|---------|------|-------------|------------|
+
+## Removed Nodes
+| Node ID | Reason |
+|---------|--------|
+
+## Modified Nodes
+| Node ID | Field Changed | Old Value Summary | New Value Summary |
+|---------|--------------|-------------------|-------------------|
+
+## Added Edges
+| Source | Target | Type | Confidence |
+|--------|--------|------|-----------|
+
+## Removed Edges
+| Source | Target | Type | Reason |
+|--------|--------|------|--------|
+
+## Modified Edges
+| Source | Target | Type | Change |
+|--------|--------|------|--------|
+
+## Tags
+[overlay, branch-name, git-aware-kg]
+```
+
+### Cross-Branch Analysis Template
+```markdown
+# Cross-Branch KG Analysis: [PROJECT_ID] - [TIMESTAMP]
+
+## Metadata
+- **Version**: [MEMORY_RULES_VERSION]
+- **Branches Analyzed**: [N]
+- **Generated**: [TIMESTAMP]
+
+## Branch Summary
+| Branch | Delta Size | Added | Removed | Modified | Status |
+|--------|-----------|-------|---------|----------|--------|
+
+## Potential Merge Conflicts
+| Entity | Branches | Conflict Type | Risk Score |
+|--------|----------|--------------|------------|
+
+## Semantic Conflicts
+| Entity | Type | Branch A Change | Branch B Change | Assessment |
+|--------|------|----------------|-----------------|------------|
+
+## Merge Order Recommendation
+1. [branch] - [reason]
+
+## Tags
+[cross-branch, conflict-analysis, merge-planning]
+```
 
 ### User Interaction Memory Template
 ```markdown
@@ -573,16 +733,21 @@ The directory structure adapts to the `storage.base_path` setting in memory-rule
 ### Directory Structure
 ```
 [storage.base_path]/
-├── common/                 # 📂 SHARED: technical/, behavioral/
-├── private/                # 🔐 PRIVATE: personal/, credentials/, sensitive/
+├── common/                 # SHARED: technical/, behavioral/
+├── private/                # PRIVATE: personal/, credentials/, sensitive/
 │   ├── credentials/        # Contextually named: service-key.md, project-service-key.md
-├── projects/               # 📁 PROJECT: sessions/, topics/, interactions/, etc.
+├── projects/               # PROJECT: sessions/, topics/, interactions/, etc.
 │   ├── [project-id]/
 │   │   ├── sessions/
 │   │   ├── topics/
 │   │   ├── interactions/
 │   │   ├── contextual/
-│   │   └── git_history/
+│   │   ├── git_history/
+│   │   └── knowledge_graph/
+│   │       ├── base/           # Full KG for default branch + manifest
+│   │       ├── overlays/       # Per-branch delta overlays
+│   │       │   └── [branch]/   # overlay.md + overlay_manifest.md
+│   │       └── cross_branch/   # Cross-branch conflict analysis
 └── index.md               # Global index
 ```
 
@@ -593,5 +758,5 @@ The directory structure adapts to the `storage.base_path` setting in memory-rule
 - **Default**: "default-project" when no project detected
 
 <!-- METADATA: This document contains algorithmic specifications for agent implementation -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file). -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file). -->
 

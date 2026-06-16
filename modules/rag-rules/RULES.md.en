@@ -8,6 +8,23 @@
 **INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
 <!-- SAFETY_PRECAUTION_END -->
 
+## First-Run Procedure
+
+On your first session in this project, execute these steps before responding:
+
+1. **Check marker.** Look for `.agentic_initialized` in the working directory (use hidden-file-aware detection). If it exists and version matches, skip to your normal response.
+
+2. **Read active rules.** Check `modules/*/settings.json` for which rules are enabled.
+
+3. **Load KG context.** If `kg_context` tool is available, call `kg_context('starting work in this project')`. If not, skip silently.
+
+4. **Acknowledge.** Tell the user in one sentence which rules are active. Do not prompt to enable/disable rules.
+
+5. **Write marker.** Create `.agentic_initialized` with: `{"version": "1.4.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+
+If this procedure is skipped, enabled rules still work. The marker is a soft signal, not a gate.
+Details: `docs/FIRST_RUN_LOADING.md`
+
 **FRAMEWORK ENHANCEMENT**: When rag_rules.enabled = true in settings.json, agents can implement these algorithms for enhanced context processing.
 
 ## RAG System Architecture
@@ -149,7 +166,7 @@ Algorithm: Adaptive_Graph_Maintenance
 **ADVANCED CAPABILITY**: Agents can leverage Python execution for enhanced KG construction when system conditions allow safe execution.
 
 ### Algorithm: Python_Enhanced_KG_Construction
-**MANDATORY**: Execute when python_enhancement.enabled = true and safety validation passes
+**AVAILABLE**: Execute when python_enhancement.enabled = true and safety validation passes
 
 **Steps**:
 1. Check python_enhancement.safety_validation_required = true
@@ -164,7 +181,7 @@ Algorithm: Adaptive_Graph_Maintenance
 **CRITICAL**: Always maintain fallback to text-based analysis if Python execution fails
 
 ### Algorithm: Safety_Validation_Check
-**MANDATORY**: Execute before any Python script generation
+**REQUIRED FIRST**: Run before any Python script generation
 
 **Steps**:
 1. Verify sandboxed execution environment availability
@@ -175,7 +192,7 @@ Algorithm: Adaptive_Graph_Maintenance
 6. Return validation status
 
 ### Algorithm: Dynamic_Script_Generation
-**MANDATORY**: Generate analysis scripts based on current needs
+**STEP**: Generate analysis scripts based on current needs
 
 **Steps**:
 1. Analyze required analysis type (imports, classes, functions, etc.)
@@ -186,7 +203,7 @@ Algorithm: Adaptive_Graph_Maintenance
 6. Return executable script
 
 ### Algorithm: Sandboxed_Execution
-**MANDATORY**: Execute generated scripts safely
+**STEP**: Execute generated scripts safely
 
 **Steps**:
 1. Initialize sandboxed Python environment
@@ -197,16 +214,16 @@ Algorithm: Adaptive_Graph_Maintenance
 6. Return results or error status
 
 ### Transparency Requirements
-- **MANDATORY**: Log all script generation and execution activities
-- **MANDATORY**: Provide user-accessible transparency commands
-- **MANDATORY**: Document fallback reasons when Python execution fails
+- Log all script generation and execution activities
+- Provide user-accessible transparency commands
+- Document fallback reasons when Python execution fails
 
 ## Tool Selection and Usage Algorithms
 
-**MANDATORY REQUIREMENT**: Agents implementing RAG rules MUST use these algorithms for all file operations. Hidden file detection is REQUIRED for complete information processing.
+Use these algorithms for file operations. They exist because basic listing tools miss hidden files and produce incomplete results.
 
 ### Algorithm: Select_File_Discovery_Tool
-**MANDATORY**: Execute BEFORE any file operations. Choose appropriate tools based on search requirements.
+**WHEN**: Before file operations. Choose tools based on search requirements.
 
 **Steps**:
 1. Analyze search_target characteristics - MUST include hidden file detection
@@ -215,7 +232,7 @@ Algorithm: Adaptive_Graph_Maintenance
 4. Return comprehensive tool chain for file discovery
 
 ### Algorithm: Select_Content_Search_Tool
-**MANDATORY**: Execute for all content searches. Choose optimal search method for file types.
+**WHEN**: For content searches. Choose the search method that fits the file types.
 
 **Steps**:
 1. Analyze content query characteristics and file set properties
@@ -224,7 +241,7 @@ Algorithm: Adaptive_Graph_Maintenance
 4. Return search tool with fallback strategies
 
 ### Algorithm: Detect_Hidden_Files_Algorithm
-**MANDATORY**: Execute for ALL directory scans. Comprehensive hidden file detection REQUIRED.
+**WHEN**: For directory scans, to keep file discovery complete (dot-files included).
 
 **Steps**:
 1. Initialize file discovery with comprehensive scanning parameters
@@ -266,7 +283,7 @@ Algorithm: Adaptive_Graph_Maintenance
 - **Critical Thinking**: Provide quality assurance for information validation
 - **Bootstrap Coordination**: Respect loading priorities and interconnections
 
-**VIOLATION**: Agents using inefficient context management without implementing these algorithms.
+Skipping these algorithms leads to inefficient context management and incomplete results.
 
 <!-- METADATA: RAG rules agent integration template with context optimization and retrieval algorithms -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

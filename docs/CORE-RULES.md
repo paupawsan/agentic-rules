@@ -235,4 +235,4 @@ The framework provides complete localization support:
 ---
 
 <!-- METADATA: Core framework rules and integration guidelines for developers -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

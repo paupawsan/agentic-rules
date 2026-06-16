@@ -1,5 +1,5 @@
 # Knowledge Graph Implementation Guide for Agentic Rules Framework
-**Framework Version**: 1.2.0
+**Framework Version**: 1.4.0
 **Document Purpose**: Agent Implementation Guidance for KG Functionality
 **Implementation Approach**: Logical Algorithms & Pseudocode Only
 
@@ -234,7 +234,12 @@ memory/
         │   ├── kg_analysis/  # KG analysis results
         │   └── kg_relationships/  # Relationship data
         ├── user_interactions/ # User interaction memory
-        └── kg_index/         # Project KG index
+        ├── kg_index/         # Project KG index
+        └── knowledge_graph/  # Git-aware KG (Phase 5)
+            ├── base/         # Full KG for default branch + manifest
+            ├── overlays/     # Per-branch delta overlays
+            │   └── [branch]/ # overlay.md + overlay_manifest.md
+            └── cross_branch/ # Cross-branch conflict analysis
 ```
 
 ### **KG Memory File Format**
@@ -309,6 +314,77 @@ Basic Memory → Entity Tracking → Relationship Building → KG Construction �
 - [ ] Add relationship-based retrieval
 - [ ] Enable contextual understanding
 - [ ] Test enhanced query capabilities
+
+### **Phase 5: Git-Aware KG**
+- [ ] Implement Algorithm 5: Git_Aware_KG_Construction (entry point routing)
+- [ ] Implement Algorithm 6: Diff_Based_Overlay_Construction (delta-only analysis)
+- [ ] Implement Algorithm 7: Overlay_Merge_Resolution (base + overlay merge)
+- [ ] Implement Algorithm 8: Base_Graph_Refresh (incremental base updates)
+- [ ] Implement Algorithm 9: Cross_Branch_KG_Analysis (conflict detection)
+- [ ] Add knowledge_graph/base/, overlays/, cross_branch/ directory structure
+- [ ] Store base_manifest with content hashes for delta computation
+- [ ] Test overlay creation on feature branches
+- [ ] Test cross-branch semantic conflict detection
+- [ ] Verify fallback to standard KG when git_aware disabled or project not git-managed
+
+### **Algorithm 5: Git-Aware KG Construction**
+**Purpose**: Route KG construction through git-aware overlay system when project is git-managed
+
+```
+Algorithm: Git_Aware_KG_Construction
+Input: project_path, current_branch, memory_system, existing_base_graph
+Output: effective_knowledge_graph (base + overlay)
+
+Steps:
+1. Detect git context:
+   - Check if project is a git repository
+   - IF NOT: Fallback to standard Incremental_Graph_Builder
+   - Identify default branch and current branch
+   - Get merge-base commit
+
+2. Route based on context:
+   - IF on default branch OR no base exists: Full base construction
+   - IF on non-default branch AND base exists: Overlay construction
+
+3. For base construction:
+   - Execute full Incremental_Graph_Builder
+   - Generate base_manifest with node/edge content hashes
+   - Store in knowledge_graph/base/
+
+4. For overlay construction:
+   - Execute Diff_Based_Overlay_Construction
+   - Only analyze files changed relative to merge-base
+   - Store delta in knowledge_graph/overlays/[branch]/
+
+5. Return effective graph:
+   - Default branch: Return base directly
+   - Feature branch: Merge base + overlay via Overlay_Merge_Resolution
+
+Fallback: Standard Incremental_Graph_Builder when git not available
+```
+
+### **Algorithm 6: Cross-Branch KG Analysis**
+**Purpose**: Detect merge conflicts and semantic divergence across branch overlays
+
+```
+Algorithm: Cross_Branch_KG_Analysis
+Input: base_graph, branch_overlays[], analysis_scope
+Output: cross_branch_analysis_report
+
+Steps:
+1. Collect active overlays from knowledge_graph/overlays/
+2. Build entity_modification_map: entity_id -> [modifying branches]
+3. Classify collisions:
+   - CONVERGENT: Same change across branches (low risk)
+   - DIVERGENT: Different changes to same entity (high risk)
+4. For DIVERGENT entities:
+   - Analyze relationship changes
+   - Detect interface modifications
+   - Assign semantic_conflict_score (0.0-1.0)
+5. Generate report with merge-order recommendations
+
+Fallback: Skip analysis when fewer than 2 overlays exist
+```
 
 ## 🔒 **Safety & Compatibility**
 

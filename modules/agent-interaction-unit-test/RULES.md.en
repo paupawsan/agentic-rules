@@ -8,6 +8,23 @@
 **INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
 <!-- SAFETY_PRECAUTION_END -->
 
+## First-Run Procedure
+
+On your first session in this project, execute these steps before responding:
+
+1. **Check marker.** Look for `.agentic_initialized` in the working directory (use hidden-file-aware detection). If it exists and version matches, skip to your normal response.
+
+2. **Read active rules.** Check `modules/*/settings.json` for which rules are enabled.
+
+3. **Load KG context.** If `kg_context` tool is available, call `kg_context('starting work in this project')`. If not, skip silently.
+
+4. **Acknowledge.** Tell the user in one sentence which rules are active. Do not prompt to enable/disable rules.
+
+5. **Write marker.** Create `.agentic_initialized` with: `{"version": "1.4.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+
+If this procedure is skipped, enabled rules still work. The marker is a soft signal, not a gate.
+Details: `docs/FIRST_RUN_LOADING.md`
+
 **FRAMEWORK ENHANCEMENT**: When agent_interaction_unit_test.enabled = true in settings.json, agents can implement these algorithms for enhanced behavior.
 
 ## Agent Interaction Unit Test Overview
@@ -44,7 +61,7 @@ See [CORE-RULES.md](CORE-RULES.md) for detailed algorithm specifications.
 ### Test Case Format:
 ```
 UNIT TEST: [Test_Name]
-Framework: Agentic Rules v1.2.1
+Framework: Agentic Rules v1.4.0
 Task: [Specific_Test_Task]
 
 [Execute with unit test validation...]
@@ -80,4 +97,4 @@ Agents using this framework can benefit from enhanced capabilities while maintai
 **FRAMEWORK BENEFITS**: Improved agent behavior through transparent, optional enhancements that don't interfere with natural user interactions.
 
 <!-- METADATA: Agent interaction unit test rules agent integration for automated validation and testing -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

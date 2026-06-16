@@ -4,7 +4,7 @@
     "copyright": "Copyright (c) 2025-2026 Paulus Ery Wasito Adhi",
     "license_file": "LICENSE"
   },
-  "version": "1.2.1",
+  "version": "1.4.0",
   "memory_rules": {
     "enabled": true,
     "max_entries_per_category": 100,
@@ -30,6 +30,22 @@
         "performance_mode": "fast",
         "cache_analysis_results": true,
         "analysis_timeout_seconds": 30
+      },
+      "git_aware_kg": {
+        "enabled": false,
+        "default_branch_detection": "auto",
+        "default_branch_override": null,
+        "base_graph_auto_refresh": true,
+        "base_refresh_on_pull": true,
+        "max_overlay_analysis_files": 50,
+        "overlay_retention_days": 30,
+        "stale_overlay_auto_rebuild": true,
+        "cross_branch_analysis": {
+          "enabled": true,
+          "auto_trigger_on_overlay_creation": true,
+          "conflict_score_threshold": 0.5,
+          "max_branches_to_compare": 10
+        }
       }
     },
     "categories": {
@@ -118,6 +134,14 @@
         "background_construction": true,
         "minimal_auto_build": true,
         "user_invisible": true
+      },
+      "knowledge_graph_overlay": {
+        "enabled": true,
+        "suggested_retention_days": 30,
+        "storage_location": "project",
+        "share_across_projects": false,
+        "linked_to_git_branches": true,
+        "cleanup_on_branch_deletion": true
       }
     },
     "compression": {

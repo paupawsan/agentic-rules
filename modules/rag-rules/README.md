@@ -464,4 +464,4 @@ Help improve RAG Rules functionality:
 
 **📚 RAG Rules**: Teaching AI agents to read smarter, not harder.
 
-*Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License.*
+*Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Licensed under the MIT License.*

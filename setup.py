@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 Paulus Ery Wasito Adhi
+# Copyright (c) 2025-2026 Paulus Ery Wasito Adhi
 #
 # Licensed under the MIT License. See LICENSE file for details.
 #
@@ -111,13 +111,16 @@ def load_json_file(filepath):
 def get_installed_languages(script_dir=None):
     """Dynamically detect all languages available from installed plugin templates."""
     if script_dir is None:
-        script_dir = Path('.')
+        # Resolve against the script's own directory, not the caller's CWD, so
+        # language detection works when setup.py is invoked from elsewhere.
+        script_dir = get_script_directory()
 
     installed_languages = set()
 
     try:
-        # Check plugins.json for plugin directories
-        plugins_manifest = load_json_file('plugins.json')
+        # Check plugins.json for plugin directories (resolved against script_dir,
+        # matching how plugin directories below are resolved).
+        plugins_manifest = load_json_file(script_dir / 'plugins.json')
         if plugins_manifest:
             plugin_names = plugins_manifest.get('plugins', [])
             for plugin_name in plugin_names:
@@ -347,8 +350,10 @@ def select_agent_language(cli_lang=None, ui_lang='en'):
         else:
             print(t('lang_invalid', locale=ui_lang))
 
-def select_plugin_languages(selected_rules, global_agent_lang, ui_lang='en', script_dir=None):
-    """Select language for each selected plugin."""
+def select_plugin_languages(selected_rules, global_agent_lang, ui_lang='en', script_dir=None, non_interactive=False):
+    """Pick a template language per rule. Non-interactive installs use the global agent language for every rule."""
+    if non_interactive:
+        return {rule: global_agent_lang for rule in selected_rules}
     plugin_languages = {}
 
     print(f"\n{t('plugin_lang_title', locale=ui_lang) if 'plugin_lang_title' in LOCALIZATION.get(ui_lang, {}) else 'Plugin Language Selection'}")
@@ -412,7 +417,13 @@ def select_plugin_languages(selected_rules, global_agent_lang, ui_lang='en', scr
 def select_agent_file_type(cli_file_type=None, lang='en'):
     """Select agent file type (AGENTS.md, GEMINI.md, or CLAUDE.md)."""
     if cli_file_type:
-        return cli_file_type.upper()
+        # Normalize to the canonical filename. The agent tools look for an exact
+        # name (CLAUDE.md, not CLAUDE.MD) and on case-sensitive filesystems a
+        # wrong-cased extension would never be loaded.
+        for valid in ['AGENTS.md', 'GEMINI.md', 'CLAUDE.md']:
+            if cli_file_type.lower() == valid.lower():
+                return valid
+        return cli_file_type
 
     print(f"\n{t('file_type_title', locale=lang)}")
     print(f"{t('file_type_prompt', locale=lang)}")
@@ -536,7 +547,9 @@ def generate_root_file(selected_rules, language, file_type, script_dir, lang='en
     if not template_content:
         template_content = f"""# Agentic Rules Framework Integration
 
+<!-- SAFETY_PRECAUTION_START -->
 **⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `{file_type}` after explicit user activation.
+<!-- SAFETY_PRECAUTION_END -->
 
 **MANDATORY**: Agents must respect the bootstrap configuration in `bootstrap.json` and only load rule files when their corresponding settings are enabled.
 
@@ -584,7 +597,7 @@ Agents using this framework must:
 **VIOLATION**: Agents that do not respect these integration requirements or user settings.
 
 <!-- METADATA: Root level agent integration template with framework overview -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->"""
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->"""
 
     # Generate the root file
     try:
@@ -615,7 +628,7 @@ Agents using this framework must:
         errors.append(error_msg)
         return False, errors
 
-def activate_rule_templates(selected_rules, language, file_type, script_dir, lang='en', config=None, plugin_languages=None):
+def activate_rule_templates(selected_rules, language, file_type, script_dir, lang='en', config=None, plugin_languages=None, non_interactive=False):
     """Activate selected rule templates to AGENTS.md files."""
     activated = []
     errors = []
@@ -663,15 +676,16 @@ def activate_rule_templates(selected_rules, language, file_type, script_dir, lan
     print(f"\n{t('activation_warning', locale=lang, file_type=file_type)}")
     print(t('activation_backup', locale=lang, file_type=file_type))
 
-    while True:
-        confirm = input(f"\n{t('activation_prompt', locale=lang)}").strip().lower()
-        if confirm in ['yes', 'y']:
-            break
-        elif confirm in ['no', 'n']:
-            print(f"\n{t('activation_cancelled', locale=lang)}")
-            return [], []
-        else:
-            print(t('activation_invalid', locale=lang))
+    if not non_interactive:
+        while True:
+            confirm = input(f"\n{t('activation_prompt', locale=lang)}").strip().lower()
+            if confirm in ['yes', 'y']:
+                break
+            elif confirm in ['no', 'n']:
+                print(f"\n{t('activation_cancelled', locale=lang)}")
+                return [], []
+            else:
+                print(t('activation_invalid', locale=lang))
 
     print(f"\n{t('processing_title', locale=lang)}")
 
@@ -1320,6 +1334,8 @@ def main():
     parser.add_argument('--lang', choices=available_langs, help=f'Set both UI and agent language ({", ".join(available_langs)})')
     parser.add_argument('--rules', help='Comma-separated list of rules to activate, or "all"')
     parser.add_argument('--config', help='Path to configuration file exported from setup.html')
+    parser.add_argument('--scope', choices=['global', 'project'], help='Install scope: "global" (editor-wide config) or "project" (this project only). Shapes the post-install wiring guidance.')
+    parser.add_argument('--yes', '-y', action='store_true', help='Non-interactive: accept defaults and skip all confirmation prompts (for AI-editor-assisted installs). Defaults: rules=all, file-type=AGENTS.md, lang=en, unless overridden.')
     args = parser.parse_args()
 
     script_dir = get_script_directory()
@@ -1354,6 +1370,22 @@ def main():
             if 'agent_file_type' in config:
                 args.agent_file_type = config['agent_file_type']
 
+    non_interactive = args.yes
+
+    # In non-interactive mode, fill any unspecified choices with safe defaults so
+    # no input() prompt is ever reached (AI-editor-assisted installs).
+    if non_interactive:
+        default_lang = args.lang or get_default_language()
+        args.ui_lang = args.ui_lang or default_lang
+        args.agent_lang = args.agent_lang or default_lang
+        args.agent_file_type = args.agent_file_type or 'AGENTS.md'
+        if not args.rules:
+            # Match the Claude Code plugin's default-enabled set: everything except
+            # agent-interaction-unit-test, which is opt-in (off by default). Keeps an
+            # AI-editor `setup.py --yes` install consistent with a plugin install.
+            default_on = [r for r in available_rules if 'agent-interaction-unit-test' not in r]
+            args.rules = ','.join(default_on) if default_on else 'all'
+
     # Step 2: Select languages
     # Handle backward compatibility with --lang
     if args.lang and not (args.ui_lang or args.agent_lang):
@@ -1383,7 +1415,7 @@ def main():
     # Step 4: Select plugin languages (if not using config file)
     plugin_languages = {}
     if not config:
-        plugin_languages = select_plugin_languages(selected_rules, agent_lang, ui_lang, script_dir)
+        plugin_languages = select_plugin_languages(selected_rules, agent_lang, ui_lang, script_dir, non_interactive)
     else:
         # Extract plugin languages from config
         if 'selected_rules' in config:
@@ -1402,12 +1434,12 @@ def main():
 
     # Step 5: Activate rule templates
     if activated:
-        rule_activated, rule_errors = activate_rule_templates(selected_rules, agent_lang, agent_file_type, script_dir, ui_lang, config, plugin_languages)
+        rule_activated, rule_errors = activate_rule_templates(selected_rules, agent_lang, agent_file_type, script_dir, ui_lang, config, plugin_languages, non_interactive)
         # Keep activated list as is, but collect errors
         errors.extend(rule_errors)
 
-    # Step 5: Configure rule settings (optional)
-    if activated:
+    # Step 5: Configure rule settings (optional; skipped in non-interactive installs — settings keep their defaults)
+    if activated and not non_interactive:
         configured = configure_rule_settings(activated, ui_lang, script_dir, ui_lang)
 
     # Step 6: Generate web interface config (if web interface exists)
@@ -1433,6 +1465,22 @@ def main():
         print(t('completion_step_2', locale=ui_lang))
         print(t('completion_step_3', locale=ui_lang))
         print(t('completion_step_4', locale=ui_lang))
+
+    # Scope-aware wiring guidance (the activated files live in the framework dir; tell the
+    # caller how to make the editor load them for the chosen scope).
+    if activated and args.scope:
+        root_path = script_dir / agent_file_type
+        print(f"\nScope: {args.scope}")
+        if args.scope == 'global':
+            print(f"  Activated rules live at: {root_path}")
+            print( "  To load them in EVERY project, reference this file from your editor's GLOBAL config:")
+            print( "    - Claude Code : add a line `@{root}` to ~/.claude/CLAUDE.md".format(root=root_path))
+            print( "    - Gemini      : reference {root} from ~/.gemini/GEMINI.md".format(root=root_path))
+            print( "    - Cursor/other: reference {root} from your editor's global rules".format(root=root_path))
+        else:
+            print(f"  Activated rules live at: {root_path}")
+            print( "  To load them for THIS project only, reference that file from the project's")
+            print(f"  {agent_file_type} (or keep the framework inside the project so the editor reads it directly).")
 
 if __name__ == "__main__":
     try:

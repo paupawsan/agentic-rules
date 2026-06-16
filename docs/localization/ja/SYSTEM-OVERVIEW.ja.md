@@ -587,4 +587,4 @@ Output: クエリインターフェース付き更新 KG
 
 **🔧 システム概要**: Agentic Rules Frameworkの包括的な技術アーキテクチャと設計原則。
 
-*Copyright (c) 2025 Paulus Ery Wasito Adhi. MIT Licenseの下でライセンスされています。*
+*Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. MIT Licenseの下でライセンスされています。*

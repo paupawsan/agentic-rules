@@ -4,7 +4,7 @@
     "copyright": "Copyright (c) 2025-2026 Paulus Ery Wasito Adhi",
     "license_file": "LICENSE"
   },
-  "version": "1.2.1",
+  "version": "1.4.0",
   "rag_rules": {
     "enabled": true,
     "context_window_optimization": {
@@ -91,7 +91,7 @@
       "context_prediction": true
     },
     "knowledge_graph": {
-      "enabled": false,
+      "enabled": true,
       "auto_construction": {
         "enabled": true,
         "background_only": true,
@@ -133,6 +133,14 @@
         "inference_engine": true,
         "relationship_ranking": true,
         "contextual_expansion": true
+      },
+      "git_aware": {
+        "enabled": false,
+        "overlay_mode": true,
+        "base_graph_caching": true,
+        "overlay_merge_strategy": "three_way",
+        "dependency_expansion_depth": 1,
+        "cross_branch_analysis_enabled": true
       }
     },
     "self_learning": {

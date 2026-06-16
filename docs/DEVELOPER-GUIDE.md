@@ -354,4 +354,4 @@ curl -X POST http://localhost:9000/api/shutdown
 
 ---
 
-Copyright (c) 2025 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).
+Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. Licensed under the MIT License (see LICENSE file).

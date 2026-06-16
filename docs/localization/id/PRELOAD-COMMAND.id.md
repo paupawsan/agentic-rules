@@ -27,7 +27,7 @@ Perintah ini berguna ketika:
 
 ### Contoh 1: Memuat dari Path Absolut
 ```bash
-/agentic-rules/preload-agentic-rules /Users/paupawsan/Library/CloudStorage/GoogleDrive-paupawsan@gmail.com/My Drive/AI/local-as/agentic-rules
+/agentic-rules/preload-agentic-rules /Users/yourname/projects/agentic-rules
 ```
 
 ### Contoh 2: Memuat dari Path Relatif

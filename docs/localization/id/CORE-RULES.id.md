@@ -235,4 +235,4 @@ Framework menyediakan dukungan pelokalan lengkap:
 ---
 
 <!-- METADATA: Aturan inti dan pedoman integrasi untuk pengembang -->
-<!-- LICENSE: Copyright (c) 2025 Paulus Ery Wasito Adhi - Dilisensikan di bawah Lisensi MIT. Lihat file LICENSE. -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Dilisensikan di bawah Lisensi MIT. Lihat file LICENSE. -->

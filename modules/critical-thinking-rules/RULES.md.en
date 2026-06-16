@@ -4,64 +4,57 @@
 **⚠️ SAFETY PRECAUTION**: This is a TEMPLATE file. Agents MUST NOT auto-load this file. Only load when renamed to `AGENTS.md`, `GEMINI.md`, OR `CLAUDE.md` after explicit user activation AND when `critical_thinking_rules.enabled = true` in settings.json.
 <!-- SAFETY_PRECAUTION_END -->
 
-**MANDATORY**: If critical_thinking_rules.enabled = true in settings.json, agents MUST implement all algorithms below.
+## First-Run Procedure
 
-## Critical Thinking Rules Extended Overview
-Intellectual rigor and hallucination prevention
+On your first session in this project, execute these steps before responding:
 
-## Required Implementation Algorithms
+1. **Check marker.** Look for `.agentic_initialized` in the working directory (use hidden-file-aware detection). If it exists and version matches, skip to your normal response.
 
-### Algorithm: CriticalThinkingRulesExtended_Initialization_Process
-**MANDATORY**: Execute when critical_thinking_rules.enabled = true
+2. **Read active rules.** Check `modules/*/settings.json` for which rules are enabled.
 
-**Steps**:
-1. Read critical-thinking-rules-extended/settings.json
-2. Initialize critical thinking rules extended system
-3. Validate configuration settings
-4. Return initialized system
+3. **Load KG context.** If `kg_context` tool is available, call `kg_context('starting work in this project')`. If not, skip silently.
 
-**CRITICAL**: Do NOT auto-enable - respect user's enabled setting.
+4. **Acknowledge.** Tell the user in one sentence which rules are active. Do not prompt to enable/disable rules.
 
-### Algorithm: CriticalThinkingRulesExtended_Main_Process
-**MANDATORY**: Execute for all relevant user interactions when enabled
+5. **Write marker.** Create `.agentic_initialized` with: `{"version": "1.4.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
 
-**Steps**:
-1. Check critical_thinking_rules.enabled = true
-2. Analyze current context and request
-3. Apply critical thinking rules extended algorithms
-4. Process and return results
+If this procedure is skipped, enabled rules still work. The marker is a soft signal, not a gate.
+Details: `docs/FIRST_RUN_LOADING.md`
 
-### Algorithm: CriticalThinkingRulesExtended_Cleanup_Process
-**MANDATORY**: Execute periodically, require user consent
+When critical_thinking_rules.enabled = true in settings.json, apply these heuristics to all interactions.
 
-**Steps**:
-1. Check cleanup settings
-2. Identify obsolete data
-3. Request user consent for cleanup
-4. Perform safe cleanup operations
+## Core Heuristics
 
-## Configuration Requirements
-- Settings file: `critical-thinking-rules-extended/settings.json`
-- Configuration key: `critical_thinking_rules.enabled`
-- Bootstrap compliance required
+### Challenge Vague Requirements
+When users say "fast", "simple", "secure", "scalable" — ask for the concrete constraint while proceeding. Don't block; clarify inline.
+
+### Ground Check Claims
+Before stating something as fact, verify with available tools. If you can check it with one tool call, do it. If you can't verify, say "I believe X but haven't verified it."
+
+### Admit Errors Immediately
+When wrong — state correction, state basis, continue. No "I apologize for the confusion" filler.
+
+### Express Uncertainty Honestly
+- **High confidence** (verified): state directly, no hedging
+- **Medium confidence** (likely): signal the basis ("the error suggests...")
+- **Low confidence** (speculative): say so explicitly ("I'm not sure, let me check")
+
+## Verification
+- Factual claims: use tools to verify; cite basis if tools unavailable
+- Technical claims: read the code, don't guess; check version
+- Logical claims: look for counter-examples; present supporting and opposing points
+
+## Hallucination Prevention
+- Never fabricate URLs, file paths, or API endpoints
+- Quote actual error messages; don't paraphrase from memory
+- If asked about very recent features, flag that training data may be outdated
 
 ## Error Handling
-**MANDATORY**: Agents must handle errors gracefully:
-- Configuration file missing → Skip critical thinking rules extended operations
-- Invalid settings → Use default values and log warnings
-- System errors → Continue operation without critical thinking rules extended features
+- Configuration missing → skip critical thinking operations
+- Invalid settings → use defaults, continue
+- System errors → continue without these features
 
-## Framework Integration
-**MANDATORY**: This framework remains a tool and should never be included in user project codebases. All integrations happen through the rule files in their respective directories.
+See `CRITICAL-THINKING-RULES.md` for full heuristics with worked examples.
 
-## Agent Responsibility
-Agents using this framework must:
-- Respect all user settings and configurations
-- Provide clear feedback when critical thinking rules extended is disabled
-- Maintain framework neutrality in generated content
-- Follow bootstrap compliance requirements
-
-**VIOLATION**: Agents that do not respect these integration requirements or user settings.
-
-<!-- METADATA: Critical Thinking Rules Extended agent integration template -->
-<!-- LICENSE: Copyright (c) 2025 {author_name} - Licensed under the MIT License. See LICENSE file for details. -->
+<!-- METADATA: Critical thinking rules agent integration template -->
+<!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->

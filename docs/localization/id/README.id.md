@@ -37,7 +37,51 @@ Framework plug-and-play yang menyediakan aturan terstruktur untuk perilaku agen 
 
 </details>
 
-## 🚀 Mulai Cepat - Pengaturan Pertama Kali
+## 🧩 Gunakan dengan Claude Code (Plugin)
+
+Jika Anda menggunakan **Claude Code**, framework ini terpasang sebagai plugin native — tanpa `setup.html`, tanpa langkah bootstrap. **Mengaktifkan plugin sudah merupakan aktivasinya.** Claude Code hanyalah satu dari banyak adapter: seluruh plugin berada di [claude-code/](../../../claude-code/), dan inti yang netral platform (`modules/`) tidak diubah sama sekali.
+
+```bash
+# 1. Tambahkan repo ini sebagai marketplace plugin
+/plugin marketplace add paupawsan/agentic-rules
+
+# 2. Pasang plugin dari marketplace tersebut
+/plugin install agentic-rules@agentic-rules
+```
+
+Lalu kelola dari dalam Claude Code:
+
+```bash
+/plugin                 # aktif/nonaktif, edit opsi
+/agentic-rules:status   # tampilkan modul yang aktif
+/agentic-rules:help     # orientasi
+```
+
+**Yang Anda dapatkan**
+
+- Empat modul aturan sebagai **skill** yang dimuat otomatis saat relevan: memori, RAG/konteks, berpikir kritis, dan unit test interaksi agen.
+- Mode **always-on** opsional (`always_on_injection`) yang menyuntikkan aturan aktif ke setiap sesi — paling mirip dengan `CLAUDE.md`.
+- Server MCP **Knowledge Graph** opsional — atur `kg_mcp_url` ke endpoint Anda (memori/RAG tetap berfungsi dengan baik tanpanya).
+- **Tanpa duplikasi** — skill dan injektor membaca langsung file aturan `modules/` yang kanonik (semua bahasa yang disertakan framework, mis. `ja`/`id`); perubahan dari hulu mengalir tanpa sinkronisasi ulang.
+
+**Konfigurasi** (atur via `/plugin`)
+
+| Opsi | Default | Tujuan |
+|--------|---------|---------|
+| `language` | `en` | Bahasa teks aturan yang disuntikkan (`en` / `ja` / `id`) |
+| `memory_path` | — | Direktori root untuk penyimpanan memori |
+| `enable_memory` / `enable_rag` / `enable_critical_thinking` | aktif | Aktifkan/nonaktifkan modul aturan |
+| `enable_agent_unit_test` | nonaktif | Audit percakapan (panggil secara eksplisit) |
+| `always_on_injection` | nonaktif | Suntik aturan tiap sesi vs skill sesuai permintaan |
+| `kg_mcp_url` | — | Endpoint MCP Knowledge Graph (kosong = nonaktif) |
+
+📖 **[Panduan Plugin Claude Code (Bahasa Inggris)](../../CLAUDE_CODE_PLUGIN.md)** — pemetaan komponen lengkap, cara aturan dikirim, dan perbedaannya dengan jalur `setup.html`.
+
+> Bagian di bawah (`setup.html`, bootstrap) ditujukan untuk **platform lain** — Cursor, VSCode, dan sistem agentik kustom. Pengguna Claude Code dapat melewatinya.
+
+---
+
+## 🚀 Mulai Cepat - Pengaturan Pertama Kali (Platform Lain)
 
 ### ⚠️ **Langkah 1: Jalankan Antarmuka Pengaturan (PENTING!)**
 **Jalankan `setup.html` terlebih dahulu untuk mengkonfigurasi aturan dan menghasilkan file yang diperlukan!**
@@ -166,7 +210,7 @@ Kontribusi sangat diterima!
 
 ## 📄 Lisensi
 
-Copyright (c) 2025 Paulus Ery Wasito Adhi
+Copyright (c) 2025-2026 Paulus Ery Wasito Adhi
 
 Dililis di bawah Lisensi MIT. Lihat file LICENSE untuk detailnya.
 
