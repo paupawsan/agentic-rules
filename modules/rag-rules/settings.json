@@ -91,7 +91,7 @@
       "context_prediction": true
     },
     "knowledge_graph": {
-      "enabled": false,
+      "enabled": true,
       "auto_construction": {
         "enabled": true,
         "background_only": true,

@@ -8,60 +8,37 @@
 **INVALID USAGE**: Do not load this file automatically, do not reference it in startup processes, do not include it in any automated framework initialization.
 <!-- SAFETY_PRECAUTION_END -->
 
-**FRAMEWORK INTEGRATION**: Agents can enhance their behavior by respecting framework configuration in `bootstrap.json` and loading rule files when corresponding settings are enabled.
+These rules are **active in this session** — apply them as part of your normal behavior, not as background ceremony to acknowledge and skip. Each section is active only if enabled in its `modules/<module>/settings.json`; if a module is disabled, ignore its section.
 
-## Framework Overview
-This framework provides structured AI agent behaviors through modular rules:
-- **memory-rules/**: Persistent memory system for context retention
-- **rag-rules/**: Retrieval-augmented generation for optimal context usage
-- **critical-thinking-rules/**: Intellectual rigor and hallucination prevention
+## Memory — *when `memory_rules.enabled`*
 
-## Bootstrap Compliance
-Before loading any rule files, agents MUST:
-1. **Check initialization status**: Detect the `.agentic_initialized` marker file using cross-platform hidden file detection (see `docs/CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md`)
-2. Read `bootstrap.json` to understand the framework configuration
-3. Review `Bootstrap.md` for detailed algorithmic specifications and compliance requirements
-4. Check loading sequence and entry points
-5. Validate user consent and settings
-6. Only load enabled rule integrations
+This project has a **file-based memory** at `./memory/` in the project root. This is the framework's store — **use it, not your editor's built-in memory**, so storage and recall always agree on location.
 
-## Rule Integration Requirements
-Each rule provides specific algorithmic implementations that agents must actively execute:
+- **Store**: when the user says "remember…", "save this", or shares a durable fact, decision, or convention, write it as a markdown file at
+  `./memory/projects/<project-id>/<category>/<YYYYMMDD>_<category>_memory.md`
+  (categories: `technical`, `contextual`, `behavioral`, `sessions`, `topics`). Create directories as needed and tell the user the path.
+- **Recall**: before answering something prior context would inform, **read `./memory/` first** — `./memory/index.md` if present, then the relevant project/category files.
+- Never store secrets or credentials in project memory.
 
-### Memory Rules Integration
-**MANDATORY**: If `memory_rules.enabled = true` in settings.json
-- Location: `memory-rules/AGENTS.md`
-- Implements: Memory initialization, storage, retrieval, and cleanup processes
-- Requires: Proper path configuration and retention policies
+## Knowledge Graph — *when `rag_rules.knowledge_graph.enabled`*
 
-### RAG Rules Integration
-**MANDATORY**: If `rag_rules.enabled = true` in settings.json
-- Location: `rag-rules/AGENTS.md`
-- Implements: Context optimization, relevance scoring, and retrieval algorithms
-- Requires: Context window configuration and scoring thresholds
+A simple typed graph lives at `./memory/knowledge_graph/` (markdown, no server required).
 
-### Critical Thinking Rules Integration
-**MANDATORY**: If `critical_thinking_rules.enabled = true` in settings.json
-- Location: `critical-thinking-rules/AGENTS.md`
-- Implements: Error admission, assumption challenge, and verification processes
-- Requires: Verification thresholds and error handling settings
+- When you learn a durable fact **with a relationship** (X depends on Y, X is part of Y, X supersedes Y), append a node and an edge to the markdown KG — `nodes` and `edges` tables, nodes typed `rule | pattern | fact | procedure | gotcha`.
+- Before non-trivial work, consult it for relevant prior knowledge.
+- If a `kg` MCP server is connected (the user opted to upgrade), use its tools instead and skip the markdown store.
 
-## Framework Integration
-**FRAMEWORK DESIGN**: This framework is designed as a tool to enhance agent behavior. Framework components remain separate from user project codebases.
+## Context / RAG — *when `rag_rules.enabled`*
 
-## Agent Enhancement
-Agents using this framework can benefit from enhanced capabilities while maintaining natural interaction patterns:
-- Respecting user settings and configurations when features are enabled
-- Providing transparent feedback about active enhancements
-- Maintaining natural, conversational communication without exposing internal mechanics
-- Following framework guidance seamlessly in the background
-- Enhanced accuracy and reliability through optional structured validation
+Read efficiently: prefer targeted search and `file:line` reads over dumping whole files; ground claims in the source you read.
 
-**FRAMEWORK BENEFITS**: Improved agent behavior through transparent, optional enhancements that don't interfere with natural user interactions.
+## Critical thinking — *when `critical_thinking_rules.enabled`*
 
----
+Challenge vague requirements — ask for the concrete target or metric instead of silently guessing. Admit uncertainty; verify before asserting.
 
-**CRITICAL REMINDER**: Always use cross-platform hidden file detection tools when checking for `.agentic_initialized` marker. Failure to do so will result in incorrect framework status detection and bootstrap compliance violations.
+## Detailed procedures
 
-<!-- METADATA: Root level agent integration template with framework overview -->
+The exact per-module algorithms live in each module's directory — `modules/memory-rules/`, `modules/rag-rules/`, `modules/critical-thinking-rules/` — inside the file matching this one (e.g. `modules/memory-rules/CLAUDE.md`). Read them when you need the precise steps. The optional `.agentic_initialized` marker and `bootstrap.json` are housekeeping, not prerequisites — never let them block acting on the rules above.
+
+<!-- METADATA: Root level agent integration template — imperative, behavior-first activation -->
 <!-- LICENSE: Copyright (c) 2025-2026 Paulus Ery Wasito Adhi - Licensed under the MIT License. See LICENSE file for details. -->
