@@ -4,7 +4,7 @@
     "copyright": "Copyright (c) 2025-2026 Paulus Ery Wasito Adhi",
     "license_file": "LICENSE"
   },
-  "version": "1.4.1",
+  "version": "1.4.2",
   "rag_rules": {
     "enabled": true,
     "context_window_optimization": {
