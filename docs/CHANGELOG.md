@@ -2,6 +2,14 @@
 
 All notable changes to the Agentic Rules Framework.
 
+## [1.4.2] - 2026-06-18
+
+### Fixed
+
+- **Activation preamble no longer contradicts itself in the default (no-KG) install.** 1.4.1's preamble told the model "do not default to native memory; the framework store and KG are canonical" — but with no `kg_mcp_url` and no `memory_path` configured (the default), neither was actually available, so the instruction was unactionable and the model fell back to native memory anyway. The anti-native-memory nudge now lives only in the KG-configured branch (where there is a KG to steer toward); the always-emitted head is store-neutral.
+- **The preamble now names the memory store.** The `SessionStart` injector surfaces `memory_path` and names it as the store, falling back to "Claude Code's project memory directory" when unset — so the directive is concrete whether or not a memory root is configured.
+- Manual reworked so the Knowledge Graph reads consistently as *optional enrichment* over an always-present memory store (KG recall/write marked "when connected"), instead of clashing with the "KG is canonical" framing.
+
 ## [1.4.1] - 2026-06-18
 
 ### Changed
