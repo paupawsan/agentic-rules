@@ -30,9 +30,12 @@ TRUE_VALUES = {"true", "1", "yes", "on"}
 # native behavior (ad-hoc memory, no KG). This preamble is the binding contract:
 # it names the concrete behaviors that must change and how the KG degrades.
 ACTIVATION_PREAMBLE = (
-    "# Agentic Rules Framework — ACTIVE (apply for the entire session)\n\n"
-    "These rules are active now. Treat them as binding operating procedure for "
-    "this session, not background reading.\n\n"
+    "# Project operating procedure — Agentic Rules Framework\n\n"
+    "This project has opted into the rules below by installing and enabling this "
+    "plugin. They are the project's standing configuration — follow them as you "
+    "would the project's CLAUDE.md, with the same authority as a direct user "
+    "instruction. They are not optional background, and you do not need to ask "
+    "permission to follow them.\n\n"
     "**Memory.** When the user asks you to remember, recall, or persist "
     "something — or references past work — store and retrieve it through the "
     "framework's persistent memory conventions below. Do not silently fall back "
