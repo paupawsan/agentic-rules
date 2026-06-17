@@ -23,6 +23,32 @@ import sys
 
 TRUE_VALUES = {"true", "1", "yes", "on"}
 
+# Imperative activation directive prepended to the injected rule text. The
+# module RULES files describe capabilities in conditional, templatey language
+# ("agents CAN implement these algorithms") and never name the KG MCP tools, so
+# on their own they read as optional background and the model defaults to its
+# native behavior (ad-hoc memory, no KG). This preamble is the binding contract:
+# it names the concrete behaviors that must change and how the KG degrades.
+ACTIVATION_PREAMBLE = (
+    "# Agentic Rules Framework — ACTIVE (apply for the entire session)\n\n"
+    "These rules are active now. Treat them as binding operating procedure for "
+    "this session, not background reading.\n\n"
+    "**Memory.** When the user asks you to remember, recall, or persist "
+    "something — or references past work — store and retrieve it through the "
+    "framework's persistent memory conventions below. Do not silently fall back "
+    "to ad-hoc note files outside that convention.\n\n"
+    "**Knowledge Graph.** If KG tools are available this session "
+    "(`kg_context`, `kg_query`, `kg_add`, `kg_link`, or the same tools under an "
+    "MCP-prefixed name):\n"
+    "- Before non-trivial work, call `kg_context(\"<the task>\")` to load "
+    "relevant prior knowledge.\n"
+    "- After learning something durable (a decision, gotcha, pattern, or "
+    "non-obvious fact), call `kg_add` and link it with `kg_link`.\n"
+    "If those tools are NOT available, skip them silently and use the in-document "
+    "memory/markdown conventions instead — never block work waiting on the KG.\n\n"
+    "---\n\n"
+)
+
 # userConfig option key -> (module directory, default-enabled)
 MODULES = [
     ("ENABLE_MEMORY", "memory-rules", True),
@@ -74,8 +100,8 @@ def clean(text):
 
 
 def main():
-    if not is_true(opt("ALWAYS_ON_INJECTION"), default=False):
-        return  # Default mode: skills load on demand; inject nothing.
+    if not is_true(opt("ALWAYS_ON_INJECTION"), default=True):
+        return  # Opted out: skills load on demand; inject nothing.
 
     root = os.environ.get("CLAUDE_PLUGIN_ROOT", "")
     if not root:
@@ -115,12 +141,7 @@ def main():
     if not sections:
         return
 
-    header = (
-        "# Agentic Rules Framework (active)\n\n"
-        "The following behavioral rules are active for this session. Apply them "
-        "to your work as standing guidance.\n"
-    )
-    context = header + "\n\n---\n\n".join(sections)
+    context = ACTIVATION_PREAMBLE + "\n\n---\n\n".join(sections)
 
     print(
         json.dumps(
