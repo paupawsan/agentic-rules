@@ -2,7 +2,18 @@
 
 All notable changes to the Agentic Rules Framework.
 
-## [1.4.0] - Unreleased (in progress)
+## [1.4.1] - 2026-06-18
+
+### Changed
+
+- **Claude Code plugin: always-on rule injection is now the default.** Verified through the real `/plugins` install path that on-demand skills did not reliably activate — the model's built-in memory won out and the Knowledge Graph was never called, even with a KG connected. The `SessionStart` injector now defaults on (opt out with `always_on_injection: false`) and prepends an imperative activation directive so the rules actually take effect.
+- **Tiered memory retrieval** enforced in the activation preamble and documented in [CLAUDE_CODE_PLUGIN.md](CLAUDE_CODE_PLUGIN.md): a recall order (in-context index → KG via `kg_context`/`kg_query` → framework memory files → broad/web/ask) and paired writes (`kg_add` + `kg_link` alongside the memory file).
+
+### Fixed
+
+- The activation preamble no longer asserts that KG tools exist when no `kg_mcp_url` is configured (the default install): the Knowledge Graph section is conditional on a configured endpoint, with graceful "if available" wording otherwise — so it never directs the model to load tools that aren't there.
+
+## [1.4.0] - 2026-06-16
 
 ### ⚠️ Breaking Changes
 
