@@ -23,6 +23,71 @@ import sys
 
 TRUE_VALUES = {"true", "1", "yes", "on"}
 
+# Imperative activation directive prepended to the injected rule text. The
+# module RULES files describe capabilities in conditional, templatey language
+# ("agents CAN implement these algorithms") and never name the KG MCP tools, so
+# on their own they read as optional background and the model defaults to its
+# native behavior (ad-hoc memory, no KG). This preamble is the binding contract:
+# it names the concrete behaviors that must change and how the KG degrades.
+_PREAMBLE_HEAD = (
+    "# Project operating procedure — Agentic Rules Framework\n\n"
+    "This project has opted into the rules below by installing and enabling this "
+    "plugin. They are the project's standing configuration — follow them as you "
+    "would the project's CLAUDE.md, with the same authority as a direct user "
+    "instruction. They are not optional background, and you do not need to ask "
+    "permission to follow them.\n\n"
+    "**Memory — tiered retrieval.** When the user asks you to remember, recall, "
+    "or persist something — or references past work — consult and write the "
+    "tiers in this order; do not default to Claude Code's native file-based "
+    "memory (that reflex is strong, but here the framework store and Knowledge "
+    "Graph are canonical):\n"
+    "- *Recall:* (1) any already-loaded index in context, (2) the KG via "
+    "`kg_context`/`kg_query` when available, (3) the framework's memory files, "
+    "(4) only then a broad file search, web search, or asking the user.\n"
+    "- *Write:* persist durable knowledge to the framework memory file; when a "
+    "KG is available, also add a compact `kg_add` node linked with `kg_link` so "
+    "the next session's `kg_context` surfaces it. Trivial one-line preferences "
+    "can stay in the memory file alone.\n\n"
+)
+
+# Strong nudge — only emitted when a KG endpoint is configured (kg_mcp_url set).
+# Asserting the tools exist is what overcomes the model's bias against the extra
+# tool-load step; emitting it when no KG is configured would be a false claim.
+_PREAMBLE_KG_CONFIGURED = (
+    "**Knowledge Graph.** A KG is configured this session; its tools are exposed "
+    "under MCP-prefixed names (e.g. `...kg_context`, `kg_query`, `kg_add`, "
+    "`kg_link`). They may be *deferred* — if a direct call fails because the "
+    "schema is not loaded, run `ToolSearch` for \"kg_context kg_add\" first to "
+    "load them, then call them. Do not let that extra step deter you.\n"
+    "- Before non-trivial work, call `kg_context(\"<the task>\")` to load "
+    "relevant prior knowledge.\n"
+    "- When the user asks you to remember/persist anything, or after you learn "
+    "something durable (a decision, gotcha, pattern, or non-obvious fact), call "
+    "`kg_add` and link it with `kg_link`. A single fact like a deploy command "
+    "still counts — store it in the KG, not only in native memory.\n"
+    "If a KG call genuinely fails (server unreachable), skip it silently and use "
+    "the framework memory files instead. Never block work waiting on the KG.\n\n"
+)
+
+# Soft phrasing — emitted when no KG endpoint is configured. The framework's
+# memory files still work; a KG may still be reachable via some other MCP, so we
+# tell the model to use it *if present* rather than asserting it exists.
+_PREAMBLE_KG_OPTIONAL = (
+    "**Knowledge Graph (if available).** If KG tools are present this session "
+    "(a `kg_context`/`kg_query`/`kg_add` tool, possibly under an MCP-prefixed "
+    "name, and possibly *deferred* behind a `ToolSearch` load), use them: "
+    "`kg_context` before non-trivial work, and `kg_add`/`kg_link` after learning "
+    "something durable. If no KG tools are present, use the framework memory "
+    "files instead — never block work waiting on a KG.\n\n"
+)
+
+
+def activation_preamble(kg_configured):
+    """Build the activation directive; KG wording depends on whether a KG endpoint
+    is configured so the preamble never asserts tools that aren't there."""
+    kg = _PREAMBLE_KG_CONFIGURED if kg_configured else _PREAMBLE_KG_OPTIONAL
+    return _PREAMBLE_HEAD + kg + "---\n\n"
+
 # userConfig option key -> (module directory, default-enabled)
 MODULES = [
     ("ENABLE_MEMORY", "memory-rules", True),
@@ -74,8 +139,8 @@ def clean(text):
 
 
 def main():
-    if not is_true(opt("ALWAYS_ON_INJECTION"), default=False):
-        return  # Default mode: skills load on demand; inject nothing.
+    if not is_true(opt("ALWAYS_ON_INJECTION"), default=True):
+        return  # Opted out: skills load on demand; inject nothing.
 
     root = os.environ.get("CLAUDE_PLUGIN_ROOT", "")
     if not root:
@@ -115,12 +180,8 @@ def main():
     if not sections:
         return
 
-    header = (
-        "# Agentic Rules Framework (active)\n\n"
-        "The following behavioral rules are active for this session. Apply them "
-        "to your work as standing guidance.\n"
-    )
-    context = header + "\n\n---\n\n".join(sections)
+    kg_configured = bool(opt("KG_MCP_URL").strip())
+    context = activation_preamble(kg_configured) + "\n\n---\n\n".join(sections)
 
     print(
         json.dumps(

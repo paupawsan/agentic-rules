@@ -73,15 +73,30 @@ internal dev config and never ship with the plugin.
 Two modes, controlled by the `always_on_injection` option — both read the same canonical
 `modules/` files:
 
-1. **On-demand skills (default).** Each module is a skill whose `description` tells Claude
-   when it's relevant. On invocation it reads the canonical rule file for the user's language
-   and applies it. Low always-on token cost (~90 tokens/skill); enabling the plugin is the
-   consent.
-
-2. **Always-on injection (opt-in).** Turn on `always_on_injection` and a `SessionStart` hook
+1. **Always-on injection (default).** A `SessionStart` hook
    ([`claude-code/hooks/session-start.py`](../claude-code/hooks/session-start.py)) reads the
    enabled modules' canonical rule text in the configured language and injects it into every
-   session as `additionalContext` — the closest equivalent to a `CLAUDE.md`.
+   session as `additionalContext` — the closest equivalent to a `CLAUDE.md`. It is prefixed
+   with a short **imperative activation directive** that tells Claude to treat the rules as the
+   project's standing operating procedure (not background reading), to route memory through the
+   framework store and KG rather than its native file-based memory, and to load the KG MCP tools
+   (which may be *deferred*) before using them. Heavier always-on token cost, but it is the only
+   mode that reliably activates the rules — see the note below.
+
+2. **On-demand skills (opt-out).** Set `always_on_injection` to `false` and the injector goes
+   silent; each module is instead a skill whose `description` tells Claude when it's relevant,
+   and on invocation it reads the canonical rule file for the user's language. Low always-on
+   token cost (~90 tokens/skill), but activation is best-effort.
+
+> **Why always-on is the default.** In testing through the real `/plugins` install path, skill
+> auto-invocation did **not** activate the rules on natural prompts: asked to "remember X",
+> Claude used its built-in native memory and never invoked the memory skill or the KG — even
+> with a KG MCP connected. The model's native memory is wired into its core system prompt
+> (high salience), the KG MCP tools are deferred behind a tool-search step (extra friction), and
+> SessionStart context is otherwise read as discountable background. The imperative preamble in
+> always-on mode is what overcomes all three, so the framework's memory/KG behavior actually
+> fires. On-demand skills remain available for users who explicitly invoke them and want the
+> lighter token footprint.
 
 The `SAFETY_PRECAUTION` and `First-Run Procedure` headers in the `RULES.md.*` files are the
 file-rename activation guards used on other platforms. Under Claude Code they are inert: the
@@ -113,7 +128,7 @@ All options are set via `/plugin` (or `--config KEY=VALUE` at install) and store
 | `enable_rag` | boolean | `true` | Toggles the RAG/context skill / its injection. |
 | `enable_critical_thinking` | boolean | `true` | Toggles the critical-thinking skill / its injection. |
 | `enable_agent_unit_test` | boolean | `false` | Toggles the unit-test module's injection. The skill is explicit-invoke only (`disable-model-invocation: true`). |
-| `always_on_injection` | boolean | `false` | Off = on-demand skills; on = inject enabled rules every session. |
+| `always_on_injection` | boolean | `true` | On (default) = inject the activation preamble + enabled rules every session (reliable activation); off = on-demand skills only (lighter, best-effort). |
 | `kg_mcp_url` | string | `""` (blank) | HTTP URL of a Knowledge Graph MCP server. Blank = no KG server; memory/RAG run without it. |
 
 ## Migration & adoption
@@ -142,6 +157,40 @@ Both paths read the identical `modules/` source, so behavior is consistent acros
 The memory and RAG skills use a KG when a `kg_context` / `kg_query` tool is present, and
 degrade gracefully when it isn't. To connect one, set `kg_mcp_url` to your server's HTTP
 endpoint. Nothing is bundled by default, so no private endpoint ships in the plugin.
+
+### Tiered memory retrieval
+
+Under Claude Code, Claude can reach several memory stores at once: its own built-in
+file-based memory, the framework's memory files, and — when connected — the Knowledge Graph.
+Left to its defaults it reflexively uses native memory and ignores the rest. The framework
+defines a **tiered order** instead, applied on both recall and write. The always-on
+activation preamble enforces it; without always-on injection it is best-effort.
+
+**Recall (read) — stop at the first tier that answers:**
+
+1. **In-context index** — anything already loaded (a memory index, prior turns). Free; scan first.
+2. **Knowledge Graph** — `kg_context("<task>")` before non-trivial work, or `kg_query("<topic>")`
+   for a specific lookup. The KG is *not* auto-loaded, so it must be queried explicitly; this is
+   where most durable knowledge (decisions, patterns, gotchas, facts) lives.
+3. **Framework memory files** — the narrative store under `memory_path`.
+4. **Broad search / web / ask the user** — only after 1–3 miss.
+
+The common failure this prevents: grepping a local file, finding nothing, and concluding "there's
+nothing in memory" when the KG actually had it.
+
+**Write (persist) — paired writes for durable knowledge:**
+
+- Write the narrative to the framework memory file (and its index), **and**
+- add a compact node with `kg_add`, linked to related nodes with `kg_link`.
+
+Both writes matter: `kg_context` reads the KG at the start of future tasks, so a fact saved only
+to a file is invisible across sessions. Trivial one-line preferences (e.g. "don't do X") can stay
+in the memory file alone. When no KG tool is connected this tier is skipped silently — the file
+write still happens, and work never blocks waiting on the KG.
+
+> **Note:** the KG MCP tools may be exposed as *deferred* tools — Claude must load their schema
+> via a tool-search step before the first call. The activation preamble explicitly tells Claude
+> to do this; it is a known point of friction that otherwise biases the model away from the KG.
 
 ## Verifying the install
 

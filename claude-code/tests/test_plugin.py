@@ -263,7 +263,7 @@ def injector_works_as_installed_without_sibling_modules():
         out, err, code = run_hook({"always_on_injection": "true"}, plugin_root=dst)
         assert code == 0 and out.strip(), \
             f"as-installed injector emitted nothing (code={code}, err={err[:200]})"
-        assert "Agentic Rules Framework (active)" in out
+        assert "Agentic Rules Framework" in out
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
@@ -293,7 +293,7 @@ def injector_works_when_symlink_preserved_with_repo():
         out, err, code = run_hook({"always_on_injection": "true"}, plugin_root=dst)
         assert code == 0 and out.strip(), \
             f"preserved-symlink injector emitted nothing (code={code}, err={err[:200]})"
-        assert "Agentic Rules Framework (active)" in out
+        assert "Agentic Rules Framework" in out
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
@@ -320,8 +320,10 @@ def injector_dangling_symlink_degrades_silently():
 # --- injector: gating ------------------------------------------------------
 
 @test
-def injector_off_by_default():
-    assert injected_context({}) == ""
+def injector_on_by_default():
+    """Prototype: the injector now defaults ON (opt-out). With no setting it
+    emits; only an explicit false opts out."""
+    assert injected_context({})
     assert injected_context({"always_on_injection": "false"}) == ""
 
 
@@ -329,7 +331,25 @@ def injector_off_by_default():
 def injector_on_emits_valid_json_context():
     ctx = injected_context({"always_on_injection": "true"})
     assert ctx
-    assert "Agentic Rules Framework (active)" in ctx
+    assert "Agentic Rules Framework" in ctx
+
+
+@test
+def preamble_kg_wording_tracks_configured_endpoint():
+    """The KG section must not assert tools exist when no kg_mcp_url is set —
+    that would be a false claim in the default (no-KG) install. With an endpoint
+    configured it uses the strong 'A KG is configured' nudge."""
+    without = injected_context({"always_on_injection": "true"})
+    assert "A KG is configured" not in without, \
+        "preamble falsely asserts a KG when kg_mcp_url is blank"
+    assert "Knowledge Graph (if available)" in without
+
+    withkg = injected_context({
+        "always_on_injection": "true",
+        "kg_mcp_url": "http://example.invalid/mcp",
+    })
+    assert "A KG is configured" in withkg
+    assert "Knowledge Graph (if available)" not in withkg
 
 
 @test
@@ -465,7 +485,7 @@ def manifest_defaults_are_sane():
     assert uc["enable_rag"]["default"] is True
     assert uc["enable_critical_thinking"]["default"] is True
     assert uc["enable_agent_unit_test"]["default"] is False
-    assert uc["always_on_injection"]["default"] is False
+    assert uc["always_on_injection"]["default"] is True
     assert uc["language"]["default"] == "en"
 
 
