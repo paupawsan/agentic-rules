@@ -353,6 +353,27 @@ def preamble_kg_wording_tracks_configured_endpoint():
 
 
 @test
+def preamble_does_not_forbid_native_memory_without_a_store():
+    """Regression for the v1.4.1 inconsistency: with no KG and no memory_path, the
+    head must NOT tell the model to avoid native memory (nothing else exists) — it
+    should name the project memory directory as the store instead."""
+    ctx = injected_context({"always_on_injection": "true"})
+    assert "do not default to Claude Code's native file-based memory" not in ctx
+    assert "project memory directory" in ctx, \
+        "preamble must name a concrete store when memory_path is unset"
+
+
+@test
+def preamble_names_configured_memory_path():
+    """When memory_path is set, the preamble names that root as the store."""
+    ctx = injected_context({
+        "always_on_injection": "true",
+        "memory_path": "/srv/agentic-mem",
+    })
+    assert "/srv/agentic-mem" in ctx
+
+
+@test
 def injector_no_root_is_silent():
     out, err, code = run_hook({"always_on_injection": "true"}, plugin_root=None)
     assert code == 0 and out == "", (code, out)

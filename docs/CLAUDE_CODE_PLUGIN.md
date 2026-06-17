@@ -79,9 +79,10 @@ Two modes, controlled by the `always_on_injection` option — both read the same
    session as `additionalContext` — the closest equivalent to a `CLAUDE.md`. It is prefixed
    with a short **imperative activation directive** that tells Claude to treat the rules as the
    project's standing operating procedure (not background reading), to route memory through the
-   framework store and KG rather than its native file-based memory, and to load the KG MCP tools
-   (which may be *deferred*) before using them. Heavier always-on token cost, but it is the only
-   mode that reliably activates the rules — see the note below.
+   framework store (and the KG when one is connected) instead of ad-hoc one-off notes, and — when
+   a KG endpoint is configured — to load the KG MCP tools (which may be *deferred*) before using
+   them. Heavier always-on token cost, but it is the only mode that reliably activates the rules —
+   see the note below.
 
 2. **On-demand skills (opt-out).** Set `always_on_injection` to `false` and the injector goes
    silent; each module is instead a skill whose `description` tells Claude when it's relevant,
@@ -123,7 +124,7 @@ All options are set via `/plugin` (or `--config KEY=VALUE` at install) and store
 | Option | Type | Default | Effect |
 |--------|------|---------|--------|
 | `language` | string | `en` | Language of the `modules/<m>/RULES.md.<lang>` that skills and the injector read (`en` / `ja` / `id`; invalid → `en`). |
-| `memory_path` | directory | — | Root directory for the memory store (read by the memory skill; if blank it asks on first use). |
+| `memory_path` | directory | — | Root directory for the memory store. If blank, Claude Code's project memory directory is used as the store (the on-demand skill asks on first use instead). |
 | `enable_memory` | boolean | `true` | Toggles the memory skill / its injection. |
 | `enable_rag` | boolean | `true` | Toggles the RAG/context skill / its injection. |
 | `enable_critical_thinking` | boolean | `true` | Toggles the critical-thinking skill / its injection. |
@@ -152,41 +153,51 @@ that project to the plugin:
 
 Both paths read the identical `modules/` source, so behavior is consistent across them.
 
-## Knowledge Graph (optional)
+## Memory store and Knowledge Graph
 
-The memory and RAG skills use a KG when a `kg_context` / `kg_query` tool is present, and
-degrade gracefully when it isn't. To connect one, set `kg_mcp_url` to your server's HTTP
-endpoint. Nothing is bundled by default, so no private endpoint ships in the plugin.
+The framework always has a **memory store**; the **Knowledge Graph is optional enrichment**
+layered on top of it — not a requirement.
+
+- **Memory store** — the configured `memory_path`. If none is set (the default), Claude Code's
+  own project memory directory is used as the store, structured per the framework's rules. There
+  is always a store, so memory works out of the box.
+- **Knowledge Graph** — when a `kg_context` / `kg_query` tool is present, the memory and RAG rules
+  use it for retrieval and paired writes; when it isn't, the memory store is canonical and
+  everything still works. To connect one, set `kg_mcp_url` to your server's HTTP endpoint — nothing
+  is bundled by default, so no private endpoint ships in the plugin.
+
+With `kg_mcp_url` blank (the default), the activation preamble says so explicitly and points the
+model at the memory store, rather than asserting KG tools that aren't there.
 
 ### Tiered memory retrieval
 
-Under Claude Code, Claude can reach several memory stores at once: its own built-in
-file-based memory, the framework's memory files, and — when connected — the Knowledge Graph.
-Left to its defaults it reflexively uses native memory and ignores the rest. The framework
-defines a **tiered order** instead, applied on both recall and write. The always-on
+Left to its defaults, Claude writes ad-hoc one-off notes and ignores any structured store. The
+framework defines a **tiered order** instead, applied on both recall and write. The always-on
 activation preamble enforces it; without always-on injection it is best-effort.
 
 **Recall (read) — stop at the first tier that answers:**
 
 1. **In-context index** — anything already loaded (a memory index, prior turns). Free; scan first.
-2. **Knowledge Graph** — `kg_context("<task>")` before non-trivial work, or `kg_query("<topic>")`
-   for a specific lookup. The KG is *not* auto-loaded, so it must be queried explicitly; this is
-   where most durable knowledge (decisions, patterns, gotchas, facts) lives.
-3. **Framework memory files** — the narrative store under `memory_path`.
-4. **Broad search / web / ask the user** — only after 1–3 miss.
+2. **Knowledge Graph (when connected)** — `kg_context("<task>")` before non-trivial work, or
+   `kg_query("<topic>")` for a specific lookup. The KG is *not* auto-loaded, so it must be queried
+   explicitly; when present, this is where most durable knowledge (decisions, patterns, gotchas,
+   facts) lives.
+3. **Memory store** — the configured `memory_path`, or Claude Code's project memory directory when
+   none is set.
+4. **Broad search / web / ask the user** — only after the tiers above miss.
 
 The common failure this prevents: grepping a local file, finding nothing, and concluding "there's
-nothing in memory" when the KG actually had it.
+nothing in memory" when a connected KG actually had it.
 
-**Write (persist) — paired writes for durable knowledge:**
+**Write (persist) — durable knowledge:**
 
-- Write the narrative to the framework memory file (and its index), **and**
-- add a compact node with `kg_add`, linked to related nodes with `kg_link`.
+- Write the narrative to the memory store (and its index), **and**
+- *when a KG is connected*, also add a compact node with `kg_add`, linked with `kg_link`.
 
-Both writes matter: `kg_context` reads the KG at the start of future tasks, so a fact saved only
-to a file is invisible across sessions. Trivial one-line preferences (e.g. "don't do X") can stay
-in the memory file alone. When no KG tool is connected this tier is skipped silently — the file
-write still happens, and work never blocks waiting on the KG.
+When a KG is present both writes matter: `kg_context` reads the KG at the start of future tasks, so
+a fact saved only to a file is invisible across sessions. When no KG is connected, the store write
+is the whole job — the KG step is skipped silently and work never blocks waiting on a KG. Trivial
+one-line preferences (e.g. "don't do X") can stay in the memory store alone.
 
 > **Note:** the KG MCP tools may be exposed as *deferred* tools — Claude must load their schema
 > via a tool-search step before the first call. The activation preamble explicitly tells Claude

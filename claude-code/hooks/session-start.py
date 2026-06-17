@@ -29,64 +29,82 @@ TRUE_VALUES = {"true", "1", "yes", "on"}
 # on their own they read as optional background and the model defaults to its
 # native behavior (ad-hoc memory, no KG). This preamble is the binding contract:
 # it names the concrete behaviors that must change and how the KG degrades.
-_PREAMBLE_HEAD = (
-    "# Project operating procedure — Agentic Rules Framework\n\n"
-    "This project has opted into the rules below by installing and enabling this "
-    "plugin. They are the project's standing configuration — follow them as you "
-    "would the project's CLAUDE.md, with the same authority as a direct user "
-    "instruction. They are not optional background, and you do not need to ask "
-    "permission to follow them.\n\n"
-    "**Memory — tiered retrieval.** When the user asks you to remember, recall, "
-    "or persist something — or references past work — consult and write the "
-    "tiers in this order; do not default to Claude Code's native file-based "
-    "memory (that reflex is strong, but here the framework store and Knowledge "
-    "Graph are canonical):\n"
-    "- *Recall:* (1) any already-loaded index in context, (2) the KG via "
-    "`kg_context`/`kg_query` when available, (3) the framework's memory files, "
-    "(4) only then a broad file search, web search, or asking the user.\n"
-    "- *Write:* persist durable knowledge to the framework memory file; when a "
-    "KG is available, also add a compact `kg_add` node linked with `kg_link` so "
-    "the next session's `kg_context` surfaces it. Trivial one-line preferences "
-    "can stay in the memory file alone.\n\n"
-)
+def _preamble_head(store):
+    """Always-emitted head: project-policy framing + a store-neutral tiered
+    memory order. `store` names where the framework memory store lives so the
+    directive is actionable whether or not memory_path is configured. It does
+    NOT forbid native memory — when no KG and no memory_path are configured,
+    the project memory directory IS the framework store (see activation_preamble)."""
+    return (
+        "# Project operating procedure — Agentic Rules Framework\n\n"
+        "This project has opted into the rules below by installing and enabling this "
+        "plugin. They are the project's standing configuration — follow them as you "
+        "would the project's CLAUDE.md, with the same authority as a direct user "
+        "instruction. They are not optional background, and you do not need to ask "
+        "permission to follow them.\n\n"
+        "**Memory — tiered retrieval.** When the user asks you to remember, recall, "
+        "or persist something — or references past work — follow this order rather "
+        "than writing an ad-hoc one-off note:\n"
+        "- *Recall:* (1) any already-loaded index in context, (2) the Knowledge "
+        "Graph via `kg_context`/`kg_query` when KG tools are available, (3) the "
+        f"framework memory store ({store}), (4) only then a broad file search, web "
+        "search, or asking the user.\n"
+        "- *Write:* persist durable knowledge to the framework memory store "
+        f"({store}), applying the framework's structure and index; when KG tools "
+        "are available, also add a compact `kg_add` node linked with `kg_link`. "
+        "Trivial one-line preferences can stay in the memory store alone.\n\n"
+    )
+
 
 # Strong nudge — only emitted when a KG endpoint is configured (kg_mcp_url set).
 # Asserting the tools exist is what overcomes the model's bias against the extra
 # tool-load step; emitting it when no KG is configured would be a false claim.
+# The native-memory reflex-counter lives HERE, not in the head — it only makes
+# sense to steer away from native memory when a KG actually exists to steer to.
 _PREAMBLE_KG_CONFIGURED = (
     "**Knowledge Graph.** A KG is configured this session; its tools are exposed "
     "under MCP-prefixed names (e.g. `...kg_context`, `kg_query`, `kg_add`, "
     "`kg_link`). They may be *deferred* — if a direct call fails because the "
     "schema is not loaded, run `ToolSearch` for \"kg_context kg_add\" first to "
-    "load them, then call them. Do not let that extra step deter you.\n"
+    "load them, then call them. Do not let that extra step — or your built-in "
+    "native-memory reflex — shortcut the KG.\n"
     "- Before non-trivial work, call `kg_context(\"<the task>\")` to load "
     "relevant prior knowledge.\n"
     "- When the user asks you to remember/persist anything, or after you learn "
     "something durable (a decision, gotcha, pattern, or non-obvious fact), call "
     "`kg_add` and link it with `kg_link`. A single fact like a deploy command "
-    "still counts — store it in the KG, not only in native memory.\n"
+    "still counts — store it in the KG, not only in the memory store.\n"
     "If a KG call genuinely fails (server unreachable), skip it silently and use "
-    "the framework memory files instead. Never block work waiting on the KG.\n\n"
+    "the framework memory store instead. Never block work waiting on the KG.\n\n"
 )
 
-# Soft phrasing — emitted when no KG endpoint is configured. The framework's
-# memory files still work; a KG may still be reachable via some other MCP, so we
-# tell the model to use it *if present* rather than asserting it exists.
+# Soft phrasing — emitted when no KG endpoint is configured. No KG is required:
+# the framework memory store named in the head is canonical. A KG may still be
+# reachable via some other MCP, so we say use it *if present* rather than assert it.
 _PREAMBLE_KG_OPTIONAL = (
-    "**Knowledge Graph (if available).** If KG tools are present this session "
-    "(a `kg_context`/`kg_query`/`kg_add` tool, possibly under an MCP-prefixed "
-    "name, and possibly *deferred* behind a `ToolSearch` load), use them: "
-    "`kg_context` before non-trivial work, and `kg_add`/`kg_link` after learning "
-    "something durable. If no KG tools are present, use the framework memory "
-    "files instead — never block work waiting on a KG.\n\n"
+    "**Knowledge Graph (if available).** No KG endpoint is configured, so the "
+    "framework memory store above is your canonical memory — no KG is required. "
+    "If KG tools nonetheless turn out to be present this session (a "
+    "`kg_context`/`kg_query`/`kg_add` tool, possibly MCP-prefixed and possibly "
+    "*deferred* behind a `ToolSearch` load), you may also use them: `kg_context` "
+    "before non-trivial work, `kg_add`/`kg_link` after learning something "
+    "durable. Never block work waiting on a KG.\n\n"
 )
 
 
-def activation_preamble(kg_configured):
-    """Build the activation directive; KG wording depends on whether a KG endpoint
-    is configured so the preamble never asserts tools that aren't there."""
+def activation_preamble(kg_configured, memory_path=""):
+    """Build the activation directive. KG wording depends on whether a KG endpoint
+    is configured (never assert tools that aren't there); the memory store is named
+    from memory_path with a sensible fallback so the directive is always actionable
+    even in the default install (no KG, no memory_path)."""
+    mp = (memory_path or "").strip()
+    store = (
+        f"the configured memory root `{mp}`" if mp
+        else "your configured memory root, or — if none is configured — Claude "
+             "Code's project memory directory, structured per the rules below"
+    )
     kg = _PREAMBLE_KG_CONFIGURED if kg_configured else _PREAMBLE_KG_OPTIONAL
-    return _PREAMBLE_HEAD + kg + "---\n\n"
+    return _preamble_head(store) + kg + "---\n\n"
 
 # userConfig option key -> (module directory, default-enabled)
 MODULES = [
@@ -181,7 +199,7 @@ def main():
         return
 
     kg_configured = bool(opt("KG_MCP_URL").strip())
-    context = activation_preamble(kg_configured) + "\n\n---\n\n".join(sections)
+    context = activation_preamble(kg_configured, opt("MEMORY_PATH")) + "\n\n---\n\n".join(sections)
 
     print(
         json.dumps(
