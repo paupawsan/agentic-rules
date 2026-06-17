@@ -335,6 +335,24 @@ def injector_on_emits_valid_json_context():
 
 
 @test
+def preamble_kg_wording_tracks_configured_endpoint():
+    """The KG section must not assert tools exist when no kg_mcp_url is set —
+    that would be a false claim in the default (no-KG) install. With an endpoint
+    configured it uses the strong 'A KG is configured' nudge."""
+    without = injected_context({"always_on_injection": "true"})
+    assert "A KG is configured" not in without, \
+        "preamble falsely asserts a KG when kg_mcp_url is blank"
+    assert "Knowledge Graph (if available)" in without
+
+    withkg = injected_context({
+        "always_on_injection": "true",
+        "kg_mcp_url": "http://example.invalid/mcp",
+    })
+    assert "A KG is configured" in withkg
+    assert "Knowledge Graph (if available)" not in withkg
+
+
+@test
 def injector_no_root_is_silent():
     out, err, code = run_hook({"always_on_injection": "true"}, plugin_root=None)
     assert code == 0 and out == "", (code, out)
