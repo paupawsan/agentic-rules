@@ -156,7 +156,9 @@ The **Agentic Rules Framework** enhances AI agent capabilities through three spe
   bi-temporal database modeling for agent memory, inspired by
   [Zep's Graphiti](https://github.com/getzep/graphiti) (concept only — no code
   reused). See the [KG Implementation Guide](docs/KG_IMPLEMENTATION_GUIDE.md)
-  for the model, a database-backed implementation, and when (not) to use it.
+  for the model, a database-backed implementation, and when (not) to use it, and
+  the [before/after comparison](docs/TEMPORAL_KG_COMPARISON.md) for what changes
+  in practice.
 
 ### **For Users**
 - **Zero Configuration**: Works out-of-the-box with standard setup
