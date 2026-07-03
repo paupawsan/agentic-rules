@@ -25,6 +25,7 @@ This project has a **file-based memory** at `./memory/` in the project root. Thi
 A simple typed graph lives at `./memory/knowledge_graph/` (markdown, no server required).
 
 - When you learn a durable fact **with a relationship** (X depends on Y, X is part of Y, X supersedes Y), append a node and an edge to the markdown KG — `nodes` and `edges` tables, nodes typed `rule | pattern | fact | procedure | gotcha`.
+- **When knowledge changes, supersede — don't rewrite**: keep the old node, add the new one, and record an `X supersedes Y` edge with the date. Old versions stay readable as history (time-aware, bi-temporal KG).
 - Before non-trivial work, consult it for relevant prior knowledge.
 - If a `kg` MCP server is connected (the user opted to upgrade), use its tools instead and skip the markdown store.
 

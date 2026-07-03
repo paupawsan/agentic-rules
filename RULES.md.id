@@ -23,6 +23,7 @@ Proyek ini memiliki **memori berbasis file** di `./memory/` pada root proyek. In
 Graf bertipe sederhana berada di `./memory/knowledge_graph/` (markdown, tanpa server).
 
 - Ketika Anda mempelajari fakta tahan lama **dengan relasi** (X bergantung pada Y, X bagian dari Y, X menggantikan Y), tambahkan node dan edge ke KG markdown — tabel `nodes` dan `edges`, node bertipe `rule | pattern | fact | procedure | gotcha`.
+- **Ketika pengetahuan berubah, gantikan — jangan menulis ulang**: pertahankan node lama, tambahkan node baru, dan catat edge `X menggantikan Y` beserta tanggalnya. Versi lama tetap terbaca sebagai riwayat (KG sadar-waktu, bi-temporal).
 - Sebelum pekerjaan non-trivial, konsultasikan untuk pengetahuan sebelumnya yang relevan.
 - Jika server MCP `kg` terhubung (pengguna memilih untuk meningkatkan), gunakan tool-nya alih-alih penyimpanan markdown.
 

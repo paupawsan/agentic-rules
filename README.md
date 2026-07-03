@@ -150,6 +150,13 @@ The **Agentic Rules Framework** enhances AI agent capabilities through three spe
 - **🧷 Smart Linking**: Connects related concepts, files, and ideas automatically
 - **💬 Proactive Usage**: Uses KG insights in conversations without manual activation
 - **📈 Learning Evolution**: KGs grow smarter with continued usage
+- **⏳ Time-Aware Knowledge** *(v1.5.0)*: when knowledge changes, the old fact is
+  superseded — never deleted. Default retrieval returns only current knowledge;
+  history stays queryable ("what did we know on date X?"). An adaptation of
+  bi-temporal database modeling for agent memory, inspired by
+  [Zep's Graphiti](https://github.com/getzep/graphiti) (concept only — no code
+  reused). See the [KG Implementation Guide](docs/KG_IMPLEMENTATION_GUIDE.md)
+  for the model, a database-backed implementation, and when (not) to use it.
 
 ### **For Users**
 - **Zero Configuration**: Works out-of-the-box with standard setup

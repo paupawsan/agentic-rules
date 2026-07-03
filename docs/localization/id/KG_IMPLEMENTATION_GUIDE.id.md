@@ -353,4 +353,114 @@ Memori Dasar → Pelacakan Entitas → Pembentukan Hubungan → Konstruksi KG �
 
 ---
 
+## ⏳ **Model Pengetahuan Sadar-Waktu (Bi-Temporal)** *(v1.5.0)*
+
+Pengetahuan berubah. Target deploy berpindah, sebuah konvensi digantikan, sebuah keputusan dibatalkan. KG yang hanya *menambahkan* fakta pada akhirnya akan menempatkan pengetahuan usang di atas penggantinya — jawaban dengan prioritas tertinggi bisa jadi jawaban yang salah. Model temporal memperbaiki hal ini di lapisan data: **pengetahuan tidak pernah dihapus; pengetahuan digantikan (superseded).**
+
+### **Modelnya**
+
+Setiap node membawa dua dimensi waktu yang saling independen:
+
+| Field | Dimensi | Arti |
+|-------|---------|------|
+| `created_at` | waktu transaksi | kapan rekaman masuk ke KG |
+| `expired_at` | waktu transaksi | kapan rekaman dipensiunkan sebagai *pencatatan yang keliru* (`NULL` = aktif) |
+| `valid_at` | waktu peristiwa | kapan fakta menjadi benar di dunia nyata (default: `created_at`) |
+| `invalid_at` | waktu peristiwa | kapan fakta berhenti menjadi benar — diisi otomatis saat supersession (`NULL` = masih benar) |
+
+Aturan model:
+
+- **Gantikan, jangan edit.** Saat pengetahuan berubah, tambahkan node baru dengan edge `supersedes` ke node lama. Node lama diinvalidasi secara otomatis dan keluar dari hasil pengambilan default — tetapi isinya tidak tersentuh.
+- **Tampilan default = saat ini.** Query hanya mengembalikan pengetahuan yang valid *sekarang*. Node yang sudah digantikan, sudah dipensiunkan, atau belum berlaku disaring keluar; edge `supersedes` ditampilkan sebagai pointer beranotasi (`-> supersedes: old-id [invalidated <date>]`) alih-alih menyuntikkan kembali konten yang tersembunyi.
+- **Perjalanan waktu.** `as_of=<ISO date>` merekonstruksi apa yang benar pada saat itu — berguna untuk mengaudit *mengapa* sebuah keputusan masa lalu diambil dengan pengetahuan yang tersedia saat itu. `include_expired=true` menampilkan semuanya, dengan penanda `[SUPERSEDED by …]` / `[expired]`.
+- **Pensiun tanpa pengganti.** Saat sebuah fakta sekadar berhenti menjadi benar (tidak ada yang menggantikannya), pensiunkan sebagai `invalid`; saat sebuah rekaman salah sejak awal, pensiunkan sebagai `expired` (disembunyikan dari tampilan historis setelah saat itu). Keduanya dapat dibatalkan (`restore`) — tidak ada yang pernah dimusnahkan.
+- **Kebaruan sebagai pemecah seri (tie-breaker).** Pemeringkatan boleh menambahkan peluruhan eksponensial yang *lembut* berdasarkan waktu pembaruan terakhir (default waktu paruh 90 hari), dibatasi agar hanya menata ulang hasil yang nyaris seri dan tidak pernah mengalahkan relevansi.
+
+### **Mengapa memakainya — dan kapan tidak**
+
+**Manfaat:**
+- **Pengetahuan usang berhenti menang.** Kegagalan yang memotivasi model ini: sebuah fakta usang berprioritas tinggi terus mengungguli penggantinya sampai seseorang mengedit teks dan prioritasnya secara manual. Dengan supersession, fakta terkini muncul ke permukaan dan fakta lama menjadi pointer beranotasi — tanpa penurunan peringkat manual, tanpa menulis ulang sejarah.
+- **Auditabilitas.** "Apa yang kita yakini pada 10 Juni?" punya jawaban yang bisa di-query. Keputusan masa lalu dapat dinilai berdasarkan pengetahuan pada zamannya.
+- **Kontradiksi yang aman.** Dua fakta yang saling bertentangan dapat hidup berdampingan (edge `contradicts` mencatat konfliknya) sampai salah satunya menang lewat supersession — tidak ada penghapusan prematur atas pengetahuan yang mungkin saja benar.
+- **Reversibilitas.** Pensiun yang keliru cukup dipulihkan dengan satu `restore`; node yang dihapus hilang selamanya.
+
+**Biaya / kapan melewatkannya:**
+- **Disiplin jalur tulis.** Agen harus mempelajari "gantikan, jangan edit" — aturan dalam framework ini mengajarkannya, tetapi skrip ad-hoc yang menulis langsung ke penyimpanan dapat melewatinya.
+- **Pertumbuhan.** Riwayat terus menumpuk (tidak ada yang dihapus). Untuk KG skala personal/proyek (ratusan hingga puluhan ribu node) hal ini dapat diabaikan; pada skala yang lebih besar, arsipkan rantai supersession lama alih-alih menghapusnya.
+- **Tidak diperlukan untuk domain yang hanya bertambah (append-only).** Jika pengetahuan Anda tidak pernah berubah (mis. korpus referensi statis), penyaringan temporal hanya menambah field yang tidak akan pernah Anda isi — nilai default (`valid_at = created_at`, semuanya terkini) lalu berperilaku persis seperti KG non-temporal, jadi biayanya kecil, tetapi manfaatnya pun tidak ada.
+
+### **Asal-usul & Kredit**
+
+Ini adalah **adaptasi, bukan penemuan proyek ini**. Pemodelan bi-temporal (memisahkan *waktu valid* dari *waktu transaksi*) adalah praktik lama dalam basis data temporal (lihat mis. tabel temporal SQL:2011). Penerapannya pada KG memori agen AI — edge supersession, invalidasi tanpa kehilangan data, pengambilan point-in-time — dipopulerkan oleh mesin **Graphiti dari Zep**, yang menginspirasi desain ini. Framework ini hanya mengadaptasi *konsepnya*: tidak ada kode, skema, atau teks Graphiti yang digunakan ulang, itulah sebabnya tidak ada lisensi pihak ketiga yang menyertainya. Arah riset yang terkait tetapi berbeda adalah *penalaran/peramalan* KG temporal berbasis embedding (mis. RE-GCN, [arXiv:2104.10353](https://arxiv.org/abs/2104.10353)), yang memprediksi fakta masa depan dari snapshot KG; framework ini dengan sengaja tetap berada di lapisan penyimpanan/pengambilan — pengetahuan terkurasi masuk, pengambilan sadar-waktu yang deterministik keluar.
+
+### **Implementasi Berbasis Database (alih-alih markdown)**
+
+KG markdown (Tier di atas) adalah default tanpa infrastruktur. Ketika graf tumbuh melampaui apa yang masih nyaman ditangani dengan grep-and-read — atau ketika lebih dari satu proyek atau agen membutuhkan pengetahuan yang sama — pindahkan penyimpanan ke database. SQLite sudah cukup; tidak perlu proses server untuk memulai.
+
+**Skema** (SQLite; field temporalnya adalah tiga kolom nullable):
+
+```sql
+CREATE TABLE nodes (
+    id TEXT PRIMARY KEY,
+    type TEXT NOT NULL CHECK(type IN ('rule','pattern','fact','procedure','gotcha')),
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    scope TEXT NOT NULL DEFAULT 'global',
+    tags TEXT DEFAULT '',
+    priority INTEGER DEFAULT 5 CHECK(priority BETWEEN 1 AND 10),
+    source TEXT DEFAULT '',
+    created_at TEXT DEFAULT (datetime('now')),
+    updated_at TEXT DEFAULT (datetime('now')),
+    valid_at TEXT,      -- event time: fact became true (NULL -> treat as created_at)
+    invalid_at TEXT,    -- event time: fact stopped being true (set on supersession)
+    expired_at TEXT     -- transaction time: record retired as erroneous
+);
+
+CREATE TABLE edges (
+    source_id TEXT NOT NULL REFERENCES nodes(id) ON DELETE CASCADE,
+    target_id TEXT NOT NULL REFERENCES nodes(id) ON DELETE CASCADE,
+    relation TEXT NOT NULL CHECK(relation IN
+        ('applies_to','depends_on','part_of','related_to','supersedes','contradicts')),
+    weight REAL DEFAULT 0.5,
+    PRIMARY KEY (source_id, target_id, relation)
+);
+
+CREATE INDEX idx_nodes_invalid ON nodes(invalid_at);
+CREATE INDEX idx_nodes_expired ON nodes(expired_at);
+-- Optional retrieval upgrades: an FTS5 table over (title, content, tags) for BM25,
+-- and a vector table (e.g. sqlite-vec) for semantic search.
+```
+
+**Predikat visibilitas** (jantung dari perilaku temporal):
+
+```
+current view (default):   expired_at IS NULL AND invalid_at IS NULL
+                           AND (valid_at IS NULL OR valid_at <= now)
+as-of view (as_of = T):   (expired_at IS NULL OR expired_at > T)
+                           AND (valid_at IS NULL OR valid_at <= T)
+                           AND (invalid_at IS NULL OR invalid_at > T)
+```
+
+Terapkan predikat ini sebagai post-filter pada kandidat di kode aplikasi, bukan sebagai perbandingan string SQL ad-hoc — format timestamp yang campur aduk (`datetime('now')` vs ISO-8601 dengan offset) merusak pengurutan leksikografis. Normalisasikan semua penulisan melalui satu helper timestamp.
+
+**Semantik jalur tulis:**
+- `add(..., supersedes=old_id)` — dalam satu transaksi: sisipkan node baru, sisipkan edge `supersedes`, dan atur `old.invalid_at = new.valid_at` *hanya jika nilainya NULL* (jangan pernah menimpa riwayat yang sudah ada).
+- Edge `supersedes` yang dibuat sendirian menginvalidasi targetnya dengan cara yang sama; edge `contradicts` tidak menginvalidasi apa pun (catat konfliknya, selesaikan nanti).
+- `retire(id, mode)` — atur `invalid_at` (fakta berakhir) atau `expired_at` (rekaman salah); `restore` mengosongkan keduanya.
+
+**Memigrasikan database non-temporal yang sudah ada, di tempat:** gunakan murni `ALTER TABLE nodes ADD COLUMN …` (jangan pernah drop/buat ulang tabel — pembangunan ulang menetapkan ulang rowid SQLite dan diam-diam membuat tabel FTS/vektor yang di-join lewat rowid kehilangan sinkronisasi), lalu lakukan backfill satu kali: `UPDATE nodes SET valid_at = created_at WHERE valid_at IS NULL`. Buat migrasinya idempoten (periksa `PRAGMA table_info` terlebih dahulu) dan cadangkan file database sebelum eksekusi pertama.
+
+### **Meng-upgrade KG menjadi Server MCP — jalur yang direkomendasikan**
+
+Tangga kematangan yang alami adalah: **file markdown → database SQLite → server MCP** di depan database tersebut. Konversi ke MCP menjadi pilihan yang benar-benar baik begitu salah satu dari ini terpenuhi: (a) lebih dari satu proyek, mesin, atau agen membutuhkan pengetahuan yang sama, atau (b) Anda menginginkan kualitas pengambilan (BM25/semantik/reranking) yang lebih baik daripada grep. Alasan mengapa ini sepadan:
+
+- **Satu otak, banyak sesi.** Setiap proyek dan setiap sesi agen berbicara ke penyimpanan yang sama melalui set tool yang sama (`kg_context`, `kg_query`, `kg_add`, `kg_link`, `kg_retire`, `kg_get_node`, `kg_list`) — tidak ada salinan per proyek yang perlahan saling menyimpang.
+- **Aturannya sudah berbicara MCP.** File aturan framework ini menginstruksikan agen untuk mengutamakan tool MCP `kg` saat terhubung dan kembali (fallback) ke penyimpanan markdown saat tidak — konversi membutuhkan **nol perubahan aturan**, cukup konfigurasikan endpoint-nya (`kg_mcp_url` di plugin Claude Code).
+- **Peningkatan pengambilan tetap di sisi server.** Pencarian hibrida BM25+vektor, reranking, penyaringan temporal, peluruhan kebaruan — semuanya membaik di balik antarmuka tool tanpa menyentuh satu pun teks yang dilihat agen.
+- **Penulisan tervalidasi skema.** Parameter tool (tipe, relasi yang valid, batas prioritas) ditegakkan di batas sistem, alih-alih sekadar diharapkan terjaga pada penyuntingan file.
+
+Kapan *tidak* perlu konversi: satu proyek dengan KG kecil dan tanpa keinginan menjalankan sebuah proses — penyimpanan markdown berada dalam kontrol versi bersama repo, dapat di-diff saat code review, dan tidak memerlukan instalasi apa pun. Kesederhanaan itu layak dipertahankan sampai kebutuhan berbagi atau kualitas pengambilan benar-benar menjadi masalah.
+
+---
+
 **Catatan Implementasi**: Panduan ini menyediakan algoritma logis dan pseudocode untuk implementasi KG. Agen harus menyesuaikan pola ini dengan kemampuan dan kendala lingkungan spesifik mereka. Tujuannya adalah memastikan fungsi KG bekerja seamlessly untuk pengguna akhir terlepas dari pendekatan implementasi agen yang mendasari.
