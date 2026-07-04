@@ -1,6 +1,6 @@
 # Knowledge Graph Temporal — Perbandingan Sebelum/Sesudah
 
-> Pendamping bagian [Model Pengetahuan Sadar-Waktu (Bi-Temporal)](KG_IMPLEMENTATION_GUIDE.id.md)
+> Pendamping bagian [Model Pengetahuan Sadar-Waktu (Bi-Temporal)](KG_IMPLEMENTATION_GUIDE.id.md#-model-pengetahuan-sadar-waktu-bi-temporal-v150)
 > pada Panduan Implementasi KG. Dokumen ini menunjukkan perbedaan *perilaku*
 > antara KG konvensional (non-temporal) dan model temporal v1.5.0,
 > menggunakan uji A/B yang dapat direproduksi dan validasi produksi nyata.
@@ -125,4 +125,4 @@ Riwayat terus terakumulasi — tidak ada yang dihapus (dapat diabaikan pada skal
 personal/proyek; arsipkan rantai yang telah digantikan jika graf tumbuh sangat
 besar). Agen harus mengikuti prinsip *supersede, jangan sunting*; aturan v1.5.0 dan
 preamble aktivasi Claude Code mengajarkan persis hal itu. Lihat
-[kapan (tidak) menggunakan model temporal](KG_IMPLEMENTATION_GUIDE.id.md).
+[kapan (tidak) menggunakan model temporal](KG_IMPLEMENTATION_GUIDE.id.md#mengapa-memakainya--dan-kapan-tidak).

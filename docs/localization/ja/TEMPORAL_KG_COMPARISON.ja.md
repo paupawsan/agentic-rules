@@ -1,6 +1,6 @@
 # 時間対応ナレッジグラフ — 導入前後の比較
 
-> KG実装ガイドの[時間対応（バイテンポラル）ナレッジモデル](KG_IMPLEMENTATION_GUIDE.ja.md)
+> KG実装ガイドの[時間対応（バイテンポラル）ナレッジモデル](KG_IMPLEMENTATION_GUIDE.ja.md#-時間認識バイテンポラルナレッジモデル-v150)
 > セクションの補足ドキュメントです。本ドキュメントは、従来型（非時間対応）のKGと
 > v1.5.0の時間対応モデルとの*振る舞い*の違いを、再現可能なA/Bテストと
 > 実運用環境での検証によって示します。
@@ -123,4 +123,4 @@ Supersession chain: stale-example -> current-example (newest last)
 程度です。グラフが非常に大きくなった場合は superseded なチェーンをアーカイブして
 ください）。エージェントは*編集ではなく supersede*の原則に従う必要があります。
 v1.5.0のルールと Claude Code の活性化プリアンブルがまさにそれを教えます。
-[時間対応モデルを使うべき（使うべきでない）場面](KG_IMPLEMENTATION_GUIDE.ja.md)を参照してください。
+[時間対応モデルを使うべき（使うべきでない）場面](KG_IMPLEMENTATION_GUIDE.ja.md#使う理由そして使わない場合)を参照してください。

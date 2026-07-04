@@ -616,7 +616,7 @@ Seven tools form the runtime interface:
 | `kg_context` | Load rules, patterns, and gotchas relevant to a task description. Call once before non-trivial work. Accepts `as_of` / `include_expired` for historical views. | `Semantic_Graph_Query` (task-scoped) |
 | `kg_query` | Free-text search across the graph. Accepts `as_of` / `include_expired`. | `Semantic_Graph_Query` (query-scoped) |
 | `kg_get_node` | Fetch one node by id, with its edges, temporal status, and supersession chain. | graph traversal / node lookup |
-| `kg_add` | Persist a new node (rule, pattern, fact, procedure, gotcha). Accepts `valid_from` / `valid_until` and `supersedes=<old-id>` to replace outdated knowledge atomically. | `Incremental_Graph_Builder` (add node) |
+| `kg_add` | Persist a new node (rule, pattern, fact, procedure, gotcha). Accepts `valid_from` / `valid_until` — the call-time parameter names for the stored `valid_at` / `invalid_at` event-time fields — and `supersedes=<old-id>` to replace outdated knowledge atomically. | `Incremental_Graph_Builder` (add node) |
 | `kg_link` | Create an edge between two nodes. A `supersedes` edge invalidates its target; `contradicts` records a conflict without hiding either side. | `Incremental_Graph_Builder` (add edge) |
 | `kg_retire` | End a fact that has no replacement (`invalid`), retract an erroneous record (`expired`), or undo either (`restore`). Never deletes. | `Adaptive_Graph_Maintenance` (non-lossy retirement) |
 | `kg_list` | Browse nodes by type or scope (global / project); `include_expired` shows retired history, marked. | graph enumeration |

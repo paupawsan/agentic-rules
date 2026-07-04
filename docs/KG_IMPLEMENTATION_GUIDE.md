@@ -563,6 +563,9 @@ comparison — mixed timestamp formats (`datetime('now')` vs ISO-8601 with offse
 lexicographic ordering. Normalize all writes through one timestamp helper.
 
 **Write-path semantics:**
+- `add(..., valid_from=…, valid_until=…)` — call-time parameter names that set the
+  stored `valid_at` / `invalid_at` event-time fields (one documented convention:
+  `*_from`/`*_until` on the write API, `*_at` in storage); retroactive facts allowed.
 - `add(..., supersedes=old_id)` — in one transaction: insert the new node, insert the
   `supersedes` edge, and set `old.invalid_at = new.valid_at` *only if it is NULL*
   (never overwrite existing history).
