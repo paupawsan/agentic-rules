@@ -296,6 +296,13 @@ These tools are optional and follow the same consent boundary as file-based memo
 - **User-guided cleanup** - Interactive process requiring explicit consent
 - **Agent notifications** - Remind users about memories exceeding retention guidelines
 
+**Supersession over edit** *(aligns file memory with the time-aware KG model)*:
+When stored knowledge changes — a decision is reversed, a fact becomes outdated, a
+convention is replaced — do not rewrite or delete the old memory entry. Write the new
+entry, and note in it what it replaces (and, when a `kg` server is connected, record the
+replacement with `kg_add(..., supersedes=<old-id>)`). The old entry remains as history:
+it explains *why* past decisions were made with the knowledge available at the time.
+
 ## Memory Categories
 
 ### Technical Memory

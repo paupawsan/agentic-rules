@@ -2,6 +2,15 @@
 
 All notable changes to the Agentic Rules Framework.
 
+## [1.5.0] - 2026-07-04
+
+### Added
+
+- **Time-aware (bi-temporal) Knowledge Graph.** When knowledge changes, the old node is *superseded* — never edited or deleted. Nodes carry event time (`valid_at`/`invalid_at`) alongside transaction time (`created_at`/`expired_at`); default retrieval returns only current knowledge, `as_of=<date>` reconstructs what was true at any moment, and `include_expired` shows full history with `[SUPERSEDED by …]`/`[expired]` markers. An adaptation of bi-temporal database modeling for agent memory, inspired by Zep's Graphiti (concept only — no code reused). Documented in [KG_IMPLEMENTATION_GUIDE.md](KG_IMPLEMENTATION_GUIDE.md), including a database-backed (SQLite) reference schema and guidance on when (not) to adopt the temporal model and when to upgrade the KG to an MCP server.
+- **Supersede-over-edit rule** in the root rules (en/ja/id), the rag-rules KG algorithms (`Incremental_Graph_Builder` resolves contradictions by supersession; `Semantic_Graph_Query` gains temporal view resolution; `Adaptive_Graph_Maintenance` is non-lossy), the memory-rules cleanup policy, and the Claude Code activation preamble (KG-configured branch instructs `kg_add` with `supersedes=<old-id>`).
+- **`kg_retire` tool** documented in the rag-rules tool table: end a fact with no replacement (`invalid`), retract an erroneous record (`expired`), or undo either (`restore`).
+- **`knowledge_graph.temporal` settings block** in rag-rules settings (bi-temporal tracking, supersede-over-edit, current-view default, as-of queries, recency ranking with 90-day half-life).
+
 ## [1.4.2] - 2026-06-18
 
 ### Fixed

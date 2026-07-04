@@ -76,7 +76,7 @@
 3. 抽出された要素間のセマンティック関係を識別 / Identify semantic relationships between extracted elements
 4. 新しい接続とパターンでランタイム知識グラフを更新 / Update runtime knowledge graph with new connections and patterns
 5. 頻度と新しさに基づいて既存の関係性を強化 / Strengthen existing relationships based on frequency and recency
-6. グラフ効率を維持するために古くなった弱い接続ノードをプルーニング / Prune outdated or weakly connected nodes to maintain graph efficiency
+6. 古くなった・接続の弱いノードは置き換え済み/無効としてマークして退役させる — 削除はしない。古い知識は履歴として参照可能のまま（時間対応・バイテンポラル KG） / Retire outdated or weakly connected nodes by marking them superseded/invalid — never delete them; old knowledge stays queryable as history (time-aware, bi-temporal KG)
 7. 永続性のためにグラフ状態を保存 / Store graph state for persistence across sessions
 
 **実装 / Implementation**:
@@ -98,7 +98,7 @@
 アルゴリズム: Incremental_Graph_Builder / Algorithm: Incremental_Graph_Builder
 1. タイプと属性メタデータを持つノードとして新しいエンティティを追加 / Add new entities as nodes with type and attribute metadata
 2. 信頼度メタデータを持つ有向/無向エッジとして関係を追加 / Add relationships as directed/undirected edges with confidence metadata
-3. グラフの一貫性チェックと最適化を適用 / Apply graph consistency checks and optimization
+3. グラフの一貫性チェックと最適化を適用。矛盾は置き換え（新ノード + supersedes エッジ + 旧ノードの無効化）で解決し、削除では解決しない / Apply graph consistency checks and optimization; resolve contradictions by supersession (new node + "supersedes" edge + invalidate the old node), never by deletion
 4. タイムスタンプメタデータでグラフ状態を永続化 / Persist graph state with timestamp metadata:
    - memory_rules.enabled = trueの場合: 永続的なメモリシステムに保存 / If memory_rules.enabled = true: Store in persistent memory system
    - memory_rules.enabled = falseの場合: セッション専用コンテキストに保存 / If memory_rules.enabled = false: Store in session-only context
@@ -119,14 +119,15 @@
 **実装 / Implementation**:
 ```
 アルゴリズム: Semantic_Graph_Query / Algorithm: Semantic_Graph_Query
+0. 時間ビューの解決: デフォルト = 現在の知識のみ（置き換え済み・失効ノードは除外）。as_of=<日付> で当時の状態を再構成。include_expired で全件をマーカー付きで表示 / Resolve temporal view: default = current knowledge only (exclude superseded/expired nodes); as_of=<date> reconstructs what was true then; include_expired shows all, marked
 1. Structured_Entity_Extractionを使用してエンティティと意図のクエリを解析 / Parse query for entities and intent using Structured_Entity_Extraction
 2. 直接マッチングとグラフ走査を通じて関連ノードを識別 / Identify relevant nodes through direct matching and graph traversal
 3. 同義語拡張による意味的類似性マッチングを適用 / Apply semantic similarity matching with synonym expansion
-4. マルチファクター スコアリングを使用して結果をランク付け / Rank results using multi-factor scoring (match confidence + centrality + similarity)
+4. マルチファクター スコアリングを使用して結果をランク付け（一致信頼度 + 中心性 + 類似度 + 緩やかな新しさ減衰） / Rank results using multi-factor scoring (match confidence + centrality + similarity + gentle recency decay)
 5. 説明メタデータ付きのトップランク結果を返す / Return top-ranked results with explanation metadata
 
 アルゴリズム: Adaptive_Graph_Maintenance / Algorithm: Adaptive_Graph_Maintenance
-1. 使用パターンを分析し、エイジング/プルーニングルールを適用 / Analyze usage patterns and apply aging/pruning rules
+1. 使用パターンを分析し、エイジングルールを適用（古い知識は無効化する — 削除はしない） / Analyze usage patterns and apply aging rules (invalidate outdated knowledge — never delete it)
 2. グラフ再構築と最適化を実行 / Perform graph restructuring and optimization
 3. 更新されたインデックスでクエリパフォーマンスを最適化 / Optimize for query performance with updated indices
 4. 最適化されたグラフ状態を永続化 / Persist optimized graph state:

@@ -428,4 +428,186 @@ Fallback: Skip analysis when fewer than 2 overlays exist
 
 ---
 
+## ⏳ **Time-Aware (Bi-Temporal) Knowledge Model** *(v1.5.0)*
+
+Knowledge changes. A deploy target moves, a convention is replaced, a decision is
+reversed. A KG that only *adds* facts eventually ranks stale knowledge above its
+replacement — the highest-priority answer can be the wrong one. The temporal model
+fixes this at the data layer: **knowledge is never deleted; it is superseded.**
+
+### The model
+
+Every node carries two independent time dimensions:
+
+| Field | Dimension | Meaning |
+|-------|-----------|---------|
+| `created_at` | transaction time | when the record entered the KG |
+| `expired_at` | transaction time | when the record was retired as *erroneous bookkeeping* (`NULL` = live) |
+| `valid_at` | event time | when the fact became true in the world (defaults to `created_at`) |
+| `invalid_at` | event time | when the fact stopped being true — set automatically on supersession (`NULL` = still true) |
+
+Rules of the model:
+
+- **Supersede, don't edit.** When knowledge changes, add the new node with a
+  `supersedes` edge to the old one. The old node is invalidated automatically and
+  drops out of default retrieval — but its content is untouched.
+- **Default view = current.** Queries return only knowledge that is valid *now*.
+  Superseded, retired, and not-yet-valid nodes are filtered out; a `supersedes`
+  edge renders as an annotated pointer (`-> supersedes: old-id [invalidated <date>]`)
+  instead of re-injecting hidden content.
+- **Time travel.** `as_of=<ISO date>` reconstructs what was true at that moment —
+  useful for auditing *why* a past decision was made with the knowledge available
+  then. `include_expired=true` shows everything, with `[SUPERSEDED by …]` /
+  `[expired]` markers.
+- **Retirement without replacement.** When a fact simply stops being true
+  (nothing replaces it), retire it as `invalid`; when a record was wrong from the
+  start, retire it as `expired` (hidden from historical views after that instant).
+  Both are reversible (`restore`) — nothing is ever destroyed.
+- **Recency as a tie-breaker.** Ranking may add a *gentle* exponential decay on
+  last-update time (default half-life 90 days), bounded so it re-orders near-ties
+  and never outweighs relevance.
+
+### Why use it — and when not to
+
+**Benefits:**
+- **Stale knowledge stops winning.** The motivating failure: a high-priority
+  outdated fact kept outranking its replacement until someone hand-edited its text
+  and priority. With supersession, the current fact surfaces and the old one becomes
+  an annotated pointer — no manual demotion, no rewriting history.
+- **Auditability.** "What did we believe on June 10th?" has a queryable answer.
+  Past decisions can be judged against the knowledge of their time.
+- **Safe contradictions.** Two conflicting facts can coexist (a `contradicts`
+  edge records the conflict) until one side wins by supersession — no premature
+  deletion of possibly-correct knowledge.
+- **Reversibility.** A mistaken retirement is one `restore` away; a deleted node
+  is gone forever.
+
+**Costs / when to skip it:**
+- **Write-path discipline.** Agents must learn "supersede, don't edit" — the rules
+  in this framework teach it, but ad-hoc scripts writing to the store can bypass it.
+- **Growth.** History accumulates (nothing is deleted). For personal/project-scale
+  KGs (hundreds to tens of thousands of nodes) this is negligible; at larger scale,
+  archive old superseded chains instead of deleting.
+- **Not needed for append-only domains.** If your knowledge never changes
+  (e.g. a static reference corpus), temporal filtering adds fields you'll never set —
+  the defaults (`valid_at = created_at`, everything current) then behave exactly like
+  a non-temporal KG, so it costs little, but it also buys nothing.
+
+### Origins & credits
+
+This is an **adaptation, not an invention of this project**. Bi-temporal modeling
+(separating *valid time* from *transaction time*) is long-standing temporal-database
+practice (see e.g. SQL:2011 temporal tables). Applying it to an AI agent's memory
+KG — supersession edges, non-lossy invalidation, point-in-time retrieval — was
+popularized by **Zep's Graphiti** engine, which inspired this design. The framework
+adapts the *concept only*: no Graphiti code, schema, or text is reused, which is why
+no third-party license accompanies it. A related but different research direction is
+embedding-based temporal-KG *reasoning/forecasting* (e.g. RE-GCN,
+[arXiv:2104.10353](https://arxiv.org/abs/2104.10353)), which predicts future facts
+from KG snapshots; this framework deliberately stays at the storage/retrieval layer —
+curated knowledge in, deterministic time-aware retrieval out.
+
+### Database-backed implementation (instead of markdown)
+
+The markdown KG (Tiers above) is the zero-infrastructure default. When the graph
+grows past what grep-and-read handles comfortably — or when more than one project or
+agent needs the same knowledge — move the store to a database. SQLite is enough; no
+server process is required to start.
+
+**Schema** (SQLite; the temporal fields are the three nullable columns):
+
+```sql
+CREATE TABLE nodes (
+    id TEXT PRIMARY KEY,
+    type TEXT NOT NULL CHECK(type IN ('rule','pattern','fact','procedure','gotcha')),
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    scope TEXT NOT NULL DEFAULT 'global',
+    tags TEXT DEFAULT '',
+    priority INTEGER DEFAULT 5 CHECK(priority BETWEEN 1 AND 10),
+    source TEXT DEFAULT '',
+    created_at TEXT DEFAULT (datetime('now')),
+    updated_at TEXT DEFAULT (datetime('now')),
+    valid_at TEXT,      -- event time: fact became true (NULL -> treat as created_at)
+    invalid_at TEXT,    -- event time: fact stopped being true (set on supersession)
+    expired_at TEXT     -- transaction time: record retired as erroneous
+);
+
+CREATE TABLE edges (
+    source_id TEXT NOT NULL REFERENCES nodes(id) ON DELETE CASCADE,
+    target_id TEXT NOT NULL REFERENCES nodes(id) ON DELETE CASCADE,
+    relation TEXT NOT NULL CHECK(relation IN
+        ('applies_to','depends_on','part_of','related_to','supersedes','contradicts')),
+    weight REAL DEFAULT 0.5,
+    PRIMARY KEY (source_id, target_id, relation)
+);
+
+CREATE INDEX idx_nodes_invalid ON nodes(invalid_at);
+CREATE INDEX idx_nodes_expired ON nodes(expired_at);
+-- Optional retrieval upgrades: an FTS5 table over (title, content, tags) for BM25,
+-- and a vector table (e.g. sqlite-vec) for semantic search.
+```
+
+**Visibility predicate** (the heart of the temporal behavior):
+
+```
+current view (default):   expired_at IS NULL AND invalid_at IS NULL
+                           AND (valid_at IS NULL OR valid_at <= now)
+as-of view (as_of = T):   (expired_at IS NULL OR expired_at > T)
+                           AND (valid_at IS NULL OR valid_at <= T)
+                           AND (invalid_at IS NULL OR invalid_at > T)
+```
+
+Apply it as a post-filter on candidates in application code, not as ad-hoc SQL string
+comparison — mixed timestamp formats (`datetime('now')` vs ISO-8601 with offset) break
+lexicographic ordering. Normalize all writes through one timestamp helper.
+
+**Write-path semantics:**
+- `add(..., valid_from=…, valid_until=…)` — call-time parameter names that set the
+  stored `valid_at` / `invalid_at` event-time fields (one documented convention:
+  `*_from`/`*_until` on the write API, `*_at` in storage); retroactive facts allowed.
+- `add(..., supersedes=old_id)` — in one transaction: insert the new node, insert the
+  `supersedes` edge, and set `old.invalid_at = new.valid_at` *only if it is NULL*
+  (never overwrite existing history).
+- A `supersedes` edge created on its own invalidates its target the same way;
+  a `contradicts` edge invalidates nothing (record the conflict, resolve later).
+- `retire(id, mode)` — set `invalid_at` (fact ended) or `expired_at` (record was
+  wrong); `restore` clears both.
+
+**Migrating an existing non-temporal database in place:** use pure
+`ALTER TABLE nodes ADD COLUMN …` (never drop/recreate the table — a rebuild
+reassigns SQLite rowids and silently desyncs any FTS/vector tables joined by rowid),
+then backfill once: `UPDATE nodes SET valid_at = created_at WHERE valid_at IS NULL`.
+Make the migration idempotent (check `PRAGMA table_info` first) and back up the
+database file before the first run.
+
+### Upgrading the KG to an MCP server — recommended path
+
+The natural maturity ladder is: **markdown files → SQLite database → MCP server**
+in front of that database. Converting to MCP is a genuinely good option once either
+of these is true: (a) more than one project, machine, or agent needs the same
+knowledge, or (b) you want retrieval quality (BM25/semantic/reranking) better than
+grep. Reasons it pays off:
+
+- **One brain, many sessions.** Every project and every agent session talks to the
+  same store through the same tool set (`kg_context`, `kg_query`, `kg_add`,
+  `kg_link`, `kg_retire`, `kg_get_node`, `kg_list`) — no per-project copies drifting
+  apart.
+- **The rules already speak MCP.** This framework's rule files instruct agents to
+  prefer `kg` MCP tools when connected and to fall back to the markdown store when
+  not — converting requires **zero rule changes**, just configuring the endpoint
+  (`kg_mcp_url` in the Claude Code plugin).
+- **Retrieval upgrades stay server-side.** Hybrid BM25+vector search, reranking,
+  temporal filtering, recency decay — all improve behind the tool interface without
+  touching any agent-facing text.
+- **Schema-validated writes.** Tool parameters (types, valid relations, priority
+  bounds) are enforced at the boundary instead of hoped-for in file edits.
+
+When *not* to convert: a single project with a small KG and no appetite for running
+a process — the markdown store is versioned with the repo, diffable in code review,
+and needs nothing installed. That simplicity is worth keeping until sharing or
+retrieval quality actually hurts.
+
+---
+
 **Implementation Note**: This guide provides logical algorithms and pseudocode for KG implementation. Agents should adapt these patterns to their specific capabilities and environment constraints. The goal is to ensure KG functionality works seamlessly for end users regardless of the underlying agent implementation approach.

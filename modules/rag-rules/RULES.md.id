@@ -76,7 +76,7 @@ Detail: `docs/FIRST_RUN_LOADING.md`
 3. Identifikasi hubungan semantik antara elemen yang diekstrak
 4. Perbarui grafik pengetahuan runtime dengan koneksi dan pola baru
 5. Perkuat hubungan yang ada berdasarkan frekuensi dan kedaluwarsa
-6. Pangkas node yang kedaluwarsa atau lemah terhubung untuk mempertahankan efisiensi grafik
+6. Pensiunkan node yang kedaluwarsa atau lemah terhubung dengan menandainya sebagai tergantikan/tidak berlaku — jangan pernah menghapusnya; pengetahuan lama tetap dapat di-query sebagai riwayat (KG sadar-waktu, bi-temporal)
 7. Simpan status grafik untuk persistensi di seluruh sesi
 
 **Implementasi**:
@@ -98,7 +98,8 @@ Algoritma: Pattern_Based_Relation_Extraction
 Algoritma: Incremental_Graph_Builder
 1. Tambahkan entitas baru sebagai node dengan metadata tipe dan atribut
 2. Tambahkan hubungan sebagai edge terarah/tidak terarah dengan metadata kepercayaan
-3. Terapkan pemeriksaan konsistensi grafik dan pengoptimalan
+3. Terapkan pemeriksaan konsistensi grafik dan pengoptimalan; selesaikan kontradiksi
+   dengan penggantian (node baru + edge "supersedes" + invalidasi node lama), bukan penghapusan
 4. Persistensi status grafik dengan metadata timestamp:
    - Jika memory_rules.enabled = true: Simpan di sistem memori persisten
    - Jika memory_rules.enabled = false: Simpan di konteks khusus sesi
@@ -119,14 +120,17 @@ Algoritma: Incremental_Graph_Builder
 **Implementasi**:
 ```
 Algoritma: Semantic_Graph_Query
+0. Selesaikan tampilan temporal: default = hanya pengetahuan saat ini (kecualikan node
+   tergantikan/kedaluwarsa); as_of=<tanggal> merekonstruksi apa yang benar saat itu;
+   include_expired menampilkan semua dengan penanda
 1. Parse query untuk entitas dan intent menggunakan Structured_Entity_Extraction
 2. Identifikasi node relevan melalui pencocokkan langsung dan traversal grafik
 3. Terapkan pencocokkan kesamaan semantik dengan ekspansi sinonim
-4. Peringkat hasil menggunakan penilaian multi-faktor (kepercayaan pencocokkan + pusat + kesamaan)
+4. Peringkat hasil menggunakan penilaian multi-faktor (kepercayaan pencocokkan + pusat + kesamaan + peluruhan kebaruan yang lembut)
 5. Kembalikan hasil peringkat teratas dengan metadata penjelasan
 
 Algoritma: Adaptive_Graph_Maintenance
-1. Analisis pola penggunaan dan terapkan aturan aging/pruning
+1. Analisis pola penggunaan dan terapkan aturan aging (invalidasi pengetahuan usang — jangan pernah menghapusnya)
 2. Lakukan restrukturisasi grafik dan pengoptimalan
 3. Optimalkan untuk performa query dengan indeks yang diperbarui
 4. Persistensi status grafik yang dioptimalkan:

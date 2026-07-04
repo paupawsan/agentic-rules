@@ -74,6 +74,9 @@ _PREAMBLE_KG_CONFIGURED = (
     "something durable (a decision, gotcha, pattern, or non-obvious fact), call "
     "`kg_add` and link it with `kg_link`. A single fact like a deploy command "
     "still counts — store it in the KG, not only in the memory store.\n"
+    "- When knowledge changes, supersede — call `kg_add` with "
+    "`supersedes=<old-id>` — don't overwrite or delete the old node; history "
+    "stays queryable via `as_of`.\n"
     "If a KG call genuinely fails (server unreachable), skip it silently and use "
     "the framework memory store instead. Never block work waiting on the KG.\n\n"
 )

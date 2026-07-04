@@ -607,24 +607,30 @@ Available Tools:
 
 ## Knowledge Graph Tools (`kg` MCP Server)
 
-The algorithms below describe the *logic* of KG construction and retrieval. When a `kg` MCP server is connected, agents do not re-implement that logic by hand — they call the server's tools, which perform multi-stage retrieval (BM25 ∥ semantic → score-aware fusion → cross-encoder rerank → edge-aware boost) and persistence on the agent's behalf. The in-document algorithms remain the fallback when no `kg` server is available.
+The algorithms below describe the *logic* of KG construction and retrieval. When a `kg` MCP server is connected, agents do not re-implement that logic by hand — they call the server's tools, which perform multi-stage retrieval (BM25 ∥ semantic → score-aware fusion → cross-encoder rerank → edge-aware boost → recency boost) and persistence on the agent's behalf. The in-document algorithms remain the fallback when no `kg` server is available.
 
-Six tools form the runtime interface:
+Seven tools form the runtime interface:
 
 | Tool | Purpose | Maps to algorithm |
 |------|---------|-------------------|
-| `kg_context` | Load rules, patterns, and gotchas relevant to a task description. Call once before non-trivial work. | `Semantic_Graph_Query` (task-scoped) |
-| `kg_query` | Free-text search across the graph. | `Semantic_Graph_Query` (query-scoped) |
-| `kg_get_node` | Fetch one node by id, with its edges. | graph traversal / node lookup |
-| `kg_add` | Persist a new node (rule, pattern, fact, procedure, gotcha). | `Incremental_Graph_Builder` (add node) |
-| `kg_link` | Create an edge between two nodes. | `Incremental_Graph_Builder` (add edge) |
-| `kg_list` | Browse nodes by type or scope (global / project). | graph enumeration |
+| `kg_context` | Load rules, patterns, and gotchas relevant to a task description. Call once before non-trivial work. Accepts `as_of` / `include_expired` for historical views. | `Semantic_Graph_Query` (task-scoped) |
+| `kg_query` | Free-text search across the graph. Accepts `as_of` / `include_expired`. | `Semantic_Graph_Query` (query-scoped) |
+| `kg_get_node` | Fetch one node by id, with its edges, temporal status, and supersession chain. | graph traversal / node lookup |
+| `kg_add` | Persist a new node (rule, pattern, fact, procedure, gotcha). Accepts `valid_from` / `valid_until` — the call-time parameter names for the stored `valid_at` / `invalid_at` event-time fields — and `supersedes=<old-id>` to replace outdated knowledge atomically. | `Incremental_Graph_Builder` (add node) |
+| `kg_link` | Create an edge between two nodes. A `supersedes` edge invalidates its target; `contradicts` records a conflict without hiding either side. | `Incremental_Graph_Builder` (add edge) |
+| `kg_retire` | End a fact that has no replacement (`invalid`), retract an erroneous record (`expired`), or undo either (`restore`). Never deletes. | `Adaptive_Graph_Maintenance` (non-lossy retirement) |
+| `kg_list` | Browse nodes by type or scope (global / project); `include_expired` shows retired history, marked. | graph enumeration |
 
 **When to use which**:
 - **Before a non-trivial task** → `kg_context("<what you're about to do>")` to pull relevant prior knowledge.
 - **Looking for something specific** → `kg_query("<free text>")`, then `kg_get_node` to expand a hit.
 - **After learning something durable** (a gotcha, a decided pattern, a non-obvious fact) → `kg_add`, then `kg_link` to connect it to related nodes so future `kg_context` calls surface it.
+- **When knowledge changes** → `kg_add` the new node with `supersedes=<old-id>`. Never rewrite the old node's content to say it is outdated, and never delete it — the old version stays queryable as history.
+- **When a fact simply stops being true** (nothing replaces it) → `kg_retire(id, mode="invalid")`; if a record was wrong from the start, `mode="expired"`.
+- **Auditing a past decision** → pass `as_of="<ISO date>"` to `kg_query`/`kg_context` to reconstruct what was known and true at that time.
 - **Auditing or browsing** → `kg_list` filtered by type/scope.
+
+**Temporal knowledge model** *(bi-temporal — valid time and transaction time, adapted from temporal-database practice; see `docs/KG_IMPLEMENTATION_GUIDE.md` for the full model and trade-offs)*: every node carries event time (`valid_at` → `invalid_at`: when the fact was true in the world) alongside transaction time (`created_at` → `expired_at`: when the record entered and left service). Default retrieval returns only the **current view**; superseded and retired knowledge is hidden from results but never deleted, and reappears under `as_of` or `include_expired`. This is what keeps stale high-priority facts from outranking their replacements.
 
 **Graceful degradation**: every tool is optional. If the `kg` server is absent, skip the call silently and fall back to the in-document algorithms and local context — never block work waiting on the KG. This mirrors the First-Run Procedure, which calls `kg_context` only "if the `kg_context` tool is available."
 
@@ -702,7 +708,10 @@ Output: Updated knowledge graph
    - Add as directed or undirected edges between nodes
    - Include relationship type and confidence metadata
 4. Apply graph consistency checks:
-   - Remove contradictory relationships
+   - Resolve contradictions by supersession, never by deletion:
+     - Add the corrected node, record a "supersedes" edge to the old one,
+       and mark the old node invalid from that moment (event time)
+     - Keep the old node readable as history (time-aware KG)
    - Merge redundant connections
    - Update node centrality measures
 5. Perform graph optimization:
@@ -743,6 +752,13 @@ Output: Ranked list of relevant information
    - IF NOT git-managed OR git_aware.enabled = false:
      - Use standard knowledge_graph (current behavior)
 
+0.5. Resolve temporal view (time-aware KG):
+   - Default: current view — exclude nodes that are superseded, retired,
+     or not yet valid; traversal must not re-inject excluded nodes
+     (render their supersedes edges as annotated pointers instead)
+   - IF as_of timestamp given: reconstruct the past — include nodes whose
+     validity window covers as_of, exclude ones recorded as erroneous before it
+   - IF include_expired: show everything, marking non-current nodes
 1. Parse query for entities and intent
 2. Identify relevant nodes through direct matching
 3. Expand search using graph traversal:
@@ -757,7 +773,9 @@ Output: Ranked list of relevant information
    - Direct match confidence
    - Graph centrality weight
    - Semantic similarity score
-   - Recency and frequency factors
+   - Recency and frequency factors: a gentle exponential half-life decay on
+     last-update time (bounded so it re-orders near-ties, never outweighs
+     relevance; skipped for as_of views)
 6. Return top-ranked results with explanation metadata
 ```
 
@@ -771,10 +789,11 @@ Output: Optimized knowledge graph
    - Track query frequency for nodes and edges
    - Monitor relationship strength changes
    - Identify emerging vs. decaying connections
-2. Apply aging and pruning rules:
+2. Apply aging rules (non-lossy — knowledge is invalidated, never destroyed):
    - Reduce confidence scores for unused elements
-   - Remove edges below minimum threshold
-   - Consolidate similar but unused nodes
+   - Retire outdated nodes by marking them invalid/expired so they leave
+     the default view but remain queryable as history
+   - Consolidate similar but unused nodes by supersession, keeping originals
 2.5. Overlay lifecycle management (git-aware mode):
    - IF knowledge_graph.git_aware.enabled:
      - Scan all branch overlays in knowledge_graph/overlays/

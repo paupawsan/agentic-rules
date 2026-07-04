@@ -2,7 +2,7 @@
   "$schema": "https://json-schemastore.org/claude-code-plugin-manifest.json",
   "name": "agentic-rules",
   "displayName": "Agentic Rules Framework",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "Structured behavioral rules for AI agents: persistent memory, RAG/context discipline, critical-thinking heuristics, and interaction unit-testing. Delivered as auto-invocable skills, with an optional always-on injector and a Knowledge Graph MCP server.",
   "author": {
     "name": "Paulus Ery Wasito Adhi",

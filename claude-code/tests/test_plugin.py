@@ -156,10 +156,22 @@ def mcp_no_hardcoded_private_ip():
 
 
 @test
-def dev_mcp_stays_at_repo_root_only():
-    # The repo-root .mcp.json (dev config) must remain and must NOT be inside the plugin.
-    assert os.path.isfile(os.path.join(REPO, ".mcp.json"))
-    assert "100.114" in read(".mcp.json"), "dev .mcp.json should keep the dev endpoint"
+def dev_mcp_stays_out_of_the_shipped_plugin():
+    """The dev KG endpoint now comes from the plugin's kg_mcp_url user config
+    (settings.json pluginConfigs + env), not a repo-root .mcp.json — the root
+    file is optional. What must hold: if a root .mcp.json exists it is
+    gitignored (private dev endpoints never ship to the public repo)."""
+    root_mcp = os.path.join(REPO, ".mcp.json")
+    if not os.path.isfile(root_mcp):
+        print("    (no repo-root .mcp.json — dev endpoint rides kg_mcp_url; nothing to leak)")
+        return
+    if shutil.which("git") and os.path.isdir(os.path.join(REPO, ".git")):
+        proc = subprocess.run(
+            ["git", "check-ignore", ".mcp.json"], cwd=REPO,
+            capture_output=True, text=True,
+        )
+        assert proc.returncode == 0, \
+            "repo-root .mcp.json (dev endpoints) must stay gitignored"
 
 
 @test
@@ -350,6 +362,22 @@ def preamble_kg_wording_tracks_configured_endpoint():
     })
     assert "A KG is configured" in withkg
     assert "Knowledge Graph (if available)" not in withkg
+
+
+@test
+def preamble_kg_supersede_guidance_tracks_configured_endpoint():
+    """The temporal supersede directive rides the strong KG nudge: present when a
+    KG endpoint is configured (its tools accept supersedes=), absent otherwise —
+    directing supersedes= at a nonexistent server would be a false claim."""
+    withkg = injected_context({
+        "always_on_injection": "true",
+        "kg_mcp_url": "http://example.invalid/mcp",
+    })
+    assert "supersede" in withkg and "supersedes=<old-id>" in withkg, \
+        "configured-KG preamble must carry the supersede-over-edit directive"
+
+    without = injected_context({"always_on_injection": "true"})
+    assert "supersedes=<old-id>" not in without
 
 
 @test
