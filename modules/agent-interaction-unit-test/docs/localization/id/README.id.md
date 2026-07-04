@@ -55,7 +55,7 @@ Gunakan format ini untuk unit testing:
 
 ```markdown
 # UNIT TEST: [Test_Name]
-**Framework:** Agentic Rules v1.4.0
+**Framework:** Agentic Rules v1.5.0
 **Task:** [Specific_Test_Task]
 
 [Eksekusi agen dengan validasi unit test...]
@@ -67,7 +67,7 @@ Pola prompt ini telah divalidasi dan terbukti efektif:
 
 ```markdown
 UNIT TEST: Pengambilan Memori Agen
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Uji pengambilan Memori agen dasar.
 
 Instruction:
@@ -133,7 +133,7 @@ Analisis debugging menghasilkan laporan terstruktur dengan:
 ### Jalankan Test Case
 ```
 UNIT TEST: Code Analysis Validation
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Analyze the function in setup.html that generates AGENTS.md files
 
 [Agent executes with full validation...]
@@ -164,7 +164,7 @@ Ini memberitahu agen untuk mempersiapkan validasi komprehensif dalam percakapan 
 ### Kasus Penggunaan 1: Analisis Kode & Debugging
 ```
 UNIT TEST: code_analysis_debugging
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Analyze authentication module for security vulnerabilities
 
 Query Pengguna: "Analisis kode autentikasi di auth.js untuk masalah keamanan potensial"
@@ -179,7 +179,7 @@ Query Pengguna: "Analisis kode autentikasi di auth.js untuk masalah keamanan pot
 ### Kasus Penggunaan 2: Identifikasi Masalah
 ```
 UNIT TEST: problem_identification
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Identify root cause of database connection failures
 
 Query Pengguna: "Debug masalah koneksi database di production - periksa log dan identifikasi akar penyebabnya"
@@ -194,7 +194,7 @@ Query Pengguna: "Debug masalah koneksi database di production - periksa log dan 
 ### Kasus Penggunaan 3: Analisis Arsitektur Kodebase
 ```
 UNIT TEST: architecture_analysis
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Analyze codebase structure and recommend improvements
 
 Query Pengguna: "Analisis seluruh struktur codebase dan sarankan perbaikan arsitektur"
@@ -209,7 +209,7 @@ Query Pengguna: "Analisis seluruh struktur codebase dan sarankan perbaikan arsit
 ### Kasus Penggunaan 4: Validasi Refactoring
 ```
 UNIT TEST: refactoring_validation
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Validate refactoring changes maintain functionality
 
 Query Pengguna: "Review perubahan refactoring terbaru untuk memastikan tidak merusak fungsionalitas yang ada"
@@ -224,7 +224,7 @@ Query Pengguna: "Review perubahan refactoring terbaru untuk memastikan tidak mer
 ### Kasus Penggunaan 5: Pengujian Sistem Komprehensif
 ```
 UNIT TEST: comprehensive_agent_interaction_testing
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Complete interaction validation and compliance testing
 
 Query Pengguna: "buat log urutan interaksi agen yang detail termasuk pemanggilan tools dan parameter"
@@ -233,7 +233,7 @@ Query Pengguna: "buat log urutan interaksi agen yang detail termasuk pemanggilan
 ### Kasus Penggunaan 6: Analisis Debugging Agen
 ```
 UNIT TEST: agent_debugging_analysis
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Systematic debugging and validation of agent reasoning processes
 
 Query Pengguna: "debug proses penalaran agen untuk tugas analisis kode sebelumnya"

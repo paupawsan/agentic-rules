@@ -55,7 +55,7 @@
 
 ```markdown
 # UNIT TEST: [Test_Name]
-**Framework:** Agentic Rules v1.4.0
+**Framework:** Agentic Rules v1.5.0
 **Task:** [Specific_Test_Task]
 
 [Execute agent with unit test validation...]
@@ -67,7 +67,7 @@
 
 ```markdown
 UNIT TEST: エージェントメモリ検索
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: 基本的なエージェントメモリ検索をテストします。
 
 Instruction:
@@ -133,7 +133,7 @@ Output:
 ### テストケースを実行
 ```
 UNIT TEST: Code Analysis Validation
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Analyze the function in setup.html that generates AGENTS.md files
 
 [Agent executes with full validation...]
@@ -164,7 +164,7 @@ Task: Analyze the function in setup.html that generates AGENTS.md files
 ### ユースケース1: コード分析 & デバッグ
 ```
 UNIT TEST: code_analysis_debugging
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Analyze authentication module for security vulnerabilities
 
 ユーザークエリ: "auth.jsの認証コードを潜在的なセキュリティ問題について分析してください"
@@ -179,7 +179,7 @@ Task: Analyze authentication module for security vulnerabilities
 ### ユースケース2: 問題特定
 ```
 UNIT TEST: problem_identification
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Identify root cause of database connection failures
 
 ユーザークエリ: "本番環境のデータベース接続問題をデバッグ - ログを確認して根本原因を特定してください"
@@ -194,7 +194,7 @@ Task: Identify root cause of database connection failures
 ### ユースケース3: コードベースアーキテクチャ分析
 ```
 UNIT TEST: architecture_analysis
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Analyze codebase structure and recommend improvements
 
 ユーザークエリ: "コードベース全体の構造を分析し、アーキテクチャの改善を提案してください"
@@ -209,7 +209,7 @@ Task: Analyze codebase structure and recommend improvements
 ### ユースケース4: リファクタリング検証
 ```
 UNIT TEST: refactoring_validation
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Validate refactoring changes maintain functionality
 
 ユーザークエリ: "最近のリファクタリング変更を確認して、既存の機能を破壊しないことを確認してください"
@@ -224,7 +224,7 @@ Task: Validate refactoring changes maintain functionality
 ### ユースケース5: 包括的システムテスト
 ```
 UNIT TEST: comprehensive_agent_interaction_testing
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Complete interaction validation and compliance testing
 
 ユーザークエリ: "ツールの呼び出しとパラメータを含む詳細なエージェントインタラクションシーケンスログを作成してください"
@@ -233,7 +233,7 @@ Task: Complete interaction validation and compliance testing
 ### ユースケース6: エージェントデバッグ分析
 ```
 UNIT TEST: agent_debugging_analysis
-Framework: Agentic Rules v1.4.0
+Framework: Agentic Rules v1.5.0
 Task: Systematic debugging and validation of agent reasoning processes
 
 ユーザークエリ: "以前のコード分析タスクのエージェント推論プロセスをデバッグしてください"

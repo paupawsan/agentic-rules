@@ -8,9 +8,10 @@
 #
 # Checks:
 #   1. Version strings agree across manifests, module settings, and web-config.json
-#   2. plugins.json entries exist on disk and every modules/ directory is listed
-#   3. setup-launcher.py fallback plugin list matches plugins.json
-#   4. web-config.json and setup.html are not stale relative to RULES.md.* skeletons
+#   2. Version strings inside module markdown content match the manifests
+#   3. plugins.json entries exist on disk and every modules/ directory is listed
+#   4. setup-launcher.py fallback plugin list matches plugins.json
+#   5. web-config.json and setup.html are not stale relative to RULES.md.* skeletons
 #
 # Usage:
 #     python3 validate.py    # exit 0 = all checks pass, 1 = problems found
@@ -71,6 +72,34 @@ def check_versions():
         for source, version in sorted(versions.items()):
             if version != majority:
                 fail(f"version mismatch or missing: {source} = {version} (expected {majority})")
+
+
+def check_module_content_versions():
+    # Rule text and docs carry literal version strings (First-Run marker JSON,
+    # "Agentic Rules vX.Y.Z" report headers, filled-example footers). They are
+    # invisible to check_versions() and drift silently on release bumps.
+    # "vX.Y.Z+" compatibility floors are deliberate and exempt.
+    canonical = load_json('bootstrap.json')['agentic_bootstrap'].get('version')
+    patterns = [
+        (re.compile(r'\{"version": "(\d+\.\d+\.\d+)"'), 'first-run marker'),
+        (re.compile(r'Agentic Rules v(\d+\.\d+\.\d+)(?!\+)'), 'framework reference'),
+        (re.compile(r'\*\*Version\*\*: (\d+\.\d+\.\d+)'), 'version footer'),
+    ]
+    files = sorted(p for p in ROOT.glob('modules/**/*.md*') if p.is_file())
+    files.append(ROOT / 'README.md')
+    drift = []
+    for path in files:
+        for lineno, line in enumerate(path.read_text(encoding='utf-8').splitlines(), 1):
+            for pattern, label in patterns:
+                for match in pattern.finditer(line):
+                    if match.group(1) != canonical:
+                        drift.append(f"{path.relative_to(ROOT)}:{lineno} "
+                                     f"{label} says {match.group(1)} (expected {canonical})")
+    if drift:
+        for msg in drift:
+            fail(f"version drift: {msg}")
+    else:
+        ok(f"module content version strings all match {canonical}")
 
 
 def check_module_lists():
@@ -179,6 +208,7 @@ def main():
     print("🔎 Agentic Rules Framework - Consistency Validator")
     print("=" * 50)
     check_versions()
+    check_module_content_versions()
     check_module_lists()
     check_localization_parity()
     check_generated_artifacts()
