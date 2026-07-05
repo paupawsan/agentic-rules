@@ -2,6 +2,13 @@
 
 All notable changes to the Agentic Rules Framework.
 
+## [1.5.1] - 2026-07-05
+
+### Fixed
+
+- **Module content no longer reports a stale framework version.** The First-Run marker JSON in every module's `RULES.md.{en,ja,id}`, the `Framework: Agentic Rules vX.Y.Z` headers in the agent-interaction-unit-test report templates and examples (plus the root README example), and a filled example in `MEMORY-RULES.md` still said `1.4.0` after the 1.5.0 release — so unit-test audit reports printed the wrong framework version on non-Claude-Code platforms. All literal version strings now track the release.
+- **`validate.py` gates version drift in module content.** New `check_module_content_versions()` fails the consistency gate whenever a literal version string in module markdown (First-Run marker JSON, `Agentic Rules vX.Y.Z` references, numeric version footers) disagrees with `bootstrap.json`. Deliberate `vX.Y.Z+` compatibility floors are exempt.
+
 ## [1.5.0] - 2026-07-04
 
 ### Added
