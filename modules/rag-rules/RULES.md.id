@@ -76,7 +76,7 @@ Detail: `docs/FIRST_RUN_LOADING.md`
 3. Identifikasi hubungan semantik antara elemen yang diekstrak
 4. Perbarui grafik pengetahuan runtime dengan koneksi dan pola baru
 5. Perkuat hubungan yang ada berdasarkan frekuensi dan kedaluwarsa
-6. Pensiunkan node yang kedaluwarsa atau lemah terhubung dengan menandainya sebagai tergantikan/tidak berlaku — jangan pernah menghapusnya; pengetahuan lama tetap dapat di-query sebagai riwayat (KG sadar-waktu, bi-temporal)
+6. Pensiunkan node yang kedaluwarsa atau lemah terhubung dengan menandainya sebagai tergantikan/tidak berlaku (gunakan tool `kg_retire` dari server KG bila tersedia) — jangan pernah menghapusnya; pengetahuan lama tetap dapat di-query sebagai riwayat (KG sadar-waktu, bi-temporal)
 7. Simpan status grafik untuk persistensi di seluruh sesi
 
 **Implementasi**:

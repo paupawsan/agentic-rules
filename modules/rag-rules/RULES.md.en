@@ -75,7 +75,7 @@ Details: `docs/FIRST_RUN_LOADING.md`
 3. Identify semantic relationships between extracted elements
 4. Update runtime knowledge graph with new connections and patterns
 5. Strengthen existing relationships based on frequency and recency
-6. Retire outdated or weakly connected nodes by marking them superseded/invalid — never delete them; old knowledge stays queryable as history (time-aware, bi-temporal KG)
+6. Retire outdated or weakly connected nodes by marking them superseded/invalid (use the KG server's `kg_retire` tool when available) — never delete them; old knowledge stays queryable as history (time-aware, bi-temporal KG)
 7. Store graph state for persistence across sessions
 
 **Implementation**:
