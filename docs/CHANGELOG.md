@@ -2,6 +2,12 @@
 
 All notable changes to the Agentic Rules Framework.
 
+## [1.5.2] - 2026-07-05
+
+### Changed
+
+- **`kg_retire` is now named in the always-on rule text.** The temporal rules already taught retire-over-delete semantics, but the tool name only appeared in the on-invoke deep doc (`RAG-RULES.md`), leaving models to discover it via the MCP tool list. The retire step in `Runtime_Knowledge_Graph_Generation` (rag-rules `RULES.md.{en,ja,id}`) now names the tool: "use the KG server's `kg_retire` tool when available".
+
 ## [1.5.1] - 2026-07-05
 
 ### Fixed
