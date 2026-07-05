@@ -4,7 +4,7 @@
     "copyright": "Copyright (c) 2025-2026 Paulus Ery Wasito Adhi",
     "license_file": "LICENSE"
   },
-  "version": "1.5.0",
+  "version": "1.5.1",
   "agent_interaction_unit_test": {
     "enabled": false,
     "validation_level": "standard",
