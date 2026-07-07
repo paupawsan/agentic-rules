@@ -3,7 +3,7 @@
     "license": "MIT",
     "copyright": "Copyright (c) 2025-2026 Paulus Ery Wasito Adhi",
     "license_file": "LICENSE",
-    "version": "1.5.1",
+    "version": "1.5.2",
     "adapter_for": "cursor_2_0_multi_agent"
   },
   "cursor_2_0": {

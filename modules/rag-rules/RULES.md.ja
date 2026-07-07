@@ -20,7 +20,7 @@
 
 4. **確認を伝える。** 有効なルールを一文でユーザーに伝える。ルールの有効化/無効化を促さない。
 
-5. **マーカーを書き込む。** `.agentic_initialized` を作成: `{"version": "1.5.1", "initialized_at": "<ISO>", "marker_format_version": 1}`
+5. **マーカーを書き込む。** `.agentic_initialized` を作成: `{"version": "1.5.2", "initialized_at": "<ISO>", "marker_format_version": 1}`
 
 この手順がスキップされても、有効なルールは機能します。マーカーはソフトシグナルであり、ゲートではありません。
 詳細: `docs/FIRST_RUN_LOADING.md`
@@ -76,7 +76,7 @@
 3. 抽出された要素間のセマンティック関係を識別 / Identify semantic relationships between extracted elements
 4. 新しい接続とパターンでランタイム知識グラフを更新 / Update runtime knowledge graph with new connections and patterns
 5. 頻度と新しさに基づいて既存の関係性を強化 / Strengthen existing relationships based on frequency and recency
-6. 古くなった・接続の弱いノードは置き換え済み/無効としてマークして退役させる — 削除はしない。古い知識は履歴として参照可能のまま（時間対応・バイテンポラル KG） / Retire outdated or weakly connected nodes by marking them superseded/invalid — never delete them; old knowledge stays queryable as history (time-aware, bi-temporal KG)
+6. 古くなった・接続の弱いノードは置き換え済み/無効としてマークして退役させる（KG サーバーに `kg_retire` ツールがあればそれを使う）— 削除はしない。古い知識は履歴として参照可能のまま（時間対応・バイテンポラル KG） / Retire outdated or weakly connected nodes by marking them superseded/invalid (use the KG server's `kg_retire` tool when available) — never delete them; old knowledge stays queryable as history (time-aware, bi-temporal KG)
 7. 永続性のためにグラフ状態を保存 / Store graph state for persistence across sessions
 
 **実装 / Implementation**:

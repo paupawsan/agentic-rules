@@ -20,7 +20,7 @@ On your first session in this project, execute these steps before responding:
 
 4. **Acknowledge.** Tell the user in one sentence which rules are active. Do not prompt to enable/disable rules.
 
-5. **Write marker.** Create `.agentic_initialized` with: `{"version": "1.5.1", "initialized_at": "<ISO>", "marker_format_version": 1}`
+5. **Write marker.** Create `.agentic_initialized` with: `{"version": "1.5.2", "initialized_at": "<ISO>", "marker_format_version": 1}`
 
 If this procedure is skipped, enabled rules still work. The marker is a soft signal, not a gate.
 Details: `docs/FIRST_RUN_LOADING.md`
@@ -75,7 +75,7 @@ Details: `docs/FIRST_RUN_LOADING.md`
 3. Identify semantic relationships between extracted elements
 4. Update runtime knowledge graph with new connections and patterns
 5. Strengthen existing relationships based on frequency and recency
-6. Retire outdated or weakly connected nodes by marking them superseded/invalid — never delete them; old knowledge stays queryable as history (time-aware, bi-temporal KG)
+6. Retire outdated or weakly connected nodes by marking them superseded/invalid (use the KG server's `kg_retire` tool when available) — never delete them; old knowledge stays queryable as history (time-aware, bi-temporal KG)
 7. Store graph state for persistence across sessions
 
 **Implementation**:
