@@ -118,7 +118,7 @@ Then manage it from within Claude Code:
 
 ## 🎯 Framework Overview
 
-The **Agentic Rules Framework** enhances AI agent capabilities through three specialized rule systems:
+The **Agentic Rules Framework** enhances AI agent capabilities through four specialized rule systems:
 
 ### 🧠 **Memory Rules** (Local Memory System)
 📖 **[Plugin Details](modules/memory-rules/README.md)** - **Local, human-readable memory** system with 10 specialized categories for persistent context, learning, and personalization across sessions. Full visibility and control over your AI agent's memory data.
@@ -130,26 +130,23 @@ The **Agentic Rules Framework** enhances AI agent capabilities through three spe
 📖 **[Plugin Details](modules/critical-thinking-rules/README.md)** - Systematic reasoning enhancement with error prevention, assumption validation, and evidence-based decision making.
 
 ### 🧪 **Agent Interaction Unit Test** (disabled by default)
-📖 **[Plugin Details](modules/agent-interaction-unit-test/README.md)** - **Automated validation and testing framework** for agent conversations with maximum transparency and ground check requirements. Chain of thoughts logging, agent debugging analysis, and comprehensive validation testing.
-
-**✅ Proven Effective**: Unit test framework validated for agent interaction patterns with 100% framework compliance, complete tool transparency, and systematic debugging analysis.
+📖 **[Plugin Details](modules/agent-interaction-unit-test/README.md)** - Testing framework for agent conversations, covering ground-check requirements, chain-of-thought logging, and agent debugging analysis.
 
 **Key Benefits:**
 - **🔌 Plug-and-Play**: Enable/disable rules without modifying agent behavior
-- **🌍 Multi-Platform**: Works with Cursor, VSCode, and custom agentic systems
+- **🖥️ Multi-Platform**: Works with Cursor, VSCode, and custom agentic systems
 - **📦 Self-Contained**: Single HTML file with embedded configuration
 - **🛠️ Tool Agnostic**: Agents use available tools to implement rule requirements
 - **🌐 Generic**: Applicable to any AI agent capable of following structured guidelines
-- **🌍 Multi-Language**: 18+ languages supported with localized rule templates
+- **🌍 Multi-Language**: en/ja/id ship with the core framework; the plugin template system supports 18+ additional languages for custom extensions
 
 ## 🧠 **Knowledge Graph Integration**
-**✅ ENABLED BY DEFAULT** - Automatic KG construction and usage for intelligent project understanding.
+Enabled by default — automatic KG construction and usage for project understanding.
 
 ### **What It Does**
 - **🔍 Automatic Discovery**: Scans conversations and codebases to build knowledge graphs
 - **🧷 Smart Linking**: Connects related concepts, files, and ideas automatically
 - **💬 Proactive Usage**: Uses KG insights in conversations without manual activation
-- **📈 Learning Evolution**: KGs grow smarter with continued usage
 - **⏳ Time-Aware Knowledge** *(v1.5.0)*: when knowledge changes, the old fact is
   superseded — never deleted. Default retrieval returns only current knowledge;
   history stays queryable ("what did we know on date X?"). An adaptation of
@@ -162,9 +159,8 @@ The **Agentic Rules Framework** enhances AI agent capabilities through three spe
 
 ### **For Users**
 - **Zero Configuration**: Works out-of-the-box with standard setup
-- **Enhanced Conversations**: Responses include relevant historical context
-- **Relationship Understanding**: System knows how project components connect
-- **Progressive Intelligence**: Gets smarter with each interaction
+- **Enhanced Conversations**: Responses can include relevant historical context
+- **Relationship Understanding**: System tracks how project components connect
 
 ### **For Agent Developers**
 📖 **[KG Implementation Guide](docs/KG_IMPLEMENTATION_GUIDE.md)** - Logical algorithms and pseudocode for KG functionality
@@ -172,7 +168,7 @@ The **Agentic Rules Framework** enhances AI agent capabilities through three spe
 
 ## 🧪 **Agent Interaction Unit Test - Effective Format**
 
-**✅ VALIDATED**: Chain of thoughts logging through CORE-RULES and RULES.md files proven effective for comprehensive agent interaction validation.
+Chain-of-thought logging through the `CORE-RULES.md` and `RULES.md` files, used for structured agent interaction testing.
 
 ### **Unit Test Format Example**
 ```
@@ -188,32 +184,15 @@ I want unit test report in markdown format @debug
 ```
 
 **What the Framework Provides:**
-- **🔍 Ground Check Validation**: 100% coverage verification of all information claims
-- **🛡️ Assumption Challenge**: Automatic detection and validation of implicit assumptions
-- **⚡ Tool Call Auditing**: Complete logging of all tool executions with relevance scoring
-- **🎯 Decision Documentation**: Full audit trail of all decision points with alternatives
+- **🔍 Ground Check Validation**: Coverage verification of information claims against sources
+- **🛡️ Assumption Challenge**: Detection and validation of implicit assumptions
+- **⚡ Tool Call Auditing**: Logging of tool executions with relevance scoring
+- **🎯 Decision Documentation**: Audit trail of decision points with alternatives
 - **📊 Context Management**: Monitoring of context utilization and optimization
-- **🔧 Agent Debugging Analysis**: Systematic analysis of agent reasoning processes, tool usage, and parameter selections
+- **🔧 Agent Debugging Analysis**: Analysis of agent reasoning processes, tool usage, and parameter selections
 - **✅ Compliance Validation**: Automated checking against framework requirements
 
-### **Validation Results**
-- ✅ **100% Framework Compliance** - All algorithms executed successfully
-- ✅ **100% Ground Check Coverage** - All claims verified against sources
-- ✅ **0% Hallucinations** - All information source-verified
-- ✅ **Complete Tool Transparency** - Every call logged with parameters and timing
-- ✅ **Decision Documentation** - All choices explained with rationale
-- ✅ **Agent Debugging Analysis** - Systematic reasoning and tool usage validation
-
-## 🚀 Quick Start
-
-### ⚡ **First-Time Setup** (One-Time Only)
-1. **Initialize Framework**: Run `initiate agentic rules` in your AI agent
-2. **Grant Consent**: Approve framework activation when prompted
-3. **Framework Ready**: System remembers initialization - no repeated prompts needed
-
-**After initialization, the framework activates automatically with your agent.**
-
-### 📋 **Choose Your Experience Level**
+## 📋 Learn More
 
 #### 👥 **For Everyone** (No Technical Knowledge)
 📖 **[User Guide](docs/USER-GUIDE.md)** - Double-click setup with step-by-step instructions
@@ -253,6 +232,8 @@ I want unit test report in markdown format @debug
 **Maintenance Notice**: I cannot guarantee active updates or timely maintenance. While I strive to keep the framework functional and secure, updates depend on available time and resources.
 
 **Community Support**: Your contributions, feedback, and participation mean a lot to the continued development and improvement of this framework. Community involvement helps ensure the project remains useful and relevant.
+
+**Best-Effort Behavior**: This framework works by instructing an AI agent, not by enforcing code-level guarantees. Whether rules are actually followed (ground-checking claims, memory recall, KG usage, etc.) depends on the specific editor, agent, and model combination in use — behavior can vary and isn't guaranteed across all setups.
 
 **Use at Your Own Risk**: This framework is provided as-is. Users should evaluate its suitability for their specific use cases and implement appropriate security measures.
 
