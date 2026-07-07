@@ -11,13 +11,13 @@
 <details>
 <summary>🇺🇸 English Documentation / 英語ドキュメント</summary>
 
-- **[Main Page / メインページ](README.md)** - Framework overview and quick start
-- **[Documentation Index / 説明書の目次](docs/INDEX.md)** - Complete documentation overview
-- **[User Guide / ユーザーガイド](docs/USER-GUIDE.md)** - Step-by-step setup for beginners
-- **[Developer Guide / 開発者ガイド](docs/DEVELOPER-GUIDE.md)** - Technical implementation details
-- **[System Overview / システムの説明](docs/SYSTEM-OVERVIEW.md)** - Complete system architecture
-- **[Extension Manual / 拡張マニュアル](docs/EXTENSION-MANUAL.md)** - Plugin development guide
-- **[Troubleshooting / トラブルシューティング](docs/TROUBLESHOOTING.md)** - Problem solving guide
+- **[Main Page / メインページ](../../../README.md)** - Framework overview and quick start
+- **[Documentation Index / 説明書の目次](../../INDEX.md)** - Complete documentation overview
+- **[User Guide / ユーザーガイド](../../USER-GUIDE.md)** - Step-by-step setup for beginners
+- **[Developer Guide / 開発者ガイド](../../DEVELOPER-GUIDE.md)** - Technical implementation details
+- **[System Overview / システムの説明](../../SYSTEM-OVERVIEW.md)** - Complete system architecture
+- **[Extension Manual / 拡張マニュアル](../../EXTENSION-MANUAL.md)** - Plugin development guide
+- **[Troubleshooting / トラブルシューティング](../../TROUBLESHOOTING.md)** - Problem solving guide
 
 </details>
 
@@ -26,12 +26,12 @@
 <summary>🇮🇩 Indonesian Documentation / インドネシア語ドキュメント</summary>
 
 - **[メインページ / Halaman Utama](../id/README.id.md)** - Ikhtisar framework dan mulai cepat
-- **[Indeks Dokumentasi / 説明書の目次](docs/localization/id/INDEX.id.md)** - Ringkasan dokumentasi
-- **[Panduan Pengguna / ユーザーガイド](docs/localization/id/USER-GUIDE.id.md)** - Panduan untuk pemula
-- **[Panduan Pengembang / 開発者ガイド](docs/localization/id/DEVELOPER-GUIDE.id.md)** - Detail teknis untuk insinyur
-- **[Ikhtisar Sistem / システムの説明](docs/localization/id/SYSTEM-OVERVIEW.id.md)** - Detail arsitektur
-- **[Manual Ekstensi / 拡張マニュアル](docs/localization/id/EXTENSION-MANUAL.id.md)** - Pengembangan plugin
-- **[Panduan Pemecahan Masalah / トラブルシューティング](docs/localization/id/TROUBLESHOOTING.id.md)** - Panduan penyelesaian masalah
+- **[Indeks Dokumentasi / 説明書の目次](../id/INDEX.id.md)** - Ringkasan dokumentasi
+- **[Panduan Pengguna / ユーザーガイド](../id/USER-GUIDE.id.md)** - Panduan untuk pemula
+- **[Panduan Pengembang / 開発者ガイド](../id/DEVELOPER-GUIDE.id.md)** - Detail teknis untuk insinyur
+- **[Ikhtisar Sistem / システムの説明](../id/SYSTEM-OVERVIEW.id.md)** - Detail arsitektur
+- **[Manual Ekstensi / 拡張マニュアル](../id/EXTENSION-MANUAL.id.md)** - Pengembangan plugin
+- **[Panduan Pemecahan Masalah / トラブルシューティング](../id/TROUBLESHOOTING.id.md)** - Panduan penyelesaian masalah
 
 </details>
 
@@ -111,117 +111,125 @@ Claude Code内から管理します:
 
 ## 🎯 フレームワーク概要
 
-**Agentic Rules Framework**は、3つの専門ルールシステムを通じてAIエージェントの能力を強化します：
+**Agentic Rules Framework**は、4つの専門ルールシステムを通じてAIエージェントの能力を強化します：
 
 ### 🧠 **メモリルール**（ローカルメモリシステム）
-📖 **[プラグイン詳細](modules/memory-rules/README.md)** - **ローカルで人間が読めるメモリ**システム、10の専門カテゴリによる永続的なコンテキスト、学習、およびパーソナライズをセッション間で実現。AIエージェントのメモリデータに対する完全な可視性と制御。
+📖 **[プラグイン詳細](../../../modules/memory-rules/docs/localization/ja/README.ja.md)** - **ローカルで人間が読めるメモリ**システム、10の専門カテゴリによる永続的なコンテキスト、学習、およびパーソナライズをセッション間で実現。AIエージェントのメモリデータに対する完全な可視性と制御。
 
 ### 📚 **RAGルール**
-📖 **[プラグイン詳細](modules/rag-rules/README.md)** - スマートな読み取り戦略、コンテキスト最適化、および関連性スコアリングによる効率的な知識活用
+📖 **[プラグイン詳細](../../../modules/rag-rules/docs/localization/ja/README.ja.md)** - スマートな読み取り戦略、コンテキスト最適化、関連性スコアリング、そして**自動ナレッジグラフ構築**によるプロジェクト理解と関係性マッピング
 
 ### 🤔 **批判的思考ルール**
-📖 **[プラグイン詳細](modules/critical-thinking-rules/README.md)** - エラー防止、仮定検証、および証拠ベースの意思決定による体系的な推論強化
+📖 **[プラグイン詳細](../../../modules/critical-thinking-rules/docs/localization/ja/README.ja.md)** - エラー防止、仮定検証、および証拠ベースの意思決定による体系的な推論強化
+
+### 🧪 **エージェントインタラクションユニットテスト**（デフォルトで無効）
+📖 **[プラグイン詳細](../../../modules/agent-interaction-unit-test/docs/localization/ja/README.ja.md)** - グラウンドチェック要件、Chain of Thoughtログ、エージェントデバッグ分析を備えた、エージェント会話のテストフレームワーク。
 
 **主な利点：**
 - **🔌 プラグアンドプレイ**: エージェント動作を変更せずにルールを有効/無効化
-- **🌍 マルチプラットフォーム**: Cursor、VSCode、およびカスタムエージェントシステムに対応
+- **🖥️ マルチプラットフォーム**: Cursor、VSCode、およびカスタムエージェントシステムに対応
 - **📦 自己完結型**: 埋め込み設定を含む単一HTMLファイル
 - **🛠️ ツール不可知**: エージェントは利用可能なツールを使用してルール要件を実装
 - **🌐 汎用性**: 構造化されたガイドラインに従うことができる任意のAIエージェントに適用可能
-- **🌍 多言語**: 18以上の言語でローカライズされたルールテンプレート対応
+- **🌍 多言語**: コアフレームワークにはen/ja/idが標準搭載。プラグインテンプレートシステムはカスタム拡張向けに18以上の追加言語に対応
 
-## 🚀 クイックスタート
+## 🧠 **ナレッジグラフ統合**
+デフォルトで有効 — プロジェクト理解のための自動KG構築と活用。
 
-経験レベルを選択してください：
+### **できること**
+- **🔍 自動発見**: 会話とコードベースをスキャンしてナレッジグラフを構築
+- **🧷 スマートリンク**: 関連する概念、ファイル、アイデアを自動的に接続
+- **💬 プロアクティブな活用**: 手動での有効化なしに会話でKGの知見を活用
+- **⏳ 時間認識ナレッジ** *(v1.5.0)*: 知識が変化すると、古い事実は削除されず
+  置き換えられます。デフォルトの検索は現在の知識のみを返しますが、
+  履歴は問い合わせ可能なまま残ります（「X日時点で何を知っていたか？」）。
+  エージェントメモリ向けにバイテンポラルなデータベースモデリングを応用したもので、
+  [Zepの Graphiti](https://github.com/getzep/graphiti)に着想を得ています
+  （概念のみを参考にし、コードは再利用していません）。モデルの詳細、
+  データベースを用いた実装、使うべき/使うべきでない場面については
+  [KG実装ガイド](KG_IMPLEMENTATION_GUIDE.ja.md)を、実際に何が変わるかについては
+  [導入前後の比較](TEMPORAL_KG_COMPARISON.ja.md)を参照してください。
 
-### 👥 **すべての人向け** (技術知識不要)
+### **ユーザー向け**
+- **ゼロ設定**: 標準セットアップだけでそのまま動作
+- **強化された会話**: 応答に関連する過去のコンテキストが含まれることがあります
+- **関係性の理解**: プロジェクトの構成要素同士のつながりを把握
+
+### **エージェント開発者向け**
+📖 **[KG実装ガイド](KG_IMPLEMENTATION_GUIDE.ja.md)** - KG機能のロジックとアルゴリズム擬似コード
+📖 **[ユーザー向けKG統合](README_KG_INTEGRATION.ja.md)** - エンドユーザーから見たKG体験とメリット
+
+## 🧪 **エージェントインタラクションユニットテスト - 効果的な形式**
+
+`CORE-RULES.md`と`RULES.md`ファイルを通じたChain of Thoughtログ記録を用いた、構造化されたエージェント対話テストです。
+
+### **ユニットテスト形式の例**
+```
+UNIT TEST: Agent Memory Retrieval
+Framework: Agentic Rules v1.5.2
+Task: Test basic agent Memory retrieval.
+
+Instruction:
+Sync your memory for current project.
+
+Output:
+I want unit test report in markdown format @debug
+```
+
+**フレームワークが提供するもの：**
+- **🔍 グラウンドチェック検証**: 情報の主張をソースと突き合わせて検証
+- **🛡️ 前提への問いかけ**: 暗黙の前提の検出と検証
+- **⚡ ツールコール監査**: 関連性スコア付きのツール実行ログ
+- **🎯 意思決定文書化**: 代替案を含む意思決定ポイントの監査証跡
+- **📊 コンテキスト管理**: コンテキスト利用状況の監視と最適化
+- **🔧 エージェントデバッグ分析**: エージェントの推論過程、ツール使用、パラメータ選択の分析
+- **✅ コンプライアンス検証**: フレームワーク要件に対する自動チェック
+
+## 📋 詳しく知る
+
+#### 👥 **すべての人向け** (技術知識不要)
 📖 **[ユーザーガイド](USER-GUIDE.ja.md)** - ステップバイステップのセットアップ手順
 
-### 🔧 **エンジニア・開発者向け**
+#### 🔧 **エンジニア・開発者向け**
 📖 **[開発者ガイド](DEVELOPER-GUIDE.ja.md)** - サーバーセットアップ、自動化、およびAPI使用
 
-### 🔌 **プラグイン開発者向け**
-📖 **[拡張マニュアル](EXTENSION-MANUAL.ja.md)** - 新しいプラグインの作成方法
+#### 🛠️ **プラグイン開発者向け**
+📖 **[拡張マニュアル](EXTENSION-MANUAL.ja.md)** - プラグイン開発とフレームワーク拡張
 
-## 📋 要件
+#### 📚 **システムアーキテクチャと技術詳細**
+📖 **[システムの説明](SYSTEM-OVERVIEW.ja.md)** - 完全な技術アーキテクチャと設計思想
 
-- **Python 3.8+** (サーバーモードの場合)
-- **Webブラウザ** (HTMLインターフェースの場合)
-- **対応AIプラットフォーム**: Cursor, VSCode, Claude, Gemini, カスタムエージェント
+#### 🐛 **トラブルシューティングとFAQ**
+📖 **[トラブルシューティング](TROUBLESHOOTING.ja.md)** - よくある問題の解決策と手動読み込み手順
+🛠️ **クイックスキャフォールド**: `python generate_plugin_scaffold.py --help` - プラグインテンプレートを即座に生成
 
-## 🛠️ インストール
-
-### オプション1: HTMLインターフェース (推奨)
-```bash
-# リポジトリをクローンまたはダウンロード
-git clone https://github.com/paupawsan/agentic-rules.git
-cd agentic-rules
-
-# setup.htmlをダブルクリックして起動
-# ブラウザでインタラクティブなセットアップを実行
-```
-
-### オプション2: サーバーモード
-```bash
-# Python環境を準備
-python3 -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-# 依存関係をインストール
-pip install flask  # 追加の依存関係が必要な場合
-
-# サーバーを起動
-python setup-launcher.py
-
-# ブラウザで http://localhost:8001 にアクセス
-```
-
-## 📚 ドキュメント
-
-### 🌍 多言語ドキュメント
-- **[English Documentation](../../../README.md)** - 英語版ドキュメント
-- **[Dokumentasi Indonesia](../id/README.id.md)** - インドネシア語版ドキュメント
-
-### 📖 主要ドキュメント
-- **[システムの概要](SYSTEM-OVERVIEW.ja.md)** - アーキテクチャと仕組み
-- **[拡張マニュアル](EXTENSION-MANUAL.ja.md)** - プラグイン開発ガイド
-- **[トラブルシューティング](TROUBLESHOOTING.ja.md)** - 問題解決ガイド
-
-### 🏗️ 開発者向け
-- **[開発者ガイド](DEVELOPER-GUIDE.ja.md)** - 技術実装の詳細
-- **[コアルール](CORE-RULES.ja.md)** - フレームワークの基本ルール
+### 🔄 **フレームワークのライフサイクル**
+- **初期化**: ユーザー同意のもとでの一回限りのセットアップ
+- **自動アクティベーション**: 初回セットアップ後にフレームワークが自動的にロード
+- **設定**: `settings/global-settings.json`で設定を変更
+- **リセット**: `.agentic_initialized`ファイルを削除して再初期化を強制
 
 ## 🤝 貢献
 
-貢献を歓迎します！
+**貢献を歓迎します！** 本プロジェクトはコミュニティの意見と協力によって発展しています。
 
-### 貢献の仕方
-1. このリポジトリをフォーク
-2. 機能ブランチを作成 (`git checkout -b feature/amazing-feature`)
-3. 変更をコミット (`git commit -m 'Add amazing feature'`)
-4. ブランチをプッシュ (`git push origin feature/amazing-feature`)
-5. プルリクエストを作成
+- 📝 **問題の報告**: バグを見つけた、または提案がありますか？ [Issueを作成](https://github.com/paupawsan/agentic-rules/issues)
+- 🔧 **プルリクエストの送信**: フレームワークの改善にご協力ください
+- 💬 **ディスカッション**: エージェントシステムとAIの振る舞いについての議論に参加
+- 📖 **ドキュメント**: ガイドとドキュメントの改善にご協力ください
 
-### 開発参加
-- **バグ報告**: [Issues](../../issues) を使用
-- **機能リクエスト**: [Issues](../../issues) で提案
-- **コード貢献**: プルリクエスト歓迎
-- **翻訳**: 多言語ドキュメントの改善
+## ⚠️ 重要な免責事項
 
-## 📄 ライセンス
+**個人プロジェクト**: 本フレームワークは個人の時間とリソースを使って設計・開発されています。私はいかなる企業にも所属しておらず、これは公式な製品やサービスではありません。
 
-Copyright (c) 2025-2026 Paulus Ery Wasito Adhi
+**メンテナンスに関する注記**: 継続的な更新や迅速な保守を保証することはできません。フレームワークの機能性と安全性を維持するよう努めますが、更新は利用可能な時間とリソースに依存します。
 
-MIT Licenseの下でライセンスされています。LICENSEファイルを参照してください。
+**コミュニティサポート**: 皆さんの貢献、フィードバック、参加は本フレームワークの継続的な発展と改善にとって大きな意味を持ちます。コミュニティの関与が、プロジェクトの有用性と関連性を保つ助けになります。
+
+**ベストエフォートでの動作**: 本フレームワークはコードレベルの強制ではなく、AIエージェントへの指示によって機能します。ルールが実際に守られるかどうか（主張のグラウンドチェック、メモリの想起、KGの活用など）は、使用する具体的なエディタ・エージェント・モデルの組み合わせに依存します — 動作はセットアップによって異なり、すべての環境で保証されるものではありません。
+
+**自己責任でのご利用**: 本フレームワークは現状有姿で提供されます。利用者はご自身のユースケースへの適合性を評価し、適切なセキュリティ対策を実施してください。
 
 ---
 
-**🎉 Agentic Rules Framework v1.0.0 が本番環境対応になりました！**
-
-**ダウンロード:** [GitHub Releases](https://github.com/paupawsan/agentic-rules/releases/tag/v1.0.0)
-
-**クイックスタート:** `python setup.py` を実行して開始！
-
----
-
-*AIエージェントコミュニティのために❤️で構築*
+Copyright (c) 2025-2026 Paulus Ery Wasito Adhi. MIT Licenseの下でライセンスされています（LICENSEファイルを参照）。
