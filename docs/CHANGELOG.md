@@ -2,11 +2,15 @@
 
 All notable changes to the Agentic Rules Framework.
 
-## [1.5.2] - 2026-07-05
+## [1.5.2] - 2026-07-08
 
 ### Changed
 
 - **`kg_retire` is now named in the always-on rule text.** The temporal rules already taught retire-over-delete semantics, but the tool name only appeared in the on-invoke deep doc (`RAG-RULES.md`), leaving models to discover it via the MCP tool list. The retire step in `Runtime_Knowledge_Graph_Generation` (rag-rules `RULES.md.{en,ja,id}`) now names the tool: "use the KG server's `kg_retire` tool when available".
+
+### Fixed
+
+- **README documentation cleanup.** The Japanese and Indonesian README translations had drifted from the root README — missing the Knowledge Graph Integration, Unit Test, and Disclaimers sections, and containing broken relative links to module and cross-language docs (the paths didn't account for the nested localization directory). Both are now synced to the root's current structure with corrected links, and a couple of outdated claims (module count, language coverage) are fixed. The root README also had two conflicting Quick Start sections, now consolidated into one.
 
 ## [1.5.1] - 2026-07-05
 
