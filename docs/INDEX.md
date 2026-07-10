@@ -19,6 +19,8 @@ This directory contains detailed documentation for the Agentic Rules Framework.
 - **[EXTENSION-MANUAL.md](EXTENSION-MANUAL.md)** - Step-by-step guide for extending the framework
 - **[KG_IMPLEMENTATION_GUIDE.md](KG_IMPLEMENTATION_GUIDE.md)** - Agent implementation guide for Knowledge Graph functionality
 - **[README_KG_INTEGRATION.md](README_KG_INTEGRATION.md)** - End-user KG integration and benefits
+- **[KG_VISUALIZER_SPEC.md](KG_VISUALIZER_SPEC.md)** - Generic specification for knowledge-store visualizers
+- **[KG_VISUALIZER_RECIPE.md](KG_VISUALIZER_RECIPE.md)** - Phased build recipe/algorithm for implementing a visualizer
 - **[CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md](CROSS_PLATFORM_HIDDEN_FILE_DETECTION.md)** - Platform-specific commands for reliable hidden file detection
 
 ### 📚 Plugin Documentation

@@ -13,7 +13,7 @@
       "source": "./claude-code",
       "description": "Persistent memory, RAG/context discipline, critical-thinking heuristics, and interaction unit-testing as Claude Code skills.",
       "displayName": "Agentic Rules Framework",
-      "version": "1.5.2",
+      "version": "1.5.3",
       "author": {
         "name": "Paulus Ery Wasito Adhi",
         "email": "paupawsan@users.noreply.github.com"

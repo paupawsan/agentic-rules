@@ -2,6 +2,13 @@
 
 All notable changes to the Agentic Rules Framework.
 
+## [1.5.3] - 2026-07-10
+
+### Added
+
+- **Generic knowledge-visualizer specification and build recipe.** `docs/KG_VISUALIZER_SPEC.md` documents the expected behavior for any implementation that renders and edits Agentic Rules knowledge stores (markdown memory store and, optionally, a runtime Knowledge Graph service): data sources, editing discipline (preview→apply, concurrency guards, derived-element read-only rules), UI expectations, and security requirements. `docs/KG_VISUALIZER_RECIPE.md` is a companion phased build algorithm (Phase 0 source contract through Phase 7 hardening), stack-agnostic, with pseudocode and acceptance checks per phase — written so an AI agent or a human developer can follow it to a working implementation.
+- The recipe was validated by a clean-room agent build: given only the spec, recipe, and `MEMORY-RULES.md` (no other project context), it built a real markdown-tier visualizer and passed 47 of 48 mechanical acceptance checks (the one skip was an environment limit — no real user store in the sandbox, not a failure). The gaps that run surfaced — node-id uniqueness, overlay edge retraction semantics, a Phase 6 layering bug in the derived-element rejection, and an overclaimed matching-fidelity requirement in Phase 5 — are folded into the recipe.
+
 ## [1.5.2] - 2026-07-08
 
 ### Changed
