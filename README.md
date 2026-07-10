@@ -173,7 +173,7 @@ Chain-of-thought logging through the `CORE-RULES.md` and `RULES.md` files, used 
 ### **Unit Test Format Example**
 ```
 UNIT TEST: Agent Memory Retrieval
-Framework: Agentic Rules v1.5.2
+Framework: Agentic Rules v1.5.3
 Task: Test basic agent Memory retrieval.
 
 Instruction:

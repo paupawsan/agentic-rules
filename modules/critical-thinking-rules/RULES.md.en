@@ -16,7 +16,7 @@ On your first session in this project, execute these steps before responding:
 
 4. **Acknowledge.** Tell the user in one sentence which rules are active. Do not prompt to enable/disable rules.
 
-5. **Write marker.** Create `.agentic_initialized` with: `{"version": "1.5.2", "initialized_at": "<ISO>", "marker_format_version": 1}`
+5. **Write marker.** Create `.agentic_initialized` with: `{"version": "1.5.3", "initialized_at": "<ISO>", "marker_format_version": 1}`
 
 If this procedure is skipped, enabled rules still work. The marker is a soft signal, not a gate.
 Details: `docs/FIRST_RUN_LOADING.md`
