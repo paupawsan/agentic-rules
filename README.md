@@ -49,6 +49,12 @@ If you're on **Claude Code**, the framework installs as a native plugin — no `
 /plugin install agentic-rules@agentic-rules
 ```
 
+To update later, use the full `<plugin>@<marketplace>` ID — the bare plugin name reports "not found":
+
+```bash
+claude plugin update agentic-rules@agentic-rules
+```
+
 Then manage it from within Claude Code:
 
 ```bash
