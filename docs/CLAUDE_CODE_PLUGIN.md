@@ -24,7 +24,9 @@ upstream — new rules, new languages, edited heuristics — flows into Claude C
 The root `.claude-plugin/marketplace.json` points the installer at `./claude-code`. The plugin
 reads its rule text from `${CLAUDE_PLUGIN_ROOT}/modules/…`, resolved through the
 `claude-code/modules → ../modules` symlink that ships with the plugin and is materialized into
-the cache on install. `claude plugin update` re-pulls the latest rules from upstream.
+the cache on install. `claude plugin update agentic-rules@agentic-rules` re-pulls the latest
+rules from upstream — the CLI requires the full `<plugin>@<marketplace>` ID; the bare plugin
+name reports "not found".
 
 Manage it from within Claude Code:
 

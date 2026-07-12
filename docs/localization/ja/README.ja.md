@@ -49,6 +49,12 @@
 /plugin install agentic-rules@agentic-rules
 ```
 
+後で更新するときは、`<plugin>@<marketplace>` 形式の完全なIDを指定します（プラグイン名だけでは「not found」になります）:
+
+```bash
+claude plugin update agentic-rules@agentic-rules
+```
+
 Claude Code内から管理します:
 
 ```bash

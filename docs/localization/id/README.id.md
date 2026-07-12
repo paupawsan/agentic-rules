@@ -49,6 +49,12 @@ Jika Anda menggunakan **Claude Code**, framework ini terpasang sebagai plugin na
 /plugin install agentic-rules@agentic-rules
 ```
 
+Untuk memperbarui nanti, gunakan ID lengkap `<plugin>@<marketplace>` — nama plugin saja akan menghasilkan "not found":
+
+```bash
+claude plugin update agentic-rules@agentic-rules
+```
+
 Lalu kelola dari dalam Claude Code:
 
 ```bash
