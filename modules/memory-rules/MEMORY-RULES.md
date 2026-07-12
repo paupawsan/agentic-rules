@@ -400,7 +400,7 @@ A populated `technical` memory, written to `~/.memory/projects/acme-api/technica
 # Memory Entry: technical - 2026-06-16T14:30:00Z
 
 ## Metadata
-- **Version**: 1.5.3
+- **Version**: 1.5.4
 - **Generated**: 2026-06-16T14:30:00Z
 - **Category**: technical
 - **Migration Notes**: none

@@ -20,7 +20,7 @@
 
 4. **確認を伝える。** 有効なルールを一文でユーザーに伝える。ルールの有効化/無効化を促さない。
 
-5. **マーカーを書き込む。** `.agentic_initialized` を作成: `{"version": "1.5.3", "initialized_at": "<ISO>", "marker_format_version": 1}`
+5. **マーカーを書き込む。** `.agentic_initialized` を作成: `{"version": "1.5.4", "initialized_at": "<ISO>", "marker_format_version": 1}`
 
 この手順がスキップされても、有効なルールは機能します。マーカーはソフトシグナルであり、ゲートではありません。
 詳細: `docs/FIRST_RUN_LOADING.md`
@@ -61,7 +61,7 @@
 ### テストケース形式:
 ```
 UNIT TEST: [Test_Name]
-Framework: Agentic Rules v1.5.3
+Framework: Agentic Rules v1.5.4
 Task: [Specific_Test_Task]
 
 [Execute with unit test validation...]

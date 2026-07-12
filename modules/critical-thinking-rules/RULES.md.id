@@ -16,7 +16,7 @@ Pada sesi pertama Anda di proyek ini, jalankan langkah-langkah berikut sebelum m
 
 4. **Konfirmasi.** Beritahu pengguna dalam satu kalimat aturan mana yang aktif. Jangan meminta untuk mengaktifkan/menonaktifkan aturan.
 
-5. **Tulis penanda.** Buat `.agentic_initialized` dengan: `{"version": "1.5.3", "initialized_at": "<ISO>", "marker_format_version": 1}`
+5. **Tulis penanda.** Buat `.agentic_initialized` dengan: `{"version": "1.5.4", "initialized_at": "<ISO>", "marker_format_version": 1}`
 
 Jika prosedur ini dilewati, aturan yang diaktifkan tetap berfungsi. Penanda adalah sinyal lunak, bukan gerbang.
 Detail: `docs/FIRST_RUN_LOADING.md`
