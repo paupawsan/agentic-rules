@@ -4,9 +4,9 @@
     "copyright": "Copyright (c) 2025-2026 Paulus Ery Wasito Adhi",
     "license_file": "LICENSE"
   },
-  "settings_version": "1.5.3",
+  "settings_version": "1.5.4",
   "agentic_rules_framework": {
-    "framework_version": "1.5.3",
+    "framework_version": "1.5.4",
     "description": "Core bootstrap rules for generic agentic systems",
     "last_updated": "2025-12-24",
     "rule_categories": {

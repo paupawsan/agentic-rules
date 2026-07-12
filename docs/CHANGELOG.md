@@ -2,6 +2,12 @@
 
 All notable changes to the Agentic Rules Framework.
 
+## [1.5.4] - 2026-07-12
+
+### Fixed
+
+- **Install docs now show the update command.** `claude plugin update agentic-rules` fails with `Plugin "agentic-rules" not found` — the CLI identifies installed plugins by the full `<plugin>@<marketplace>` ID. The install sections of the root README (en/ja/id) and `docs/CLAUDE_CODE_PLUGIN.md` now document `claude plugin update agentic-rules@agentic-rules`.
+
 ## [1.5.3] - 2026-07-10
 
 ### Added

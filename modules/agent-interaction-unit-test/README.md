@@ -58,7 +58,7 @@ Use this format for unit testing:
 
 ```markdown
 # UNIT TEST: [Test_Name]
-**Framework:** Agentic Rules v1.5.3
+**Framework:** Agentic Rules v1.5.4
 **Task:** [Specific_Test_Task]
 
 [Execute agent with unit test validation...]
@@ -70,7 +70,7 @@ This prompt pattern has been validated and proven effective:
 
 ```markdown
 UNIT TEST: Agent Memory Retrieval
-Framework: Agentic Rules v1.5.3
+Framework: Agentic Rules v1.5.4
 Task: Test basic agent Memory retrieval.
 
 Instruction:
@@ -137,7 +137,7 @@ The debugging analysis generates structured reports with:
 ### Run Test Case
 ```
 UNIT TEST: Code Analysis Validation
-Framework: Agentic Rules v1.5.3
+Framework: Agentic Rules v1.5.4
 Task: Analyze the function in setup.html that generates AGENTS.md files
 
 [Agent executes with full validation...]
@@ -168,7 +168,7 @@ This tells the agent to prepare for comprehensive validation in the current conv
 ### Use Case 1: Code Analysis & Debugging
 ```
 UNIT TEST: code_analysis_debugging
-Framework: Agentic Rules v1.5.3
+Framework: Agentic Rules v1.5.4
 Task: Analyze authentication module for security vulnerabilities
 
 User Query: "Analyze the authentication code in auth.js for potential security issues"
@@ -183,7 +183,7 @@ User Query: "Analyze the authentication code in auth.js for potential security i
 ### Use Case 2: Problem Identification
 ```
 UNIT TEST: problem_identification
-Framework: Agentic Rules v1.5.3
+Framework: Agentic Rules v1.5.4
 Task: Identify root cause of database connection failures
 
 User Query: "Debug the database connection issues in production - check logs and identify the root cause"
@@ -198,7 +198,7 @@ User Query: "Debug the database connection issues in production - check logs and
 ### Use Case 3: Codebase Architecture Analysis
 ```
 UNIT TEST: architecture_analysis
-Framework: Agentic Rules v1.5.3
+Framework: Agentic Rules v1.5.4
 Task: Analyze codebase structure and recommend improvements
 
 User Query: "Analyze the entire codebase structure and suggest architectural improvements"
@@ -213,7 +213,7 @@ User Query: "Analyze the entire codebase structure and suggest architectural imp
 ### Use Case 4: Refactoring Validation
 ```
 UNIT TEST: refactoring_validation
-Framework: Agentic Rules v1.5.3
+Framework: Agentic Rules v1.5.4
 Task: Validate refactoring changes maintain functionality
 
 User Query: "Review the recent refactoring changes to ensure they don't break existing functionality"
@@ -228,7 +228,7 @@ User Query: "Review the recent refactoring changes to ensure they don't break ex
 ### Use Case 5: Comprehensive System Testing
 ```
 UNIT TEST: comprehensive_agent_interaction_testing
-Framework: Agentic Rules v1.5.3
+Framework: Agentic Rules v1.5.4
 Task: Complete interaction validation and compliance testing
 
 User Query: "create detailed agent interaction sequence logs including tools calling and parameters"
@@ -237,7 +237,7 @@ User Query: "create detailed agent interaction sequence logs including tools cal
 ### Use Case 6: Agent Debugging Analysis
 ```
 UNIT TEST: agent_debugging_analysis
-Framework: Agentic Rules v1.5.3
+Framework: Agentic Rules v1.5.4
 Task: Systematic debugging and validation of agent reasoning processes
 
 User Query: "debug the agent's reasoning process for the previous code analysis task"
