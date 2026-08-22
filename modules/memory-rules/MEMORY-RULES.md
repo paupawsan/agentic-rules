@@ -102,6 +102,10 @@ When constructing project memory, create files in this exact structure:
 │   └── [timestamp]_topic_memory.md
 ├── git_history/
 │   └── [timestamp]_git_history_memory.md
+├── backup/                        # hook-managed, not agent-written — see below
+│   └── claude-code-native/
+│       └── [native-project-slug]/
+│           └── ... mirrored files ...
 └── knowledge_graph/
     ├── base/
     │   ├── [timestamp]_base_kg.md
@@ -141,8 +145,14 @@ memory is enabled — the plugin also ships a deterministic hook,
 `hooks/memory-backup.py`, wired to the `SessionEnd` and `PreCompact` events.
 It mirrors the platform's own per-project memory directory (on Claude Code,
 `~/.claude/projects/<project>/memory/`) into
-`[storage.base_path]/projects/[project-id]/backup/claude-code-native/`
-whenever `memory_rules.enabled` is true and `storage.base_path` is set.
+`[storage.base_path]/projects/[project-id]/backup/claude-code-native/[native-project-slug]/`
+whenever `memory_rules.enabled` is true and `storage.base_path` is set. The
+destination nests one level deeper than other project categories — under
+the platform's own native project directory name, not just `[project-id]` —
+so two distinct native sources that happen to share a heuristic
+`[project-id]` (two clones or worktrees of the same repo, two unrelated
+repos with the same directory name) can never collide or overwrite each
+other's backup.
 
 This is a raw, unconditional copy, not a curated write: it makes no judgment
 about what is "durable" or "worth keeping." The Write policy above asks the
@@ -780,6 +790,9 @@ The directory structure adapts to the `storage.base_path` setting in memory-rule
 │   │   ├── interactions/
 │   │   ├── contextual/
 │   │   ├── git_history/
+│   │   ├── backup/             # hook-managed, not agent-written (native-memory mirror)
+│   │   │   └── claude-code-native/
+│   │   │       └── [native-project-slug]/
 │   │   └── knowledge_graph/
 │   │       ├── base/           # Full KG for default branch + manifest
 │   │       ├── overlays/       # Per-branch delta overlays

@@ -49,7 +49,7 @@ agentic-rules/                     # platform-neutral root (THE source of truth)
     ├── .claude-plugin/plugin.json
     ├── skills/                     # thin stubs that READ ${CLAUDE_PLUGIN_ROOT}/modules/<m>/RULES.md.<lang>
     ├── commands/                   # status, help
-    ├── hooks/                      # SessionStart injector (opt-in) — also reads ${CLAUDE_PLUGIN_ROOT}/modules
+    ├── hooks/                      # SessionStart injector (opt-in, reads ${CLAUDE_PLUGIN_ROOT}/modules) + SessionEnd/PreCompact native-memory backup
     └── .mcp.json                   # parameterized KG server (kg_mcp_url)
 ```
 
@@ -61,6 +61,7 @@ agentic-rules/                     # platform-neutral root (THE source of truth)
 | Distribution | `marketplace.json` | `.claude-plugin/marketplace.json` (repo root) |
 | Rule modules | **Skills** (auto-invoked) — reference only | `claude-code/skills/` → read `modules/` (symlink) |
 | Always-on injection | **SessionStart hook** — reference only | `claude-code/hooks/` → read `modules/` (symlink) |
+| Native-memory backup | **SessionEnd/PreCompact hook** — reference only | `claude-code/hooks/memory-backup.py` |
 | Knowledge Graph | **MCP server** | `claude-code/.mcp.json` |
 | User commands | **Slash commands** | `claude-code/commands/` |
 | **Rule text (all languages)** | **Source of truth** | `modules/<m>/RULES.md.{en,ja,id}` |

@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh -c 'case \"${CLAUDE_PLUGIN_OPTION_ALWAYS_ON_INJECTION:-${CLAUDE_PLUGIN_OPTION_always_on_injection:-}}\" in false|0|no|off|FALSE|NO|OFF|False|No|Off) ;; *) exec python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.py\" ;; esac'"
+            "command": "sh -c 'v=\"${CLAUDE_PLUGIN_OPTION_ALWAYS_ON_INJECTION:-${CLAUDE_PLUGIN_OPTION_always_on_injection:-}}\"; v=$(printf %s \"$v\" | tr \"[:upper:]\" \"[:lower:]\"); case \"$v\" in false|0|no|off) ;; *) exec python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.py\" ;; esac'"
           }
         ]
       }
@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh -c 'mp=\"${CLAUDE_PLUGIN_OPTION_MEMORY_PATH:-${CLAUDE_PLUGIN_OPTION_memory_path:-}}\"; case \"${CLAUDE_PLUGIN_OPTION_ENABLE_MEMORY:-${CLAUDE_PLUGIN_OPTION_enable_memory:-}}\" in false|0|no|off|FALSE|NO|OFF|False|No|Off) exit 0 ;; esac; [ -z \"$mp\" ] && exit 0; exec python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/memory-backup.py\"'"
+            "command": "sh -c 'mp=\"${CLAUDE_PLUGIN_OPTION_MEMORY_PATH:-${CLAUDE_PLUGIN_OPTION_memory_path:-}}\"; em=\"${CLAUDE_PLUGIN_OPTION_ENABLE_MEMORY:-${CLAUDE_PLUGIN_OPTION_enable_memory:-}}\"; em=$(printf %s \"$em\" | tr \"[:upper:]\" \"[:lower:]\"); case \"$em\" in false|0|no|off) exit 0 ;; esac; [ -z \"$mp\" ] && exit 0; exec python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/memory-backup.py\"'"
           }
         ]
       }
@@ -26,7 +26,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh -c 'mp=\"${CLAUDE_PLUGIN_OPTION_MEMORY_PATH:-${CLAUDE_PLUGIN_OPTION_memory_path:-}}\"; case \"${CLAUDE_PLUGIN_OPTION_ENABLE_MEMORY:-${CLAUDE_PLUGIN_OPTION_enable_memory:-}}\" in false|0|no|off|FALSE|NO|OFF|False|No|Off) exit 0 ;; esac; [ -z \"$mp\" ] && exit 0; exec python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/memory-backup.py\"'"
+            "command": "sh -c 'mp=\"${CLAUDE_PLUGIN_OPTION_MEMORY_PATH:-${CLAUDE_PLUGIN_OPTION_memory_path:-}}\"; em=\"${CLAUDE_PLUGIN_OPTION_ENABLE_MEMORY:-${CLAUDE_PLUGIN_OPTION_enable_memory:-}}\"; em=$(printf %s \"$em\" | tr \"[:upper:]\" \"[:lower:]\"); case \"$em\" in false|0|no|off) exit 0 ;; esac; [ -z \"$mp\" ] && exit 0; exec python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/memory-backup.py\"'"
           }
         ]
       }
