@@ -27,10 +27,12 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 
 PLUGIN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # claude-code/
 REPO = os.path.dirname(PLUGIN)
 HOOK = os.path.join(PLUGIN, "hooks", "session-start.py")
+BACKUP_HOOK = os.path.join(PLUGIN, "hooks", "memory-backup.py")
 
 EXPECTED_USER_CONFIG = {
     "language",
@@ -105,6 +107,21 @@ def injected_context(options, plugin_root=PLUGIN):
     if not out:
         return ""
     return json.loads(out)["hookSpecificOutput"]["additionalContext"]
+
+
+def run_backup(options, payload, plugin_root=PLUGIN):
+    """Run memory-backup.py in a sandboxed subprocess, feeding it a stdin JSON
+    payload the way SessionEnd/PreCompact actually deliver one."""
+    env = {"PATH": os.environ.get("PATH", "")}
+    if plugin_root is not None:
+        env["CLAUDE_PLUGIN_ROOT"] = plugin_root
+    for key, value in options.items():
+        env["CLAUDE_PLUGIN_OPTION_" + key.upper()] = value
+    proc = subprocess.run(
+        [sys.executable, BACKUP_HOOK], env=env, input=json.dumps(payload),
+        capture_output=True, text=True, timeout=30,
+    )
+    return proc.stdout.strip(), proc.stderr.strip(), proc.returncode
 
 
 # --- manifests & layout ----------------------------------------------------
@@ -196,6 +213,166 @@ def hooks_config_valid():
     assert cmd["type"] == "command"
     assert "session-start.py" in cmd["command"]
     assert "${CLAUDE_PLUGIN_ROOT}" in cmd["command"]
+
+
+@test
+def memory_backup_hooks_config_valid():
+    m = load_json("claude-code/hooks/hooks.json")
+    for event in ("SessionEnd", "PreCompact"):
+        cmd = m["hooks"][event][0]["hooks"][0]
+        assert cmd["type"] == "command"
+        assert "memory-backup.py" in cmd["command"]
+        assert "${CLAUDE_PLUGIN_ROOT}" in cmd["command"]
+
+
+@test
+def memory_backup_noop_without_memory_path():
+    """No memory_path configured means native memory is already canonical —
+    the hook must exit cleanly and touch nothing."""
+    out, err, code = run_backup(
+        {"ENABLE_MEMORY": "true"},
+        {"cwd": REPO, "transcript_path": "/nonexistent/project/session.jsonl"},
+    )
+    assert code == 0, f"hook exited {code}: {err}"
+    assert out == ""
+
+
+@test
+def memory_backup_noop_when_disabled():
+    with tempfile.TemporaryDirectory() as store:
+        out, err, code = run_backup(
+            {"ENABLE_MEMORY": "false", "MEMORY_PATH": store},
+            {"cwd": REPO, "transcript_path": "/nonexistent/project/session.jsonl"},
+        )
+        assert code == 0, f"hook exited {code}: {err}"
+        assert os.listdir(store) == [], "disabled module must not write anything"
+
+
+@test
+def memory_backup_mirrors_native_memory():
+    """End-to-end: a fake ~/.claude/projects/<slug>/memory/ tree — including a
+    nested subdirectory — gets mirrored into
+    memory_path/projects/<id>/backup/claude-code-native/<slug>/, with a
+    manifest. The destination nests one level deeper than the naive
+    <id>/backup/claude-code-native/ path: <slug> is Claude Code's own
+    per-project directory name, and nesting under it is what makes two
+    different native sources that happen to share a heuristic project_id
+    unable to collide (see memory_backup_avoids_cross_project_collision)."""
+    with tempfile.TemporaryDirectory() as home, tempfile.TemporaryDirectory() as store:
+        project_dir = os.path.join(home, "projects", "-fake-project")
+        memory_dir = os.path.join(project_dir, "memory")
+        nested_dir = os.path.join(memory_dir, "notes")
+        os.makedirs(nested_dir)
+        with open(os.path.join(memory_dir, "MEMORY.md"), "w", encoding="utf-8") as f:
+            f.write("# index\n")
+        with open(os.path.join(memory_dir, ".DS_Store"), "w", encoding="utf-8") as f:
+            f.write("junk")
+        with open(os.path.join(nested_dir, "nested.md"), "w", encoding="utf-8") as f:
+            f.write("# nested\n")
+
+        payload = {
+            "cwd": os.path.join(home, "not-a-git-repo"),
+            "transcript_path": os.path.join(project_dir, "abc123.jsonl"),
+            "hook_event_name": "SessionEnd",
+        }
+        out, err, code = run_backup({"ENABLE_MEMORY": "true", "MEMORY_PATH": store}, payload)
+        assert code == 0, f"hook exited {code}: {err}"
+
+        dst = os.path.join(
+            store, "projects", "not-a-git-repo", "backup", "claude-code-native", "-fake-project",
+        )
+        assert os.path.isfile(os.path.join(dst, "MEMORY.md"))
+        assert os.path.isfile(os.path.join(dst, "notes", "nested.md")), \
+            "nested subdirectory must be mirrored preserving structure"
+        assert not os.path.exists(os.path.join(dst, ".DS_Store")), ".DS_Store must be skipped"
+
+        with open(os.path.join(dst, ".backup_manifest.json"), encoding="utf-8") as handle:
+            manifest = json.load(handle)
+        assert manifest["files_copied"] == 2  # MEMORY.md + notes/nested.md
+        assert manifest["files_skipped_errors"] == 0
+        assert manifest["trigger"] == "SessionEnd"
+
+
+@test
+def memory_backup_never_deletes_existing_backup_files():
+    """Additive only: a file already on the destination side that the source
+    no longer has must survive a backup run."""
+    with tempfile.TemporaryDirectory() as home, tempfile.TemporaryDirectory() as store:
+        project_dir = os.path.join(home, "projects", "-fake-project")
+        memory_dir = os.path.join(project_dir, "memory")
+        os.makedirs(memory_dir)
+        with open(os.path.join(memory_dir, "new_fact.md"), "w", encoding="utf-8") as f:
+            f.write("new\n")
+
+        dst = os.path.join(
+            store, "projects", "stale-project", "backup", "claude-code-native", "-fake-project",
+        )
+        os.makedirs(dst)
+        with open(os.path.join(dst, "old_fact.md"), "w", encoding="utf-8") as f:
+            f.write("old\n")
+
+        payload = {
+            "cwd": os.path.join(home, "stale-project"),
+            "transcript_path": os.path.join(project_dir, "abc123.jsonl"),
+        }
+        out, err, code = run_backup({"ENABLE_MEMORY": "true", "MEMORY_PATH": store}, payload)
+        assert code == 0, f"hook exited {code}: {err}"
+        assert os.path.isfile(os.path.join(dst, "old_fact.md")), "prior backup file was deleted"
+        assert os.path.isfile(os.path.join(dst, "new_fact.md"))
+
+
+@test
+def memory_backup_avoids_cross_project_collision():
+    """Two distinct native memory sources that resolve to the SAME heuristic
+    project_id (same non-git cwd basename here) must never overwrite each
+    other's backup — each lands under its own native-slug subdirectory."""
+    with tempfile.TemporaryDirectory() as home, tempfile.TemporaryDirectory() as store:
+        cwd = os.path.join(home, "shared-name")  # same cwd both times => same project_id
+
+        project_dir_a = os.path.join(home, "projects", "-worktree-a")
+        os.makedirs(os.path.join(project_dir_a, "memory"))
+        with open(os.path.join(project_dir_a, "memory", "a.md"), "w", encoding="utf-8") as f:
+            f.write("a\n")
+
+        project_dir_b = os.path.join(home, "projects", "-worktree-b")
+        os.makedirs(os.path.join(project_dir_b, "memory"))
+        with open(os.path.join(project_dir_b, "memory", "b.md"), "w", encoding="utf-8") as f:
+            f.write("b\n")
+
+        for project_dir in (project_dir_a, project_dir_b):
+            payload = {"cwd": cwd, "transcript_path": os.path.join(project_dir, "s.jsonl")}
+            out, err, code = run_backup({"ENABLE_MEMORY": "true", "MEMORY_PATH": store}, payload)
+            assert code == 0, f"hook exited {code}: {err}"
+
+        project_backup_root = os.path.join(store, "projects", "shared-name", "backup", "claude-code-native")
+        assert os.path.isfile(os.path.join(project_backup_root, "-worktree-a", "a.md"))
+        assert os.path.isfile(os.path.join(project_backup_root, "-worktree-b", "b.md")), \
+            "second source's backup must not be lost to the first"
+
+
+@test
+def memory_backup_rejects_path_traversal_project_id():
+    """A git remote URL whose final path segment is '..' must never be able
+    to make the destination land outside memory_path/projects/."""
+    with tempfile.TemporaryDirectory() as home, tempfile.TemporaryDirectory() as store:
+        repo = os.path.join(home, "repo")
+        os.makedirs(repo)
+        subprocess.run(["git", "init", "-q", repo], check=True)
+        subprocess.run(
+            ["git", "-C", repo, "remote", "add", "origin", "https://example.invalid/evil/.."],
+            check=True,
+        )
+
+        project_dir = os.path.join(home, "projects", "-fake-project")
+        os.makedirs(os.path.join(project_dir, "memory"))
+        with open(os.path.join(project_dir, "memory", "MEMORY.md"), "w", encoding="utf-8") as f:
+            f.write("# index\n")
+
+        payload = {"cwd": repo, "transcript_path": os.path.join(project_dir, "abc123.jsonl")}
+        out, err, code = run_backup({"ENABLE_MEMORY": "true", "MEMORY_PATH": store}, payload)
+        assert code == 0, f"hook exited {code}: {err}"
+        assert os.listdir(store) == [], \
+            "an unsafe project_id must be rejected before anything is written"
 
 
 # --- skills & commands -----------------------------------------------------
@@ -507,13 +684,50 @@ def injected_text_strips_template_scaffolding():
 
 @test
 def hook_consumes_only_declared_settings():
-    src = read("claude-code/hooks/session-start.py")
-    consumed = set(re.findall(r'opt\("([A-Z_]+)"', src))
+    consumed = set()
+    for rel in ("claude-code/hooks/session-start.py", "claude-code/hooks/memory-backup.py"):
+        consumed |= set(re.findall(r'opt\("([A-Z_]+)"', read(rel)))
     consumed |= {"ENABLE_MEMORY", "ENABLE_RAG",
                  "ENABLE_CRITICAL_THINKING", "ENABLE_AGENT_UNIT_TEST"}
     user_config = {k.upper() for k in EXPECTED_USER_CONFIG}
     undeclared = {c for c in consumed if c not in user_config}
     assert not undeclared, f"hook reads settings not declared in userConfig: {undeclared}"
+
+
+@test
+def hooks_gate_treats_mixed_case_falsy_as_falsy():
+    """hooks.json's own shell gate must treat a mixed-case falsy value the
+    same way is_true() does, so a value like 'OfF' doesn't slip past the
+    cheap shell guard and spawn python3 anyway (defeating the point of
+    having a shell gate at all). Swaps a fake python3 onto PATH so the test
+    proves the gate itself did/didn't reach `exec`, independent of the real
+    hook's own logic — with a same-run sanity check on a truthy value so
+    this can't pass vacuously on a broken/short-circuiting gate."""
+    m = load_json("claude-code/hooks/hooks.json")
+    cmd = m["hooks"]["SessionEnd"][0]["hooks"][0]["command"]
+    with tempfile.TemporaryDirectory() as bindir, tempfile.TemporaryDirectory() as store:
+        marker = os.path.join(bindir, "invoked")
+        fake_python3 = os.path.join(bindir, "python3")
+        with open(fake_python3, "w", encoding="utf-8") as f:
+            f.write(f'#!/bin/sh\ntouch "{marker}"\n')
+        os.chmod(fake_python3, 0o755)
+        env = {
+            "PATH": bindir + os.pathsep + os.environ.get("PATH", ""),
+            "CLAUDE_PLUGIN_ROOT": PLUGIN,
+            "CLAUDE_PLUGIN_OPTION_MEMORY_PATH": store,
+            "CLAUDE_PLUGIN_OPTION_ENABLE_MEMORY": "OfF",
+        }
+        proc = subprocess.run(["sh", "-c", cmd], env=env, input="{}",
+                               capture_output=True, text=True, timeout=10)
+        assert proc.returncode == 0, proc.stderr
+        assert not os.path.exists(marker), \
+            "shell gate exec'd python3 for a mixed-case falsy ENABLE_MEMORY value"
+
+        env["CLAUDE_PLUGIN_OPTION_ENABLE_MEMORY"] = "true"
+        subprocess.run(["sh", "-c", cmd], env=env, input="{}",
+                        capture_output=True, text=True, timeout=10)
+        assert os.path.exists(marker), \
+            "sanity check failed: gate never reaches exec even for a truthy value"
 
 
 @test

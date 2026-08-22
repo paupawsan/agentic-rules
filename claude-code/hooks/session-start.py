@@ -20,8 +20,7 @@ import os
 import re
 import sys
 
-
-TRUE_VALUES = {"true", "1", "yes", "on"}
+from hook_common import is_true, opt
 
 # Imperative activation directive prepended to the injected rule text. The
 # module RULES files describe capabilities in conditional, templatey language
@@ -116,21 +115,6 @@ MODULES = [
     ("ENABLE_CRITICAL_THINKING", "critical-thinking-rules", True),
     ("ENABLE_AGENT_UNIT_TEST", "agent-interaction-unit-test", False),
 ]
-
-
-def opt(key, default=""):
-    """Read a plugin userConfig value, tolerating casing variants."""
-    for name in (f"CLAUDE_PLUGIN_OPTION_{key}", f"CLAUDE_PLUGIN_OPTION_{key.lower()}"):
-        if name in os.environ:
-            return os.environ[name]
-    return default
-
-
-def is_true(value, default=False):
-    value = (value or "").strip().lower()
-    if not value:
-        return default
-    return value in TRUE_VALUES
 
 
 def clean(text):

@@ -2,6 +2,12 @@
 
 All notable changes to the Agentic Rules Framework.
 
+## [1.6.0] - 2026-08-22
+
+### Added
+
+- **Automatic native-memory backup hook.** `hooks/memory-backup.py`, wired to the `SessionEnd` and `PreCompact` events, mirrors the platform's own per-project memory directory into `[storage.base_path]/projects/[project-id]/backup/claude-code-native/[native-project-slug]/` whenever `memory_rules.enabled` is true and `storage.base_path` is set. Nesting under the platform's own native project slug (not just `[project-id]`) means two distinct native sources sharing a heuristic `[project-id]` can never collide. This closes a real gap: the existing Write policy only asks the model to persist knowledge it judges *durable* into the framework store, so anything it doesn't judge durable enough stayed local-disk-only with no off-machine copy — and on at least one real project that backup store went stale for weeks while native memory kept moving. The hook makes no curation judgment; it copies everything, additive-only (never deletes an existing destination file), and writes a small manifest recording the last backup time and file count so staleness is directly checkable. Documented in `MEMORY-RULES.md`; no changes to the injected `RULES.md.*` activation text, since this is code-driven infrastructure, not an agent instruction. Issue #30.
+
 ## [1.5.4] - 2026-07-12
 
 ### Fixed

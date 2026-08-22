@@ -102,6 +102,10 @@ When constructing project memory, create files in this exact structure:
 │   └── [timestamp]_topic_memory.md
 ├── git_history/
 │   └── [timestamp]_git_history_memory.md
+├── backup/                        # hook-managed, not agent-written — see below
+│   └── claude-code-native/
+│       └── [native-project-slug]/
+│           └── ... mirrored files ...
 └── knowledge_graph/
     ├── base/
     │   ├── [timestamp]_base_kg.md
@@ -133,6 +137,42 @@ When a `kg` MCP server is connected, structured knowledge (rules, patterns, fact
 - `kg_list(type/scope)` — browse stored knowledge by type or scope (global / project).
 
 These tools are optional and follow the same consent boundary as file-based memory: persist durable, reusable knowledge — never secrets or transient session detail. If no `kg` server is present, use the markdown memory files and index described above. The full tool reference and algorithm mapping lives in `modules/rag-rules/RAG-RULES.md`.
+
+## Automatic Native-Memory Backup
+
+Separate from everything above — which describes what an *agent* writes when
+memory is enabled — the plugin also ships a deterministic hook,
+`hooks/memory-backup.py`, wired to the `SessionEnd` and `PreCompact` events.
+It mirrors the platform's own per-project memory directory (on Claude Code,
+`~/.claude/projects/<project>/memory/`) into
+`[storage.base_path]/projects/[project-id]/backup/claude-code-native/[native-project-slug]/`
+whenever `memory_rules.enabled` is true and `storage.base_path` is set. The
+destination nests one level deeper than other project categories — under
+the platform's own native project directory name, not just `[project-id]` —
+so two distinct native sources that happen to share a heuristic
+`[project-id]` (two clones or worktrees of the same repo, two unrelated
+repos with the same directory name) can never collide or overwrite each
+other's backup.
+
+This is a raw, unconditional copy, not a curated write: it makes no judgment
+about what is "durable" or "worth keeping." The Write policy above asks the
+agent to persist durable knowledge deliberately; this hook exists so that
+whatever the agent judged *not* durable enough to persist still isn't
+local-disk-only, since the platform's native memory has no off-machine copy
+of its own. The two mechanisms are complementary — the curated store stays
+small and indexable, the raw backup stays complete.
+
+The hook runs at a session boundary (`SessionEnd`) and again at each context
+compaction (`PreCompact`), so a single long session gets more than one
+checkpoint rather than one shot at the very end. It is additive only: it
+never removes a file already on the destination side, so a misidentified
+project or an unusual working-directory layout can't erase a prior backup.
+It writes a small `.backup_manifest.json` next to the mirrored files —
+last-backup timestamp, file count, and which event triggered it — so
+staleness is directly checkable rather than discovered by surprise later.
+
+No agent involvement is required or expected; this is plugin infrastructure,
+not a rule the model needs to follow.
 
 ## Version Tracking Algorithm
 
@@ -400,7 +440,7 @@ A populated `technical` memory, written to `~/.memory/projects/acme-api/technica
 # Memory Entry: technical - 2026-06-16T14:30:00Z
 
 ## Metadata
-- **Version**: 1.5.4
+- **Version**: 1.6.0
 - **Generated**: 2026-06-16T14:30:00Z
 - **Category**: technical
 - **Migration Notes**: none
@@ -750,6 +790,9 @@ The directory structure adapts to the `storage.base_path` setting in memory-rule
 │   │   ├── interactions/
 │   │   ├── contextual/
 │   │   ├── git_history/
+│   │   ├── backup/             # hook-managed, not agent-written (native-memory mirror)
+│   │   │   └── claude-code-native/
+│   │   │       └── [native-project-slug]/
 │   │   └── knowledge_graph/
 │   │       ├── base/           # Full KG for default branch + manifest
 │   │       ├── overlays/       # Per-branch delta overlays
