@@ -1140,6 +1140,10 @@ Output: cross_branch_analysis_report
    - IF memory_rules.enabled = false: Return in session context only
 ```
 
+## Team Knowledge Graph Daemon Contract
+
+Any KG server implementing this framework's seven tools may run as a *team* daemon. In that mode it must: (1) record an `owner` per node, taken from the member segment of the request path `/u/<member>/mcp` (or a configured default for legacy clients); (2) reject writes whose `scope` is outside a configured allowlist; (3) run the framework privacy-gate scanner over every `kg_add`/`kg_link` payload and reject on a deny finding, returning pattern ids only; (4) reject **all** writes if the gate is configured but its pattern file is unavailable (fail closed). Members run their own private daemon (no gate, no owner routing) on their own machine; a private daemon may protect its endpoint with a secret path prefix.
+
 ## Quality Assurance
 
 ### Reading Completeness Check

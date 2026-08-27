@@ -36,38 +36,16 @@ contract as session-start.py.
 import json
 import os
 import shutil
-import subprocess
 import sys
 import time
 from datetime import datetime, timezone
 
-from hook_common import is_true, opt
+from hook_common import is_true, opt, project_id_for
 
 
 SKIP_NAMES = {".DS_Store"}
 LOCK_TIMEOUT_S = 10.0
 LOCK_POLL_S = 0.05
-
-
-def project_id_for(cwd):
-    """Best-effort project identifier: git remote name, else directory name.
-    Mirrors the Project Identification Algorithm documented in
-    modules/memory-rules/MEMORY-RULES.md, so backups land next to any
-    curated memory already filed under the same id."""
-    try:
-        remote = subprocess.run(
-            ["git", "-C", cwd, "remote", "get-url", "origin"],
-            capture_output=True, text=True, timeout=3,
-        )
-        if remote.returncode == 0 and remote.stdout.strip():
-            name = remote.stdout.strip().rstrip("/").rsplit("/", 1)[-1]
-            if name.endswith(".git"):
-                name = name[:-4]
-            if name:
-                return name
-    except Exception:
-        pass
-    return os.path.basename(os.path.normpath(cwd)) or "default-project"
 
 
 def _safe_segment(name):

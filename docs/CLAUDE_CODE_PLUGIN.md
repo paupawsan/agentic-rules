@@ -134,6 +134,8 @@ All options are set via `/plugin` (or `--config KEY=VALUE` at install) and store
 | `enable_agent_unit_test` | boolean | `false` | Toggles the unit-test module's injection. The skill is explicit-invoke only (`disable-model-invocation: true`). |
 | `always_on_injection` | boolean | `true` | On (default) = inject the activation preamble + enabled rules every session (reliable activation); off = on-demand skills only (lighter, best-effort). |
 | `kg_mcp_url` | string | `""` (blank) | HTTP URL of a Knowledge Graph MCP server. Blank = no KG server; memory/RAG run without it. |
+| `kg_private_mcp_url` | string | `""` | URL of a KG daemon on your own machine. When set, `kg_mcp_url` is the team graph and the privacy gate guards writes to it. |
+| `team_memory_path` | directory | unset | Team-shared memory root (a clone of the team memory repo). Read alongside `memory_path`; writes are gated. |
 
 ## Migration & adoption
 
@@ -205,6 +207,27 @@ one-line preferences (e.g. "don't do X") can stay in the memory store alone.
 > **Note:** the KG MCP tools may be exposed as *deferred* tools — Claude must load their schema
 > via a tool-search step before the first call. The activation preamble explicitly tells Claude
 > to do this; it is a known point of friction that otherwise biases the model away from the KG.
+
+### Team tier
+
+Both the memory store and the Knowledge Graph can split into a **team** layer (shared with
+teammates) and a **private** layer (yours only), instead of the single store/graph described
+above. Two new options drive it: `team_memory_path` (a git-shared memory root) and
+`kg_private_mcp_url` (a second, member-private KG daemon on `127.0.0.1`); when
+`kg_private_mcp_url` is set, `kg_mcp_url` is understood to be the team graph. Neither option
+is set by default, so a plain install is unaffected.
+
+When both server URLs are configured, `/mcp` shows two connected servers — the team graph
+(`kg-dgx` in this framework's own deployment) and the private one (`kg-private`) — and recall
+reads both, tagging team-sourced nodes with `owner:`. A **privacy gate** hook
+(`tools/privacy_gate.py`, `settings/privacy-gate.json`) sits on the write path to the team tier
+and blocks or flags anything that looks private (secrets, private IPs, home directories,
+emails) before it leaves your machine; this Claude Code hook is fast client-side feedback,
+bypassable by anyone with direct shell/git access, so the team KG daemon and the team
+repository's pre-commit/CI are what actually enforce the boundary when the client isn't this
+plugin.
+
+Full setup, upgrade, and verification steps: [TEAM_TIERS_SETUP.md](TEAM_TIERS_SETUP.md).
 
 ## Verifying the install
 

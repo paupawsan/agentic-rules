@@ -4,7 +4,7 @@
     "copyright": "Copyright (c) 2025-2026 Paulus Ery Wasito Adhi",
     "license_file": "LICENSE"
   },
-  "version": "1.6.0",
+  "version": "1.7.0",
   "memory_rules": {
     "enabled": true,
     "max_entries_per_category": 100,
@@ -13,7 +13,7 @@
     "project_support": {
       "enabled": true,
       "auto_detect_projects": true,
-      "project_identification_method": "git_remote_or_directory_name",
+      "project_identification_method": "marker_then_git_remote_or_directory_name",
       "common_memory_enabled": true,
       "private_memory_enabled": true,
       "git_history_analysis": {
@@ -46,26 +46,30 @@
           "conflict_score_threshold": 0.5,
           "max_branches_to_compare": 10
         }
-      }
+      },
+      "project_marker_file": ".agentic-rules.json"
     },
     "categories": {
       "technical": {
         "enabled": true,
         "suggested_retention_days": 90,
         "storage_location": "common",
-        "share_across_projects": true
+        "share_across_projects": true,
+        "team_eligible": true
       },
       "behavioral": {
         "enabled": true,
         "suggested_retention_days": 60,
         "storage_location": "common",
-        "share_across_projects": true
+        "share_across_projects": true,
+        "team_eligible": false
       },
       "contextual": {
         "enabled": true,
         "suggested_retention_days": 120,
         "storage_location": "private",
-        "share_across_projects": false
+        "share_across_projects": false,
+        "team_eligible": true
       },
       "user_interaction": {
         "enabled": true,
@@ -74,7 +78,8 @@
         "capture_responses": true,
         "include_metadata": true,
         "storage_location": "project",
-        "share_across_projects": false
+        "share_across_projects": false,
+        "team_eligible": false
       },
       "session": {
         "enabled": true,
@@ -83,7 +88,8 @@
         "topic_tracking": true,
         "quality_metrics": true,
         "storage_location": "project",
-        "share_across_projects": false
+        "share_across_projects": false,
+        "team_eligible": false
       },
       "topic": {
         "enabled": true,
@@ -92,7 +98,8 @@
         "pattern_recognition": true,
         "cross_topic_linking": true,
         "storage_location": "project",
-        "share_across_projects": false
+        "share_across_projects": false,
+        "team_eligible": true
       },
       "git_history": {
         "enabled": true,
@@ -101,13 +108,15 @@
         "track_milestones": true,
         "extract_patterns": true,
         "storage_location": "project",
-        "share_across_projects": false
+        "share_across_projects": false,
+        "team_eligible": true
       },
       "personal": {
         "enabled": true,
         "suggested_retention_days": 3650,
         "storage_location": "private",
-        "share_across_projects": false
+        "share_across_projects": false,
+        "team_eligible": false
       },
       "credentials": {
         "enabled": true,
@@ -116,7 +125,8 @@
         "share_across_projects": false,
         "encryption_required": true,
         "flexible_naming": true,
-        "naming_logic": "agent_decides_based_on_context"
+        "naming_logic": "agent_decides_based_on_context",
+        "team_eligible": false
       },
       "sensitive": {
         "enabled": true,
@@ -124,7 +134,8 @@
         "storage_location": "private",
         "share_across_projects": false,
         "encryption_required": true,
-        "access_controlled": true
+        "access_controlled": true,
+        "team_eligible": false
       },
       "knowledge_graph": {
         "enabled": true,
@@ -133,7 +144,8 @@
         "share_across_projects": true,
         "background_construction": true,
         "minimal_auto_build": true,
-        "user_invisible": true
+        "user_invisible": true,
+        "team_eligible": true
       },
       "knowledge_graph_overlay": {
         "enabled": true,
@@ -141,14 +153,20 @@
         "storage_location": "project",
         "share_across_projects": false,
         "linked_to_git_branches": true,
-        "cleanup_on_branch_deletion": true
+        "cleanup_on_branch_deletion": true,
+        "team_eligible": false
       },
       "backup": {
         "enabled": true,
         "suggested_retention_days": 3650,
         "storage_location": "project",
-        "share_across_projects": false
+        "share_across_projects": false,
+        "team_eligible": false
       }
+    },
+    "storage": {
+      "base_path": "",
+      "team_base_path": ""
     },
     "compression": {
       "enabled": false,
@@ -229,9 +247,6 @@
       "max_kg_context_items": 5,
       "kg_context_priority": "high"
     }
-  },
-  "storage": {
-    "base_path": "./memory"
   },
   "cleanup_guidance": {
     "notify_overdue_memories": false,

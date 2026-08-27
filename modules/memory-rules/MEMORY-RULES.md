@@ -189,12 +189,11 @@ not a rule the model needs to follow.
 4. **Migration Flag**: Mark for migration if version mismatch detected
 
 ### Project Identification Algorithm
-1. **Context Analysis**: Examine current working environment
-2. **Git Remote Check**: Extract project identifier from git remote URL
-3. **Directory Name Fallback**: Use current directory name if git not available
-4. **Environment Override**: Check for manual project ID override
-5. **Validation**: Ensure project ID is valid and unique
-6. **Registration**: Register project in global memory index
+1. **Marker Check**: If `.agentic-rules.json` exists at the repository root and contains a valid `project_id` (`^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$`), use it — this is what keeps internal and public clones of one project on the same id
+2. **Git Remote Check**: Else extract the project identifier from the git remote URL (last path segment, `.git` stripped)
+3. **Directory Name Fallback**: Else use the current directory name
+4. **Validation**: Reject ids containing path separators or `..`
+5. **Registration**: Register the project in the global memory index; KG scope is `project:<project_id>`
 
 ### Credential Naming Decision Algorithm
 1. **Credential Assessment**: Analyze credential type and usage context
@@ -217,6 +216,7 @@ not a rule the model needs to follow.
    - If `storage_location: "private"`: Route to `[storage.base_path]/private/[category]/`
    - If `storage_location: "project"`: Route to `[storage.base_path]/projects/[project-id]/[category]/`
    - If credential category: Apply credential naming decision algorithm (always private)
+   - If storage.team_base_path is set and the category has team_eligible: true and the content passes the Team Memory Routing checks: route to [storage.team_base_path]/projects/[project-id]/[category]/ with frontmatter audience: team
 6. **Path Validation**: Ensure target directory exists and is writable
 7. **Index Update**: Update appropriate indexes (global, private, or project-specific)
 
@@ -312,6 +312,12 @@ not a rule the model needs to follow.
 4. **Migration Metadata**: Add migration notes explaining transformations
 5. **Validation**: Verify migrated data integrity and completeness
 6. **Integration**: Merge migrated memories into active memory system
+
+## Team Tier, Audience Metadata and the Privacy Gate
+
+Two tiers may exist: the member-private store (`storage.base_path`) and an optional team store (`storage.team_base_path`, a git clone shared by the team). Every memory file carries `audience: private | team` in its frontmatter (default `private`); files under the team root must carry `audience: team`, and only categories with `team_eligible: true` may appear there.
+
+A privacy gate enforces the boundary in code (`tools/privacy_gate.py`, patterns in `settings/privacy-gate.json`): definite private shapes (keys, tokens, private-key blocks, private IPv4 ranges, mesh-VPN hostnames, home directories) are denied; heuristics (emails, phone numbers, the member's own private terms from `private/gate-terms.txt`) ask. The gate runs as a platform hook before team-bound writes, as a pre-commit and CI check in the team repository, and inside a team KG daemon. It never prints matched text. False positives go in the team repository's `settings/allowlist.txt` (pattern id or literal). Blocks are logged to `private/gate-log/` in the private store.
 
 ## Settings Configuration
 
@@ -440,7 +446,7 @@ A populated `technical` memory, written to `~/.memory/projects/acme-api/technica
 # Memory Entry: technical - 2026-06-16T14:30:00Z
 
 ## Metadata
-- **Version**: 1.6.0
+- **Version**: 1.7.0
 - **Generated**: 2026-06-16T14:30:00Z
 - **Category**: technical
 - **Migration Notes**: none

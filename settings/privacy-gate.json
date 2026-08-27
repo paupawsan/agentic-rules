@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "_comment": "Privacy gate A patterns. deny = definite private content (blocked); ask = heuristic (surfaced for a human decision). Regexes are Python `re`. Extend per team via an allowlist file (pattern ids or literal strings), never by editing this file in a team repo.",
+  "deny": [
+    {"id": "secret-aws-access-key", "regex": "\\bAKIA[0-9A-Z]{16}\\b"},
+    {"id": "secret-github-token", "regex": "\\bgh[pousr]_[A-Za-z0-9]{20,}\\b"},
+    {"id": "secret-sk-token", "regex": "\\bsk-[A-Za-z0-9_-]{16,}\\b"},
+    {"id": "secret-bearer", "regex": "(?i)\\bbearer\\s+[A-Za-z0-9._~+/=-]{16,}"},
+    {"id": "secret-private-key-block", "regex": "-----BEGIN (?:RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY(?: BLOCK)?-----"},
+    {"id": "net-ipv4-private", "regex": "\\b(?:10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|172\\.(?:1[6-9]|2\\d|3[01])\\.\\d{1,3}\\.\\d{1,3}|192\\.168\\.\\d{1,3}\\.\\d{1,3}|100\\.(?:6[4-9]|[7-9]\\d|1[01]\\d|12[0-7])\\.\\d{1,3}\\.\\d{1,3}|169\\.254\\.\\d{1,3}\\.\\d{1,3})\\b"},
+    {"id": "net-mesh-vpn-hostname", "regex": "\\b[a-z0-9-]+\\.[a-z0-9-]+\\.ts\\.net\\b"},
+    {"id": "path-home-unix", "regex": "(?<![\\w/])/(?:Users|home)/[A-Za-z0-9._-]+/"},
+    {"id": "path-home-windows", "regex": "(?i)\\b[A-Z]:\\\\Users\\\\[^\\\\\\s]+"}
+  ],
+  "ask": [
+    {"id": "pii-email", "regex": "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b"},
+    {"id": "pii-phone", "regex": "(?<!\\w)\\+?\\d{1,3}[-.\\s]?\\(?\\d{2,4}\\)?[-.\\s]?\\d{3,4}[-.\\s]?\\d{3,4}(?!\\w)"},
+    {"id": "secret-assignment", "regex": "(?i)\\b(?:api[_-]?key|secret|token|password|passwd)\\s*[:=]\\s*[\"']?[A-Za-z0-9._~+/=-]{12,}"}
+  ]
+}

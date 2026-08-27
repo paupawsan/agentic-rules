@@ -20,7 +20,7 @@
 
 4. **確認を伝える。** 有効なルールを一文でユーザーに伝える。ルールの有効化/無効化を促さない。
 
-5. **マーカーを書き込む。** `.agentic_initialized` を作成: `{"version": "1.6.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+5. **マーカーを書き込む。** `.agentic_initialized` を作成: `{"version": "1.7.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
 
 この手順がスキップされても、有効なルールは機能します。マーカーはソフトシグナルであり、ゲートではありません。
 詳細: `docs/FIRST_RUN_LOADING.md`
@@ -77,7 +77,8 @@
 4. 新しい接続とパターンでランタイム知識グラフを更新 / Update runtime knowledge graph with new connections and patterns
 5. 頻度と新しさに基づいて既存の関係性を強化 / Strengthen existing relationships based on frequency and recency
 6. 古くなった・接続の弱いノードは置き換え済み/無効としてマークして退役させる（KG サーバーに `kg_retire` ツールがあればそれを使う）— 削除はしない。古い知識は履歴として参照可能のまま（時間対応・バイテンポラル KG） / Retire outdated or weakly connected nodes by marking them superseded/invalid (use the KG server's `kg_retire` tool when available) — never delete them; old knowledge stays queryable as history (time-aware, bi-temporal KG)
-7. 永続性のためにグラフ状態を保存 / Store graph state for persistence across sessions
+7. 新しいノードはデフォルトでプライベートKGに書き込む。チームKGにはチームメイトが必要とするプロジェクト知識のみを書き込む（チームデーモンがスコープの許可リストとプライバシーゲートを強制し、それ以外の書き込みは拒否する）。2つのグラフ間にエッジを作成してはならない / Write new nodes to the private KG by default; write to the team KG only project knowledge a teammate would need (a team daemon enforces a scope allowlist and a privacy gate and rejects other writes); never create edges between the two graphs
+8. 永続性のためにグラフ状態を保存 / Store graph state for persistence across sessions
 
 **実装 / Implementation**:
 ```
@@ -109,6 +110,7 @@
 
 **ステップ / Steps**:
 1. rag_rules.enabled = trueおよびknowledge_graph.enabled = trueを確認 / Check rag_rules.enabled = true and knowledge_graph.enabled = true
+1a. 2つのKGサーバー（プライベートとチーム）が設定されている場合、両方をクエリしてマージする。プロジェクトスコープの事実についてはチームグラフを、ユーザーの事実についてはプライベートグラフを優先する / If two KG servers are configured (a private one and a team one), query both and merge; prefer the team graph for project-scoped facts and the private graph for user facts
 2. ユーザークエリからエンティティと概念を分析 / Analyze user query for entities and concepts
 3. 関連情報と接続について知識グラフをクエリ / Query knowledge graph for related information and connections
 4. 直接キーワードマッチを超えた間接関係と推論パスを特定 / Identify indirect relationships and inference paths

@@ -20,7 +20,7 @@
 
 4. **確認を伝える。** 有効なルールを一文でユーザーに伝える。ルールの有効化/無効化を促さない。
 
-5. **マーカーを書き込む。** `.agentic_initialized` を作成: `{"version": "1.6.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+5. **マーカーを書き込む。** `.agentic_initialized` を作成: `{"version": "1.7.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
 
 この手順がスキップされても、有効なルールは機能します。マーカーはソフトシグナルであり、ゲートではありません。
 詳細: `docs/FIRST_RUN_LOADING.md`
@@ -31,6 +31,7 @@
 - **common/**: プロジェクト間で共有される知識 / Shared knowledge across projects
 - **private/**: 個人/機密データ（資格情報、設定） / Personal/sensitive data (credentials, preferences)
 - **project/**: プロジェクト固有のメモリとコンテキスト / Project-specific memory and context
+- **チームルート / team root**（オプション、`storage.team_base_path`）: gitを通じてチームメイトと共有される2つ目のルート。含まれるのは`common/`と`projects/<id>/`のみで、`private/`は決して含まれない。そこにあるすべてのファイルは`audience: team`を持つ。 / a second root shared with teammates through git — `common/` and `projects/<id>/` only, never `private/`. Every file there carries `audience: team`.
 
 ## 必須実装アルゴリズム / Required Implementation Algorithms
 
@@ -65,6 +66,25 @@
 3. 関連するメモリカテゴリをクエリ / Query relevant memory categories
 4. 関連性スコアリングとフィルタリングを適用 / Apply relevance scoring and filtering
 5. 応答用の最適化されたコンテキストを返す / Return optimized context for response
+
+### アルゴリズム: Team_Memory_Routing / Algorithm: Team_Memory_Routing
+**条件 / WHEN**: storage.team_base_pathが設定されており、メモリが保存されようとしている場合 / storage.team_base_path is set and a memory is about to be stored
+
+**ステップ / Steps**:
+1. デフォルトのaudienceは**private**である — 以下のすべてのチェックに合格しない限りprivateルートにルーティングする / Default audience is **private** — route to the private root unless every check below passes
+2. カテゴリはteam-eligibleでなければならない（`categories.<name>.team_eligible = true`: technical, contextual, topic, git_history, knowledge_graph）。behavioral, personal, credentials, sensitive, session, user_interaction, backupは決してteamにならない / Category must be team-eligible (`categories.<name>.team_eligible = true`: technical, contextual, topic, git_history, knowledge_graph); behavioral, personal, credentials, sensitive, session, user_interaction, backup are never team
+3. 内容はユーザーについてではなく、共有プロジェクトについてのものでなければならない。資格情報、マシンのパス、ホスト名、プライベートアドレス、個人識別情報を含んではならない / Content must be about the shared project, not the user; contain no credentials, machine paths, hostnames, private addresses, or personal identifiers
+4. ユーザーが共有を求めたか、内容がチームメイトに必要なプロジェクトの決定/落とし穴/手順である / The user asked for it to be shared, or the content is a project decision/gotcha/procedure a teammate needs
+5. `projects/<project-id>/<category>/`（または`common/technical/`）配下のチームルートに、フロントマター`audience: team`を付けて書き込む。プライバシーゲートがステップ2〜3に失敗した書き込みをブロックする / Write under the team root at `projects/<project-id>/<category>/` (or `common/technical/`) with frontmatter `audience: team`; a privacy gate blocks writes that fail steps 2–3
+6. 検索は両方のルートを読み取る。競合時はプロジェクトの事実についてはチームルートを、ユーザーの事実についてはプライベートルートを優先する / Recall reads both roots; on conflict prefer the team root for project facts and the private root for user facts
+
+### アルゴリズム: Project_Identification / Algorithm: Project_Identification
+**条件 / WHEN**: ルーティングまたはKGスコープにプロジェクトIDが必要な場合 / A project id is needed for routing or KG scope
+
+**ステップ / Steps**:
+1. リポジトリのルートに`.agentic-rules.json`が存在する場合、その`project_id`を使用する — プロジェクトのすべてのクローン（internal、public、fork）は一致していなければならない / If `.agentic-rules.json` exists at the repository root, use its `project_id` — all clones of a project (internal, public, forks) must agree
+2. それ以外の場合はgitリモート名から、それもなければディレクトリ名から導出する / Else derive from the git remote name, else the directory name
+3. KGスコープは常に`project:<project_id>`である / KG scope is always `project:<project_id>`
 
 ### アルゴリズム: Memory_Cleanup_Process / Algorithm: Memory_Cleanup_Process
 **条件 / WHEN**: 定期的に、ユーザー同意を要する / Periodically; requires user consent

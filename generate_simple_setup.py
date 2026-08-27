@@ -106,7 +106,7 @@ def generate_web_config():
     default_lang = get_default_language()
     available_langs = get_available_languages()
     web_config = {
-        "version": "1.6.0",
+        "version": "1.7.0",
         "description": "Static web configuration generated from setup.json files",
         "availableLanguages": available_langs,
         "uiLanguage": default_lang,
@@ -161,9 +161,19 @@ def generate_web_config():
                     plugin_settings = default_settings_data[plugin_key]
                     default_settings = plugin_settings.copy()
 
-                # Also include any root-level settings that might be relevant
+                # Also include any root-level settings that might be relevant.
+                # Legacy dangling top-level "storage" (a sibling of the plugin block,
+                # not a child of it) must never clobber the plugin block's own nested
+                # "storage" field (e.g. memory_rules.storage) once one exists there.
+                # This guard is intentionally scoped to "storage" only: other
+                # same-named top-level/nested duplicates (e.g. "cleanup_guidance")
+                # are relied on elsewhere for their current overlay behavior and
+                # must keep overwriting as before.
+                NO_CLOBBER_KEYS = {'storage'}
                 for key, value in default_settings_data.items():
                     if key not in ['_metadata', 'version', plugin_key]:
+                        if key in NO_CLOBBER_KEYS and key in default_settings:
+                            continue
                         default_settings[key] = value
 
         # For backward compatibility, ensure en and ja locals are available
@@ -347,7 +357,7 @@ def embed_config_in_html(web_config):
                 new_html = new_html[:agent_start_replace] + f'\n{"\\n".join(agent_options)}\n            ' + new_html[agent_end_replace:]
 
     # Replace version placeholder with actual version
-    version = web_config.get('version', '1.6.0')
+    version = web_config.get('version', '1.7.0')
     new_html = new_html.replace('{version}', version)
     
     # Update hardcoded version display to match the web-config version

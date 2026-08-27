@@ -608,6 +608,16 @@ a process — the markdown store is versioned with the repo, diffable in code re
 and needs nothing installed. That simplicity is worth keeping until sharing or
 retrieval quality actually hurts.
 
+#### Team daemon *(v1.7.0)*
+
+An MCP server can go one step further and run as a **team** daemon shared by several
+members, each keeping a separate private daemon for their own machine. The contract a
+server must satisfy to run in that mode — owner tagging per node, scope allowlisting,
+mandatory privacy-gate scanning on writes, fail-closed behavior when the gate can't
+load its patterns — is specified in `modules/rag-rules/RAG-RULES.md` under
+"Team Knowledge Graph Daemon Contract". Setup and upgrade steps for operators and
+members are in `docs/TEAM_TIERS_SETUP.md`.
+
 ---
 
 **Implementation Note**: This guide provides logical algorithms and pseudocode for KG implementation. Agents should adapt these patterns to their specific capabilities and environment constraints. The goal is to ensure KG functionality works seamlessly for end users regardless of the underlying agent implementation approach.
