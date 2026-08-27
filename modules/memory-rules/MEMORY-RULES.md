@@ -446,7 +446,7 @@ A populated `technical` memory, written to `~/.memory/projects/acme-api/technica
 # Memory Entry: technical - 2026-06-16T14:30:00Z
 
 ## Metadata
-- **Version**: 1.7.0
+- **Version**: 1.7.1
 - **Generated**: 2026-06-16T14:30:00Z
 - **Category**: technical
 - **Migration Notes**: none

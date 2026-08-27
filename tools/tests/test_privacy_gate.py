@@ -21,6 +21,17 @@ class ScanText(unittest.TestCase):
         self.assertEqual([(x.pattern_id, x.severity, x.line) for x in f],
                          [("secret-aws-access-key", "deny", 1)])
 
+    def test_sk_token_is_deny(self):
+        f = pg.scan_text("key sk-abcdefghijklmnopqrstuvwxyz0123456789 here", PATTERNS)
+        self.assertEqual([(x.pattern_id, x.severity, x.line) for x in f],
+                          [("secret-sk-token", "deny", 1)])
+
+    def test_hyphenated_project_slug_is_not_sk_token(self):
+        # Regression: the pattern used to allow hyphens in the matched body,
+        # so any long hyphenated "sk-..." project-name slug (e.g. a KG node id
+        # under project:sk-super-model) false-positived as a secret.
+        self.assertEqual(self.ids("sk-super-model-mirror-split-repo-pattern-2026-04-30"), [])
+
     def test_private_ip_and_home_path_are_deny(self):
         self.assertEqual(self.ids("host 192.168.1.36 and /Users/alice/x"),
                          ["net-ipv4-private", "path-home-unix"])

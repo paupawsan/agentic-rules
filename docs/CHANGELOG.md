@@ -2,6 +2,12 @@
 
 All notable changes to the Agentic Rules Framework.
 
+## [1.7.1] - 2026-08-28
+
+### Fixed
+
+- **Privacy gate: `secret-sk-token` false positive on hyphenated identifiers.** The pattern allowed hyphens in the matched body, so any sufficiently long hyphenated string starting with `sk-` (e.g. a project-name slug like `sk-my-project-some-feature-2026-01-01`) was denied as if it were an API key. Real `sk-`-prefixed secrets don't contain hyphens in their body. Tightened the regex to alphanumeric/underscore only; added regression tests for both the false positive and a genuine key.
+
 ## [1.7.0] - 2026-08-27
 
 ### Added
