@@ -129,6 +129,8 @@ The **Agentic Rules Framework** enhances AI agent capabilities through four spec
 ### 🧠 **Memory Rules** (Local Memory System)
 📖 **[Plugin Details](modules/memory-rules/README.md)** - **Local, human-readable memory** system with 10 specialized categories for persistent context, learning, and personalization across sessions. Full visibility and control over your AI agent's memory data.
 
+**👥 Team Tiers** *(v1.7.0)* - Optionally split memory and the Knowledge Graph into a private layer (your machine only) and a team layer (shared with your project via a git-backed memory repo and a shared KG daemon), with a privacy gate that screens writes before they leave your machine. Off by default — a plain install behaves exactly as before. See **[Team Tiers Setup](docs/TEAM_TIERS_SETUP.md)** for configuration, upgrade, and verification steps.
+
 ### 📚 **RAG Rules**
 📖 **[Plugin Details](modules/rag-rules/README.md)** - Advanced information processing with smart reading strategies, context optimization, relevance scoring, and **automatic Knowledge Graph construction** for intelligent project understanding and relationship mapping.
 
@@ -179,7 +181,7 @@ Chain-of-thought logging through the `CORE-RULES.md` and `RULES.md` files, used 
 ### **Unit Test Format Example**
 ```
 UNIT TEST: Agent Memory Retrieval
-Framework: Agentic Rules v1.6.0
+Framework: Agentic Rules v1.7.0
 Task: Test basic agent Memory retrieval.
 
 Instruction:

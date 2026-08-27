@@ -20,7 +20,7 @@ import os
 import re
 import sys
 
-from hook_common import is_true, opt
+from hook_common import is_true, opt, private_kg_configured, team_root
 
 # Imperative activation directive prepended to the injected rule text. The
 # module RULES files describe capabilities in conditional, templatey language
@@ -94,19 +94,64 @@ _PREAMBLE_KG_OPTIONAL = (
 )
 
 
-def activation_preamble(kg_configured, memory_path=""):
+def _preamble_team_root(team):
+    return (
+        f"**Team tier.** A team memory root is configured (`{team}`), shared with "
+        "teammates through git. *Recall* reads both roots. *Write* there only "
+        "team-eligible project knowledge — categories technical, contextual, topic, "
+        "git_history, knowledge_graph — with `audience: team` in the frontmatter, and "
+        "only when it is about the shared project rather than the user. Never write "
+        "preferences, credentials, sessions, interaction logs, machine paths, hostnames "
+        "or private addresses there; a privacy gate blocks such writes. Everything else "
+        "stays in the private root by default.\n\n"
+    )
+
+
+_PREAMBLE_TEAM_DISABLED_NESTED = (
+    "**Team tier disabled**: `team_memory_path` and `memory_path` nest inside each "
+    "other, which the framework refuses. Treat the team root as unset until the "
+    "configuration is fixed.\n\n"
+)
+
+_PREAMBLE_TWO_KGS = (
+    "**Two knowledge graphs.** `kg-private` is your own graph; `kg-dgx` is the team "
+    "graph. Before non-trivial work call `kg_context` on both. Write to `kg-private` "
+    "by default; write to the team graph only project knowledge a teammate would need, "
+    "never personal or machine-specific facts — the team daemon rejects private "
+    "patterns and out-of-scope nodes, and never link nodes across the two graphs.\n\n"
+)
+
+
+def activation_preamble(kg_configured, memory_path="", team_root="", private_kg=False,
+                        team_nested=False, main_kg_configured=None):
     """Build the activation directive. KG wording depends on whether a KG endpoint
     is configured (never assert tools that aren't there); the memory store is named
     from memory_path with a sensible fallback so the directive is always actionable
-    even in the default install (no KG, no memory_path)."""
+    even in the default install (no KG, no memory_path).
+
+    `kg_configured` is broad — true if EITHER the main (kg-dgx) or the private
+    (kg-private) endpoint is set — and drives the "a KG exists" wording, which
+    reads fine whether it's the team or the private graph. `main_kg_configured`
+    is narrower (main endpoint only) and, together with `private_kg`, gates the
+    "Two knowledge graphs" text: that claim needs BOTH endpoints, not just any
+    one. It defaults to `kg_configured` for callers that don't distinguish."""
     mp = (memory_path or "").strip()
     store = (
         f"the configured memory root `{mp}`" if mp
         else "your configured memory root, or — if none is configured — Claude "
              "Code's project memory directory, structured per the rules below"
     )
+    if main_kg_configured is None:
+        main_kg_configured = kg_configured
     kg = _PREAMBLE_KG_CONFIGURED if kg_configured else _PREAMBLE_KG_OPTIONAL
-    return _preamble_head(store) + kg + "---\n\n"
+    extra = ""
+    if team_nested:
+        extra += _PREAMBLE_TEAM_DISABLED_NESTED
+    elif team_root:
+        extra += _preamble_team_root(team_root)
+    if private_kg and main_kg_configured:
+        extra += _PREAMBLE_TWO_KGS
+    return _preamble_head(store) + kg + extra + "---\n\n"
 
 # userConfig option key -> (module directory, default-enabled)
 MODULES = [
@@ -185,8 +230,20 @@ def main():
     if not sections:
         return
 
-    kg_configured = bool(opt("KG_MCP_URL").strip())
-    context = activation_preamble(kg_configured, opt("MEMORY_PATH")) + "\n\n---\n\n".join(sections)
+    main_kg_configured = bool((opt("KG_MCP_URL") or "").strip())
+    priv_kg_configured = private_kg_configured()
+    # Configured if EITHER endpoint is set — a member running only a private
+    # daemon (kg_private_mcp_url set, kg_mcp_url blank) is a legal, real config,
+    # not "no KG configured".
+    kg_configured = main_kg_configured or priv_kg_configured
+    team = team_root()
+    raw_team = (opt("TEAM_MEMORY_PATH") or "").strip()
+    context = activation_preamble(
+        kg_configured, opt("MEMORY_PATH"),
+        team_root=team, private_kg=priv_kg_configured,
+        team_nested=bool(raw_team) and not team,
+        main_kg_configured=main_kg_configured,
+    ) + "\n\n---\n\n".join(sections)
 
     print(
         json.dumps(

@@ -20,7 +20,7 @@ On your first session in this project, execute these steps before responding:
 
 4. **Acknowledge.** Tell the user in one sentence which rules are active. Do not prompt to enable/disable rules.
 
-5. **Write marker.** Create `.agentic_initialized` with: `{"version": "1.6.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+5. **Write marker.** Create `.agentic_initialized` with: `{"version": "1.7.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
 
 If this procedure is skipped, enabled rules still work. The marker is a soft signal, not a gate.
 Details: `docs/FIRST_RUN_LOADING.md`
@@ -31,6 +31,7 @@ Details: `docs/FIRST_RUN_LOADING.md`
 - **common/**: Shared knowledge across projects
 - **private/**: Personal/sensitive data (credentials, preferences)
 - **project/**: Project-specific memory and context
+- **team root** (optional, `storage.team_base_path`): a second root shared with teammates through git — `common/` and `projects/<id>/` only, never `private/`. Every file there carries `audience: team`.
 
 ## Required Implementation Algorithms
 
@@ -65,6 +66,25 @@ Details: `docs/FIRST_RUN_LOADING.md`
 3. Query relevant memory categories
 4. Apply relevance scoring and filtering
 5. Return optimized context for response
+
+### Algorithm: Team_Memory_Routing
+**WHEN**: storage.team_base_path is set and a memory is about to be stored
+
+**Steps**:
+1. Default audience is **private** — route to the private root unless every check below passes
+2. Category must be team-eligible (`categories.<name>.team_eligible = true`: technical, contextual, topic, git_history, knowledge_graph); behavioral, personal, credentials, sensitive, session, user_interaction, backup are never team
+3. Content must be about the shared project, not the user; contain no credentials, machine paths, hostnames, private addresses, or personal identifiers
+4. The user asked for it to be shared, or the content is a project decision/gotcha/procedure a teammate needs
+5. Write under the team root at `projects/<project-id>/<category>/` (or `common/technical/`) with frontmatter `audience: team`; a privacy gate blocks writes that fail steps 2–3
+6. Recall reads both roots; on conflict prefer the team root for project facts and the private root for user facts
+
+### Algorithm: Project_Identification
+**WHEN**: a project id is needed for routing or KG scope
+
+**Steps**:
+1. If `.agentic-rules.json` exists at the repository root, use its `project_id` — all clones of a project (internal, public, forks) must agree
+2. Else derive from the git remote name, else the directory name
+3. KG scope is always `project:<project_id>`
 
 ### Algorithm: Memory_Cleanup_Process
 **WHEN**: periodically; requires user consent

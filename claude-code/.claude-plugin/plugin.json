@@ -2,7 +2,7 @@
   "$schema": "https://json-schemastore.org/claude-code-plugin-manifest.json",
   "name": "agentic-rules",
   "displayName": "Agentic Rules Framework",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Structured behavioral rules for AI agents: persistent memory, RAG/context discipline, critical-thinking heuristics, and interaction unit-testing. Delivered as auto-invocable skills, with an optional always-on injector and a Knowledge Graph MCP server.",
   "author": {
     "name": "Paulus Ery Wasito Adhi",
@@ -70,6 +70,18 @@
       "title": "Knowledge Graph MCP endpoint",
       "description": "HTTP URL of your Knowledge Graph MCP server. Clear this to disable the KG server; the memory and RAG skills degrade gracefully without it.",
       "default": ""
+    },
+    "kg_private_mcp_url": {
+      "type": "string",
+      "title": "Private Knowledge Graph MCP endpoint",
+      "description": "HTTP URL of a KG daemon that stays on your own machine (e.g. http://127.0.0.1:8121/mcp). When set, kg_mcp_url is treated as the TEAM graph and the privacy gate guards writes to it. Leave blank for a single-graph setup.",
+      "default": ""
+    },
+    "team_memory_path": {
+      "type": "directory",
+      "title": "Team memory root path",
+      "description": "Root of the team-shared memory store (typically a clone of your team's memory repo). Recall reads it alongside memory_path; only team-eligible project knowledge with `audience: team` may be written there — the privacy gate enforces this. Leave blank for no team tier.",
+      "required": false
     }
   }
 }

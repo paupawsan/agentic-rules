@@ -43,6 +43,8 @@ EXPECTED_USER_CONFIG = {
     "enable_agent_unit_test",
     "always_on_injection",
     "kg_mcp_url",
+    "team_memory_path",
+    "kg_private_mcp_url",
 }
 
 # module -> authoritative full-rules filename under modules/<module>/
@@ -147,6 +149,14 @@ def plugin_manifest_valid():
 
 
 @test
+def manifest_declares_team_tier_options():
+    uc = load_json("claude-code/.claude-plugin/plugin.json")["userConfig"]
+    assert uc["team_memory_path"]["type"] == "directory"
+    assert uc["team_memory_path"].get("required") is False
+    assert uc["kg_private_mcp_url"]["type"] == "string" and uc["kg_private_mcp_url"]["default"] == ""
+
+
+@test
 def marketplace_points_at_subdir():
     m = load_json(".claude-plugin/marketplace.json")
     assert m["name"] == "agentic-rules"
@@ -162,6 +172,13 @@ def mcp_config_parameterized():
     server = m["mcpServers"]["kg-dgx"]
     assert server["type"] == "http"
     assert server["url"] == "${user_config.kg_mcp_url}", server["url"]
+
+
+@test
+def mcp_config_declares_private_server():
+    servers = load_json("claude-code/.mcp.json")["mcpServers"]
+    assert servers["kg-dgx"]["url"] == "${user_config.kg_mcp_url}"
+    assert servers["kg-private"] == {"type": "http", "url": "${user_config.kg_private_mcp_url}"}
 
 
 @test
@@ -194,7 +211,15 @@ def dev_mcp_stays_out_of_the_shipped_plugin():
 @test
 def plugin_mcp_is_not_gitignored():
     """Regression guard: a broad `.mcp.json` ignore once hid the plugin's MCP config."""
-    if not shutil.which("git") or not os.path.isdir(os.path.join(REPO, ".git")):
+    # A git worktree has a `.git` FILE (pointing at the main repo's gitdir), not a
+    # directory — `os.path.isdir` would wrongly skip this guard there. Use
+    # `git rev-parse --git-dir` so it runs correctly in both a normal clone and a
+    # worktree.
+    is_git_checkout = shutil.which("git") and subprocess.run(
+        ["git", "rev-parse", "--git-dir"], cwd=REPO,
+        capture_output=True, text=True,
+    ).returncode == 0
+    if not is_git_checkout:
         print("    (skipped: not a git checkout)")
         return
     proc = subprocess.run(
@@ -579,6 +604,47 @@ def preamble_names_configured_memory_path():
 
 
 @test
+def preamble_unset_and_empty_team_options_are_equivalent():
+    """No team option set → preamble must not change at all."""
+    base = injected_context({"memory_path": "/tmp/store", "kg_mcp_url": "http://x/mcp"})
+    assert "Team tier" not in base and "kg-private" not in base
+    again = injected_context({"memory_path": "/tmp/store", "kg_mcp_url": "http://x/mcp",
+                              "team_memory_path": "", "kg_private_mcp_url": ""})
+    assert base == again
+
+
+@test
+def preamble_names_team_root_and_routing():
+    ctx = injected_context({"memory_path": "/tmp/p", "team_memory_path": "/tmp/t"})
+    assert "**Team tier.**" in ctx and "`/tmp/t`" in ctx
+    assert "audience: team" in ctx and "never" in ctx.lower()
+
+
+@test
+def preamble_two_graphs_when_private_kg_set():
+    ctx = injected_context({"kg_mcp_url": "http://team/u/me/mcp", "kg_private_mcp_url": "http://127.0.0.1:8121/mcp"})
+    assert "**Two knowledge graphs.**" in ctx
+    assert "kg-private" in ctx and "kg-dgx" in ctx
+
+
+@test
+def preamble_kg_configured_but_no_two_graphs_when_only_private_kg_set():
+    """Inverse of preamble_two_graphs_when_private_kg_set: with only the private
+    endpoint set (kg_mcp_url blank), the preamble must still say a KG is
+    configured (kg_configured is broad — true if EITHER endpoint is set), but
+    must NOT include the two-graph text, which needs BOTH endpoints."""
+    ctx = injected_context({"kg_mcp_url": "", "kg_private_mcp_url": "http://127.0.0.1:8121/mcp"})
+    assert "**Knowledge Graph.**" in ctx
+    assert "**Two knowledge graphs.**" not in ctx
+
+
+@test
+def preamble_warns_when_roots_nest():
+    ctx = injected_context({"memory_path": "/tmp/p", "team_memory_path": "/tmp/p/team"})
+    assert "**Team tier disabled**" in ctx and "nest" in ctx
+
+
+@test
 def injector_no_root_is_silent():
     out, err, code = run_hook({"always_on_injection": "true"}, plugin_root=None)
     assert code == 0 and out == "", (code, out)
@@ -685,7 +751,8 @@ def injected_text_strips_template_scaffolding():
 @test
 def hook_consumes_only_declared_settings():
     consumed = set()
-    for rel in ("claude-code/hooks/session-start.py", "claude-code/hooks/memory-backup.py"):
+    for rel in ("claude-code/hooks/session-start.py", "claude-code/hooks/memory-backup.py",
+                "claude-code/hooks/privacy-gate-hook.py"):
         consumed |= set(re.findall(r'opt\("([A-Z_]+)"', read(rel)))
     consumed |= {"ENABLE_MEMORY", "ENABLE_RAG",
                  "ENABLE_CRITICAL_THINKING", "ENABLE_AGENT_UNIT_TEST"}
@@ -765,6 +832,256 @@ def claude_plugin_validate_passes():
         capture_output=True, text=True, timeout=120,
     )
     assert proc.returncode == 0, f"claude plugin validate failed:\n{proc.stdout}\n{proc.stderr}"
+
+
+# --- project identity / team tiers ------------------------------------------
+
+@test
+def backup_uses_marker_project_id_over_git_remote():
+    """A repo-root .agentic-rules.json wins over the git remote name."""
+    with tempfile.TemporaryDirectory() as tmp:
+        repo = os.path.join(tmp, "myproj-internal"); os.makedirs(repo)
+        subprocess.run(["git", "init", "-q", repo], check=True)
+        subprocess.run(["git", "-C", repo, "remote", "add", "origin",
+                        "git@example.com:org/myproj-internal.git"], check=True)
+        with open(os.path.join(repo, ".agentic-rules.json"), "w") as h:
+            json.dump({"project_id": "myproj"}, h)
+        sub = os.path.join(repo, "src"); os.makedirs(sub)
+        store = os.path.join(tmp, "store")
+        native = os.path.join(tmp, "native", "slug"); os.makedirs(os.path.join(native, "memory"))
+        with open(os.path.join(native, "memory", "MEMORY.md"), "w") as h: h.write("x")
+        run_backup({"memory_path": store},
+                   {"transcript_path": os.path.join(native, "s.jsonl"), "cwd": sub})
+        assert os.path.isdir(os.path.join(store, "projects", "myproj", "backup", "claude-code-native", "slug")), \
+            os.listdir(os.path.join(store, "projects"))
+
+
+@test
+def backup_ignores_invalid_marker_project_id():
+    with tempfile.TemporaryDirectory() as tmp:
+        repo = os.path.join(tmp, "dirname"); os.makedirs(repo)
+        with open(os.path.join(repo, ".agentic-rules.json"), "w") as h:
+            json.dump({"project_id": "../escape"}, h)
+        store = os.path.join(tmp, "store")
+        native = os.path.join(tmp, "native", "slug"); os.makedirs(os.path.join(native, "memory"))
+        with open(os.path.join(native, "memory", "MEMORY.md"), "w") as h: h.write("x")
+        run_backup({"memory_path": store}, {"transcript_path": os.path.join(native, "s.jsonl"), "cwd": repo})
+        assert os.path.isdir(os.path.join(store, "projects", "dirname")), "fell back to directory name"
+        assert not os.path.exists(os.path.join(tmp, "escape"))
+
+
+@test
+def hook_common_team_root_refuses_nesting():
+    src = read("claude-code/hooks/hook_common.py")
+    assert "def team_root" in src and "def private_kg_configured" in src
+    env = dict(os.environ)
+    with tempfile.TemporaryDirectory() as tmp:
+        code = ("import hook_common as h, sys; print(h.team_root())")
+        for mp, tp, expect in [
+            (tmp, os.path.join(tmp, "team"), ""),          # team inside private → refused
+            (os.path.join(tmp, "p"), tmp, ""),             # private inside team → refused
+            (os.path.join(tmp, "p"), os.path.join(tmp, "t"), os.path.join(tmp, "t")),
+        ]:
+            env["CLAUDE_PLUGIN_OPTION_MEMORY_PATH"] = mp
+            env["CLAUDE_PLUGIN_OPTION_TEAM_MEMORY_PATH"] = tp
+            out = subprocess.run([sys.executable, "-c", code], cwd=os.path.join(PLUGIN, "hooks"),
+                                 env=env, capture_output=True, text=True).stdout.strip()
+            assert out == expect, (mp, tp, out)
+
+
+# --- privacy gate hook (PreToolUse, L1) -------------------------------------
+
+GATE_HOOK = os.path.join(PLUGIN, "hooks", "privacy-gate-hook.py")
+
+
+def run_gate(options, payload, plugin_root=PLUGIN):
+    env = {k: v for k, v in os.environ.items() if not k.startswith("CLAUDE_PLUGIN_")}
+    env["CLAUDE_PLUGIN_ROOT"] = plugin_root
+    for key, value in options.items():
+        env["CLAUDE_PLUGIN_OPTION_" + key.upper()] = value
+    proc = subprocess.run([sys.executable, GATE_HOOK], input=json.dumps(payload), env=env,
+                          capture_output=True, text=True, timeout=30)
+    assert proc.returncode == 0, proc.stderr
+    return json.loads(proc.stdout)["hookSpecificOutput"] if proc.stdout.strip() else None
+
+TEAM = {"memory_path": "/tmp/p", "team_memory_path": "/tmp/t",
+        "kg_mcp_url": "http://team/u/me/mcp", "kg_private_mcp_url": "http://127.0.0.1:8121/mcp"}
+KG_ADD = "mcp__plugin_agentic-rules_kg-dgx__kg_add"
+
+@test
+def gate_inactive_without_team_tier():
+    out = run_gate({"memory_path": "/tmp/p", "kg_mcp_url": "http://x/mcp"},
+                   {"tool_name": KG_ADD, "tool_input": {"id": "a", "type": "fact", "title": "t", "content": "AKIAABCDEFGHIJKLMNOP"}})
+    assert out is None  # no output → Claude Code proceeds normally
+
+@test
+def gate_denies_secret_to_team_kg():
+    out = run_gate(TEAM, {"tool_name": KG_ADD, "tool_input": {"id": "a", "type": "fact", "title": "t",
+                          "content": "key AKIAABCDEFGHIJKLMNOP", "scope": "project:x"}})
+    assert out["permissionDecision"] == "deny"
+    assert "secret-aws-access-key" in out["permissionDecisionReason"]
+    assert "AKIAABCDEFGHIJKLMNOP" not in out["permissionDecisionReason"]
+
+@test
+def gate_denies_secret_on_later_line_of_multiline_kg_content():
+    """Regression guard: the KG-payload scan must join values with REAL
+    newlines (not json.dumps()'s escaped "\\n"), or a \\b-anchored pattern
+    like secret-aws-access-key never matches past line 1."""
+    out = run_gate(TEAM, {"tool_name": KG_ADD, "tool_input": {"id": "a", "type": "fact", "title": "t",
+                          "content": "first line\nAKIAABCDEFGHIJKLMNOP starts line two\nthird line"}})
+    assert out["permissionDecision"] == "deny"
+    assert "secret-aws-access-key" in out["permissionDecisionReason"]
+    assert "AKIAABCDEFGHIJKLMNOP" not in out["permissionDecisionReason"]
+
+@test
+def gate_asks_on_heuristic_to_team_kg():
+    out = run_gate(TEAM, {"tool_name": KG_ADD, "tool_input": {"id": "a", "type": "fact", "title": "t", "content": "ping a@example.org"}})
+    assert out["permissionDecision"] == "ask"
+
+@test
+def gate_allows_clean_team_write_silently():
+    out = run_gate(TEAM, {"tool_name": KG_ADD, "tool_input": {"id": "a", "type": "fact", "title": "t", "content": "run make test first"}})
+    assert out is None
+
+@test
+def gate_ignores_private_kg_writes():
+    out = run_gate(TEAM, {"tool_name": "mcp__plugin_agentic-rules_kg-private__kg_add",
+                          "tool_input": {"id": "a", "type": "fact", "title": "t", "content": "AKIAABCDEFGHIJKLMNOP"}})
+    assert out is None
+
+@test
+def gate_denies_team_file_without_audience_and_secret_content():
+    out = run_gate(TEAM, {"tool_name": "Write", "tool_input": {"file_path": "/tmp/t/projects/x/technical/a.md",
+                          "content": "---\naudience: private\n---\nnote"}})
+    assert out["permissionDecision"] == "deny" and "audience: team" in out["permissionDecisionReason"]
+    out = run_gate(TEAM, {"tool_name": "Write", "tool_input": {"file_path": "/tmp/t/projects/x/technical/a.md",
+                          "content": "---\naudience: team\n---\nsee /Users/alice/x"}})
+    assert out["permissionDecision"] == "deny" and "path-home-unix" in out["permissionDecisionReason"]
+
+@test
+def gate_denies_secret_in_multiedit_to_team_root():
+    out = run_gate(TEAM, {"tool_name": "MultiEdit", "tool_input": {"file_path": "/tmp/t/projects/x/technical/a.md",
+                          "edits": [{"old_string": "old", "new_string": "key AKIAABCDEFGHIJKLMNOP"}]}})
+    assert out["permissionDecision"] == "deny"
+    assert "secret-aws-access-key" in out["permissionDecisionReason"]
+    assert "AKIAABCDEFGHIJKLMNOP" not in out["permissionDecisionReason"]
+
+@test
+def gate_denies_ineligible_category_in_team_root():
+    out = run_gate(TEAM, {"tool_name": "Write", "tool_input": {"file_path": "/tmp/t/projects/x/credentials/a.md",
+                          "content": "---\naudience: team\n---\nx"}})
+    assert out["permissionDecision"] == "deny" and "not team-eligible" in out["permissionDecisionReason"]
+
+@test
+def gate_ignores_writes_outside_team_root():
+    out = run_gate(TEAM, {"tool_name": "Write", "tool_input": {"file_path": "/tmp/p/private/x.md", "content": "AKIAABCDEFGHIJKLMNOP"}})
+    assert out is None
+
+@test
+def gate_denies_bash_copy_from_private_into_team_root():
+    for cmd in ["cp /tmp/p/private/notes.md /tmp/t/projects/x/technical/",
+                "rsync -a /tmp/p/ /tmp/t/",
+                "cat ~/.claude/CLAUDE.md > /tmp/t/rules/global.md"]:
+        out = run_gate(TEAM, {"tool_name": "Bash", "tool_input": {"command": cmd}})
+        assert out and out["permissionDecision"] == "deny", cmd
+    out = run_gate(TEAM, {"tool_name": "Bash", "tool_input": {"command": "ls /tmp/t"}})
+    assert out is None
+
+@test
+def gate_private_tmp_realpath_is_not_a_false_positive():
+    """macOS realpath()s /tmp to /private/tmp, so a command that merely spells
+    out that resolved temp path must NOT deny — while a copy from the memory
+    store's own private/ subfolder (or ~/.claude) still must, proving the
+    narrowing in PRIVATE_SRC_MARKERS didn't open a hole."""
+    out = run_gate(TEAM, {"tool_name": "Bash", "tool_input": {
+        "command": "cp /private/tmp/build.log /tmp/t/projects/x/technical/"}})
+    assert out is None, out
+
+    out = run_gate(TEAM, {"tool_name": "Bash", "tool_input": {
+        "command": "cp /tmp/p/private/notes.md /tmp/t/projects/x/technical/"}})
+    assert out and out["permissionDecision"] == "deny"
+
+@test
+def gate_denies_bash_secret_written_directly_into_team_root():
+    """No private-source marker named at all — the command still writes a
+    secret directly into the team root (e.g. `echo secret > team/file.md`),
+    which must be caught by scanning the command text itself."""
+    out = run_gate(TEAM, {"tool_name": "Bash", "tool_input": {
+        "command": "echo 'key AKIAABCDEFGHIJKLMNOP' > /tmp/t/projects/x/technical/a.md"}})
+    assert out and out["permissionDecision"] == "deny"
+    assert "secret-aws-access-key" in out["permissionDecisionReason"]
+    assert "AKIAABCDEFGHIJKLMNOP" not in out["permissionDecisionReason"]
+
+@test
+def gate_writes_audit_line_without_matched_text():
+    with tempfile.TemporaryDirectory() as tmp:
+        opts = dict(TEAM, memory_path=tmp)
+        run_gate(opts, {"tool_name": KG_ADD, "tool_input": {"id": "a", "type": "fact", "title": "t", "content": "AKIAABCDEFGHIJKLMNOP"}})
+        logs = os.listdir(os.path.join(tmp, "private", "gate-log"))
+        assert len(logs) == 1
+        with open(os.path.join(tmp, "private", "gate-log", logs[0]), encoding="utf-8") as h:
+            body = h.read()
+        assert "secret-aws-access-key" in body and "AKIAABCDEFGHIJKLMNOP" not in body
+
+@test
+def gate_hook_registered_for_pretooluse():
+    hooks = load_json("claude-code/hooks/hooks.json")["hooks"]
+    entry = hooks["PreToolUse"][0]
+    assert "privacy-gate-hook.py" in entry["hooks"][0]["command"]
+    assert re.search(r"kg_add|Write|Bash", entry["matcher"])
+
+@test
+def gate_reports_ask_on_internal_error():
+    out = run_gate(TEAM, {"tool_name": KG_ADD, "tool_input": "not-a-dict"})
+    assert out["permissionDecision"] == "ask" and "gate error" in out["permissionDecisionReason"]
+
+@test
+def gate_reports_ask_when_tools_dir_missing():
+    """A broken/missing tools/ dir (e.g. a corrupted plugin cache) must not
+    silently allow a write into the team root — the gate should ask, matching
+    the fail-visible contract for internal errors (never fail open)."""
+    with tempfile.TemporaryDirectory() as tmp:
+        # tmp has no tools/privacy_gate.py — simulates a bad plugin cache.
+        out = run_gate(TEAM, {"tool_name": KG_ADD, "tool_input": {"id": "a", "type": "fact", "title": "t", "content": "x"}},
+                       plugin_root=tmp)
+        assert out is not None, "must not silently allow when the gate module can't load"
+        assert out["permissionDecision"] == "ask"
+        assert "gate error" in out["permissionDecisionReason"]
+
+@test
+def gate_reports_ask_when_settings_file_missing():
+    """A missing settings/privacy-gate.json (tools/ present, settings/ absent)
+    must also ask, not crash or silently allow."""
+    with tempfile.TemporaryDirectory() as tmp:
+        tools_dir = os.path.join(tmp, "tools")
+        os.makedirs(tools_dir)
+        shutil.copy(os.path.join(PLUGIN, "tools", "privacy_gate.py"), tools_dir)
+        # No settings/ dir created — PATTERNS_FILE won't exist.
+        out = run_gate(TEAM, {"tool_name": KG_ADD, "tool_input": {"id": "a", "type": "fact", "title": "t", "content": "x"}},
+                       plugin_root=tmp)
+        assert out is not None, "must not silently allow when patterns can't load"
+        assert out["permissionDecision"] == "ask"
+        assert "gate error" in out["permissionDecisionReason"]
+
+@test
+def gate_team_eligible_matches_settings_json():
+    """Regression guard: tools/privacy_gate.py's TEAM_ELIGIBLE frozenset must
+    track exactly which memory-rules categories are flagged team_eligible:
+    true in modules/memory-rules/settings.json — the two are meant to encode
+    the same policy and must not silently drift apart."""
+    src = read("claude-code/tools/privacy_gate.py")
+    m = re.search(r'TEAM_ELIGIBLE\s*=\s*frozenset\(\{([^}]*)\}\)', src)
+    assert m, "could not find TEAM_ELIGIBLE frozenset literal in privacy_gate.py"
+    from_code = {tok.strip().strip('"\'') for tok in m.group(1).split(",") if tok.strip()}
+
+    settings = load_json("modules/memory-rules/settings.json")
+    categories = settings["memory_rules"]["categories"]
+    from_settings = {name for name, cfg in categories.items() if cfg.get("team_eligible") is True}
+
+    assert from_code == from_settings, (
+        f"TEAM_ELIGIBLE (privacy_gate.py) = {sorted(from_code)} but "
+        f"team_eligible:true categories (settings.json) = {sorted(from_settings)}"
+    )
 
 
 # --- runner ----------------------------------------------------------------

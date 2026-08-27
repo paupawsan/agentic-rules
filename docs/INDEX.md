@@ -14,6 +14,7 @@ This directory contains detailed documentation for the Agentic Rules Framework.
 - **[DEVELOPER-GUIDE.md](DEVELOPER-GUIDE.md)** - Advanced setup and technical implementation
 - **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solutions for common issues and manual loading instructions
 - **[PRELOAD-COMMAND.md](PRELOAD-COMMAND.md)** - Manual system rules loader command documentation
+- **[TEAM_TIERS_SETUP.md](TEAM_TIERS_SETUP.md)** - Team-shared vs member-private memory/KG: setup, upgrade, gate
 
 ### 🔧 Extension & Development
 - **[EXTENSION-MANUAL.md](EXTENSION-MANUAL.md)** - Step-by-step guide for extending the framework

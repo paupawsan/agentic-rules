@@ -20,7 +20,7 @@ Pada sesi pertama Anda di proyek ini, jalankan langkah-langkah berikut sebelum m
 
 4. **Konfirmasi.** Beritahu pengguna dalam satu kalimat aturan mana yang aktif. Jangan meminta untuk mengaktifkan/menonaktifkan aturan.
 
-5. **Tulis penanda.** Buat `.agentic_initialized` dengan: `{"version": "1.6.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+5. **Tulis penanda.** Buat `.agentic_initialized` dengan: `{"version": "1.7.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
 
 Jika prosedur ini dilewati, aturan yang diaktifkan tetap berfungsi. Penanda adalah sinyal lunak, bukan gerbang.
 Detail: `docs/FIRST_RUN_LOADING.md`
@@ -77,7 +77,8 @@ Detail: `docs/FIRST_RUN_LOADING.md`
 4. Perbarui grafik pengetahuan runtime dengan koneksi dan pola baru
 5. Perkuat hubungan yang ada berdasarkan frekuensi dan kedaluwarsa
 6. Pensiunkan node yang kedaluwarsa atau lemah terhubung dengan menandainya sebagai tergantikan/tidak berlaku (gunakan tool `kg_retire` dari server KG bila tersedia) — jangan pernah menghapusnya; pengetahuan lama tetap dapat di-query sebagai riwayat (KG sadar-waktu, bi-temporal)
-7. Simpan status grafik untuk persistensi di seluruh sesi
+7. Tulis node baru ke KG private secara default; tulis ke KG tim hanya pengetahuan proyek yang dibutuhkan rekan tim (daemon tim menerapkan allowlist scope dan privacy gate serta menolak penulisan lainnya); jangan pernah membuat edge antara kedua grafik
+8. Simpan status grafik untuk persistensi di seluruh sesi
 
 **Implementasi**:
 ```
@@ -110,6 +111,7 @@ Algoritma: Incremental_Graph_Builder
 
 **Langkah-langkah**:
 1. Periksa rag_rules.enabled = true dan knowledge_graph.enabled = true
+1a. Jika dua server KG dikonfigurasi (satu private dan satu tim), query keduanya dan gabungkan; utamakan grafik tim untuk fakta yang berkaitan dengan proyek dan grafik private untuk fakta pengguna
 2. Analisis query pengguna untuk entitas dan konsep
 3. Query grafik pengetahuan untuk informasi dan koneksi terkait
 4. Identifikasi hubungan tidak langsung dan jalur inferensi

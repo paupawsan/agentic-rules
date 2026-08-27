@@ -20,7 +20,7 @@ Pada sesi pertama Anda di proyek ini, jalankan langkah-langkah berikut sebelum m
 
 4. **Konfirmasi.** Beritahu pengguna dalam satu kalimat aturan mana yang aktif. Jangan meminta untuk mengaktifkan/menonaktifkan aturan.
 
-5. **Tulis penanda.** Buat `.agentic_initialized` dengan: `{"version": "1.6.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
+5. **Tulis penanda.** Buat `.agentic_initialized` dengan: `{"version": "1.7.0", "initialized_at": "<ISO>", "marker_format_version": 1}`
 
 Jika prosedur ini dilewati, aturan yang diaktifkan tetap berfungsi. Penanda adalah sinyal lunak, bukan gerbang.
 Detail: `docs/FIRST_RUN_LOADING.md`
@@ -31,6 +31,7 @@ Detail: `docs/FIRST_RUN_LOADING.md`
 - **common/**: Pengetahuan bersama di seluruh proyek
 - **private/**: Data pribadi/sensitif (kredensial, preferensi)
 - **project/**: Memori dan konteks spesifik proyek
+- **root tim** (opsional, `storage.team_base_path`): root kedua yang dibagikan dengan rekan tim melalui git — hanya `common/` dan `projects/<id>/`, tidak pernah `private/`. Setiap file di sana membawa `audience: team`.
 
 ## Algoritma Implementasi yang Diperlukan
 
@@ -65,6 +66,25 @@ Detail: `docs/FIRST_RUN_LOADING.md`
 3. Query kategori memori yang relevan
 4. Terapkan skor relevansi dan penyaringan
 5. Kembalikan konteks yang dioptimalkan untuk respons
+
+### Algoritma: Team_Memory_Routing / Algorithm: Team_Memory_Routing
+**KAPAN**: storage.team_base_path diatur dan sebuah memori akan disimpan
+
+**Langkah-langkah**:
+1. Audience default adalah **private** — arahkan ke root private kecuali semua pemeriksaan berikut lolos
+2. Kategori harus team-eligible (`categories.<name>.team_eligible = true`: technical, contextual, topic, git_history, knowledge_graph); behavioral, personal, credentials, sensitive, session, user_interaction, backup tidak pernah menjadi team
+3. Konten harus tentang proyek bersama, bukan tentang pengguna; tidak boleh mengandung kredensial, path mesin, hostname, alamat pribadi, atau pengenal pribadi
+4. Pengguna meminta agar dibagikan, atau kontennya adalah keputusan/gotcha/prosedur proyek yang dibutuhkan rekan tim
+5. Tulis di bawah root tim di `projects/<project-id>/<category>/` (atau `common/technical/`) dengan frontmatter `audience: team`; privacy gate memblokir penulisan yang gagal pada langkah 2–3
+6. Pengambilan (recall) membaca kedua root; jika terjadi konflik, utamakan root tim untuk fakta proyek dan root private untuk fakta pengguna
+
+### Algoritma: Project_Identification / Algorithm: Project_Identification
+**KAPAN**: id proyek dibutuhkan untuk routing atau cakupan (scope) KG
+
+**Langkah-langkah**:
+1. Jika `.agentic-rules.json` ada di root repository, gunakan `project_id`-nya — semua clone proyek (internal, public, fork) harus konsisten
+2. Jika tidak, turunkan dari nama remote git, jika tidak ada gunakan nama direktori
+3. Cakupan KG selalu `project:<project_id>`
 
 ### Algoritma: Memory_Cleanup_Process
 **KAPAN**: secara berkala; memerlukan persetujuan pengguna

@@ -2,6 +2,19 @@
 
 All notable changes to the Agentic Rules Framework.
 
+## [1.7.0] - 2026-08-27
+
+### Added
+
+- **Team tier.** Optional `team_memory_path` (a git-shared memory root with `common/` and `projects/<id>/`, every file tagged `audience: team`) and `kg_private_mcp_url` (a second, member-private KG daemon; when set, `kg_mcp_url` is the team graph). A 1.6.0 configuration is unaffected — the injected preamble is byte-identical when neither option is set. Design: `docs/superpowers/specs/2026-08-27-team-tiers-privacy-gate-design.md`; manual: `docs/TEAM_TIERS_SETUP.md`.
+- **Privacy gate.** `tools/privacy_gate.py` + `settings/privacy-gate.json` — a stdlib scanner (deny: keys/tokens/private-key blocks, private IPv4 ranges, mesh-VPN hostnames, home directories; ask: emails, phones, the member's private terms) wired as a `PreToolUse` hook for team-bound writes, and reusable as a pre-commit/CI check for team repositories and inside a team KG daemon (contract in `RAG-RULES.md`). Never prints matched text.
+- **Project identity marker.** `.agentic-rules.json` `{"project_id": …}` at the repo root now wins over the git-remote/directory heuristic, so internal and public clones of one project share memory dir and KG scope. The native-memory backup hook honors it.
+- `team_eligible` per memory category; `storage.team_base_path`; new memory-rules algorithms `Team_Memory_Routing` and `Project_Identification`; two-graph recall in rag-rules.
+
+### Changed
+
+- Claude Code project config guidance: keep the team layer (`.claude/CLAUDE.md`, `settings.json`, skills/commands/agents) in the project repo and the private layer (`settings.local.json`, `CLAUDE.local.md`, `local-*` prefixed skills/commands/agents) gitignored — see `docs/TEAM_TIERS_SETUP.md` §3.
+
 ## [1.6.0] - 2026-08-22
 
 ### Added
