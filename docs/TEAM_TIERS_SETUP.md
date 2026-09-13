@@ -1,6 +1,6 @@
 # Team Tiers — Setup and Upgrade Manual
 
-*Applies from Agentic Rules 1.7.0.* Design: [superpowers/specs/2026-08-27-team-tiers-privacy-gate-design.md](superpowers/specs/2026-08-27-team-tiers-privacy-gate-design.md).
+*Applies from Agentic Rules 1.7.0.*
 
 Team tiers let one project share knowledge between members while each member's private
 memory and knowledge graph stay on their own machine. Nothing changes until you set the new
